@@ -1,0 +1,3 @@
+# Buu.fun
+
+Leonardo AI
