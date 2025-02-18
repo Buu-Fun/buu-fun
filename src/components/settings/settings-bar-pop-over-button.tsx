@@ -1,14 +1,16 @@
 "use client";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/components/ui/popover";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setSettingsPopoverChange } from "@/lib/redux/features/settings";
+import {
+    setSettingsPopoverChange
+} from "@/lib/redux/features/settings";
 import { cn } from "@/lib/utils";
 import { ChevronUp } from "lucide-react";
-import StyleCard from "./settings-card-container";
+import SettingsCardContainer from "./settings-card-container";
 
 export default function SettingsBarPopOver() {
   const isSettingsPopoverOpen = useAppSelector(
@@ -18,11 +20,11 @@ export default function SettingsBarPopOver() {
   return (
     <div>
       <Popover
-        onOpenChange={(value) => dispatch(setSettingsPopoverChange(value))}
+        onOpenChange={(value) => dispatch(setSettingsPopoverChange(!value))}
         open={isSettingsPopoverOpen}
       >
-        <PopoverTrigger asChild>
-          <button className="flex items-center justify-center ml-1">
+        <PopoverTrigger asChild className="">
+          <button className="flex items-center justify-center ml-1 ">
             <ChevronUp
               className={cn(
                 "-rotate-180 transition-transform duration-300 ease-in-out",
@@ -40,7 +42,7 @@ export default function SettingsBarPopOver() {
           align="end"
           side="top"
         >
-          <StyleCard />
+          <SettingsCardContainer />
         </PopoverContent>
       </Popover>
     </div>

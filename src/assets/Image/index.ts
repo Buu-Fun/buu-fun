@@ -45,3 +45,7 @@ export {
   Spline3D,
   Spike,
 };
+
+import Realistic from "./realistic.png";
+import LowPoly from "./low-poly.png";
+export { Realistic, LowPoly };

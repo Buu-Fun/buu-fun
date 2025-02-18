@@ -6,6 +6,7 @@ export default function SettingsBarSelectedDisplay({
 }: {
   title?: string;
 }) {
+  //add framer-motion animated-out. or similar apis. for hidden to view transitions.
   return (
     <div className=" items-center group justify-center   flex gap-2">
       <div className="relative group-data-[state=inactive]:hidden   flex items-center w-6 h-6 justify-center   ">
