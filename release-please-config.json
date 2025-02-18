@@ -6,13 +6,6 @@
       "prerelease": false,
       "include-v-in-tag": true,
       "pull-request-header": "Release Web App to Production 🚀"
-    },
-    "demo": {
-      "changelog-path": "CHANGELOG.md",
-      "release-type": "node",
-      "prerelease": true,
-      "include-v-in-tag": true,
-      "pull-request-header": "🚀 DEMO Release"
     }
   },
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
