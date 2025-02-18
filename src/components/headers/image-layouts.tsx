@@ -44,25 +44,37 @@ export function Create3DLayout({
     </div>
   );
 }
-export function CreateComicLayout() {
+export function CreateComicLayout({
+  ImageOneClassName,
+  ImageTwoClassName,
+  containerClass,
+}: {
+  ImageOneClassName?: string;
+  ImageTwoClassName?: string;
+  containerClass?: string;
+}) {
   return (
-    <div className="">
-      <div>
-        <Image
-          src={comicGirl.src}
-          className="max-w-28 rounded-2xl transition-all duration-500 ease-in-out group-hover:rotate-[16deg] rotate-[12deg] right-0 z-0  absolute -bottom-[50%]"
-          alt="Comic boy"
-          width={720}
-          height={480}
-        />
-        <Image
-          src={comicBoyCropped.src}
-          className="z-10 w-28   object-cover  shadow-inner shadow-white drop-shadow-md rounded-2xl transition-all duration-500 ease-in-out group-hover:rotate-[-18deg] rotate-[-14deg] right-6 absolute -bottom-[100px]"
-          alt="Comic boy"
-          width={720}
-          height={480}
-        />
-      </div>
+    <div className={cn(containerClass)}>
+      <Image
+        src={comicBoyCropped.src}
+        className={cn(
+          "max-w-28 rounded-2xl transition-all duration-500 ease-in-out group-hover:rotate-[-10deg] rotate-[-6deg] right-8 absolute translate-y-[65px] z-10",
+          ImageOneClassName
+        )}
+        alt="Comic boy"
+        width={720}
+        height={480}
+      />
+      <Image
+        src={comicGirl.src}
+        className={cn(
+          "z-0 max-w-24  shadow-inner shadow-white drop-shadow-md rounded-2xl transition-all duration-500 ease-in-out group-hover:rotate-[15deg] rotate-[12deg] right-0  absolute -bottom-16",
+          ImageTwoClassName
+        )}
+        alt="Comic boy"
+        width={720}
+        height={480}
+      />
     </div>
   );
 }
