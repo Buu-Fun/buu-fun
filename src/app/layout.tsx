@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
-
-
+import StoreProvider from "@/providers/redux";
 
 const BricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
-  subsets: ["latin", "latin-ext", "vietnamese"],
-  style: "normal",
+  subsets: ["latin"],
+  weight: "variable",
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,9 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${BricolageGrotesque.variable} antialiased `}>
+      <body className={` ${BricolageGrotesque.className} antialiased dark `}>
         <div className="h-screen max-h-screen min-h-screen overflow-hidden">
-          {children}
+          <StoreProvider>{children}</StoreProvider>
         </div>
       </body>
     </html>
