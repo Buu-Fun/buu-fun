@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.1.1](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.0...buu-fun-v0.1.1) (2025-02-18)
+
+
+### 👽 Miscellaneous
+
+* addded settings container images ([9be84b7](https://github.com/muadpn/buu-fun/commit/9be84b7fd92fdaf910a16eb4eb2185e68583ef58))
+* added assets for help-card and settings card ([1b87a3a](https://github.com/muadpn/buu-fun/commit/1b87a3a78b9ac64b5bc2ccc7098a172b87447e62))
+* added font and redux configurations ([258a454](https://github.com/muadpn/buu-fun/commit/258a454521e1dba066db0af0badd296df4c03ba2))
+* added gradient blue svg ([8db7dc3](https://github.com/muadpn/buu-fun/commit/8db7dc33f6cc494c26561c996aafe1b38b63bd85))
+* added headers and bottom chat-bar ([dba4807](https://github.com/muadpn/buu-fun/commit/dba4807c0e01adafee40c86526a50850b948a38b))
+* added input, textarea, tabs popover, cards from shad-cn/ui ([6e16241](https://github.com/muadpn/buu-fun/commit/6e16241b270134cb2f0e2db47b4a62c3bd234c7b))
+* added redux and configured store ([f91c5f1](https://github.com/muadpn/buu-fun/commit/f91c5f1deea6d0f8f731a769e338627fb5a007dd))
+* added settings bar and containers ([e994316](https://github.com/muadpn/buu-fun/commit/e994316ea307c7a7ebee777b295683c88b154f2d))
+* fixed firefox absolute bottom not placing correctly ([7b02a3b](https://github.com/muadpn/buu-fun/commit/7b02a3baad60d124403f159c7c1a13ccf732952d))
+* initialized shadcn/ui component ([41e73c0](https://github.com/muadpn/buu-fun/commit/41e73c01738b1436ceb111579c85258df9e4a34d))
+* lint fix and removed unused variables ([a32ee27](https://github.com/muadpn/buu-fun/commit/a32ee27ab824718fca6cb5eba9a819a8377d5cc6))
+* removed unused variable in quick-select-card ([03cbd0d](https://github.com/muadpn/buu-fun/commit/03cbd0d787ee72254f610220581ffd43fd5519ff))
+
+
+### ♻️ OPS
+
+* **release-please:** added feat commits bumps patch versions instead of minor ([d941160](https://github.com/muadpn/buu-fun/commit/d94116059a7a2e2f5915b6cbe685931b0c4f03d5))
+
 ## [0.1.0](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.0.1...buu-fun-v0.1.0) (2025-02-18)
 
 
