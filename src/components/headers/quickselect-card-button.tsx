@@ -1,14 +1,12 @@
-import { gradientBlueyRed } from "@/assets/Image";
+import GradientBlueyRed from "@/assets/Image/gradient-bluey-red";
 import GradientRainbowRaw from "@/assets/Image/gradient-rainbow";
 import GradientPurpleRawSvg from "@/assets/Image/Help Card";
-import Image from "next/image";
 import {
   Create3DLayout,
   CreateComicLayout,
   CreateVideoLayout,
 } from "./image-layouts";
 import QuickSelectCard from "./quick-select-card";
-import GradientBlueyRed from "@/assets/Image/gradient-bluey-red";
 
 export default function HeaderQuickSelectButton() {
   return (
