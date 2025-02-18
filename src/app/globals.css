@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0e111a;
+  --foreground: #dfdfe7;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0e111a;
+    --foreground: #dfdfe7;
   }
 }
 
@@ -18,4 +18,26 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.bg-gradient {
+  background: radial-gradient(
+      57.04% 136.56% at 44.25% 34.68%,
+      #b7dce6 0%,
+      #b3cbde 25%,
+      rgba(147, 199, 218, 0.6) 44%,
+      rgba(33, 53, 75, 0.2) 72%,
+      rgba(33, 65, 75, 0) 95%
+    )
+    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+
+  /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
+}
+
+.hero-gradient-text {
+  font-size: 3rem; /* Adjust size as needed */
+  background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #999999 100%);
+  -webkit-background-clip: text; /* For Webkit-based browsers */
+  background-clip: text;
+  color: transparent; /* Make the text color transparent to show the gradient */
 }
