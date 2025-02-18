@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.1.2](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.1...buu-fun-v0.1.2) (2025-02-18)
+
+
+### ✨ Features
+
+* **redux:** added redux state for modes and 3d styles ([8801257](https://github.com/muadpn/buu-fun/commit/88012575a102b8efa32c6a4665dde8e356598e66))
+* **ui:** added settings component with redux states ([3df416c](https://github.com/muadpn/buu-fun/commit/3df416ccaeb6eadaee9fdc543883a554f44455cf))
+* **ui:** added shadcn/ui select component ([d3b1ba4](https://github.com/muadpn/buu-fun/commit/d3b1ba433d60643eb492b7c1cc770fc95f682480))
+
+
+### 👽 Miscellaneous
+
+* **assets:** added 3d object assets ([8558482](https://github.com/muadpn/buu-fun/commit/85584823667e0a04909c155ccf72a676578629d3))
+
+
+### ♻️ OPS
+
+* **release-please:** changed pull-request headers ([a07f46d](https://github.com/muadpn/buu-fun/commit/a07f46dda84cebae3cbe158bc76b0ba3e8958ed0))
+
 ## [0.1.1](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.0...buu-fun-v0.1.1) (2025-02-18)
 
 
