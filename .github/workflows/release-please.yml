@@ -1,8 +1,7 @@
 on:
-  workflow_run:
-    workflows: ["check-build"]
-    types:
-      - completed
+  workflow_run: 
+    workflows: ["check-build"]  
+    types: completed
   push:
     branches:
       - main
