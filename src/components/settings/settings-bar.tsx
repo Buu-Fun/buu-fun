@@ -1,8 +1,5 @@
-import React from "react";
-import { Create3DLayout } from "../headers/image-layouts";
-import Image from "next/image";
 import { ThreeDMeshIcon } from "@/assets/Image";
-import { ChevronUp } from "lucide-react";
+import Image from "next/image";
 import SettingsBarPopOver from "./settings-bar-pop-over-button";
 import SettingsBarSelectedDisplay from "./settings-bar-selected-display";
 export default function SettingsBar() {

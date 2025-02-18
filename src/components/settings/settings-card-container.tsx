@@ -1,17 +1,5 @@
-import React from "react";
-import { Card } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SettingsBarSelectedDisplay from "./settings-bar-selected-display";
-
-import {
-  Artistic,
-  cartoonish,
-  GlossyHelmet,
-  Greenery,
-  Natural,
-  Spline3D,
-  Spike,
-} from "@/assets/Image";
 
 const StyleCard = () => {
   return (

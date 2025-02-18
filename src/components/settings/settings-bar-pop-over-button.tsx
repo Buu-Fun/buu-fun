@@ -1,19 +1,15 @@
 "use client";
-import React from "react";
 import {
-  Popover,
-  PopoverAnchor,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger
 } from "@/components/ui/popover";
-import { ChevronUp } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
-  setSettingsPopoverChange,
-  toggleCreateTodoDrawerOpen,
+    setSettingsPopoverChange
 } from "@/lib/redux/features/settings";
 import { cn } from "@/lib/utils";
-import SettingsBarSelectedDisplay from "./settings-bar-selected-display";
+import { ChevronUp } from "lucide-react";
 import StyleCard from "./settings-card-container";
 
 export default function SettingsBarPopOver() {
