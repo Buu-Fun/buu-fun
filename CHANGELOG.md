@@ -6,8 +6,8 @@
 ### 👽 Miscellaneous
 
 * **home-page:** removed Unused Image component ([20c18d6](https://github.com/muadpn/buu-fun/commit/20c18d6a3023732e9cfd29d8a515eeb75bd26871))
-* initial versioning and nextjs project setted up ([f40a75a](https://github.com/muadpn/buu-fun/commit/f40a75a19dd079df88ddfc140024a165253eb3b1))
-* removed turbopack from package.json ([53bbc7b](https://github.com/muadpn/buu-fun/commit/53bbc7b42b83e226c4ba74f3951d224e3dfd932f))
+* initial versioning and nextjs project set up ([f40a75a](https://github.com/muadpn/buu-fun/commit/f40a75a19dd079df88ddfc140024a165253eb3b1))
+* removed turbo-pack from package.json ([53bbc7b](https://github.com/muadpn/buu-fun/commit/53bbc7b42b83e226c4ba74f3951d224e3dfd932f))
 * **ui:** added initial landing page ([e41eb84](https://github.com/muadpn/buu-fun/commit/e41eb84cf23ac4239fb0ae5fd18151c9a4ebcdc7))
 
 
