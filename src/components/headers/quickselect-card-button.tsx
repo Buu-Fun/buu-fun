@@ -8,6 +8,7 @@ import {
   CreateVideoLayout,
 } from "./image-layouts";
 import QuickSelectCard from "./quick-select-card";
+import GradientBlueyRed from "@/assets/Image/gradient-bluey-red";
 
 export default function HeaderQuickSelectButton() {
   return (
@@ -20,14 +21,7 @@ export default function HeaderQuickSelectButton() {
         />
         <QuickSelectCard
           backgroundImage={<CreateComicLayout />}
-          gradient={
-            <Image
-              alt="Gradient for Comic"
-              src={gradientBlueyRed.src}
-              width={720}
-              height={480}
-            />
-          }
+          gradient={<GradientBlueyRed />}
           title={"Comic"}
         />
         <QuickSelectCard
