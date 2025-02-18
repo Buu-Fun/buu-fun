@@ -1,18 +1,22 @@
 import React from "react";
 import { Create3DLayout } from "../headers/image-layouts";
 
-export default function SettingsBarSelectedDisplay() {
+export default function SettingsBarSelectedDisplay({
+  title = "3D Object",
+}: {
+  title?: string;
+}) {
   return (
-    <div className=" items-center justify-center  flex gap-2">
-      <div className="relative  flex items-center w-8 h-8 justify-center  ">
+    <div className=" items-center group justify-center   flex gap-2">
+      <div className="relative group-data-[state=inactive]:hidden   flex items-center w-6 h-6 justify-center   ">
         {/* will need to add dynamic Layouts for each options. */}
         <Create3DLayout
           containerClass=""
-          ImageOneClassName="max-w-max h-6 w-6 rounded-lg w-8 -bottom-0 top-1  group-hover:rotate-[3deg] rotate-[-6deg] -left-1"
-          ImageTwoClassName="max-w-max group-hover:rotate-[-3deg] w-6 h-6 rounded-lg -bottom-0  left-2"
+          ImageOneClassName="max-w-max h-5 w-5 rounded-sm left-0.5 top-0.5  group-hover:rotate-[-12deg] rotate-[-6deg] "
+          ImageTwoClassName="max-w-max group-hover:rotate-[14deg] rotate-[6deg] h-5 w-5 rounded-sm -bottom-0  left-2 top-1"
         />
       </div>
-      <p className="font-medium">3D Object</p>
+      <p className="font-medium ">{title}</p>
     </div>
   );
 }

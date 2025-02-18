@@ -2,7 +2,7 @@ import BottomBarContainer from "@/components/chat-input/bottom-bar-container";
 import HeaderQuickSelectCard from "@/components/headers/quickselect-card-button";
 import HeroHeader from "@/components/headers/hero-header";
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
     <main className="flex flex-col relative h-full w-full">
       {/* Background blur effect that stays at bottom nearby chat */}

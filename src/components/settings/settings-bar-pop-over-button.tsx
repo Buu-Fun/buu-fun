@@ -1,13 +1,11 @@
 "use client";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/components/ui/popover";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-    setSettingsPopoverChange
-} from "@/lib/redux/features/settings";
+import { setSettingsPopoverChange } from "@/lib/redux/features/settings";
 import { cn } from "@/lib/utils";
 import { ChevronUp } from "lucide-react";
 import StyleCard from "./settings-card-container";
@@ -36,15 +34,12 @@ export default function SettingsBarPopOver() {
           </button>
         </PopoverTrigger>
         <PopoverContent
-          className="bg-buu min-w-[400px] w-full backdrop-blur-2xl rounded-2xl shadow-buu-secondary"
+          className="bg-buu min-w-[330px] aspect-video  w-full backdrop-blur-2xl rounded-2xl shadow-buu-secondary"
           sideOffset={18}
           alignOffset={-12}
           align="end"
           side="top"
         >
-          {/* <div className="border rounded-[16px] max-w-max py-2 px-4 bg-white text-black">
-            <SettingsBarSelectedDisplay />
-          </div> */}
           <StyleCard />
         </PopoverContent>
       </Popover>
