@@ -1,6 +1,8 @@
-import GradientBlueyRed from "@/assets/Image/gradient-bluey-red";
-import GradientRainbowRaw from "@/assets/Image/gradient-rainbow";
-import GradientPurpleRawSvg from "@/assets/Image/Help Card";
+import {
+  GradientBlueyRed,
+  GradientPurpleBlue,
+  GradientRainbow,
+} from "@/assets/Image/gradients";
 import {
   Create3DLayout,
   CreateComicLayout,
@@ -14,7 +16,7 @@ export default function HeaderQuickSelectButton() {
       <div className="flex items-center justify-center gap-2 mt-4">
         <QuickSelectCard
           backgroundImage={<Create3DLayout />}
-          gradient={<GradientPurpleRawSvg />}
+          gradient={<GradientPurpleBlue />}
           title={"3D object"}
         />
         <QuickSelectCard
@@ -24,7 +26,7 @@ export default function HeaderQuickSelectButton() {
         />
         <QuickSelectCard
           backgroundImage={<CreateVideoLayout />}
-          gradient={<GradientRainbowRaw />}
+          gradient={<GradientRainbow />}
           title={"Video"}
         />
       </div>
