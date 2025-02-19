@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.5...buu-fun-v0.1.6) (2025-02-19)
+
+
+### ✨ Features
+
+* added react query for data fetching and management tool ([c35d855](https://github.com/muadpn/buu-fun/commit/c35d85510e1c4284471d281f68da13ab7062f2f2))
+
 ## [0.1.5](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.4...buu-fun-v0.1.5) (2025-02-19)
 
 
