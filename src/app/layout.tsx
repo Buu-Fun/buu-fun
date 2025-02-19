@@ -28,7 +28,7 @@ export default function RootLayout({
             <div className="grid-container w-full h-full">
               <div className="main-body">{children}</div>
               <div className="top-bar">
-                <Topbar/>
+                <Topbar />
               </div>
               <div className="navigation ">
                 <NavigationalBar />
