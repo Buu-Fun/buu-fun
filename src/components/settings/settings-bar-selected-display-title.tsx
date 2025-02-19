@@ -11,6 +11,6 @@ export const modes_mapper: Record<SettingsState["modes"], string> = {
 
 export default function SettingsBarDisplayTitle() {
   const selectedMode = useAppSelector((state) => state.settings.modes);
-  const title = modes_mapper[selectedMode]
+  const title = modes_mapper[selectedMode];
   return <SettingsBarSelectedDisplay title={title} />;
 }

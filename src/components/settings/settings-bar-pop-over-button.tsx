@@ -1,20 +1,18 @@
 "use client";
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 } from "@/components/ui/popover";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-    setSettingsPopoverChange
-} from "@/lib/redux/features/settings";
+import { setSettingsPopoverChange } from "@/lib/redux/features/settings";
 import { cn } from "@/lib/utils";
 import { ChevronUp } from "lucide-react";
 import SettingsCardContainer from "./settings-card-container";
 
 export default function SettingsBarPopOver() {
   const isSettingsPopoverOpen = useAppSelector(
-    (state) => state.settings.isPopoverOpen
+    (state) => state.settings.isPopoverOpen,
   );
   const dispatch = useAppDispatch();
   return (
@@ -30,7 +28,7 @@ export default function SettingsBarPopOver() {
                 "-rotate-180 transition-transform duration-300 ease-in-out",
                 {
                   "rotate-0 rotate": isSettingsPopoverOpen,
-                }
+                },
               )}
             />
           </button>

@@ -1,3 +1,3 @@
 export type GeneralClassName = {
-    className?: string
-}
+  className?: string;
+};
