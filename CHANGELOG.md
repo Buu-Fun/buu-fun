@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.7](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.6...buu-fun-v0.1.7) (2025-02-19)
+
+
+### ✨ Features
+
+* added data-muse as library ([8a2f57c](https://github.com/muadpn/buu-fun/commit/8a2f57ce04d38c694495913bf52a37680a365d8f))
+* added quick select card and slice to handle state ([3b40d9a](https://github.com/muadpn/buu-fun/commit/3b40d9a7c25f1ae85e3c7f70d25d401db79e516c))
+* made comic and video to be coming feature release ([44c6672](https://github.com/muadpn/buu-fun/commit/44c667268fa337e60945019886091ec6367a194b))
+
+
+### 🐛 Bugfixes
+
+* **lint:** linted and formatted codebase removing unused variables and states ([cce2f0c](https://github.com/muadpn/buu-fun/commit/cce2f0c2a2be9b1b5751d0ad682dc20538b701bd))
+
 ## [0.1.6](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.5...buu-fun-v0.1.6) (2025-02-19)
 
 
