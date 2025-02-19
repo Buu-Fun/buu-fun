@@ -11,7 +11,7 @@ const simplePlural = (word: string) => `${word}s`;
 export function pluralize(
   num: number,
   word: string,
-  plural: (value: string) => string = simplePlural
+  plural: (value: string) => string = simplePlural,
 ) {
   return isPlural(num) ? plural(word) : word;
 }

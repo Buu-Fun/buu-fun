@@ -13,7 +13,7 @@ import { useClickOutside } from "@mantine/hooks";
 
 export default function SettingsBarPopOver() {
   const isSettingsPopoverOpen = useAppSelector(
-    (state) => state.settings.isPopoverOpen
+    (state) => state.settings.isPopoverOpen,
   );
   const dispatch = useAppDispatch();
   const ref = useClickOutside(() => {
@@ -25,7 +25,6 @@ export default function SettingsBarPopOver() {
       <Popover
         onOpenChange={(value) => dispatch(setSettingsPopoverChange(!value))}
         open={isSettingsPopoverOpen}
-        
       >
         <PopoverTrigger asChild className="">
           <button className="flex items-center justify-center ml-1 ">
@@ -34,7 +33,7 @@ export default function SettingsBarPopOver() {
                 "-rotate-180 transition-transform duration-300 ease-in-out",
                 {
                   "rotate-0 rotate": isSettingsPopoverOpen,
-                }
+                },
               )}
             />
           </button>
