@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.4](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.3...buu-fun-v0.1.4) (2025-02-19)
+
+
+### ✨ Features
+
+* **navbar:** added navigational menubar with contents and logos ([f265177](https://github.com/muadpn/buu-fun/commit/f265177c98f132fd983c4acf17350510e7b9585d))
+* **top-bar:** added top bar and connect wallet button ([321df39](https://github.com/muadpn/buu-fun/commit/321df3943d239acf123c656e5936ece29e6d397e))
+* **ui:** added shadcn/ui button components ([56c3057](https://github.com/muadpn/buu-fun/commit/56c3057eeaeea47140609154d8e49c17a688f0f9))
+
+
+### 👽 Miscellaneous
+
+* **icons:** added icons for navigational contents ([ef5b3c2](https://github.com/muadpn/buu-fun/commit/ef5b3c2ec2f0a1b743b0f671a3e25a710c105873))
+* **lint:** formatted and fixed eslint warnings and errors ([53d6300](https://github.com/muadpn/buu-fun/commit/53d63008d41b583a6316bd4204b9be18b68986fa))
+* **prettier:** added prettier for code formatting ([4831498](https://github.com/muadpn/buu-fun/commit/483149897db3fdf63dd085f4d9883c8bd64459a1))
+
 ## [0.1.3](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.2...buu-fun-v0.1.3) (2025-02-19)
 
 
