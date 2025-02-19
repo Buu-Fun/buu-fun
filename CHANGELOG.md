@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.1.5](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.4...buu-fun-v0.1.5) (2025-02-19)
+
+
+### ✨ Features
+
+* added boards page ([e262862](https://github.com/muadpn/buu-fun/commit/e262862167c62e2f92013a45417074e441ed828f))
+* added dynamic board cards ([7b22e89](https://github.com/muadpn/buu-fun/commit/7b22e89fc6629b792cfd5b1cbc942fec52f15bfe))
+
+
+### 🐛 Bugfixes
+
+* settings bar popover not closing when clicked outside ([54832cd](https://github.com/muadpn/buu-fun/commit/54832cd62fbe8a6df21f50e8fc8ba11311cf0e0d))
+
+
+### 👽 Miscellaneous
+
+* **gradient-bg:** replaced gradient color with figma design ([a93cdf2](https://github.com/muadpn/buu-fun/commit/a93cdf2f9deb886e4e136ecf96a20ecf17a5f4a1))
+* **lint:** linted and formatted code base ([13fa36b](https://github.com/muadpn/buu-fun/commit/13fa36b394fe297264fb9c5e81dcdcd96ad1b3eb))
+
 ## [0.1.4](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.3...buu-fun-v0.1.4) (2025-02-19)
 
 
