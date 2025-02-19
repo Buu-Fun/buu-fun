@@ -1,14 +1,13 @@
 import { dataMuseApi } from "@/lib/fetcher/query/query-suggestion-api";
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { useState } from "react";
 const FIVE_MIN = 1000 * 60 * 5;
-const MIN_LENGTH = 1
+const MIN_LENGTH = 1;
 // Types
-type TDataMuseWord= {
+type TDataMuseWord = {
   word: string;
   score: number;
   tags?: string[];
-}
+};
 
 // Custom hook for word suggestions
 export function useWordSuggestions(
@@ -16,7 +15,7 @@ export function useWordSuggestions(
   options?: Omit<
     UseQueryOptions<TDataMuseWord[], Error>,
     "queryKey" | "queryFn"
-  > & { maxResults?: number }
+  > & { maxResults?: number },
 ) {
   return useQuery({
     queryKey: ["wordSuggestions", searchTerm],

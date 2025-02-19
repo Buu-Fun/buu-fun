@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 export function GradientPurpleBlue({ className }: GeneralClassName) {
   return (
     <Image
-      
       className={cn("w-full h-full bg-transparent ", className)}
       alt="Gradient Blue color"
       width={1920}

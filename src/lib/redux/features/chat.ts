@@ -30,6 +30,6 @@ const ChatSlice = createSlice({
   },
 });
 
-export const { setInputQuery,addWords } = ChatSlice.actions;
+export const { setInputQuery, addWords } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

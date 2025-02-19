@@ -11,12 +11,7 @@ export default function SuggestionBar() {
   const currentWord = words[words.length - 1];
   const dispatch = useAppDispatch();
 
-  const {
-    data: suggestions,
-    isLoading,
-    isError,
-    error,
-  } = useWordSuggestions(currentWord, {
+  const { data: suggestions } = useWordSuggestions(currentWord, {
     // This is just for DataMus not for react-query!
     maxResults: 3,
     refetchOnWindowFocus: false,
@@ -30,7 +25,7 @@ export default function SuggestionBar() {
         dispatch(addWords(suggestions[0].word));
       }
     },
-    [suggestions, dispatch]
+    [suggestions, dispatch],
   );
 
   useEffect(() => {

@@ -1,5 +1,4 @@
 import SuggestionBar from "../chat-input/suggestion-bar";
-import { Button } from "../ui/button";
 import PopoverHiddenTrigger from "./popover-hidden-trigger";
 import SelectedStyles from "./selected-styles";
 import SettingsBarPopOver from "./settings-bar-pop-over-button";

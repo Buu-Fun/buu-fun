@@ -13,13 +13,16 @@ export default function QuickSelectCard({
   released?: boolean;
 }) {
   return (
-    <button disabled={!released} className="relative  p-[16px] group w-72  aspect-video bg-transparent  overflow-hidden  flex  border  h-full rounded-[20px] ">
+    <button
+      disabled={!released}
+      className="relative  p-[16px] group w-72  aspect-video bg-transparent  overflow-hidden  flex  border  h-full rounded-[20px] "
+    >
       <div
         className={cn(
           "absolute flex items-center justify-center w-full h-full top-0 left-0   z-50 bg-black/60 ",
           {
             hidden: released,
-          }
+          },
         )}
       >
         <h4 className="text-lg  font-bold tracking-tighter text-bla">
@@ -34,14 +37,11 @@ export default function QuickSelectCard({
       <div
         className={cn(
           "absolute w-[105%]  overflow-hidden h-[105%]  max-w-full top-0 left-0",
-          
         )}
       >
         {gradient}
       </div>
-      <div
-      
-      >{backgroundImage}</div>
+      <div>{backgroundImage}</div>
     </button>
   );
 }

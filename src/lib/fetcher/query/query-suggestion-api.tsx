@@ -13,7 +13,7 @@ export type TDataMuseWord = {
 // Main fetching function
 async function getDatamuse(
   endpoint: string,
-  params: Record<string, string>
+  params: Record<string, string>,
 ): Promise<TDataMuseWord[]> {
   try {
     const queryString = new URLSearchParams(params).toString();
@@ -34,7 +34,7 @@ export const dataMuseApi = {
   // Means like - similar meaning words
   ml: async (
     search: string,
-    maxResults: number = 10
+    maxResults: number = 10,
   ): Promise<TDataMuseWord[]> => {
     return getDatamuse("/words", { ml: search, max: maxResults.toString() });
   },
@@ -42,7 +42,7 @@ export const dataMuseApi = {
   // Spell suggestions and completions
   spellSuggest: async (
     search: string,
-    maxResults: number = 10
+    maxResults: number = 10,
   ): Promise<TDataMuseWord[]> => {
     return getDatamuse("/sug", { s: search, max: maxResults.toString() });
   },
@@ -50,7 +50,7 @@ export const dataMuseApi = {
   // Words that start with a prefix
   prefixHints: async (
     prefix: string,
-    maxResults: number = 10
+    maxResults: number = 10,
   ): Promise<TDataMuseWord[]> => {
     return getDatamuse("/words", {
       sp: `${prefix}*`,
@@ -61,7 +61,7 @@ export const dataMuseApi = {
   // Words that sound like
   soundsLike: async (
     word: string,
-    maxResults: number = 10
+    maxResults: number = 10,
   ): Promise<TDataMuseWord[]> => {
     return getDatamuse("/words", { sl: word, max: maxResults.toString() });
   },
@@ -69,7 +69,7 @@ export const dataMuseApi = {
   // Words that rhyme with
   rhymesWith: async (
     word: string,
-    maxResults: number = 10
+    maxResults: number = 10,
   ): Promise<TDataMuseWord[]> => {
     return getDatamuse("/words", { rel_rhy: word, max: maxResults.toString() });
   },

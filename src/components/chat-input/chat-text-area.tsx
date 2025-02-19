@@ -1,9 +1,7 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useWordSuggestions } from "@/hooks/use-datamuse";
 import { setInputQuery } from "@/lib/redux/features/chat";
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ChatTextArea() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
