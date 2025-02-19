@@ -6,7 +6,7 @@ import SettingsBar from "../settings/settings-bar";
 export default function BottomBarContainer() {
   return (
     <div className="w-full max-w-2xl mx-auto">
-      <SettingsBar />
+        <SettingsBar />
       <div className=" p-4 border mb-12 rounded-[20px] shadow-buu-inner bg-buu">
         <div className="relative flex-col gap-1 flex items-start w-full">
           <ChatTextArea />
