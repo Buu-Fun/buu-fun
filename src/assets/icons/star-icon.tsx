@@ -55,7 +55,7 @@ export default function StarIcon() {
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
-          <feFlood floodOpacity={0}  result="BackgroundImageFix" />
+          <feFlood floodOpacity={0} result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

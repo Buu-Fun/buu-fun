@@ -1,11 +1,9 @@
-import React from "react";
-import logo from "@/assets/icons/logo-no-gradient.png";
-import Image from "next/image";
-import SizePenIcon from "@/assets/icons/size";
-import MagicPenIcon from "@/assets/icons/magicpen";
-import HeartCircle from "@/assets/icons/heart-circle";
 import CoinStackIcon from "@/assets/icons/coin";
 import QuestionIcon from "@/assets/icons/Icon.png";
+import logo from "@/assets/icons/logo-no-gradient.png";
+import MagicPenIcon from "@/assets/icons/magicpen";
+import SizePenIcon from "@/assets/icons/size";
+import Image from "next/image";
 import Link from "next/link";
 export default function NavigationalBar() {
   return (

@@ -11,7 +11,6 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-
 export function Create3DLayout({
   ImageOneClassName,
   ImageTwoClassName,
@@ -27,7 +26,7 @@ export function Create3DLayout({
         src={RoundedLamp3d.src}
         className={cn(
           "max-w-28 rounded-2xl transition-all duration-500 ease-in-out group-hover:rotate-[-10deg] rotate-[-6deg] right-8 z-0  absolute -bottom-2",
-          ImageOneClassName
+          ImageOneClassName,
         )}
         alt="Comic boy"
         width={720}
@@ -37,7 +36,7 @@ export function Create3DLayout({
         src={StepShape3d.src}
         className={cn(
           "z-10 max-w-24  shadow-inner shadow-white drop-shadow-md rounded-2xl transition-all duration-500 ease-in-out group-hover:rotate-[15deg] rotate-[12deg] right-0  absolute -bottom-9",
-          ImageTwoClassName
+          ImageTwoClassName,
         )}
         alt="Comic boy"
         width={720}
@@ -61,7 +60,7 @@ export function CreateComicLayout({
         src={comicBoyCropped.src}
         className={cn(
           "max-w-28 rounded-2xl transition-all duration-500 ease-in-out group-hover:rotate-[-10deg] rotate-[-6deg] right-8 absolute translate-y-[65px] z-10",
-          ImageOneClassName
+          ImageOneClassName,
         )}
         alt="Comic boy"
         width={720}
@@ -71,7 +70,7 @@ export function CreateComicLayout({
         src={comicGirl.src}
         className={cn(
           "z-0 max-w-24  shadow-inner shadow-white drop-shadow-md rounded-2xl transition-all duration-500 ease-in-out group-hover:rotate-[15deg] rotate-[12deg] right-0  absolute -bottom-16",
-          ImageTwoClassName
+          ImageTwoClassName,
         )}
         alt="Comic boy"
         width={720}
