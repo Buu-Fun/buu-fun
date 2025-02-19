@@ -9,12 +9,17 @@ import { setSettingsPopoverChange } from "@/lib/redux/features/settings";
 import { cn } from "@/lib/utils";
 import { ChevronUp } from "lucide-react";
 import SettingsCardContainer from "./settings-card-container";
+import { useClickOutside } from "@mantine/hooks";
 
 export default function SettingsBarPopOver() {
   const isSettingsPopoverOpen = useAppSelector(
     (state) => state.settings.isPopoverOpen,
   );
   const dispatch = useAppDispatch();
+  const ref = useClickOutside(() => {
+    dispatch(setSettingsPopoverChange(false));
+  });
+
   return (
     <div>
       <Popover
@@ -34,6 +39,7 @@ export default function SettingsBarPopOver() {
           </button>
         </PopoverTrigger>
         <PopoverContent
+          ref={ref}
           className="bg-buu min-w-[330px] aspect-video  w-full backdrop-blur-2xl rounded-2xl shadow-buu-secondary"
           sideOffset={18}
           alignOffset={-12}

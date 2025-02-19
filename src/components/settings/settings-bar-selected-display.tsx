@@ -1,5 +1,5 @@
 import React from "react";
-import { Create3DLayout } from "../headers/image-layouts";
+import { Create3DLayout } from "../headers/home/image-layouts";
 
 export default function SettingsBarSelectedDisplay({
   title = "3D Object",
