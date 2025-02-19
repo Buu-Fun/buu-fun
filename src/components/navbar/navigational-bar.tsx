@@ -14,7 +14,7 @@ export default function NavigationalBar() {
         </div>
         <div className="flex flex-col gap-4 items-center justify-center">
           <Link
-            href={"/"}
+            href={"/boards"}
             className="w-10 flex items-center justify-center px-2 py-3 h-10 hover:fill-white"
           >
             <SizePenIcon />
