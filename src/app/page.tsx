@@ -6,7 +6,6 @@ export default function HomePage() {
   return (
     <main className="flex flex-col relative h-full w-full   ">
       {/* Background blur effect that stays at bottom nearby chat */}
-      <div className="w-[200px] h-[100px] bg-overlay-secondary bg-[#69CCD5]  rounded-full right-[20%] absolute bottom-[-140px] -z-10 blur-[100px]  rotate-[-10deg]" />
 
 
       {/* Centered main content with Help cards */}

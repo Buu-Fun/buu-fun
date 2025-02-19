@@ -13,7 +13,6 @@ export default function HeroHeader({
   return (
     <header className="flex relative items-center justify-center flex-col">
       {/*  */}
-      <div className="w-[176px] h-[334px] bg-overlay-primary bg-[#6A69D580]  rounded-full  absolute -top-[200px] -z-10 blur-[100px]  rotate-[-10deg]" />
       {icon}
       <h1 className="text-lg text-gray-500 font-medium ">{title}</h1>
       {heroDescription}

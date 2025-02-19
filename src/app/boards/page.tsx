@@ -1,19 +1,18 @@
 import HeroHeader from "@/components/headers/boards/hero-header";
-import React from "react";
 import BoardsAddButton from "./boards-add-button";
-
+import BoardCards, {
+  SingleColumnImage,
+  ThreeColumnImage,
+  TwoColumnImage,
+} from "./boards-card";
 export default function BoardsPage() {
   return (
-    <main className="flex flex-col relative h-full w-full   ">
-      {/* Background blur effect that stays at bottom nearby chat */}
-      <div className="absolute bg-[#51576180] w-[200px] h-[100px] -bottom-5 right-[20%] z-10 aspect-video flex  blur-3xl flex-1" />
-
-      {/* Centered main content with Help cards */}
-      <div className="flex-1 flex items-center justify-center mr-[0.15vw] flex-col">
+    <main className="flex flex-col items-center justify-center  relative h-full w-full   ">
+      <div className="flex-1 flex items-center justify-center mr-[0.25vw] flex-col">
         <HeroHeader
           title="Collect ideas on boards"
           heroDescription={
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex  items-center justify-center gap-3">
               <p className="text-5xl font-bold my-2 hero-gradient-text ">
                 3 Boards
               </p>
@@ -22,13 +21,18 @@ export default function BoardsPage() {
           }
         />
         {/* <HeaderQuickSelectCard /> */}
+        <div className="flex gap-3 items-center justify-center mt-6">
+          <BoardCards idea={1} images={SingleColumnImage} title="3D Cube" />
+          <BoardCards idea={2} images={TwoColumnImage} title="Fantasy Manga" />
+          <BoardCards idea={3} images={ThreeColumnImage} title="Car in fog" />
+        </div>
       </div>
 
       {/* Bottom input section */}
       <div className="mr-[0.15vw]">
-        <div>
+        {/* <div>
           <h1>hello</h1>
-        </div>
+        </div> */}
         {/* <BottomBarContainer /> */}
       </div>
     </main>
