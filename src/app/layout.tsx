@@ -3,6 +3,7 @@ import StoreProvider from "@/providers/redux";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
+import Topbar from "@/components/navbar/top-bar";
 
 const BricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
@@ -26,7 +27,9 @@ export default function RootLayout({
           <div className="h-screen min-h-screen overflow-hidden relative max-h-screen   w-full">
             <div className="grid-container w-full h-full">
               <div className="main-body">{children}</div>
-              <div className="top-bar">Login dude</div>
+              <div className="top-bar">
+                <Topbar/>
+              </div>
               <div className="navigation ">
                 <NavigationalBar />
               </div>
