@@ -1,16 +1,12 @@
-import StepShape3d from "./image-one.png";
-import RoundedLamp3d from "./image-two.png";
-import comicBoy from "./image-three.png";
-import comicBoyCropped from "./comic_boy_cropped.png";
-import comicGirl from "./image-four.png";
-import hotAirBallon from "./image-five.png";
-import boatAndFlowers from "./image-six.png";
-import Elephant from "./image-seven.png";
-import gradientPurple from "./background-gradient-frame-purple.png";
-import gradientBlueyRed from "./gradient-bluey-red.png";
-import gradientRainBowSunset from "./rainbow-sunset.png";
-import GradientPurpleSvg from "./gradient-purple";
-import ThreeDMeshIcon from "./3dImage.png";
+import StepShape3d from "./help-card-images/image-one.webp";
+import RoundedLamp3d from "./help-card-images/image-two.webp";
+import comicBoy from "./help-card-images/image-three.webp";
+import comicGirl from "./help-card-images/image-four.webp";
+import hotAirBallon from "./help-card-images/image-five.webp";
+import boatAndFlowers from "./help-card-images/image-six.webp";
+import Elephant from "./help-card-images/image-seven.webp";
+import comicBoyCropped from "./help-card-images/comic-boy-cropped.png";
+import ThreeDMeshIcon from "./three-d-materials/metallic.png";
 
 export {
   StepShape3d,
@@ -20,21 +16,17 @@ export {
   hotAirBallon,
   boatAndFlowers,
   Elephant,
-  gradientPurple,
-  gradientBlueyRed,
-  gradientRainBowSunset,
-  GradientPurpleSvg,
   comicBoyCropped,
   ThreeDMeshIcon,
 };
 
-import Artistic from "./three-d-object-images/artistic-pot.png";
-import cartoonish from "./three-d-object-images/cartoonish.png";
-import GlossyHelmet from "./three-d-object-images/glossy-helmet.png";
-import Greenery from "./three-d-object-images/greenery.png";
-import Natural from "./three-d-object-images/natural.png";
-import Spike from "./three-d-object-images/spike.png";
-import Spline3D from "./three-d-object-images/spline-3d.png";
+import Artistic from "./three-d-object-images/artistic-pot.webp";
+import cartoonish from "./three-d-object-images/cartoonish.webp";
+import GlossyHelmet from "./three-d-object-images/glossy-helmet.webp";
+import Greenery from "./three-d-object-images/greenery.webp";
+import Natural from "./three-d-object-images/natural.webp";
+import Spike from "./three-d-object-images/spike.webp";
+import Spline3D from "./three-d-object-images/spline-3d.webp";
 
 export {
   Artistic,
@@ -46,6 +38,7 @@ export {
   Spike,
 };
 
-import Realistic from "./realistic.png";
-import LowPoly from "./low-poly.png";
-export { Realistic, LowPoly };
+import Realistic from "./three-d-materials/realistic.webp";
+import LowPoly from "./three-d-materials/low-poly.webp";
+import Metallic from "./three-d-materials/metallic.png";
+export { Realistic, LowPoly, Metallic };

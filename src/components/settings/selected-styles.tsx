@@ -1,6 +1,5 @@
 "use client";
-import { LowPoly, Realistic } from "@/assets/Image";
-import MetallicIcon from "@/assets/Image/metallic";
+import { LowPoly, Metallic, Realistic } from "@/assets/Image";
 import { useAppSelector } from "@/hooks/redux";
 import { SettingsState } from "@/lib/redux/features/settings";
 import Image from "next/image";
@@ -16,7 +15,15 @@ const iconByTitle: Record<SettingsState["ThreeDStyle"], ReactNode> = {
       className="w-full h-full rounded-full"
     />
   ),
-  metallic: <MetallicIcon />,
+  metallic: (
+    <Image
+      src={Metallic.src}
+      width={100}
+      height={100}
+      alt="Realistic Icon"
+      className="w-full h-full rounded-full"
+    />
+  ),
   no_style: <div className="bg-[#2D323C] w-4 h-4 rounded-full" />,
   realistic: (
     <Image

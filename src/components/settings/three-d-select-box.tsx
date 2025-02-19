@@ -1,5 +1,4 @@
-import { LowPoly, Realistic } from "@/assets/Image";
-import MetallicIcon from "@/assets/Image/metallic";
+import { LowPoly, Metallic, Realistic } from "@/assets/Image";
 import Image from "next/image";
 import {
   Select,
@@ -58,7 +57,13 @@ export default function ThreeDSelectBox() {
           >
             <div className="flex items-center justify-center gap-2 ">
               <div className="w-4 h-4">
-                <MetallicIcon />
+                <Image
+                  src={Metallic.src}
+                  width={100}
+                  height={100}
+                  alt="Realistic Icon"
+                  className="w-full h-full rounded-full"
+                />{" "}
               </div>
               <span>Metallic</span>
             </div>
