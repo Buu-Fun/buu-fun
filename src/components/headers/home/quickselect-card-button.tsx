@@ -20,11 +20,13 @@ export default function HeaderQuickSelectButton() {
           title={"3D object"}
         />
         <QuickSelectCard
+          released={false}
           backgroundImage={<CreateComicLayout />}
           gradient={<GradientBlueyRed />}
           title={"Comic"}
         />
         <QuickSelectCard
+          released={false}
           backgroundImage={<CreateVideoLayout />}
           gradient={<GradientRainbow />}
           title={"Video"}
