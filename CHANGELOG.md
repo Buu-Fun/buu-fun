@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.2...buu-fun-v0.1.3) (2025-02-19)
+
+
+### 🐛 Bugfixes
+
+* **assets:** removed large image and replaced with optimised images ([d76739b](https://github.com/muadpn/buu-fun/commit/d76739be8c64743b626e4a0057d47189a103f7ba))
+
 ## [0.1.2](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.1...buu-fun-v0.1.2) (2025-02-18)
 
 
