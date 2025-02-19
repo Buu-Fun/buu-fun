@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 export function GradientPurpleBlue({ className }: GeneralClassName) {
   return (
     <Image
-      className={cn(className)}
+      className={cn("w-full h-full bg-transparent ", className)}
       alt="Gradient Blue color"
       width={1920}
       height={1080}
@@ -21,7 +21,7 @@ export function GradientPurpleBlue({ className }: GeneralClassName) {
 export function GradientBlueyRed({ className }: GeneralClassName) {
   return (
     <Image
-      className={cn(className)}
+      className={cn("w-full h-full bg-transparent", className)}
       alt="Gradient Blue color"
       width={1920}
       height={1080}
@@ -33,7 +33,7 @@ export function GradientBlueyRed({ className }: GeneralClassName) {
 export function GradientRainbow({ className }: GeneralClassName) {
   return (
     <Image
-      className={cn(className)}
+      className={cn("w-full h-full bg-transparent", className)}
       alt="Gradient Blue color"
       width={1920}
       height={1080}
