@@ -15,7 +15,7 @@ export default function HomePage() {
 
       {/* Bottom input section */}
       <div className="mr-[0.15vw]">
-        <BottomBarContainer />
+        <BottomBarContainer action={'new_chat'} />
       </div>
     </main>
   );
