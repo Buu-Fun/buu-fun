@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.8](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.7...buu-fun-v0.1.8) (2025-02-20)
+
+
+### ✨ Features
+
+* **chat-button:** added dynamic chat button to work across generation and existing chat ([52d9e8e](https://github.com/muadpn/buu-fun/commit/52d9e8e87414aca22bbd50ab151ed9908929397c))
+* **page:** added new route for existing chat generation ([5c7a33d](https://github.com/muadpn/buu-fun/commit/5c7a33d26b81d704e0f6f2b9a9237d1c8e047d67))
+* **redux:** added new chat message store ([545c430](https://github.com/muadpn/buu-fun/commit/545c4300ea5fa91b417dcd45efcfe1f4704551f6))
+
 ## [0.1.7](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.6...buu-fun-v0.1.7) (2025-02-19)
 
 
