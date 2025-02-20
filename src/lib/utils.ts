@@ -30,3 +30,7 @@ export async function handleResponse(
   }
   return response.json();
 }
+
+export function getRandomInteger(length: number) {
+  return Math.floor(Math.random() * (length + 1));
+}

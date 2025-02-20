@@ -1,7 +1,18 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
+export type Message = {
+  id: string;
+  time: string;
+  message: string;
+  url?: string;
+  alt?: string | null;
+};
+export type ChatMessage = {
+  chat_id: string;
+  message: Message[];
+};
 type ChatState = {
   inputQuery: string;
+  chat?: ChatMessage;
 };
 
 const initialState: ChatState = {
@@ -27,9 +38,34 @@ const ChatSlice = createSlice({
         state.inputQuery = words.join(" ") + " ";
       }
     },
+
+    setNewChatMessage(
+      state,
+      action: PayloadAction<Exclude<ChatState["chat"], undefined>>,
+    ) {
+      state.chat = action.payload;
+      state.inputQuery = "";
+    },
+    updateChatMessageImage(
+      state,
+      action: PayloadAction<{ alt: string; url: string }>,
+    ) {
+      const zero = 0;
+      if (state.chat?.message[zero]) {
+        const message = { ...state.chat?.message[zero] };
+        message.url = action.payload.url;
+        message.alt = action.payload.alt;
+        state.chat.message[zero] = message;
+      }
+    },
   },
 });
 
-export const { setInputQuery, addWords } = ChatSlice.actions;
+export const {
+  setInputQuery,
+  addWords,
+  setNewChatMessage,
+  updateChatMessageImage,
+} = ChatSlice.actions;
 
 export default ChatSlice.reducer;

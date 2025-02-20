@@ -1,9 +1,12 @@
-import ArrowUp from "@/assets/icons/arrow-up";
 import ImageIcon from "@/assets/icons/ImageIcon";
-import ChatTextArea from "./chat-text-area";
 import SettingsBar from "../settings/settings-bar";
-// import { ArrowUp } from "lucide-react";
-export default function BottomBarContainer() {
+import ButtonActionCreate from "./button-action-create";
+import ButtonActionExisting from "./button-action-existing";
+import ChatTextArea from "./chat-text-area";
+type TBottomBarContainer = {
+  action: "new_chat" | { chat_id: string };
+};
+export default function BottomBarContainer({ action }: TBottomBarContainer) {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <SettingsBar />
@@ -12,9 +15,11 @@ export default function BottomBarContainer() {
           <ChatTextArea />
           <div className="w-full  flex justify-between">
             <ImageIcon />
-            <button className="bg-[#737984] rounded-full border p-0.5">
-              <ArrowUp className="   w-5 h-5 " />
-            </button>
+            {action === "new_chat" ? (
+              <ButtonActionCreate />
+            ) : (
+              <ButtonActionExisting chat_id={action.chat_id} />
+            )}
           </div>
         </div>
       </div>
