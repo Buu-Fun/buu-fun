@@ -1,7 +1,12 @@
 import threeDCube from "@/assets/Image/boards/three-d-cube.png";
 import { BorderBeam } from "@/components/ui/border-beam";
 import Image from "next/image";
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   BoneIcon,
   DownloadIcon,
@@ -12,6 +17,8 @@ import {
 } from "@/assets/icons";
 import { Message } from "@/lib/redux/features/chat";
 import { cn } from "@/lib/utils";
+import { ToolTips } from "./handle-tool-calls";
+import ToolBarToolTips from "./tool-bar-tool-tips";
 
 type TGenerate3DCard = {
   isGenerating: boolean;
@@ -26,7 +33,7 @@ export default function Generate3DCard({
     <div className="max-w-[264px] relative  p-0 aspect-auto">
       <div className="relative -z-[10] rounded-2xl  overflow-hidden">
         <Image
-          src={chatMessage.url ?? threeDCube.src}
+          src={threeDCube.src}
           width={1920}
           height={1080}
           alt="hello"
@@ -36,37 +43,9 @@ export default function Generate3DCard({
         />
       </div>
       <div className="absolute -bottom-4  z-50 flex items-center gap-2 justify-center w-full">
-        <div className=" bg-buu-button shadow-buu-button min-w-[30px]   rounded-md flex items-center justify-center p-1.5">
-          <div className="w-full h-full ">
-            <RetryIcon />
-          </div>
-        </div>
-        <div className=" bg-buu-button shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5">
-          <div className="w-full h-full ">
-            <FilterIcon />
-          </div>
-        </div>
-        <div className=" bg-buu-button shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5">
-          <div className="w-full h-full ">
-            <MagicPenIcon />
-          </div>
-        </div>
-        <div className=" bg-buu-button shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5">
-          <div className="w-full h-full ">
-            <BoneIcon />
-          </div>
-        </div>
-        <div className=" bg-buu-button shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5">
-          <div className="w-full h-full ">
-            <MaximizeIcon />
-          </div>
-        </div>
-        <div className=" bg-buu-button shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5">
-          <div className="w-full h-full ">
-            <DownloadIcon />
-          </div>
-        </div>
+        <ToolBarToolTips />
       </div>
+
       <BorderBeam
         containerClassName={cn("border-2  rounded-2xl", {
           hidden: !isGenerating,

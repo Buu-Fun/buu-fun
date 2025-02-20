@@ -7,11 +7,13 @@ export default function DownloadIcon() {
       width="17"
       height="16"
       viewBox="0 0 17 16"
-      fill="none"
+      className="fill-white   transition-colors duration-200"
+      fill="currentColor"
+      stroke="currentColor"
     >
       <path
         d="M12.2785 9.5794L8.33295 13.5249L4.38745 9.5794"
-        stroke="white"
+        // stroke="white"
         strokeWidth="1.08333"
         strokeMiterlimit="10"
         strokeLinecap="round"
@@ -19,7 +21,7 @@ export default function DownloadIcon() {
       />
       <path
         d="M8.33301 2.47505V13.4146"
-        stroke="white"
+        // stroke="white"
         strokeWidth="1.08333"
         strokeMiterlimit="10"
         strokeLinecap="round"

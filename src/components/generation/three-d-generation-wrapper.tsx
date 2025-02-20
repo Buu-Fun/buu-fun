@@ -38,7 +38,7 @@ export default function ThreeDGenerationWrapper({
       const index = getRandomInteger(randomImages.length);
       const image = randomImages[index]!;
       console.log(image);
-      dispatch(updateChatMessageImage(image));
+    //   dispatch(updateChatMessageImage(image));
       setIsGenerating(false);
     }, 6000);
     return () => {
@@ -48,22 +48,22 @@ export default function ThreeDGenerationWrapper({
     };
   }, [id, dispatch]);
 
-  if (!selected) {
-    return <>no chat history found</>;
-  }
+//   if (!selected) {
+//     return <>no chat history found</>;
+//   }
 
   return (
     <div className="flex items-center justify-center flex-col gap-4">
       <div className="bg-buu shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
         <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">
-          {selected.message[0].time}
+          {selected?.message[0].time ?? "07:00:AM"}
         </p>
       </div>
       <h2 className="text-2xl font-medium tracking-tighter">
-        {selected.message[0].message}
+        {selected?.message[0].message ?? "Create a new 3D object"}
       </h2>
       <Generate3DCard
-        chatMessage={selected.message[0]!}
+        chatMessage={selected?.message[0]!}
         isGenerating={isGenerating}
       />
     </div>
