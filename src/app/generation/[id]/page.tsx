@@ -14,7 +14,7 @@ export default async function NewChatPage({ params }: TNewChatPage) {
 
       {/* Centered main content with Help cards */}
       <div className="flex-1 flex items-center justify-center mr-[0.15vw] flex-col">
-        <ThreeDGenerationWrapper  id={id} />
+        <ThreeDGenerationWrapper id={id} />
       </div>
 
       {/* Bottom input section */}

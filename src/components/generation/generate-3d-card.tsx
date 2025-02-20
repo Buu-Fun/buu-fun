@@ -3,12 +3,12 @@ import { BorderBeam } from "@/components/ui/border-beam";
 import Image from "next/image";
 
 import {
-    BoneIcon,
-    DownloadIcon,
-    FilterIcon,
-    MagicPenIcon,
-    MaximizeIcon,
-    RetryIcon
+  BoneIcon,
+  DownloadIcon,
+  FilterIcon,
+  MagicPenIcon,
+  MaximizeIcon,
+  RetryIcon,
 } from "@/assets/icons";
 import { Message } from "@/lib/redux/features/chat";
 import { cn } from "@/lib/utils";

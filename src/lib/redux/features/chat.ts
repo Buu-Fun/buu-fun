@@ -41,14 +41,14 @@ const ChatSlice = createSlice({
 
     setNewChatMessage(
       state,
-      action: PayloadAction<Exclude<ChatState["chat"], undefined>>
+      action: PayloadAction<Exclude<ChatState["chat"], undefined>>,
     ) {
       state.chat = action.payload;
       state.inputQuery = "";
     },
     updateChatMessageImage(
       state,
-      action: PayloadAction<{ alt: string; url: string }>
+      action: PayloadAction<{ alt: string; url: string }>,
     ) {
       const zero = 0;
       if (state.chat?.message[zero]) {
@@ -61,6 +61,11 @@ const ChatSlice = createSlice({
   },
 });
 
-export const { setInputQuery, addWords, setNewChatMessage,updateChatMessageImage } = ChatSlice.actions;
+export const {
+  setInputQuery,
+  addWords,
+  setNewChatMessage,
+  updateChatMessageImage,
+} = ChatSlice.actions;
 
 export default ChatSlice.reducer;

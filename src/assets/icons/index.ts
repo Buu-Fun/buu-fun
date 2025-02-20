@@ -7,7 +7,7 @@ import ArrowUp from "@/assets/icons/arrow-up";
 import ImageIcon from "@/assets/icons/ImageIcon";
 import StarIcon from "@/assets/icons/star-icon";
 import AddImage from "@/assets/icons/add.png";
-import BoneIcon from '@/assets/icons/bone'
+import BoneIcon from "@/assets/icons/bone";
 import MaximizeIcon from "./maximize";
 import DownloadIcon from "./download";
 import FilterIcon from "./filter";
@@ -26,5 +26,5 @@ export {
   RetryIcon,
   MagicPenIcon,
   SizePenIcon,
-  DownloadIcon
+  DownloadIcon,
 };

@@ -46,7 +46,7 @@ export default function ThreeDGenerationWrapper({
         clearTimeout(timerRef.current);
       }
     };
-  }, [id,dispatch]);
+  }, [id, dispatch]);
 
   if (!selected) {
     return <>no chat history found</>;
