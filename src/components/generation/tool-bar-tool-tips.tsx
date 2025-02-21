@@ -5,14 +5,37 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ToolTips } from "./handle-tool-calls";
-import { cn } from "@/lib/utils";
+import { ToolTips, TToolTipEvents } from "./handle-tool-calls";
+import { cn, getRandomInteger } from "@/lib/utils";
+import { useAppDispatch } from "@/hooks/redux";
+import { updateTryAgainMessage } from "@/lib/redux/features/chat";
+import { randomImages } from "./random-image";
 export default function ToolBarToolTips() {
+  const dispatch = useAppDispatch();
+  function handleEvent(events: TToolTipEvents) {
+    const index = getRandomInteger(randomImages.length);
+    const image = randomImages[index]!;
+
+    switch (events) {
+      case "TRY_AGAIN": {
+        dispatch(updateTryAgainMessage({ message: { ...image } }));
+        break;
+      }
+      default: {
+        console.log("NOT FOUND");
+      }
+    }
+  }
   return (
     <TooltipProvider>
       {ToolTips.map((item, index) => (
         <Tooltip key={`tool-tip-contents-${item.content.trim()}-${index}`}>
-          <TooltipTrigger className="group bg-buu-button  hover:bg-white hover:shadow-none  group shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5">
+          <TooltipTrigger
+            onClick={() => {
+              handleEvent(item.type);
+            }}
+            className="group bg-buu-button  hover:bg-white hover:shadow-none  group shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5"
+          >
             <div className="w-full h-full group-hover:text-black group-hover:fill-black">
               {item.Icon}
             </div>

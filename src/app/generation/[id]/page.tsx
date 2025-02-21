@@ -13,8 +13,13 @@ export default async function NewChatPage({ params }: TNewChatPage) {
       {/* Background blur effect that stays at bottom nearby chat */}
 
       {/* Centered main content with Help cards */}
-      <div className="flex-1 flex items-center justify-center mr-[0.15vw] flex-col">
-        <ThreeDGenerationWrapper id={id} />
+      <div className="flex-1 h-full overflow-scroll border-2 flex items-center justify- mt-4 mr-[0.15vw] flex-col">
+        <div>
+          <ThreeDGenerationWrapper id={id} />
+        </div>
+        <div>
+          <ThreeDGenerationWrapper id={id} />
+        </div>
       </div>
 
       {/* Bottom input section */}

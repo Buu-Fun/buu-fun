@@ -1,7 +1,11 @@
 "use client";
 import { ArrowUp } from "@/assets/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { ChatMessage, setNewChatMessage } from "@/lib/redux/features/chat";
+import {
+  ChatMessage,
+  Message,
+  setNewChatMessage,
+} from "@/lib/redux/features/chat";
 import { nanoid } from "@reduxjs/toolkit";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -13,19 +17,20 @@ export default function ButtonActionCreate() {
   const query = useAppSelector((state) => state.chat.inputQuery);
 
   function handleNewChatCreation() {
-    const data: ChatMessage = {
-      chat_id: nanoid(),
-      message: [
-        {
-          time: format(new Date(), "KK:mm:a"),
-          id: nanoid(),
-          message: query,
-        },
-      ],
+    const chatId = nanoid();
+    const data: Message = {
+      time: format(new Date(), "KK:mm:a"),
+      id: nanoid(),
+      message: query,
     };
 
-    dispatch(setNewChatMessage(data));
-    router.push(`/generation/${data.chat_id}`);
+    dispatch(
+      setNewChatMessage({
+        chat_id: chatId,
+        message: [[data]],
+      })
+    );
+    router.push(`/generation/${chatId}`);
   }
 
   return (

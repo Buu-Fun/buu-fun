@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, nanoid, type PayloadAction } from "@reduxjs/toolkit";
 export type Message = {
   id: string;
   time: string;
@@ -8,15 +8,19 @@ export type Message = {
 };
 export type ChatMessage = {
   chat_id: string;
-  message: Message[];
+  message: Message[][];
 };
 type ChatState = {
   inputQuery: string;
-  chat?: ChatMessage;
+  chat: ChatMessage;
 };
 
 const initialState: ChatState = {
   inputQuery: "",
+  chat: {
+    chat_id: "",
+    message: [[]],
+  },
 };
 
 const ChatSlice = createSlice({
@@ -41,21 +45,33 @@ const ChatSlice = createSlice({
 
     setNewChatMessage(
       state,
-      action: PayloadAction<Exclude<ChatState["chat"], undefined>>,
+      action: PayloadAction<Exclude<ChatState["chat"], undefined>>
     ) {
       state.chat = action.payload;
       state.inputQuery = "";
     },
+    updateTryAgainMessage(
+      state,
+      action: PayloadAction<{ message: Partial<Message> }>
+    ) {
+      const ZERO = 0;
+      if (state.chat.message[ZERO] && state.chat.message[ZERO][ZERO]) {
+        state.chat.message[ZERO].push({
+          ...state.chat.message[ZERO][ZERO],
+          ...action.payload.message,
+        });
+      }
+    },
     updateChatMessageImage(
       state,
-      action: PayloadAction<{ alt: string; url: string }>,
+      action: PayloadAction<{ alt: string; url: string }>
     ) {
       const zero = 0;
-      if (state.chat?.message[zero]) {
-        const message = { ...state.chat?.message[zero] };
+      if (state.chat?.message[zero][zero]) {
+        const message = { ...state.chat?.message[zero][zero] };
         message.url = action.payload.url;
         message.alt = action.payload.alt;
-        state.chat.message[zero] = message;
+        state.chat.message[zero][zero] = message;
       }
     },
   },
@@ -66,6 +82,7 @@ export const {
   addWords,
   setNewChatMessage,
   updateChatMessageImage,
+  updateTryAgainMessage
 } = ChatSlice.actions;
 
 export default ChatSlice.reducer;
