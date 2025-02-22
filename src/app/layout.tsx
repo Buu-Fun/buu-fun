@@ -1,13 +1,12 @@
 import NavigationalBar from "@/components/navbar/navigational-bar";
 import Topbar from "@/components/navbar/top-bar";
+import Providers from "@/providers/auth-provider";
+import NextUIProviders from "@/providers/next-ui-provder";
 import ReactQueryProvider from "@/providers/react-query";
 import StoreProvider from "@/providers/redux";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
-import { WalletProvider } from "@/providers/wallet.context";
-import NextUIProviders from "@/providers/next-ui-provder";
-import Providers from "@/providers/auth-provider";
 
 const BricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",

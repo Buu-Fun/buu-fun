@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { SERVER_URL } from "@/config";
 import { GraphQLClient, type RequestDocument } from "graphql-request";
 
@@ -8,22 +9,6 @@ const serverClient = new GraphQLClient(`${SERVER_URL}/graphql`, {
     "Content-Type": "application/json",
   },
 });
-
-// export const ponderRequest = async <T = any>(
-//   query: RequestDocument,
-//   variables?: { [key: string]: any },
-//   forceResultIfFail?: any,
-// ): Promise<T> => {
-//   try {
-//     return await ponderClient.request<T>(query, variables);
-//   } catch (error) {
-//     console.error('Error realizando la solicitud GraphQL:', error);
-//     if (forceResultIfFail) {
-//       return forceResultIfFail;
-//     }
-//     throw error;
-//   }
-// };
 
 export const serverRequest = async <T = any>(
   query: RequestDocument,

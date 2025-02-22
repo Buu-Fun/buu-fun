@@ -1,9 +1,7 @@
-import TwitterIcon from "@/assets/icons/twitter-icon";
-import React from "react";
-import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
 import TelegramIcon from "@/assets/icons/telegram-icon";
-import SolanaIcon from "@/assets/icons/solana";
+import TwitterIcon from "@/assets/icons/twitter-icon";
+import { Plus } from "lucide-react";
+import { Button } from "../ui/button";
 
 export default function AccountLinking() {
   return (

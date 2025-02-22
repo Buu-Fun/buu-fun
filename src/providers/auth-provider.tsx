@@ -1,9 +1,9 @@
 'use client';
-import * as React from 'react';
 import { PrivyProvider } from '@privy-io/react-auth';
+import * as React from 'react';
 
 // import '../../styles/solana-modal.css';
-import '@/styles/solana-modal.css'
+import '@/styles/solana-modal.css';
 // import { AuthenticationProvider } from '@/src/context/account.context';
 // import { WalletProvider } from '@/src/context/wallet.context';
 import '@solana/wallet-adapter-react-ui/styles.css';
@@ -14,19 +14,18 @@ import {
   ConnectionProvider,
   WalletProvider as SolanaWalletProvider,
 } from '@solana/wallet-adapter-react';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import {
   CoinbaseWalletAdapter,
-  SolflareWalletAdapter,
   LedgerWalletAdapter,
   PhantomWalletAdapter,
-  WalletConnectWalletAdapter
+  SolflareWalletAdapter
 } from '@solana/wallet-adapter-wallets';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
 
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { WalletProvider } from './wallet.context';
 import { AuthenticationProvider } from './account.context';
+import { WalletProvider } from './wallet.context';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
@@ -42,6 +41,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       new LedgerWalletAdapter(),
       new PhantomWalletAdapter(),
     ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [network],
   );
 

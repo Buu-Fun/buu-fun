@@ -1,31 +1,26 @@
 "use client";
-import React from "react";
 import {
   Popover,
-  PopoverAnchor,
   PopoverContent,
-  PopoverTrigger,
+  PopoverTrigger
 } from "../ui/popover";
 
-import { Button } from "../ui/button";
-import Image from "next/image";
 import AddImage from "@/assets/icons/add.png";
+import LogoutIcon from "@/assets/icons/log-out-Icon";
+import SettingsIcon from "@/assets/icons/settings-icon";
+import { profileIcon } from "@/assets/Image";
 import {
   useWallet,
-  WalletConnectionType,
-  walletType,
+  walletType
 } from "@/providers/wallet.context";
-import { ChevronDown, Settings, Settings2 } from "lucide-react";
-import CopyIcon from "@/assets/icons/copy-icon";
-import SettingsIcon from "@/assets/icons/settings-icon";
-import LogoutIcon from "@/assets/icons/log-out-Icon";
-import { profileIcon } from "@/assets/Image";
-import CopyAddress from "./copy-address";
+import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { Button } from "../ui/button";
+import CopyAddress from "./copy-address";
 import CreditUsedIcon from "./credit-used-icon";
-import { useRouter } from "next/navigation";
 export default function Topbar() {
-  const { address, openConnectionModal, disconnect, connect } = useWallet();
+  const { address,  disconnect, connect } = useWallet();
   const shouldConnect = !address;
   return (
     <div className="flex items-center justify-end pr-10 py-6">

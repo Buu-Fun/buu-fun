@@ -26,7 +26,7 @@ export enum WalletConnectionType {
   Web2 = "web2",
   Web3 = "web3",
 }
-export const walletType = WalletConnectionType.Web3
+export const walletType = WalletConnectionType.Web3;
 interface WalletContextType {
   loading: boolean;
   address?: string | null;
@@ -43,7 +43,7 @@ const connectedWalletConnectionTypeKey = "connected-wallet-connection-type";
 
 export const WalletProvider = ({ children }: Props) => {
   const connectionDisclosure = useDisclosure();
-  const router = useRouter()
+  const router = useRouter();
   const { isModalOpen, user, login, logout } = usePrivy();
   const { wallets } = useSolanaWallets();
   const {
@@ -64,8 +64,8 @@ export const WalletProvider = ({ children }: Props) => {
       disconnectWeb3Wallet();
     }
     localStorage.removeItem(connectedWalletConnectionTypeKey);
-    router.push("/")
-  }, [user, logout, disconnectWeb3Wallet]);
+    router.push("/");
+  }, [user, logout, disconnectWeb3Wallet, router, wallet]);
 
   const connect = useCallback(
     async (type: WalletConnectionType) => {
@@ -83,7 +83,7 @@ export const WalletProvider = ({ children }: Props) => {
       setConnectionType(type);
       localStorage.setItem(connectedWalletConnectionTypeKey, type);
     },
-    [user, disconnect, login, setVisible]
+    [user,  login, setVisible, wallet]
   );
 
   const switchConnectionType = useCallback(async () => {
@@ -107,7 +107,7 @@ export const WalletProvider = ({ children }: Props) => {
     if (savedType) {
       connect(savedType as WalletConnectionType);
     }
-  }, []);
+  }, [connect]);
 
   const address =
     connectionType === WalletConnectionType.Web2

@@ -3,15 +3,13 @@ import CopyIcon from "@/assets/icons/copy-icon";
 import { cn } from "@/lib/utils";
 import { useWallet } from "@/providers/wallet.context";
 import { Check } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 type TCopyAddress = {
   isNavigation?: boolean;
   className?: string;
 };
 export default function CopyAddress({ isNavigation, className }: TCopyAddress) {
-  const router = useRouter();
-  const { address, loading } = useWallet();
+  const { address} = useWallet();
   const [isCopy, setIsCopied] = useState(false);
   
   
