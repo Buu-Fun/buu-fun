@@ -80,12 +80,12 @@ const CurvedEmblaCarousel = () => {
 
             const TransformDirection = current > index + 1 ? -10 : 10.2;
             // Dynamic rotation with directional tilt
-            let rotate = isCurrent
+            const rotate = isCurrent
               ? "0deg"
               : `${direction * (10 + distanceFromCenter * 5)}deg`;
 
             // Scale to create depth, using exponential decay for smoothness
-            let scale = isCurrent ? "100%" : `${65 - Math.pow(index + 1, 1)}%`;
+            const scale = isCurrent ? "100%" : `${65 - Math.pow(index + 1, 1)}%`;
 
             // Y-axis translation for curved effect
 
@@ -93,12 +93,12 @@ const CurvedEmblaCarousel = () => {
             const baseOffset = 20;
 
             // Y-axis translation: Elements farther from center drop more
-            let transformY = isCurrent
+            const transformY = isCurrent
               ? "0%"
               : `${distanceFromCenter * baseOffset}%`;
 
             // X translation to make it curve
-            let transformX = isCurrent
+            const transformX = isCurrent
               ? "0%"
               : `${TransformDirection * (index + 1) * 1}%`;
             return (

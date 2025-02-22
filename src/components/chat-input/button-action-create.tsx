@@ -2,14 +2,12 @@
 import { ArrowUp } from "@/assets/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
-  ChatMessage,
   Message,
-  setNewChatMessage,
+  setNewChatMessage
 } from "@/lib/redux/features/chat";
 import { nanoid } from "@reduxjs/toolkit";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 export default function ButtonActionCreate() {
   const dispatch = useAppDispatch();

@@ -1,12 +1,10 @@
 "use client";
-import Generate3DCard from "@/components/generation/generate-3d-card";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { updateChatMessageImage } from "@/lib/redux/features/chat";
 import { getRandomInteger } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
-import { randomImages } from "./random-image";
-import GenerationCarousalWrapper from "./generation-carousal-wrapper";
 import CurvedEmblaCarousel from "./carousal";
+import { randomImages } from "./random-image";
 
 type TThreeDGenerationWrapper = {
   id: string;
@@ -34,13 +32,13 @@ export default function ThreeDGenerationWrapper({
       }
     };
   }, [id, dispatch]);
-
+  if (isGenerating) {
+  }
   //   if (!selected) {
   //     return <>no chat history found</>;
   //   }
   const ZERO = 0;
   return (
-    
     <div className="flex items-center  justify-center   flex-col gap-4">
       <div className="bg-buu  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
         <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">

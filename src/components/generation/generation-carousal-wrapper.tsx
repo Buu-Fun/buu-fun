@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect } from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import Generate3DCard from "./generate-3d-card";
 import { ThreeDCubeFour, ThreeDCubeThree, ThreeDCubeTwo } from "@/assets/Image";
-import { cn } from "@/lib/utils";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback, useEffect } from "react";
+import Generate3DCard from "./generate-3d-card";
 
 export default function GenerationCarousalWrapper() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -71,6 +70,8 @@ export default function GenerationCarousalWrapper() {
               className="flex-[0_0_33%] min-w-0 pl-4 transition-transform duration-300 ease-out"
             >
               <Generate3DCard
+                showToolTip={index === images.length - 1}
+                // showToolTip={curr}
                 chatMessage={{
                   id: `card-${index}`,
                   message: `Message ${index + 1}`,
