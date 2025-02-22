@@ -89,13 +89,13 @@ export const AuthenticationProvider = ({ children }: Props) => {
         {},
         {
           Authorization: `Bearer ${accessToken}`,
-        }
+        },
       );
       return response.me;
     } catch (error) {
       console.error("Error fetching account:", error);
     }
-  }, [address,getAccessToken]);
+  }, [address, getAccessToken]);
 
   const authenticate = useCallback(async () => {
     try {
@@ -113,20 +113,20 @@ export const AuthenticationProvider = ({ children }: Props) => {
             },
             {
               Authorization: `Bearer ${getAccessToken(address)}`,
-            }
+            },
           )) as { loginRefresh: LoginAuth | null };
 
           if (loginRefresh && loginRefresh.token) {
             localStorage.setItem(
               getAccessTokenKey(address),
-              JSON.stringify(loginRefresh.token)
+              JSON.stringify(loginRefresh.token),
             );
             const accessTokenKeys = getAccessTokenKeys();
             const accessTokenKey = getAccessTokenKey(address);
             if (!accessTokenKeys.includes(accessTokenKey)) {
               localStorage.setItem(
                 "x-accessToken-keys",
-                JSON.stringify([...accessTokenKeys, accessTokenKey])
+                JSON.stringify([...accessTokenKeys, accessTokenKey]),
               );
             }
             return;
@@ -178,7 +178,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
           publicKey: Buffer.from(output.account.publicKey).toString("base64"),
           chains: output.account.chains.map((chain) => chain.toString()),
           features: output.account.features.map((feature) =>
-            feature.toString()
+            feature.toString(),
           ),
         },
         signature: Buffer.from(output.signature).toString("base64"),
@@ -193,14 +193,14 @@ export const AuthenticationProvider = ({ children }: Props) => {
       if (loginAuth && loginAuth.token) {
         localStorage.setItem(
           getAccessTokenKey(address),
-          JSON.stringify(loginAuth.token)
+          JSON.stringify(loginAuth.token),
         );
         const accessTokenKeys = getAccessTokenKeys();
         const accessTokenKey = getAccessTokenKey(address);
         if (!accessTokenKeys.includes(accessTokenKey)) {
           localStorage.setItem(
             "x-accessToken-keys",
-            JSON.stringify([...accessTokenKeys, accessTokenKey])
+            JSON.stringify([...accessTokenKeys, accessTokenKey]),
           );
         }
       } else {
@@ -215,13 +215,16 @@ export const AuthenticationProvider = ({ children }: Props) => {
     }
   }, [address, adapter, fetchAccount, disconnect, getAccessToken]);
 
-  const connectTwitterAccount = useCallback(async (account: string) => {
-    const accessToken = getAccessToken(account);
-    if (!accessToken) return;
-    const token = encodeURIComponent(accessToken);
-    const url = `${SERVER_URL}/accounts/auth/twitter?token=${token}`;
-    window.location.href = url; // Redirige al backend
-  }, [getAccessToken]);
+  const connectTwitterAccount = useCallback(
+    async (account: string) => {
+      const accessToken = getAccessToken(account);
+      if (!accessToken) return;
+      const token = encodeURIComponent(accessToken);
+      const url = `${SERVER_URL}/accounts/auth/twitter?token=${token}`;
+      window.location.href = url; // Redirige al backend
+    },
+    [getAccessToken],
+  );
 
   const disconnectTwitterAccount = useCallback(
     async (account: string) => {
@@ -230,11 +233,11 @@ export const AuthenticationProvider = ({ children }: Props) => {
         {},
         {
           Authorization: `Bearer ${getAccessToken(account)}`,
-        }
+        },
       );
       await fetchAccount();
     },
-    [fetchAccount, getAccessToken]
+    [fetchAccount, getAccessToken],
   );
 
   const connectTelegramAccount = useCallback(
@@ -243,7 +246,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       const url = `https://t.me/${TELEGRAM_AUTH_BOT_HANDLE}?text=${encodeURIComponent(text)}`;
       window.open(url, "_blank");
     },
-    [getAccessToken]
+    [getAccessToken],
   );
 
   const disconnectTelegramAccount = useCallback(
@@ -253,11 +256,11 @@ export const AuthenticationProvider = ({ children }: Props) => {
         {},
         {
           Authorization: `Bearer ${getAccessToken(account)}`,
-        }
+        },
       );
       await fetchAccount();
     },
-    [fetchAccount, getAccessToken]
+    [fetchAccount, getAccessToken],
   );
 
   React.useEffect(() => {
@@ -289,7 +292,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       disconnectTwitterAccount,
       connectTelegramAccount,
       disconnectTelegramAccount,
-    ]
+    ],
   );
 
   return (
@@ -303,7 +306,7 @@ export function useAuthentication() {
   const context = useContext(AuthenticationContext);
   if (context === undefined) {
     throw new Error(
-      `useAuthentication must be used within a AuthenticationProvider`
+      `useAuthentication must be used within a AuthenticationProvider`,
     );
   }
   return context;

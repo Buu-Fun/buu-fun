@@ -14,7 +14,7 @@ export const serverRequest = async <T = any>(
   query: RequestDocument,
   variables?: { [key: string]: any },
   headers?: { [key: string]: string },
-  forceResultIfFail?: any
+  forceResultIfFail?: any,
 ): Promise<T> => {
   try {
     return await serverClient.request<T>(query, variables, headers);

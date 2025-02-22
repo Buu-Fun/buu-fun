@@ -9,10 +9,9 @@ type TCopyAddress = {
   className?: string;
 };
 export default function CopyAddress({ isNavigation, className }: TCopyAddress) {
-  const { address} = useWallet();
+  const { address } = useWallet();
   const [isCopy, setIsCopied] = useState(false);
-  
-  
+
   function handleCopy() {
     if (!address) return;
     window.navigator.clipboard.writeText(address);
@@ -32,7 +31,7 @@ export default function CopyAddress({ isNavigation, className }: TCopyAddress) {
           "hover:bg-buu-secondary py-2 flex-row rounded-md px-2 font-medium":
             isNavigation,
         },
-        className
+        className,
       )}
     >
       {!isCopy ? (

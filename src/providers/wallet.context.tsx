@@ -83,7 +83,7 @@ export const WalletProvider = ({ children }: Props) => {
       setConnectionType(type);
       localStorage.setItem(connectedWalletConnectionTypeKey, type);
     },
-    [user,  login, setVisible, wallet]
+    [user, login, setVisible, wallet],
   );
 
   const switchConnectionType = useCallback(async () => {
@@ -140,7 +140,7 @@ export const WalletProvider = ({ children }: Props) => {
       disconnect,
       switchConnectionType,
       connect,
-    ]
+    ],
   );
 
   return (

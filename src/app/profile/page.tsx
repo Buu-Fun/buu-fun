@@ -66,7 +66,7 @@ export default function ProfilePage() {
       <div className="mt-6">
         <p className=" font-medium text-buu-muted-text">Link your accounts</p>
       </div>
-      <AccountLinking/>
+      <AccountLinking />
     </main>
   );
 }

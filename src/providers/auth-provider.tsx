@@ -1,31 +1,31 @@
-'use client';
-import { PrivyProvider } from '@privy-io/react-auth';
-import * as React from 'react';
+"use client";
+import { PrivyProvider } from "@privy-io/react-auth";
+import * as React from "react";
 
 // import '../../styles/solana-modal.css';
-import '@/styles/solana-modal.css';
+import "@/styles/solana-modal.css";
 // import { AuthenticationProvider } from '@/src/context/account.context';
 // import { WalletProvider } from '@/src/context/wallet.context';
-import '@solana/wallet-adapter-react-ui/styles.css';
+import "@solana/wallet-adapter-react-ui/styles.css";
 
 const NEXT_PUBLIC_PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
 
 import {
   ConnectionProvider,
   WalletProvider as SolanaWalletProvider,
-} from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import {
   CoinbaseWalletAdapter,
   LedgerWalletAdapter,
   PhantomWalletAdapter,
-  SolflareWalletAdapter
-} from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
+  SolflareWalletAdapter,
+} from "@solana/wallet-adapter-wallets";
+import { clusterApiUrl } from "@solana/web3.js";
 
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { AuthenticationProvider } from './account.context';
-import { WalletProvider } from './wallet.context';
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import { AuthenticationProvider } from "./account.context";
+import { WalletProvider } from "./wallet.context";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
@@ -51,13 +51,13 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       config={{
         // Customize Privy's appearance in your app
         appearance: {
-          theme: 'light',
-          accentColor: '#676FFF',
-        //   logo: 'https://your-logo-url',
+          theme: "light",
+          accentColor: "#676FFF",
+          //   logo: 'https://your-logo-url',
         },
         // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {
-          createOnLogin: 'users-without-wallets',
+          createOnLogin: "users-without-wallets",
         },
       }}
     >
