@@ -12,6 +12,7 @@ import MaximizeIcon from "./maximize";
 import DownloadIcon from "./download";
 import FilterIcon from "./filter";
 import RetryIcon from "./retry";
+
 export {
   CoinStackIcon,
   QuestionIcon,

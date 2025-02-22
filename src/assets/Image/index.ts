@@ -49,3 +49,7 @@ import ThreeDCubeFour from "./three-d-cubes/three-d-cube-four.png";
 import ThreeDCubeThree from "./three-d-cubes/three-d-cube-three.png";
 import ThreeDCubeTwo from "./three-d-cubes/three-d-cube-two.png";
 export { ThreeDCubeFour, ThreeDCubeOne, ThreeDCubeThree, ThreeDCubeTwo };
+
+import profileIcon from "./profile-icon.png";
+
+export { profileIcon };
