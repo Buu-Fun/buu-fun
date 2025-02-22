@@ -1,5 +1,7 @@
 import NavigationalBar from "@/components/navbar/navigational-bar";
 import Topbar from "@/components/navbar/top-bar";
+import Providers from "@/providers/auth-provider";
+import NextUIProviders from "@/providers/next-ui-provder";
 import ReactQueryProvider from "@/providers/react-query";
 import StoreProvider from "@/providers/redux";
 import type { Metadata } from "next";
@@ -24,26 +26,30 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` ${BricolageGrotesque.className} antialiased dark `}>
-        <StoreProvider>
-          <ReactQueryProvider>
-            <div className="h-screen min-h-screen overflow-hidden relative max-h-screen   w-full">
-              <div className="w-[200px] h-[100px] bg-overlay-secondary bg-[#69CCD5]  rounded-full right-[20%] absolute bottom-[-140px] -z-10 blur-[100px]  rotate-[-10deg]" />
+        <NextUIProviders>
+          <Providers>
+            <StoreProvider>
+              <ReactQueryProvider>
+                <div className="h-screen min-h-screen overflow-hidden relative max-h-screen   w-full">
+                  <div className="w-[200px] h-[100px] bg-overlay-secondary bg-[#69CCD5]  rounded-full right-[20%] absolute bottom-[-140px] -z-10 blur-[100px]  rotate-[-10deg]" />
 
-              <div className="grid-container w-full h-full ">
-                <div className="main-body relative ">
-                  <div className="w-[176px] h-[334px] bg-overlay-primary bg-[#6A69D580] left-[45%]  rounded-full  absolute top-[5%] -z-10 blur-[100px]  rotate-[-10deg]" />
-                  {children}
+                  <div className="grid-container w-full h-full">
+                    <div className="main-body relative">
+                      <div className="w-[176px] h-[334px] bg-overlay-primary bg-[#6A69D580] left-[45%]  rounded-full  absolute top-[5%] -z-10 blur-[100px]  rotate-[-10deg]" />
+                      {children}
+                    </div>
+                    <div className="top-bar">
+                      <Topbar />
+                    </div>
+                    <div className="navigation ">
+                      <NavigationalBar />
+                    </div>
+                  </div>
                 </div>
-                <div className="top-bar z-50">
-                  <Topbar />
-                </div>
-                <div className="navigation z-50">
-                  <NavigationalBar />
-                </div>
-              </div>
-            </div>
-          </ReactQueryProvider>
-        </StoreProvider>
+              </ReactQueryProvider>
+            </StoreProvider>
+          </Providers>
+        </NextUIProviders>
       </body>
     </html>
   );

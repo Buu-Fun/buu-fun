@@ -136,7 +136,6 @@ body {
   background: rgba(28, 32, 39, 1);
 }
 
-
 .bg-buu {
   background: rgba(28, 32, 39, 0.36);
 }
@@ -176,6 +175,10 @@ body {
   box-shadow: 0px 9px 28.9px 0px rgba(14, 17, 26, 0.3);
 }
 
+.shadow-buu-secondary-button {
+  box-shadow: 0px 0px 7.8px 3px rgba(33, 42, 52, 0.8) inset;
+  backdrop-filter: blur(10px);
+}
 .text-icon {
   color: rgba(41, 45, 50, 1);
 }
@@ -248,4 +251,30 @@ body {
 
 .navigation {
   grid-area: navigation;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.border-profile {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: lightgray 50% / cover no-repeat;
+  box-shadow:
+    0px 5.714px 11.429px 0px #fff inset,
+    0px -5.714px 17.143px 0px rgba(96, 96, 96, 0.5) inset,
+    0px 17.143px 22.857px 0px rgba(0, 0, 0, 0.1);
+}
+
+.border-shadow-account-linking {
+  border-radius: 8.889px;
+  background: #1a2129;
+  box-shadow:
+    4.848px -5.333px 33.333px 0px rgba(16, 19, 28, 0.3),
+    0px 0px 11.556px 4.444px rgba(44, 55, 68, 0.8) inset;
 }

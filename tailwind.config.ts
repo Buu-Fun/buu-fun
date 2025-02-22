@@ -16,6 +16,13 @@ export default {
   theme: {
     extend: {
       colors: {
+        buu: {
+          button: "#1a2129",
+          secondary: "rgba(37, 41, 49, 0.8);",
+          muted: {
+            text: "#95989F",
+          },
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
