@@ -12,6 +12,7 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
+    "@google/model-viewer": "^4.0.0",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@mantine/hooks": "^7.17.0",
     "@nextui-org/react": "^2.6.11",
