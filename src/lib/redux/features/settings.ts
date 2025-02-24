@@ -1,11 +1,37 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export const threeDStyles: SettingsState["ThreeDStyle"][] = [
-  "low_poly",
-  "no_style",
-  "metallic",
-  "realistic",
+  "Clay",
+  "Cute",
+  "Environment",
+  "Fantasy",
+  "Isometric",
+  "LowPoly",
+  "Metallic",
+  "Realistic",
+  "SciFi",
+  "Stylized",
+  "Toon",
+  "Voxel",
+  "Weapons",
+  "Wireframe",
 ];
+
+export type TThreeDStyles =
+  | "Clay"
+  | "Cute"
+  | "Environment"
+  | "Fantasy"
+  | "Isometric"
+  | "LowPoly"
+  | "Metallic"
+  | "Realistic"
+  | "SciFi"
+  | "Stylized"
+  | "Toon"
+  | "Voxel"
+  | "Weapons"
+  | "Wireframe";
 
 export const contentModes: SettingsState["modes"][] = [
   "three_d_object",
@@ -14,13 +40,13 @@ export const contentModes: SettingsState["modes"][] = [
 ];
 export type SettingsState = {
   isPopoverOpen: boolean;
-  ThreeDStyle: "low_poly" | "no_style" | "metallic" | "realistic";
+  ThreeDStyle?: TThreeDStyles;
   modes: "three_d_object" | "video" | "comic";
 };
 
 const initialState: SettingsState = {
   isPopoverOpen: false,
-  ThreeDStyle: "metallic",
+  ThreeDStyle: "Metallic",
   modes: "three_d_object",
 };
 
@@ -36,7 +62,7 @@ const SettingsSlice = createSlice({
     },
     changeThreeDStyles(
       state,
-      action: PayloadAction<SettingsState["ThreeDStyle"]>,
+      action: PayloadAction<SettingsState["ThreeDStyle"] | undefined>
     ) {
       state.ThreeDStyle = action.payload;
     },

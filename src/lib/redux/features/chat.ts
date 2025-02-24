@@ -1,25 +1,21 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-export type Message = {
-  id: string;
-  time: string;
-  message: string;
-  url?: string;
-  alt?: string | null;
-};
+import { ChatState, TMediaRequest, TSubThread } from "./chat-types";
+import { TSubthread as TResponseThread } from "@/lib/react-query/threads-types";
+
 export type ChatMessage = {
-  chat_id: string;
-  message: Message[][];
+  threadId: string;
+  message: [][];
 };
-type ChatState = {
-  inputQuery: string;
-  chat: ChatMessage;
-};
+// type ChatState = {
+//   inputQuery: string;
+//   chat: ChatMessage;
+// };
 
 const initialState: ChatState = {
   inputQuery: "",
-  chat: {
-    chat_id: "",
-    message: [[]],
+  threads: {
+    threadId: "",
+    subThreads: [],
   },
 };
 
@@ -42,47 +38,56 @@ const ChatSlice = createSlice({
         state.inputQuery = words.join(" ") + " ";
       }
     },
+    setNewThreadId(state, action: PayloadAction<string>) {
+      state.threads.threadId = action.payload;
+      state.threads.subThreads = [];
+    },
+    setSubThreads: {
+      reducer(state, action: PayloadAction<TSubThread[]>) {
+        state.threads.subThreads = action.payload;
+      },
 
-    setNewChatMessage(
-      state,
-      action: PayloadAction<Exclude<ChatState["chat"], undefined>>
-    ) {
-      state.chat = action.payload;
-      state.inputQuery = "";
-    },
-    updateTryAgainMessage(
-      state,
-      action: PayloadAction<{ message: Partial<Message> }>
-    ) {
-      const ZERO = 0;
-      if (state.chat.message[ZERO] && state.chat.message[ZERO][ZERO]) {
-        state.chat.message[ZERO].push({
-          ...state.chat.message[ZERO][ZERO],
-          ...action.payload.message,
-        });
-      }
-    },
-    updateChatMessageImage(
-      state,
-      action: PayloadAction<{ alt: string; url: string }>
-    ) {
-      const zero = 0;
-      if (state.chat?.message[zero][zero]) {
-        const message = { ...state.chat?.message[zero][zero] };
-        message.url = action.payload.url;
-        message.alt = action.payload.alt;
-        state.chat.message[zero][zero] = message;
-      }
+      prepare(payload: TResponseThread[]) {
+        const data: TSubThread[] = payload.map((item) => ({
+          _id: item._id,
+          createdAt: item.createdAt,
+          style: item.style,
+          threadId: item.threadId,
+          imageRequest:
+            item.imageRequests &&
+            item.imageRequests.map((imgRes): TMediaRequest => {
+              return {
+                _id: imgRes._id,
+                images: imgRes.images,
+                modelMesh: imgRes.model_mesh,
+                metadata: imgRes.metadata,
+                status: imgRes.status,
+                type: imgRes.type,
+              };
+            }),
+          message: item.prompt,
+          modelRequest:
+            item.modelRequests &&
+            item.modelRequests.map(
+              (modRes): TMediaRequest => ({
+                _id: modRes._id,
+                images: modRes.images,
+                metadata: modRes.metadata,
+                modelMesh: modRes.model_mesh,
+                status: modRes.status,
+                type: modRes.type,
+              })
+            ),
+        }));
+        return {
+          payload: data,
+        };
+      },
     },
   },
 });
 
-export const {
-  setInputQuery,
-  addWords,
-  setNewChatMessage,
-  updateChatMessageImage,
-  updateTryAgainMessage
-} = ChatSlice.actions;
+export const { setInputQuery, addWords, setNewThreadId, setSubThreads } =
+  ChatSlice.actions;
 
 export default ChatSlice.reducer;
