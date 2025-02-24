@@ -28,7 +28,7 @@ export default function ThreeDSelectBox() {
             dispatch(changeThreeDStyles(value));
             return;
           }
-          dispatch(changeThreeDStyles("no_style"));
+          dispatch(changeThreeDStyles(undefined));
         }}
       >
         <SelectTrigger className="bg-buu-secondary focus:ring-1 border-none h-11 rounded-2xl ">
@@ -44,7 +44,7 @@ export default function ThreeDSelectBox() {
         <SelectContent className="bg-[#1C2129] border-none shadow-buu-muted border-buu  ">
           <SelectItem
             className="focus:bg-[#252931] pl-4 border-none backdrop-blur-10   py-3"
-            value="no_style"
+            value={"no_style"}
           >
             <div className="flex items-center justify-center gap-2 ">
               <div className="bg-[#2D323C] w-4 h-4 rounded-full" />
@@ -53,7 +53,7 @@ export default function ThreeDSelectBox() {
           </SelectItem>
           <SelectItem
             className="focus:bg-[#252931] pl-4 border-none backdrop-blur-10  py-3 "
-            value="metallic"
+            value="Metallic"
           >
             <div className="flex items-center justify-center gap-2 ">
               <div className="w-4 h-4">
@@ -70,7 +70,7 @@ export default function ThreeDSelectBox() {
           </SelectItem>
           <SelectItem
             className="focus:bg-[#252931] pl-4 border-none backdrop-blur-10  py-3"
-            value="realistic"
+            value="Realistic"
           >
             <div className="flex items-center justify-center gap-2 ">
               <Image
@@ -85,7 +85,7 @@ export default function ThreeDSelectBox() {
           </SelectItem>
           <SelectItem
             className="focus:bg-[#252931] pl-4 border-none backdrop-blur-10  py-3"
-            value="low_poly"
+            value="lowPoly"
           >
             <div className="flex items-center justify-center gap-2 ">
               <Image

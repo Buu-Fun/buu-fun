@@ -1,4 +1,5 @@
 import BottomBarContainer from "@/components/chat-input/bottom-bar-container";
+import ThreadsWrapper from "@/components/generation/threads";
 import ThreeDGenerationWrapper from "@/components/generation/three-d-generation-wrapper";
 
 export type TNewChatPage = {
@@ -8,19 +9,13 @@ export type TNewChatPage = {
 export default async function NewChatPage({ params }: TNewChatPage) {
   console.log(await params);
   const id = (await params).id;
+
   return (
-    <main className="flex flex-col relative h-full w-full   ">
+    <main className="flex flex-col relative h-full w-full   max-h-[calc(100vh-100px)]  overflow-hidden">
       {/* Background blur effect that stays at bottom nearby chat */}
 
       {/* Centered main content with Help cards */}
-      <div className="flex-1 h-full overflow-scroll border-2 flex items-center justify- mt-4 mr-[0.15vw] flex-col">
-        <div>
-          <ThreeDGenerationWrapper id={id} />
-        </div>
-        <div>
-          <ThreeDGenerationWrapper id={id} />
-        </div>
-      </div>
+      <ThreadsWrapper threadId={id} />
 
       {/* Bottom input section */}
       <div className="mr-[0.15vw]">

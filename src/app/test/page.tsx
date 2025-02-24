@@ -1,47 +1,32 @@
+"use client";
 import CurvedEmblaCarousel from "@/components/generation/carousal";
-import React from "react";
+import { Button } from "@/components/ui/button";
+import { SubthreadStyle } from "@/gql/types/graphql";
+import { generateSubThreads } from "@/lib/react-query/threads";
+import { useAuthentication } from "@/providers/account.context";
+import { useWallet } from "@/providers/wallet.context";
+import { getAccessToken } from "@privy-io/react-auth";
+import React, { useCallback, useState } from "react";
 // import { ThreeDCubeFour, ThreeDCubeThree, ThreeDCubeTwo } from "@/assets/Image";
+import "@google/model-viewer";
 
 export default function Page() {
   return (
-    <div className="flex items-center justify-center w-full h-full">
-      <div className="flex items-center justify-center max-w-sm">
-        <CurvedEmblaCarousel />
-      </div>
-    </div>
+    <model-viewer
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "block",
+      }}
+      src={"https://v3.fal.media/files/zebra/yg05TRDL_iqn1BBB1pnLw_model.glb"}
+      ios-src=""
+      alt="A 3D model of an astronaut"
+      shadow-intensity="1"
+      seamless-poster
+      camera-controls
+      auto-rotate
+      touch-action="pan-y"
+      ar
+    />
   );
 }
-
-
-
-
-// export const cards = [
-//   {
-//     id: "1",
-//     message: "Message 1",
-//     time: "2:00 AM",
-//     alt: "Model 1",
-//     url: ThreeDCubeFour.src,
-//   },
-//   {
-//     id: "2",
-//     message: "Message 1",
-//     time: "2:00 AM",
-//     alt: "Model 3",
-//     url: ThreeDCubeThree.src,
-//   },
-//   {
-//     id: "3",
-//     message: "Message 3",
-//     time: "2:00 AM",
-//     alt: "Model 3",
-//     url: ThreeDCubeTwo.src,
-//   },
-//   {
-//     id: "5",
-//     message: "Message 3",
-//     time: "2:00 AM",
-//     alt: "Model 3",
-//     url: ThreeDCubeThree.src,
-//   },
-// ];
