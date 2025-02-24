@@ -108,6 +108,11 @@ body {
   height: 0.25rem;
 }
 
+
+.scrollbar-w-hidden::-webkit-scrollbar {
+  width: 0rem;
+  height: 0rem;
+}
 .scrollbar-track-orange-lighter::-webkit-scrollbar-track {
   --bg-opacity: 0.5;
   background-color: #00000015;
