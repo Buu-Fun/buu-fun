@@ -51,7 +51,7 @@ export default function Generate3DCard({
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [isCurrent, isGenerating, modelUrl]);
-  
+
   return (
     <motion.div
       initial={{ opacity: 0.5 }}

@@ -1,13 +1,10 @@
-import { getAccessTokenKey } from "@/lib/client-utils";
 import { getAllThreads } from "@/lib/react-query/threads";
 import { useAuthentication } from "@/providers/account.context";
 import { useWallet } from "@/providers/wallet.context";
 import { useQuery } from "@tanstack/react-query";
-import { Ghost, Loader2, MessageCircle, TimerIcon } from "lucide-react";
-import React from "react";
-import { mockData } from "./mock-navigational-data";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
+import { Ghost, Loader2, MessageCircle, TimerIcon } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 10 },
@@ -53,7 +50,7 @@ export default function HistoryNavigation() {
           <div className="flex items-center justify-center flex-col w-full">
             <Ghost className="w-10 h-10 text-blue-300" />
             <p className="text-lg text-center leading-5 mt-2">
-              You don't have any <br /> recent history
+              You don&apos;t have any <br /> recent history
             </p>
           </div>
         </div>

@@ -72,7 +72,7 @@ export default function ToolTipModify({
             variants={buttonVariants}
             className={cn(
               "group bg-buu-button pointer-events-auto hover:bg-white hover:shadow-none group shadow-buu-button min-w-[30px] rounded-md flex items-center justify-center p-1.5",
-              { "opacity-50": isDragging }
+              { "opacity-50": isDragging },
             )}
             style={{ touchAction: "none" }}
           >

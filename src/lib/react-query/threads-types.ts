@@ -25,7 +25,7 @@ export type TGenerateImageResponse = {
 };
 
 export type TGetAllThreadsResponse = {
-  getThreads: { items: TAllRecentThreads[]  }| TError;
+  getThreads: { items: TAllRecentThreads[] } | TError;
 };
 
 export type TSubthread = {

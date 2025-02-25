@@ -61,7 +61,7 @@ export default function ImageDragAndDrop() {
               }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className={cn(
-                "max-w-[77px] max-h-[106px]  overflow-hidden dashed-border  rounded-md w-full h-full absolute top-0 left-0"
+                "max-w-[77px] max-h-[106px]  overflow-hidden dashed-border  rounded-md w-full h-full absolute top-0 left-0",
                 // { "border-2": isOver }
               )}
             >

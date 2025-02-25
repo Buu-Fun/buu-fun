@@ -1,15 +1,15 @@
 import {
-    cuteIcon,
-    EnvironmentIcon,
-    FantasyIcon,
-    GunsIcon,
-    LowPolyIcon,
-    MetallicIcon,
-    RealisticIcon,
-    SciFiIcon,
-    StylizedIcon,
-    ToonIcon,
-    VoxelIcon,
+  cuteIcon,
+  EnvironmentIcon,
+  FantasyIcon,
+  GunsIcon,
+  LowPolyIcon,
+  MetallicIcon,
+  RealisticIcon,
+  SciFiIcon,
+  StylizedIcon,
+  ToonIcon,
+  VoxelIcon,
 } from "@/assets/icons";
 import { SettingsState } from "@/lib/redux/features/settings";
 import Image from "next/image";

@@ -6,7 +6,7 @@ import LogoutIcon from "@/assets/icons/log-out-Icon";
 import SettingsIcon from "@/assets/icons/settings-icon";
 import { profileIcon } from "@/assets/Image";
 import { useWallet, walletType } from "@/providers/wallet.context";
-import { ChevronDown, HistoryIcon } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
