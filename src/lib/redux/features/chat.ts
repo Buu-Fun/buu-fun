@@ -1,6 +1,6 @@
+import { TSubthread as TResponseThread } from "@/lib/react-query/threads-types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { ChatState, TMediaRequest, TSubThread } from "./chat-types";
-import { TSubthread as TResponseThread } from "@/lib/react-query/threads-types";
 
 export type ChatMessage = {
   threadId: string;
@@ -13,6 +13,7 @@ export type ChatMessage = {
 
 const initialState: ChatState = {
   inputQuery: "",
+
   threads: {
     threadId: "",
     subThreads: [],
@@ -23,8 +24,15 @@ const ChatSlice = createSlice({
   name: "Chat",
   initialState,
   reducers: {
+    setDraggedImage(state, action: PayloadAction<string | undefined>) {
+      state.draggingImage = action.payload;
+    },
+    setPlacedImage(state, action: PayloadAction<string | undefined>) {
+      state.placedImage = action.payload;
+    },
     clearInput(state) {
       state.inputQuery = "";
+      state.placedImage = undefined;
     },
     setInputQuery(state, action: PayloadAction<string>) {
       state.inputQuery = action.payload;
@@ -83,7 +91,7 @@ const ChatSlice = createSlice({
                 modelMesh: modRes.model_mesh,
                 status: modRes.status,
                 type: modRes.type,
-              }),
+              })
             ),
         }));
         return {
@@ -96,7 +104,7 @@ const ChatSlice = createSlice({
       reducer(state, action: PayloadAction<TSubThread>) {
         console.log("PAYLOAD", action.payload);
         const index = state.threads.subThreads.findIndex(
-          (fv) => fv._id === action.payload._id,
+          (fv) => fv._id === action.payload._id
         );
 
         if (index !== -1) {
@@ -153,6 +161,8 @@ export const {
   setSubThreads,
   setSubThread,
   clearInput,
+  setPlacedImage,
+  setDraggedImage,
 } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

@@ -17,6 +17,7 @@ export default function ButtonActionExisting({
   const dispatch = useAppDispatch();
   const prompt = useAppSelector((state) => state.chat.inputQuery);
   const style = useAppSelector((state) => state.settings.ThreeDStyle);
+  // const selectedImage = useAppSelector(state=> state.chat.placedImage)
   const { getAccessToken } = useAuthentication();
   const { address, connect } = useWallet();
   const queryClient = useQueryClient();

@@ -45,5 +45,8 @@ export type ChatMessage = {
 
 export type ChatState = {
   inputQuery: string;
+  draggingImage?: string;
+  placedImage?: string;
+
   threads: ChatMessage;
 };
