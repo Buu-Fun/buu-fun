@@ -5,6 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { Ghost, Loader2, MessageCircle, TimerIcon } from "lucide-react";
+import { SheetClose } from "@/components/ui/sheet";
+import Link from "next/link";
+import { useAppDispatch } from "@/hooks/redux";
+import { setHistoryModel } from "@/lib/redux/features/settings";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 10 },
@@ -22,6 +26,7 @@ const itemVariants = {
 export default function HistoryNavigation() {
   //   const data = mockData;
   //   const isLoading = false;
+  const dispatch = useAppDispatch();
   const { getAccessToken } = useAuthentication();
   const { address } = useWallet();
   const { data, isLoading } = useQuery({
@@ -65,24 +70,33 @@ export default function HistoryNavigation() {
       variants={containerVariants}
     >
       {data?.items.map((item) => (
-        <motion.div
-          key={item._id}
-          className="border-buu bg-buu flex flex-col gap-2 shadow-buu-muted p-3 rounded-xl backdrop-blur-10"
-          variants={itemVariants}
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.999 }}
-        >
-          <div className="flex items-center gap-2">
-            <MessageCircle className="w-5 h-5 text-blue-300" />
-            <h1 className="line-clamp-1 font-medium text-foreground">
-              {item.title}
-            </h1>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <TimerIcon className="w-4 h-4 text-blue-300" />
-            {format(new Date(item.createdAt), "iii, do MMMM")}
-          </div>
-        </motion.div>
+        <SheetClose key={item._id} asChild>
+          <motion.div
+            className="border-buu relative bg-buu flex flex-col gap-2 shadow-buu-muted p-3 rounded-xl backdrop-blur-10 "
+            variants={itemVariants}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.999 }}
+          >
+            <Link
+              onClick={() => {
+                dispatch(setHistoryModel(false));
+              }}
+              prefetch={false}
+              href={`/generation/${item._id}`}
+              className="w-full top-0 left-0 absolute  h-full"
+            />
+            <div className="flex items-center gap-2">
+              <MessageCircle className="w-5 h-5 text-blue-300" />
+              <h1 className="line-clamp-1 font-medium text-foreground">
+                {item.title}
+              </h1>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <TimerIcon className="w-4 h-4 text-blue-300" />
+              {format(new Date(item.createdAt), "iii, do MMMM")}
+            </div>
+          </motion.div>
+        </SheetClose>
       ))}
     </motion.div>
   );

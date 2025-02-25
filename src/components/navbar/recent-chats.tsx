@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Sheet,
@@ -10,10 +11,19 @@ import {
 import { Button } from "../ui/button";
 import { HistoryIcon } from "lucide-react";
 import HistoryNavigation from "./history-navigation";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setHistoryModel } from "@/lib/redux/features/settings";
 
 export default function RecentChats() {
+  const isOpen = useAppSelector((state) => state.settings.isRecentChatOpen);
+  const dispatch = useAppDispatch();
   return (
-    <Sheet>
+    <Sheet
+      open={isOpen}
+      onOpenChange={(value) => {
+        dispatch(setHistoryModel(value));
+      }}
+    >
       <SheetTrigger asChild>
         <div className="flex  items-center gap-1 justify-center">
           <div>
