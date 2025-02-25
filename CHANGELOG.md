@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.12](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.11...buu-fun-v0.1.12) (2025-02-25)
+
+
+### 🐛 Bugfixes
+
+* recent chatbar is not linked with the page and added closing state ([d08526b](https://github.com/muadpn/buu-fun/commit/d08526bca36f73589adf191443ce5ef211f9323c))
+
 ## [0.1.11](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.10...buu-fun-v0.1.11) (2025-02-25)
 
 
