@@ -34,7 +34,7 @@ const iconByTitle: Record<TKey, ReactNode> = {
     />
   ),
   no_style: <div className="bg-[#2D323C] w-4 h-4 rounded-full" />,
-};
+} as Record<TKey, ReactNode>
 
 export default function SelectedStyles() {
   const selected = useAppSelector((state) => state.settings.ThreeDStyle);

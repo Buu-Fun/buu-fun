@@ -5,20 +5,12 @@ import { generateSubThreads } from "@/lib/react-query/threads";
 import { setNewThreadId } from "@/lib/redux/features/chat";
 import { useAuthentication } from "@/providers/account.context";
 import { useWallet, walletType } from "@/providers/wallet.context";
-import { nanoid } from "@reduxjs/toolkit";
 import { useMutation } from "@tanstack/react-query";
-import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 
 export default function ButtonActionCreate() {
   const { loading: isAuthLoading, getAccessToken } = useAuthentication();
-  const {
-    address,
-    loading: isWalletLoading,
-    openConnectionModal,
-    connect,
-    switchConnectionType,
-  } = useWallet();
+  const { address, loading: isWalletLoading, connect } = useWallet();
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -26,11 +18,13 @@ export default function ButtonActionCreate() {
   const style = useAppSelector((state) => state.settings.ThreeDStyle);
   const { mutate } = useMutation({
     mutationFn: generateSubThreads,
-    onSuccess(data, variables, context) {
+    onSuccess(data) {
       dispatch(setNewThreadId(data.threadId));
       router.push(`/generation/${data.threadId}`);
     },
-    onError(error, variables, context) {},
+    onError(error) {
+      console.log(error);
+    },
   });
   function handleNewChatCreation() {
     if (isAuthLoading || isWalletLoading || !address) return;
@@ -45,7 +39,6 @@ export default function ButtonActionCreate() {
       prompt: prompt,
       style: style,
     });
-
   }
 
   return (
