@@ -1,5 +1,5 @@
 import { ThreeDCubeOne } from "@/assets/Image";
-import { TMediaRequest } from "@/lib/redux/features/chat-types";
+import { TMediaRequest, TSubThread } from "@/lib/redux/features/chat-types";
 import { cn } from "@/lib/utils";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { AnimatePresence } from "framer-motion";
@@ -16,10 +16,12 @@ import Generate3DCard from "./generate-3d-card";
 const CurvedEmblaCarousel = ({
   modelRequest,
   subThreadId,
+  $SubThread,
 }: {
   threadId: string;
   subThreadId: string;
   modelRequest: TMediaRequest[];
+  $SubThread?: TSubThread;
 }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
@@ -43,7 +45,6 @@ const CurvedEmblaCarousel = ({
         setCurrent(modelRequest.length);
       }, 100);
     }
-
     // Update the ref to track changes
     prevLengthRef.current = modelRequest.length;
   }, [modelRequest.length, api]);
@@ -56,7 +57,10 @@ const CurvedEmblaCarousel = ({
         <Carousel
           opts={{
             align: "center",
-            startIndex: modelRequest.length - 1,
+            startIndex:
+              $SubThread && $SubThread.loadingNewGeneration
+                ? (modelRequest?.length ?? 0)
+                : modelRequest.length - 1,
             dragFree: false,
             watchDrag: false,
             watchResize: true,
@@ -65,6 +69,24 @@ const CurvedEmblaCarousel = ({
           plugins={[WheelGesturesPlugin()]}
           className="overflow-visible  pointer-events-none relative max-w-[264px] max-h-[370px] h-full w-full"
           setApi={setApi}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+          }}
+          onTouchCancel={(e) => {
+            e.stopPropagation();
+          }}
+          onTouchEnd={(e) => {
+            e.stopPropagation();
+          }}
+          onTouchMove={(e) => {
+            e.stopPropagation();
+          }}
+          onTouchStart={(e) => {
+            e.stopPropagation();
+          }}
+          onWheel={(e) => {
+            e.stopPropagation();
+          }}
         >
           <CarouselContent
             className="ml-0 relative h-full pointer-events-none w-full"
@@ -72,6 +94,7 @@ const CurvedEmblaCarousel = ({
           >
             <AnimatePresence>
               {modelRequest.map((item, index) => {
+      
                 const isCurrent = current === index + 1;
                 const distanceFromCenter = Math.abs(index + 1 - current);
                 const direction = current > index + 1 ? -1.2 : 1.2;

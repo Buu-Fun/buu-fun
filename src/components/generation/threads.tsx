@@ -89,31 +89,29 @@ export default function ThreadsWrapper({ threadId }: TThreadsWrapper) {
 
   const subThreads = useAppSelector((state) => state.chat.threads.subThreads);
 
-  // add carousel auto switch.
-
   return (
     <div className="flex-1 h-full scrollbar-w-hidden overflow-y-hidden  flex items-center justify-center mt-4 mr-[0.15vw] flex-col">
       <Carousel
-        draggable={false}
         opts={{
-          watchDrag: false,
+          watchDrag: true,
           watchResize: true,
           watchSlides: true,
           startIndex: subThreads.length - 1,
+          dragFree: false,
         }}
         plugins={[WheelGesturesPlugin()]}
         orientation="vertical"
-        className="w-full h-full pointer-events-none relative "
+        className="w-full h-full relative z-0"
       >
         <CarouselContent
-          containerClass="w-full h-full pointer-events-none"
+          containerClass="w-full h-full "
           className="w-full h-full pointer-events-none"
         >
           {subThreads.map((subThread, index) => (
             <CarouselItem
               draggable={false}
               key={index}
-              className=" pointer-events-none py-4 w-full h-full basis-full  "
+              className="relative  py-4 w-full h-full basis-full  "
             >
               <ThreeDGenerationWrapper
                 key={`sub-threads${subThread._id}-${threadId}`}

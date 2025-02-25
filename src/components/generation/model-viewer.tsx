@@ -1,6 +1,8 @@
 import { ThreeDCubeOne } from "@/assets/Image";
 import "@google/model-viewer";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+
 interface ModelViewerComponentProps {
   src: string;
   poster?: string | null;
@@ -14,9 +16,52 @@ export default function ModelViewer({
   poster,
   alt = "A 3D model",
 }: ModelViewerComponentProps) {
-  console.log(src);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!ref.current) return;
+    const stopPropagation = (e: Event) => {
+      e.stopPropagation();
+    };
+    ref.current.addEventListener("mousedown", stopPropagation);
+    ref.current.addEventListener("touchcancel", stopPropagation);
+    ref.current.addEventListener("touchend", stopPropagation);
+    ref.current.addEventListener("touchmove", stopPropagation);
+    ref.current.addEventListener("wheel", stopPropagation);
+    ref.current.addEventListener("touchstart", stopPropagation);
+    return () => {
+      if (!ref.current) return;
+      ref.current.removeEventListener("mousedown", stopPropagation);
+      ref.current.removeEventListener("touchcancel", stopPropagation);
+      ref.current.removeEventListener("touchend", stopPropagation);
+      ref.current.removeEventListener("touchmove", stopPropagation);
+      ref.current.removeEventListener("wheel", stopPropagation);
+      ref.current.removeEventListener("touchstart", stopPropagation);
+    };
+  });
   return (
-    <div className="w-full h-full ">
+    <div
+      // onTouch
+      ref={ref}
+      onMouseDown={(e) => {
+        e.stopPropagation();
+      }}
+      onTouchCancel={(e) => {
+        e.stopPropagation();
+      }}
+      onTouchEnd={(e) => {
+        e.stopPropagation();
+      }}
+      onTouchMove={(e) => {
+        e.stopPropagation();
+      }}
+      onTouchStart={(e) => {
+        e.stopPropagation();
+      }}
+      onWheel={(e) => {
+        e.stopPropagation();
+      }}
+      className="w-full h-full "
+    >
       <model-viewer
         style={
           {
