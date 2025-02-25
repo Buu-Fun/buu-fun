@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SubthreadStyle } from "@/gql/types/graphql";
 export type TError = {
-    code: string;
-    message: string;
-  };
+  code: string;
+  message: string;
+};
 export type GenerateSubthreadResponse = {
   generateSubthread:
     | TSubthread
@@ -13,10 +14,15 @@ export type GenerateSubthreadResponse = {
 };
 
 export type TGetSubThreadsResponse = {
-    getSubthreads: 
-    | {items: TSubthread[]}
-    | TError
-}
+  getSubthreads: { items: TSubthread[] } | TError;
+};
+
+export type TGetSubThreadResponse = {
+  getSubthread: TSubthread | TError;
+};
+export type TGenerateImageResponse = {
+  generateImage: TSubthread | TError;
+};
 
 export type TSubthread = {
   _id: string;
@@ -42,7 +48,7 @@ export type TSubthread = {
       file_name: string;
       file_size: number;
       url: string;
-    };
+    } | null;
     timings: {
       inference: number;
     };
@@ -64,7 +70,7 @@ export type TSubthread = {
       file_name: string;
       file_size: number;
       url: string;
-    };
+    } | null;
     timings: {
       inference: number;
     };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type TMediaData = {
   content_type: string;
   file_name: string;
@@ -16,7 +17,7 @@ export type TMediaRequest = {
   //type of image
   type: string;
   images: TMediaData[];
-  modelMesh: TMediaData;
+  modelMesh: TMediaData | null;
 };
 
 export type TSubThread = {

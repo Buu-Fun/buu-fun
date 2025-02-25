@@ -1,14 +1,15 @@
-import { gqlEndpoint } from "@/config/getGqlEndpoint";
 import { serverRequest } from "@/gql/client";
 import {
+  GenerateImageMutation,
   GenerateSubthreadMutation,
+  GetSubthreadQuery,
   GetSubthreadsQuery,
 } from "@/gql/documents/creative-engine";
-import { SubthreadStyle } from "@/gql/types/graphql";
-import request from "graphql-request";
 import { TThreeDStyles } from "../redux/features/settings";
 import {
   GenerateSubthreadResponse,
+  TGenerateImageResponse,
+  TGetSubThreadResponse,
   TGetSubThreadsResponse,
 } from "./threads-types";
 
@@ -63,4 +64,44 @@ export async function getSubThreads(threadId: string, accessToken: string) {
     throw new Error(data.getSubthreads.message, { cause: "INVALID_DATA" });
   }
   return data.getSubthreads;
+}
+
+export async function getSubThread(subThreadId: string, accessToken: string) {
+  const data = await serverRequest<TGetSubThreadResponse>(
+    GetSubthreadQuery,
+    {
+      subthreadId: subThreadId,
+    },
+    {
+      Authorization: `Bearer ${accessToken}`,
+    }
+  );
+
+  if ("code" in data.getSubthread) {
+    throw new Error(data.getSubthread.message, { cause: "INVALID_DATA" });
+  }
+  return data.getSubthread;
+}
+
+export async function mutateGenerateNewImage({
+  accessToken,
+  subthreadId,
+}: {
+  subthreadId: string;
+  accessToken: string;
+}) {
+  const data = await serverRequest<TGenerateImageResponse>(
+    GenerateImageMutation,
+    {
+      subthreadId: subthreadId,
+    },
+    {
+      Authorization: `Bearer ${accessToken}`,
+    }
+  );
+
+  if ("code" in data.generateImage) {
+    throw new Error(data.generateImage.message, { cause: "INVALID_DATA" });
+  }
+  return data.generateImage;
 }
