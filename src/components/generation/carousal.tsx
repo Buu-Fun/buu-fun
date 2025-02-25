@@ -94,7 +94,6 @@ const CurvedEmblaCarousel = ({
           >
             <AnimatePresence>
               {modelRequest.map((item, index) => {
-      
                 const isCurrent = current === index + 1;
                 const distanceFromCenter = Math.abs(index + 1 - current);
                 const direction = current > index + 1 ? -1.2 : 1.2;
@@ -123,7 +122,7 @@ const CurvedEmblaCarousel = ({
                     }}
                     className={cn(
                       "relative pl-0  border-buu  pointer-events-none select-none max-w-[264px]  max-h-[370px] h-full rounded-lg shadow-lg",
-                      "transition-all duration-500 ease-out"
+                      "transition-all duration-500 ease-out",
                     )}
                   >
                     <Generate3DCard

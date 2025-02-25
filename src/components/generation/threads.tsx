@@ -42,7 +42,7 @@ export default function ThreadsWrapper({ threadId }: TThreadsWrapper) {
 
       return await getSubThreads(
         threadId,
-        getAccessToken(accessToken ?? "") ?? ""
+        getAccessToken(accessToken ?? "") ?? "",
       );
     },
 

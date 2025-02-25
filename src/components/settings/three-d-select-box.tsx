@@ -1,5 +1,10 @@
-import { LowPoly, Metallic, Realistic } from "@/assets/Image";
-import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  changeThreeDStyles,
+  setStyleSelectChange,
+  threeDStyles,
+  TThreeDStyles,
+} from "@/lib/redux/features/settings";
 import {
   Select,
   SelectContent,
@@ -7,23 +12,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  changeThreeDStyles,
-  threeDStyles,
-} from "@/lib/redux/features/settings";
+import { iconByTitle } from "./styles-data";
 
 export default function ThreeDSelectBox() {
   const dispatch = useAppDispatch();
-  const selected = useAppSelector((state) => state.settings.ThreeDStyle);
+  const selected = useAppSelector((state) => state.settings);
   return (
     <div className="mt-6">
       <p className="uppercase text-sm font-semibold mb-3">style</p>
       <Select
-        value={selected}
+        open={selected.isStyleBoxOpen}
+        onOpenChange={(value) => {
+          dispatch(setStyleSelectChange(value));
+        }}
+        value={selected.ThreeDStyle}
         // This is disabled because it could be any value also added defensive statement to check whether the value is right one.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onValueChange={(value: any) => {
+        onValueChange={(value: TThreeDStyles) => {
           if (threeDStyles.includes(value)) {
             dispatch(changeThreeDStyles(value));
             return;
@@ -42,7 +46,27 @@ export default function ThreeDSelectBox() {
           />
         </SelectTrigger>
         <SelectContent className="bg-[#1C2129] border-none shadow-buu-muted border-buu  ">
-          <SelectItem
+          {Object.values(iconByTitle).map(({ displayName, value, Icon }) => (
+            <SelectItem
+              key={`${displayName}-${value}-styles-selector`}
+              className="focus:bg-[#252931] pl-4 border-none backdrop-blur-10   py-3"
+              value={value}
+            >
+              <div className="flex items-center justify-center gap-2 ">
+                <div className="h-4 w-4">{Icon}</div>
+                {/* <div className="bg-[#2D323C] w-4 h-4 rounded-full" /> */}
+                <span>{displayName}</span>
+              </div>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>{" "}
+    </div>
+  );
+}
+
+{
+  /* <SelectItem
             className="focus:bg-[#252931] pl-4 border-none backdrop-blur-10   py-3"
             value={"no_style"}
           >
@@ -97,9 +121,5 @@ export default function ThreeDSelectBox() {
               />
               <span>Low Poly</span>
             </div>
-          </SelectItem>
-        </SelectContent>
-      </Select>{" "}
-    </div>
-  );
+          </SelectItem> */
 }

@@ -105,7 +105,7 @@ export default function Generate3DCard({
           "absolute -bottom-4 z-50 flex items-center gap-2 justify-center w-full",
           {
             hidden: !showToolTip,
-          }
+          },
         )}
       >
         <ToolBarToolTips subThreadId={subThreadId} />

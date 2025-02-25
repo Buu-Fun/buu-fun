@@ -9,7 +9,6 @@ export default function FilterIcon() {
       viewBox="0 0 17 17"
       className="fill-white transition-colors duration-200"
       fill="currentColor"
-
     >
       <path
         opacity="0.6"
