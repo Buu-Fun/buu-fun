@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.11](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.10...buu-fun-v0.1.11) (2025-02-25)
+
+
+### ✨ Features
+
+* added history button and implemented query ([e5cf2ce](https://github.com/muadpn/buu-fun/commit/e5cf2ce674e18dd46a8d17cae780a93ba3b07c63))
+* added null data state for history ([476b232](https://github.com/muadpn/buu-fun/commit/476b232f5268cbf323807ae64a4ac2866702f54e))
+* added shadcn sheets ([de12162](https://github.com/muadpn/buu-fun/commit/de121626d73c86c8e218c1a303eb2dd502b8817f))
+
+
+### 🐛 Bugfixes
+
+* **lint:** linted the codebase and formatted ([c0ceffa](https://github.com/muadpn/buu-fun/commit/c0ceffac9a60000186aab7e45e5fbcf1f8463b8e))
+
 ## [0.1.10](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.9...buu-fun-v0.1.10) (2025-02-25)
 
 
