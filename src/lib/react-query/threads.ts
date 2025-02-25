@@ -4,11 +4,13 @@ import {
   GenerateSubthreadMutation,
   GetSubthreadQuery,
   GetSubthreadsQuery,
+  GetThreadsQuery,
 } from "@/gql/documents/creative-engine";
 import { TThreeDStyles } from "../redux/features/settings";
 import {
   GenerateSubthreadResponse,
   TGenerateImageResponse,
+  TGetAllThreadsResponse,
   TGetSubThreadResponse,
   TGetSubThreadsResponse,
 } from "./threads-types";
@@ -37,7 +39,7 @@ export async function generateSubThreads({
     },
     {
       Authorization: `Bearer ${accessToken}`,
-    },
+    }
   );
 
   if ("code" in data.generateSubthread) {
@@ -57,7 +59,7 @@ export async function getSubThreads(threadId: string, accessToken: string) {
     },
     {
       Authorization: `Bearer ${accessToken}`,
-    },
+    }
   );
 
   if ("code" in data.getSubthreads) {
@@ -74,7 +76,7 @@ export async function getSubThread(subThreadId: string, accessToken: string) {
     },
     {
       Authorization: `Bearer ${accessToken}`,
-    },
+    }
   );
 
   if ("code" in data.getSubthread) {
@@ -97,11 +99,33 @@ export async function mutateGenerateNewImage({
     },
     {
       Authorization: `Bearer ${accessToken}`,
-    },
+    }
   );
 
   if ("code" in data.generateImage) {
     throw new Error(data.generateImage.message, { cause: "INVALID_DATA" });
   }
   return data.generateImage;
+}
+
+// GetThreadsQuery
+
+export async function getAllThreads(accessToken: string) {
+  const data = await serverRequest<TGetAllThreadsResponse>(
+    GetThreadsQuery,
+    {
+      filters: {},
+      pagination: {
+        limit: 25,
+      },
+    },
+    {
+      Authorization: `Bearer ${accessToken}`,
+    }
+  );
+
+  if ("code" in data.getThreads) {
+    throw new Error(data.getThreads.message, { cause: "INVALID_DATA" });
+  }
+  return data.getThreads;
 }

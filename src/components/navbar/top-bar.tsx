@@ -6,35 +6,40 @@ import LogoutIcon from "@/assets/icons/log-out-Icon";
 import SettingsIcon from "@/assets/icons/settings-icon";
 import { profileIcon } from "@/assets/Image";
 import { useWallet, walletType } from "@/providers/wallet.context";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, HistoryIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import CopyAddress from "./copy-address";
 import CreditUsedIcon from "./credit-used-icon";
+import RecentChats from "./recent-chats";
 export default function Topbar() {
   const { address, disconnect, connect } = useWallet();
   const shouldConnect = !address;
   return (
-    <div className="flex items-center justify-end pr-10 py-6">
+    <div className="flex items-center justify-between pr-10 py-6">
+      {/* {!shouldConnect ? <RecentChats /> : null} */}
+      <RecentChats />
       {shouldConnect ? (
-        <Button
-          onClick={() => {
-            connect(walletType);
-          }}
-          className="px-2 group py-2 h-auto rounded-[10px]"
-        >
-          <Image
-            className="w-6 h-6 group-hover:brightness-90 transition-all duration-300 ease-in"
-            src={AddImage.src}
-            alt="connect wallet icon"
-            width={100}
-            height={100}
-          />
-          Connect Wallet
-        </Button>
+        <div className="w-full flex justify-end">
+          <Button
+            onClick={() => {
+              connect(walletType);
+            }}
+            className="px-2 group py-2 h-auto rounded-[10px]"
+          >
+            <Image
+              className="w-6 h-6 group-hover:brightness-90 transition-all duration-300 ease-in"
+              src={AddImage.src}
+              alt="connect wallet icon"
+              width={100}
+              height={100}
+            />
+            Connect Wallet
+          </Button>
+        </div>
       ) : (
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center self-end justify-center gap-2">
           <CreditUsedIcon />
           <Popover>
             <PopoverTrigger asChild>
