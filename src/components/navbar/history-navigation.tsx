@@ -3,7 +3,7 @@ import { getAllThreads } from "@/lib/react-query/threads";
 import { useAuthentication } from "@/providers/account.context";
 import { useWallet } from "@/providers/wallet.context";
 import { useQuery } from "@tanstack/react-query";
-import { Loader2, MessageCircle, TimerIcon } from "lucide-react";
+import { Ghost, Loader2, MessageCircle, TimerIcon } from "lucide-react";
 import React from "react";
 import { mockData } from "./mock-navigational-data";
 import { format } from "date-fns";
@@ -40,7 +40,21 @@ export default function HistoryNavigation() {
         <div className="flex items-center justify-center flex-col w-full">
           <div className="flex items-center justify-center flex-col w-full">
             <Loader2 className="animate-spin" />
-            <h1>Loading recent chats</h1>
+            <p>Loading recent chats</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  if (!data?.items.length) {
+    return (
+      <div className="flex  items-center justify-center w-full h-[80%]">
+        <div className="flex items-center justify-center flex-col w-full">
+          <div className="flex items-center justify-center flex-col w-full">
+            <Ghost className="w-10 h-10 text-blue-300" />
+            <p className="text-lg text-center leading-5 mt-2">
+              You don't have any <br /> recent history
+            </p>
           </div>
         </div>
       </div>
