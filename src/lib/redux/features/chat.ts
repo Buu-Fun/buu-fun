@@ -63,6 +63,7 @@ const ChatSlice = createSlice({
               return {
                 _id: imgRes._id,
                 images: imgRes.images,
+
                 modelMesh: imgRes.model_mesh,
                 metadata: imgRes.metadata,
                 status: imgRes.status,
@@ -88,10 +89,66 @@ const ChatSlice = createSlice({
         };
       },
     },
+
+    setSubThread: {
+      reducer(state, action: PayloadAction<TSubThread>) {
+        console.log("PAYLOAD", action.payload);
+        const index = state.threads.subThreads.findIndex(
+          (fv) => fv._id === action.payload._id
+        );
+
+        if (index !== -1) {
+          // Replace the existing object
+          state.threads.subThreads[index] = action.payload;
+        } else {
+          // Add new subThread
+          state.threads.subThreads.push(action.payload);
+        }
+      },
+      prepare(payload: TResponseThread) {
+        const data: TSubThread = {
+          ...payload,
+          message: payload.prompt,
+          modelRequest:
+            payload.modelRequests &&
+            payload.modelRequests.map((imgRes) => {
+              return {
+                _id: imgRes._id,
+                images: imgRes.images,
+                modelMesh: imgRes.model_mesh,
+                metadata: imgRes.metadata,
+                status: imgRes.status,
+                type: imgRes.type,
+              };
+            }),
+          imageRequest:
+            payload.imageRequests &&
+            payload.imageRequests.map((imgRes) => {
+              return {
+                _id: imgRes._id,
+                images: imgRes.images,
+                modelMesh: imgRes.model_mesh,
+                metadata: imgRes.metadata,
+                status: imgRes.status,
+                type: imgRes.type,
+              };
+            }),
+        };
+        return {
+          payload: data,
+        };
+      },
+    },
   },
 });
 
-export const { setInputQuery, addWords, setNewThreadId, setSubThreads } =
-  ChatSlice.actions;
+export const {
+  setInputQuery,
+  addWords,
+  setNewThreadId,
+  setSubThreads,
+  setSubThread,
+  clearInput,
+} = ChatSlice.actions;
 
 export default ChatSlice.reducer;
