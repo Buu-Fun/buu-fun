@@ -4,7 +4,7 @@ import ButtonActionCreate from "./button-action-create";
 import ButtonActionExisting from "./button-action-existing";
 import ChatTextArea from "./chat-text-area";
 type TBottomBarContainer = {
-  action: "new_chat" | { chat_id: string };
+  action: "new_chat" | { threadId: string };
 };
 export default function BottomBarContainer({ action }: TBottomBarContainer) {
   return (
@@ -18,7 +18,7 @@ export default function BottomBarContainer({ action }: TBottomBarContainer) {
             {action === "new_chat" ? (
               <ButtonActionCreate />
             ) : (
-              <ButtonActionExisting chat_id={action.chat_id} />
+              <ButtonActionExisting threadId={action.threadId} />
             )}
           </div>
         </div>
