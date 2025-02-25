@@ -23,6 +23,9 @@ const ChatSlice = createSlice({
   name: "Chat",
   initialState,
   reducers: {
+    clearInput(state) {
+      state.inputQuery = "";
+    },
     setInputQuery(state, action: PayloadAction<string>) {
       state.inputQuery = action.payload;
     },
@@ -41,6 +44,7 @@ const ChatSlice = createSlice({
     setNewThreadId(state, action: PayloadAction<string>) {
       state.threads.threadId = action.payload;
       state.threads.subThreads = [];
+      state.inputQuery = "";
     },
     setSubThreads: {
       reducer(state, action: PayloadAction<TSubThread[]>) {
