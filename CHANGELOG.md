@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.1.10](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.9...buu-fun-v0.1.10) (2025-02-25)
+
+
+### ✨ Features
+
+* added state for popover and settings and new styles data ([f0d19fc](https://github.com/muadpn/buu-fun/commit/f0d19fcc5a6015be4325c3e6d5c24d5a0525aeea))
+
+
+### 🐛 Bugfixes
+
+* added new settings for styles ([c9f8602](https://github.com/muadpn/buu-fun/commit/c9f86029b8ef9f14763cd0cdd34ab55f2af9464f))
+
+
+### 👽 Miscellaneous
+
+* **lint:** linted and formatted the codebase ([dc94e9a](https://github.com/muadpn/buu-fun/commit/dc94e9a5a46ec2e4c5b27d03deedb5a43d1e30a7))
+
 ## [0.1.9](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.8...buu-fun-v0.1.9) (2025-02-25)
 
 
