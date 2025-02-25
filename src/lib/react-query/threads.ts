@@ -4,11 +4,13 @@ import {
   GenerateSubthreadMutation,
   GetSubthreadQuery,
   GetSubthreadsQuery,
+  GetThreadsQuery,
 } from "@/gql/documents/creative-engine";
 import { TThreeDStyles } from "../redux/features/settings";
 import {
   GenerateSubthreadResponse,
   TGenerateImageResponse,
+  TGetAllThreadsResponse,
   TGetSubThreadResponse,
   TGetSubThreadsResponse,
 } from "./threads-types";
@@ -104,4 +106,26 @@ export async function mutateGenerateNewImage({
     throw new Error(data.generateImage.message, { cause: "INVALID_DATA" });
   }
   return data.generateImage;
+}
+
+// GetThreadsQuery
+
+export async function getAllThreads(accessToken: string) {
+  const data = await serverRequest<TGetAllThreadsResponse>(
+    GetThreadsQuery,
+    {
+      filters: {},
+      pagination: {
+        limit: 25,
+      },
+    },
+    {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  );
+
+  if ("code" in data.getThreads) {
+    throw new Error(data.getThreads.message, { cause: "INVALID_DATA" });
+  }
+  return data.getThreads;
 }

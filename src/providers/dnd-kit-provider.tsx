@@ -1,11 +1,7 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setDraggedImage, setPlacedImage } from "@/lib/redux/features/chat";
-import {
-    DndContext,
-    DragEndEvent,
-    DragOverlay
-} from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverlay } from "@dnd-kit/core";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { ReactNode, useState } from "react";

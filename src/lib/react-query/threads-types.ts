@@ -24,6 +24,10 @@ export type TGenerateImageResponse = {
   generateImage: TSubthread | TError;
 };
 
+export type TGetAllThreadsResponse = {
+  getThreads: { items: TAllRecentThreads[] } | TError;
+};
+
 export type TSubthread = {
   _id: string;
   address: string;
@@ -75,4 +79,12 @@ export type TSubthread = {
       inference: number;
     };
   }>;
+};
+
+export type TAllRecentThreads = {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  address: string;
+  title: string;
 };

@@ -198,6 +198,7 @@ export const GetThreadsQuery = gql`
           _id
           createdAt
           updatedAt
+          title
           address
         }
         metadata {
