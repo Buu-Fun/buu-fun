@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.9](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.8...buu-fun-v0.1.9) (2025-02-25)
+
+
+### ✨ Features
+
+* **gql:** added gql client and types along with wallet models ([ff4380c](https://github.com/muadpn/buu-fun/commit/ff4380c0f969b004dae151bda6a2e9d448f26c68))
+* **routes:** added routes profiles to view current user profile and address ([d3048d3](https://github.com/muadpn/buu-fun/commit/d3048d39bdb770a5ade84d0395a52b7f8f99d2ff))
+* **wallet:** added wallet modals and context to share wallet states across routers ([3d01a78](https://github.com/muadpn/buu-fun/commit/3d01a78d0b6746cadc78f79adc34484d867bee81))
+
+
+### 👽 Miscellaneous
+
+* **assets:** added assets and imported to index file ([c34d7c9](https://github.com/muadpn/buu-fun/commit/c34d7c9e52f66d05ff3d5c9adf826a92b65df4ef))
+* **formatted:** formatted the codebase for easier read. ([4a81b28](https://github.com/muadpn/buu-fun/commit/4a81b283e43109059de6ec0b2fd6dc3477c76df6))
+* **lint:** linted the codebase and removed errors ([0a170e9](https://github.com/muadpn/buu-fun/commit/0a170e94ee46a7cbb7876aa150443f27209c9fdf))
+
 ## [0.1.8](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.7...buu-fun-v0.1.8) (2025-02-20)
 
 
