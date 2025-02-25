@@ -275,6 +275,7 @@ export enum SubthreadStyle {
   Wireframe = "Wireframe",
 }
 
+
 export type SubthreadsPage = {
   __typename?: "SubthreadsPage";
   items: Array<Subthread>;

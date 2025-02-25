@@ -108,6 +108,10 @@ body {
   height: 0.25rem;
 }
 
+.scrollbar-w-hidden::-webkit-scrollbar {
+  width: 0rem;
+  height: 0rem;
+}
 .scrollbar-track-orange-lighter::-webkit-scrollbar-track {
   --bg-opacity: 0.5;
   background-color: #00000015;
@@ -278,3 +282,10 @@ body {
     4.848px -5.333px 33.333px 0px rgba(16, 19, 28, 0.3),
     0px 0px 11.556px 4.444px rgba(44, 55, 68, 0.8) inset;
 }
+
+.poster {
+  width: "100%";
+  height: "100%";
+}
+
+

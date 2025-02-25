@@ -1,31 +1,44 @@
 "use client";
 import { ArrowUp } from "@/assets/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { ChatMessage, setNewChatMessage } from "@/lib/redux/features/chat";
-import { nanoid } from "@reduxjs/toolkit";
-import { format } from "date-fns";
+import { generateSubThreads } from "@/lib/react-query/threads";
+import { setNewThreadId } from "@/lib/redux/features/chat";
+import { useAuthentication } from "@/providers/account.context";
+import { useWallet, walletType } from "@/providers/wallet.context";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 export default function ButtonActionCreate() {
+  const { loading: isAuthLoading, getAccessToken } = useAuthentication();
+  const { address, loading: isWalletLoading, connect } = useWallet();
+
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const query = useAppSelector((state) => state.chat.inputQuery);
-
+  const prompt = useAppSelector((state) => state.chat.inputQuery);
+  const style = useAppSelector((state) => state.settings.ThreeDStyle);
+  const { mutate } = useMutation({
+    mutationFn: generateSubThreads,
+    onSuccess(data) {
+      dispatch(setNewThreadId(data.threadId));
+      router.push(`/generation/${data.threadId}`);
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
   function handleNewChatCreation() {
-    const data: ChatMessage = {
-      chat_id: nanoid(),
-      message: [
-        {
-          time: format(new Date(), "KK:mm:a"),
-          id: nanoid(),
-          message: query,
-        },
-      ],
-    };
+    if (isAuthLoading || isWalletLoading || !address) return;
 
-    dispatch(setNewChatMessage(data));
-    router.push(`/generation/${data.chat_id}`);
+    if (!address) {
+      connect(walletType);
+      return;
+    }
+
+    mutate({
+      accessToken: getAccessToken(address) ?? "",
+      prompt: prompt,
+      style: style,
+    });
   }
 
   return (

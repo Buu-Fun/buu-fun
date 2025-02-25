@@ -1,71 +1,114 @@
 "use client";
-import Generate3DCard from "@/components/generation/generate-3d-card";
-import { ThreeDCubeFour, ThreeDCubeThree, ThreeDCubeTwo } from "@/assets/Image";
+import { TSubThread } from "@/lib/redux/features/chat-types";
+import CurvedEmblaCarousel from "./carousal";
+import { format } from "date-fns";
+import { useQuery } from "@tanstack/react-query";
+import { getSubThread } from "@/lib/react-query/threads";
+import { useAuthentication } from "@/providers/account.context";
+import { useWallet } from "@/providers/wallet.context";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { updateChatMessageImage } from "@/lib/redux/features/chat";
-import { getRandomInteger } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
+import { setSubThread } from "@/lib/redux/features/chat";
+import { getSubThreadsFromStore } from "@/lib/redux/selectors/chat";
+import { cn } from "@/lib/utils";
 
 type TThreeDGenerationWrapper = {
-  id: string;
+  threadId: string;
+  subThread: TSubThread;
 };
-const randomImages = [
-  {
-    url: ThreeDCubeFour.src,
-    alt: "ThreeD-cubes ThreeDCubeFour",
-  },
-
-  {
-    url: ThreeDCubeTwo.src,
-    alt: "ThreeD-cubes ThreeDCubeTwo",
-  },
-  {
-    url: ThreeDCubeThree.src,
-    alt: "ThreeD-cubes ThreeDCubeThree",
-  },
-];
 
 export default function ThreeDGenerationWrapper({
-  id,
+  threadId,
+  subThread,
 }: TThreeDGenerationWrapper) {
-  const selected = useAppSelector((state) => state.chat.chat);
-  console.log(selected);
-  const timerRef = useRef<NodeJS.Timeout>(null);
-  const dispatch = useAppDispatch();
-  const [isGenerating, setIsGenerating] = useState(true);
-  useEffect(() => {
-    timerRef.current = setTimeout(() => {
-      const index = getRandomInteger(randomImages.length);
-      const image = randomImages[index]!;
-      console.log(image);
-      dispatch(updateChatMessageImage(image));
-      setIsGenerating(false);
-    }, 6000);
-    return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-    };
-  }, [id, dispatch]);
+  const { getAccessToken } = useAuthentication();
+  const { address } = useWallet();
+  const $SubThread = useAppSelector((state) =>
+    getSubThreadsFromStore(state, subThread._id)
+  );
 
-  if (!selected) {
-    return <>no chat history found</>;
-  }
+  const { data } = useQuery({
+    queryKey: [subThread._id, "get-sub-thread"],
+    queryFn: async () => {
+      const accessToken = getAccessToken(address ?? "");
+      return await getSubThread(subThread._id, accessToken ?? "");
+    },
+    enabled: (query) => {
+      // check if there is no model request, if not return enabled.
+      if (
+        !subThread?.modelRequest?.length ||
+        !subThread?.imageRequest ||
+        !$SubThread
+      ) {
+        console.log("Some ModelRequest aren't found");
+        return true;
+      }
+
+      // there is new image but no subThreads. meaning a new model is generating...
+      if (subThread?.modelRequest.length !== subThread?.imageRequest.length) {
+        return true;
+      }
+
+      // check if there is any request's are in Progress, if so return true
+      const isPendingFoundInQuery = query.state.data?.modelRequests?.find(
+        (item) => item.status === "InProgress"
+      );
+      const isPendingFoundInState = $SubThread.modelRequest.find(
+        (item) => item.status === "InProgress"
+      );
+
+      if (isPendingFoundInQuery?._id || isPendingFoundInState?._id) return true;
+
+      return false;
+    },
+    refetchInterval: 3500,
+  });
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (data && data._id) {
+      dispatch(setSubThread(data));
+    }
+  }, [dispatch, data]);
 
   return (
-    <div className="flex items-center justify-center flex-col gap-4">
-      <div className="bg-buu shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
+    <div className="flex  items-center pointer-events-none  justify-center h-full     flex-col gap-4">
+      <div className="bg-buu  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
         <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">
-          {selected.message[0].time}
+          {/* {selected?.message[ZERO][ZERO]?.time ?? "07:00:AM"} */}
+          {format($SubThread?.createdAt ?? Date.now(), "KK:mm:a")}
+          {/* {id} */}
         </p>
       </div>
-      <h2 className="text-2xl font-medium tracking-tighter">
-        {selected.message[0].message}
+      <h2
+        className={cn(
+          "text-2xl max-w-md text-center  relative font-medium tracking-tighter",
+          {
+            "text-xl": $SubThread && $SubThread?.message?.length > 40,
+            "text-lg": $SubThread && $SubThread?.message?.length > 80,
+            "text-base": $SubThread && $SubThread?.message?.length > 120,
+            "text-sm line-clamp-3":
+              $SubThread && $SubThread?.message?.length > 160,
+          }
+        )}
+      >
+        {$SubThread?.message}
       </h2>
-      <Generate3DCard
-        chatMessage={selected.message[0]!}
-        isGenerating={isGenerating}
-      />
+      <div className="flex items-center max-h-[370px]   justify-center w-full h-full">
+        <div className="flex items-center  max-h-[370px] h-full   justify-center max-w-sm ">
+          <CurvedEmblaCarousel
+            $SubThread={$SubThread}
+            threadId={threadId}
+            subThreadId={$SubThread ? $SubThread?._id : ""}
+            modelRequest={
+              $SubThread?.modelRequest && $SubThread?.modelRequest.length
+                ? $SubThread?.modelRequest
+                : []
+            }
+          />
+        </div>
+      </div>
     </div>
   );
 }

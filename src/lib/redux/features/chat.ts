@@ -1,28 +1,31 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-export type Message = {
-  id: string;
-  time: string;
-  message: string;
-  url?: string;
-  alt?: string | null;
-};
+import { ChatState, TMediaRequest, TSubThread } from "./chat-types";
+import { TSubthread as TResponseThread } from "@/lib/react-query/threads-types";
+
 export type ChatMessage = {
-  chat_id: string;
-  message: Message[];
+  threadId: string;
+  message: [][];
 };
-type ChatState = {
-  inputQuery: string;
-  chat?: ChatMessage;
-};
+// type ChatState = {
+//   inputQuery: string;
+//   chat: ChatMessage;
+// };
 
 const initialState: ChatState = {
   inputQuery: "",
+  threads: {
+    threadId: "",
+    subThreads: [],
+  },
 };
 
 const ChatSlice = createSlice({
   name: "Chat",
   initialState,
   reducers: {
+    clearInput(state) {
+      state.inputQuery = "";
+    },
     setInputQuery(state, action: PayloadAction<string>) {
       state.inputQuery = action.payload;
     },
@@ -38,25 +41,107 @@ const ChatSlice = createSlice({
         state.inputQuery = words.join(" ") + " ";
       }
     },
-
-    setNewChatMessage(
-      state,
-      action: PayloadAction<Exclude<ChatState["chat"], undefined>>,
-    ) {
-      state.chat = action.payload;
+    setNewThreadId(state, action: PayloadAction<string>) {
+      state.threads.threadId = action.payload;
+      state.threads.subThreads = [];
       state.inputQuery = "";
     },
-    updateChatMessageImage(
-      state,
-      action: PayloadAction<{ alt: string; url: string }>,
-    ) {
-      const zero = 0;
-      if (state.chat?.message[zero]) {
-        const message = { ...state.chat?.message[zero] };
-        message.url = action.payload.url;
-        message.alt = action.payload.alt;
-        state.chat.message[zero] = message;
-      }
+    setSubThreads: {
+      reducer(state, action: PayloadAction<TSubThread[]>) {
+        state.threads.subThreads = action.payload;
+      },
+
+      prepare(payload: TResponseThread[]) {
+        const data: TSubThread[] = payload.map((item) => ({
+          _id: item._id,
+          loadingNewGeneration:
+            item?.imageRequests?.length !== item?.modelRequests?.length,
+          createdAt: item.createdAt,
+          style: item.style,
+          threadId: item.threadId,
+          imageRequest:
+            item.imageRequests &&
+            item.imageRequests.map((imgRes): TMediaRequest => {
+              return {
+                _id: imgRes._id,
+                images: imgRes.images,
+
+                modelMesh: imgRes.model_mesh,
+                metadata: imgRes.metadata,
+                status: imgRes.status,
+                type: imgRes.type,
+              };
+            }),
+          message: item.prompt,
+          modelRequest:
+            item.modelRequests &&
+            item.modelRequests.map(
+              (modRes): TMediaRequest => ({
+                _id: modRes._id,
+                images: modRes.images,
+                metadata: modRes.metadata,
+                modelMesh: modRes.model_mesh,
+                status: modRes.status,
+                type: modRes.type,
+              })
+            ),
+        }));
+        return {
+          payload: data,
+        };
+      },
+    },
+
+    setSubThread: {
+      reducer(state, action: PayloadAction<TSubThread>) {
+        console.log("PAYLOAD", action.payload);
+        const index = state.threads.subThreads.findIndex(
+          (fv) => fv._id === action.payload._id
+        );
+
+        if (index !== -1) {
+          // Replace the existing object
+          state.threads.subThreads[index] = action.payload;
+        } else {
+          // Add new subThread
+          state.threads.subThreads.push(action.payload);
+        }
+      },
+      prepare(payload: TResponseThread, loadingNewGeneration: boolean = false) {
+        // const loadingNewGeneration = isLoadingNew
+        const data: TSubThread = {
+          ...payload,
+          loadingNewGeneration,
+          message: payload.prompt,
+          modelRequest:
+            payload.modelRequests &&
+            payload.modelRequests.map((imgRes) => {
+              return {
+                _id: imgRes._id,
+                images: imgRes.images,
+                modelMesh: imgRes.model_mesh,
+                metadata: imgRes.metadata,
+                status: imgRes.status,
+                type: imgRes.type,
+              };
+            }),
+          imageRequest:
+            payload.imageRequests &&
+            payload.imageRequests.map((imgRes) => {
+              return {
+                _id: imgRes._id,
+                images: imgRes.images,
+                modelMesh: imgRes.model_mesh,
+                metadata: imgRes.metadata,
+                status: imgRes.status,
+                type: imgRes.type,
+              };
+            }),
+        };
+        return {
+          payload: data,
+        };
+      },
     },
   },
 });
@@ -64,8 +149,10 @@ const ChatSlice = createSlice({
 export const {
   setInputQuery,
   addWords,
-  setNewChatMessage,
-  updateChatMessageImage,
+  setNewThreadId,
+  setSubThreads,
+  setSubThread,
+  clearInput,
 } = ChatSlice.actions;
 
 export default ChatSlice.reducer;
