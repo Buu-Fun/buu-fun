@@ -25,14 +25,15 @@ export default function ToolBarToolTips({ subThreadId }: TToolBarToolTips) {
   const { mutate: generateNewImage } = useMutation({
     mutationFn: mutateGenerateNewImage,
     onSuccess(data) {
-      toast.success("Generating new Image!!");
-      dispatch(setSubThread(data));
+      toast.loading("Generating new Image...", { duration: 8000 });
+      const IS_LOADING_NEW = true;
+      dispatch(setSubThread(data, IS_LOADING_NEW));
       queryClient.invalidateQueries({
         queryKey: [data.threadId, "get-all-sub-threads"],
       });
     },
     onError(error) {
-      console.log(error)
+      console.log(error);
     },
   });
   function handleEvent(events: TToolTipEvents) {
@@ -41,8 +42,6 @@ export default function ToolBarToolTips({ subThreadId }: TToolBarToolTips) {
       connect(walletType);
       return;
     }
-    toast.success("hello");
-
     switch (events) {
       case "TRY_AGAIN": {
         generateNewImage({

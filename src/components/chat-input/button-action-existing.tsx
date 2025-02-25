@@ -6,6 +6,7 @@ import { clearInput, setSubThread } from "@/lib/redux/features/chat";
 import { useAuthentication } from "@/providers/account.context";
 import { useWallet, walletType } from "@/providers/wallet.context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export default function ButtonActionExisting({
   threadId,
@@ -22,9 +23,10 @@ export default function ButtonActionExisting({
   const { mutate } = useMutation({
     mutationFn: generateSubThreads,
     onSuccess(data) {
-      console.log(data);
+      toast.loading("Generating new model...", { duration: 8000 });
       dispatch(setSubThread(data));
       dispatch(clearInput());
+
       queryClient.invalidateQueries({
         queryKey: [data.threadId, "get-all-sub-threads"],
       });

@@ -54,6 +54,8 @@ const ChatSlice = createSlice({
       prepare(payload: TResponseThread[]) {
         const data: TSubThread[] = payload.map((item) => ({
           _id: item._id,
+          loadingNewGeneration:
+            item?.imageRequests?.length !== item?.modelRequests?.length,
           createdAt: item.createdAt,
           style: item.style,
           threadId: item.threadId,
@@ -105,9 +107,11 @@ const ChatSlice = createSlice({
           state.threads.subThreads.push(action.payload);
         }
       },
-      prepare(payload: TResponseThread) {
+      prepare(payload: TResponseThread, loadingNewGeneration: boolean = false) {
+        // const loadingNewGeneration = isLoadingNew
         const data: TSubThread = {
           ...payload,
+          loadingNewGeneration,
           message: payload.prompt,
           modelRequest:
             payload.modelRequests &&

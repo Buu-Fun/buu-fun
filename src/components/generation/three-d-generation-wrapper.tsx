@@ -73,7 +73,7 @@ export default function ThreeDGenerationWrapper({
   }, [dispatch, data]);
 
   return (
-    <div className="flex items-center pointer-events-none  justify-center h-full     flex-col gap-4">
+    <div className="flex  items-center pointer-events-none  justify-center h-full     flex-col gap-4">
       <div className="bg-buu  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
         <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">
           {/* {selected?.message[ZERO][ZERO]?.time ?? "07:00:AM"} */}
@@ -98,6 +98,7 @@ export default function ThreeDGenerationWrapper({
       <div className="flex items-center max-h-[370px]   justify-center w-full h-full">
         <div className="flex items-center  max-h-[370px] h-full   justify-center max-w-sm ">
           <CurvedEmblaCarousel
+            $SubThread={$SubThread}
             threadId={threadId}
             subThreadId={$SubThread ? $SubThread?._id : ""}
             modelRequest={

@@ -22,6 +22,7 @@ export type TMediaRequest = {
 
 export type TSubThread = {
   // subThreadID
+  loadingNewGeneration: boolean;
   _id: string;
 
   createdAt: string;
