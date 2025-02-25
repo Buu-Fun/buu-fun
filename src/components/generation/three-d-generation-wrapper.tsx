@@ -24,7 +24,7 @@ export default function ThreeDGenerationWrapper({
   const { getAccessToken } = useAuthentication();
   const { address } = useWallet();
   const $SubThread = useAppSelector((state) =>
-    getSubThreadsFromStore(state, subThread._id)
+    getSubThreadsFromStore(state, subThread._id),
   );
 
   const { data } = useQuery({
@@ -51,10 +51,10 @@ export default function ThreeDGenerationWrapper({
 
       // check if there is any request's are in Progress, if so return true
       const isPendingFoundInQuery = query.state.data?.modelRequests?.find(
-        (item) => item.status === "InProgress"
+        (item) => item.status === "InProgress",
       );
       const isPendingFoundInState = $SubThread.modelRequest.find(
-        (item) => item.status === "InProgress"
+        (item) => item.status === "InProgress",
       );
 
       if (isPendingFoundInQuery?._id || isPendingFoundInState?._id) return true;
@@ -90,7 +90,7 @@ export default function ThreeDGenerationWrapper({
             "text-base": $SubThread && $SubThread?.message?.length > 120,
             "text-sm line-clamp-3":
               $SubThread && $SubThread?.message?.length > 160,
-          }
+          },
         )}
       >
         {$SubThread?.message}

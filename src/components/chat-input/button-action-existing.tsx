@@ -1,6 +1,6 @@
 "use client";
 import { ArrowUp } from "@/assets/icons";
-import { useAppDispatch, useAppSelector, useAppStore } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { generateSubThreads } from "@/lib/react-query/threads";
 import { clearInput, setSubThread } from "@/lib/redux/features/chat";
 import { useAuthentication } from "@/providers/account.context";

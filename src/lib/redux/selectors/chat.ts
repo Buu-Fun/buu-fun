@@ -6,5 +6,5 @@ export const getSubThreadsFromStore = createSelector(
   (SubThread, id) => {
     const FoundedSubthread = SubThread.find((fv) => fv._id === id);
     return FoundedSubthread;
-  }
+  },
 );

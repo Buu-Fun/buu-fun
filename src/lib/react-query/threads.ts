@@ -37,7 +37,7 @@ export async function generateSubThreads({
     },
     {
       Authorization: `Bearer ${accessToken}`,
-    }
+    },
   );
 
   if ("code" in data.generateSubthread) {
@@ -57,7 +57,7 @@ export async function getSubThreads(threadId: string, accessToken: string) {
     },
     {
       Authorization: `Bearer ${accessToken}`,
-    }
+    },
   );
 
   if ("code" in data.getSubthreads) {
@@ -74,7 +74,7 @@ export async function getSubThread(subThreadId: string, accessToken: string) {
     },
     {
       Authorization: `Bearer ${accessToken}`,
-    }
+    },
   );
 
   if ("code" in data.getSubthread) {
@@ -97,7 +97,7 @@ export async function mutateGenerateNewImage({
     },
     {
       Authorization: `Bearer ${accessToken}`,
-    }
+    },
   );
 
   if ("code" in data.generateImage) {

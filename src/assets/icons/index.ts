@@ -40,7 +40,7 @@ import VoxelIcon from "@/assets/icons/styles/Voxel.png";
 import cuteIcon from "@/assets/icons/styles/cute.png";
 import EnvironmentIcon from "@/assets/icons/styles/environment.png";
 import StylizedIcon from "@/assets/icons/styles/stylized.png";
-import MetallicIcon from '@/assets/icons/styles/Metallic.png'
+import MetallicIcon from "@/assets/icons/styles/Metallic.png";
 export {
   RealisticIcon,
   FantasyIcon,

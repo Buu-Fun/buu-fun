@@ -7,10 +7,9 @@ import {
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSettingsPopoverChange } from "@/lib/redux/features/settings";
 import { cn } from "@/lib/utils";
+import { useClickOutside } from "@mantine/hooks";
 import { ChevronUp } from "lucide-react";
 import SettingsCardContainer from "./settings-card-container";
-import { useClickOutside } from "@mantine/hooks";
-import toast from "react-hot-toast";
 
 export default function SettingsBarPopOver() {
   const isSettingsPopoverOpen = useAppSelector((state) => state.settings);
@@ -37,7 +36,7 @@ export default function SettingsBarPopOver() {
                 "-rotate-180 transition-transform duration-300 ease-in-out",
                 {
                   "rotate-0 rotate": isSettingsPopoverOpen.isPopoverOpen,
-                }
+                },
               )}
             />
           </button>

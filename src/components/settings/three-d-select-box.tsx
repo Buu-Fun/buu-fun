@@ -1,5 +1,10 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useEffect, useRef, useState } from "react";
+import {
+  changeThreeDStyles,
+  setStyleSelectChange,
+  threeDStyles,
+  TThreeDStyles,
+} from "@/lib/redux/features/settings";
 import {
   Select,
   SelectContent,
@@ -8,16 +13,6 @@ import {
   SelectValue,
 } from "../ui/select";
 import { iconByTitle } from "./styles-data";
-import toast from "react-hot-toast";
-import { useClickOutside } from "@mantine/hooks";
-import {
-  changeThreeDStyles,
-  setSettingsPopoverChange,
-  setStyleSelectChange,
-  threeDStyles,
-  toggleStyleSelectChange,
-  TThreeDStyles,
-} from "@/lib/redux/features/settings";
 
 export default function ThreeDSelectBox() {
   const dispatch = useAppDispatch();
@@ -32,9 +27,7 @@ export default function ThreeDSelectBox() {
         }}
         value={selected.ThreeDStyle}
         // This is disabled because it could be any value also added defensive statement to check whether the value is right one.
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onValueChange={(value: TThreeDStyles) => {
-          // no_style will go undefined since `threeDStyles` no_style doesn't exists on `threeDStyles`
           if (threeDStyles.includes(value)) {
             dispatch(changeThreeDStyles(value));
             return;

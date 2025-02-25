@@ -9,7 +9,6 @@ export default function BoneIcon() {
       viewBox="0 0 17 16"
       className="fill-white   transition-colors duration-200"
       fill="currentColor"
-
     >
       <path
         className=""

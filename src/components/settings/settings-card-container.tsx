@@ -2,10 +2,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThreeDImages } from "@/constants/settings-card";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  changeModes,
-  contentModes
-} from "@/lib/redux/features/settings";
+import { changeModes, contentModes } from "@/lib/redux/features/settings";
 import Image from "next/image";
 import SettingsBarSelectedDisplay from "./settings-bar-selected-display";
 import ThreeDSelectBox from "./three-d-select-box";
@@ -79,7 +76,7 @@ export default function SettingsCardContainer() {
           className="flex flex-1 flex-shrink gap-2"
         >
           {ThreeDImages.sort((a, b) =>
-            a.alt.length < b.alt.length ? 1 : -1
+            a.alt.length < b.alt.length ? 1 : -1,
           ).map((item, index) => (
             <button
               key={`${index}-${item.alt}-three-d-object`}
@@ -115,14 +112,14 @@ export default function SettingsCardContainer() {
                   height={170}
                 />
               </button>
-            )
+            ),
           )}
         </div>
       </TabsContent>
       <TabsContent id="video-container" className="" value="video">
         <div className="flex flex-1 flex-shrink gap-2">
           {ThreeDImages.sort((a, b) =>
-            a.alt.length > b.alt.length ? 1 : -1
+            a.alt.length > b.alt.length ? 1 : -1,
           ).map((item, index) => (
             <button
               key={`${index}-${item.alt}-video`}

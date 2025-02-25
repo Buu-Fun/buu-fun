@@ -70,7 +70,7 @@ const SettingsSlice = createSlice({
     },
     changeThreeDStyles(
       state,
-      action: PayloadAction<SettingsState["ThreeDStyle"] | undefined>
+      action: PayloadAction<SettingsState["ThreeDStyle"] | undefined>,
     ) {
       state.ThreeDStyle = action.payload;
     },
