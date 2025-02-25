@@ -1,16 +1,16 @@
 "use client";
-import { TSubThread } from "@/lib/redux/features/chat-types";
-import CurvedEmblaCarousel from "./carousal";
-import { format } from "date-fns";
-import { useQuery } from "@tanstack/react-query";
-import { getSubThread } from "@/lib/react-query/threads";
-import { useAuthentication } from "@/providers/account.context";
-import { useWallet } from "@/providers/wallet.context";
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getSubThread } from "@/lib/react-query/threads";
 import { setSubThread } from "@/lib/redux/features/chat";
+import { TSubThread } from "@/lib/redux/features/chat-types";
 import { getSubThreadsFromStore } from "@/lib/redux/selectors/chat";
 import { cn } from "@/lib/utils";
+import { useAuthentication } from "@/providers/account.context";
+import { useWallet } from "@/providers/wallet.context";
+import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
+import { useEffect } from "react";
+import CurvedEmblaCarousel from "./carousal";
 
 type TThreeDGenerationWrapper = {
   threadId: string;

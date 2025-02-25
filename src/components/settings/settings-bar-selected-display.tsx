@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { Create3DLayout } from "../headers/home/image-layouts";
 
 export default function SettingsBarSelectedDisplay({

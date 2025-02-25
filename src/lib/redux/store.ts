@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import SettingsSlice from "@/lib/redux/features/settings";
 import ChatSlice from "@/lib/redux/features/chat";
+import SettingsSlice from "@/lib/redux/features/settings";
+import { configureStore } from "@reduxjs/toolkit";
 
 export const makeStore = () => {
   return configureStore({

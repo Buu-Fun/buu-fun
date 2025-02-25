@@ -3,10 +3,10 @@ import { BorderBeam } from "@/components/ui/border-beam";
 import { cn } from "@/lib/utils";
 import "@google/model-viewer";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ToolBarToolTips from "./tool-bar-tool-tips";
-import dynamic from "next/dynamic";
 const ModelViewer = dynamic(() => import("./model-viewer"), {
   loading: () => <p>Loading...</p>,
   ssr: false,
@@ -51,6 +51,7 @@ export default function Generate3DCard({
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, [isCurrent, isGenerating, modelUrl]);
+  
   return (
     <motion.div
       initial={{ opacity: 0.5 }}
@@ -108,7 +109,7 @@ export default function Generate3DCard({
           },
         )}
       >
-        <ToolBarToolTips subThreadId={subThreadId} />
+        <ToolBarToolTips imageUrl={images.imageUrl} subThreadId={subThreadId} />
       </div>
 
       <BorderBeam
