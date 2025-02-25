@@ -1,6 +1,6 @@
 "use client";
 import { ArrowUp } from "@/assets/icons";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector, useAppStore } from "@/hooks/redux";
 import { generateSubThreads } from "@/lib/react-query/threads";
 import { clearInput, setSubThread } from "@/lib/redux/features/chat";
 import { useAuthentication } from "@/providers/account.context";
@@ -16,6 +16,7 @@ export default function ButtonActionExisting({
   // const settings = useAppSelector((state) => state.settings);
   const dispatch = useAppDispatch();
   const prompt = useAppSelector((state) => state.chat.inputQuery);
+  const style = useAppSelector((state) => state.settings.ThreeDStyle);
   const { getAccessToken } = useAuthentication();
   const { address, connect } = useWallet();
   const queryClient = useQueryClient();
@@ -46,7 +47,7 @@ export default function ButtonActionExisting({
       accessToken: accessToken,
       prompt,
       threadId,
-      style: "Realistic",
+      style: style,
     });
   }
 

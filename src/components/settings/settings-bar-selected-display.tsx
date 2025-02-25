@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Create3DLayout } from "../headers/home/image-layouts";
 
 export default function SettingsBarSelectedDisplay({
   title = "3D Object",
 }: {
-  title?: string;
+  title?: ReactNode;
 }) {
   //add framer-motion animated-out. or similar apis. for hidden to view transitions.
   return (

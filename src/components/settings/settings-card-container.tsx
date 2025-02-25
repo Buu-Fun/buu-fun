@@ -1,11 +1,14 @@
 "use client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import SettingsBarSelectedDisplay from "./settings-bar-selected-display";
 import { ThreeDImages } from "@/constants/settings-card";
-import Image from "next/image";
-import ThreeDSelectBox from "./three-d-select-box";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { changeModes, contentModes } from "@/lib/redux/features/settings";
+import {
+  changeModes,
+  contentModes
+} from "@/lib/redux/features/settings";
+import Image from "next/image";
+import SettingsBarSelectedDisplay from "./settings-bar-selected-display";
+import ThreeDSelectBox from "./three-d-select-box";
 
 export default function SettingsCardContainer() {
   const selected = useAppSelector((state) => state.settings.modes);
@@ -23,7 +26,7 @@ export default function SettingsCardContainer() {
         dispatch(changeModes("three_d_object"));
       }}
       value={selected}
-      className="w-full aspect-video"
+      className="w-full aspect-video "
     >
       <TabsList className=" flex gap-2 items-center  justify-start w-full bg- mb-6">
         <TabsTrigger
@@ -36,24 +39,38 @@ export default function SettingsCardContainer() {
           <SettingsBarSelectedDisplay />
         </TabsTrigger>
         <TabsTrigger
+          disabled
           onClick={() => {
             dispatch(changeModes("comic"));
           }}
           className="text-muted-foreground/60 rounded-[16px] max-w-max py-2 px-4 data-[state=active]:bg-white group data-[state=active]:text-black data-[state=active]:border-none"
           value="comic"
         >
-          <SettingsBarSelectedDisplay title="Comic" />
+          <SettingsBarSelectedDisplay
+            title={
+              <span className="relative flex items-center justify-center gap-0.5">
+                Comic <span className="text-[10px]  -top-2 left-0">(soon)</span>
+              </span>
+            }
+          />
 
           {/* <SettingsBarSelectedDisplay /> */}
         </TabsTrigger>{" "}
         <TabsTrigger
+          disabled
           onClick={() => {
             dispatch(changeModes("video"));
           }}
           className="text-muted-foreground/60 rounded-[16px] max-w-max py-2 px-4 data-[state=active]:bg-white group data-[state=active]:text-black data-[state=active]:border-none"
           value="video"
         >
-          <SettingsBarSelectedDisplay title="Video" />
+          <SettingsBarSelectedDisplay
+            title={
+              <span className="relative flex items-center justify-center gap-0.5">
+                Video <span className="text-[10px]  -top-2 left-0">(soon)</span>
+              </span>
+            }
+          />
         </TabsTrigger>{" "}
       </TabsList>
       <TabsContent id="three-d-container" className="" value="three_d_object">

@@ -10,21 +10,25 @@ import { cn } from "@/lib/utils";
 import { ChevronUp } from "lucide-react";
 import SettingsCardContainer from "./settings-card-container";
 import { useClickOutside } from "@mantine/hooks";
+import toast from "react-hot-toast";
 
 export default function SettingsBarPopOver() {
-  const isSettingsPopoverOpen = useAppSelector(
-    (state) => state.settings.isPopoverOpen,
-  );
+  const isSettingsPopoverOpen = useAppSelector((state) => state.settings);
+
   const dispatch = useAppDispatch();
+
   const ref = useClickOutside(() => {
+    if (isSettingsPopoverOpen.isStyleBoxOpen) {
+      return;
+    }
     dispatch(setSettingsPopoverChange(false));
   });
 
   return (
-    <div>
+    <div className="">
       <Popover
         onOpenChange={(value) => dispatch(setSettingsPopoverChange(!value))}
-        open={isSettingsPopoverOpen}
+        open={isSettingsPopoverOpen.isPopoverOpen}
       >
         <PopoverTrigger asChild className="">
           <button className="flex items-center justify-center ml-1 ">
@@ -32,8 +36,8 @@ export default function SettingsBarPopOver() {
               className={cn(
                 "-rotate-180 transition-transform duration-300 ease-in-out",
                 {
-                  "rotate-0 rotate": isSettingsPopoverOpen,
-                },
+                  "rotate-0 rotate": isSettingsPopoverOpen.isPopoverOpen,
+                }
               )}
             />
           </button>
