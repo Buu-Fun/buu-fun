@@ -41,11 +41,13 @@ export const contentModes: SettingsState["modes"][] = [
 export type SettingsState = {
   isPopoverOpen: boolean;
   isStyleBoxOpen: boolean;
+  isRecentChatOpen: boolean;
   ThreeDStyle?: TThreeDStyles;
   modes: "three_d_object" | "video" | "comic";
 };
 
 const initialState: SettingsState = {
+  isRecentChatOpen: false,
   isStyleBoxOpen: false,
   isPopoverOpen: false,
   ThreeDStyle: "Metallic",
@@ -55,7 +57,11 @@ const initialState: SettingsState = {
 const SettingsSlice = createSlice({
   name: "Settings",
   initialState,
+
   reducers: {
+    setHistoryModel(state, action: PayloadAction<boolean>) {
+      state.isRecentChatOpen = action.payload;
+    },
     setSettingsPopoverChange(state, action: PayloadAction<boolean>) {
       state.isPopoverOpen = action.payload;
     },
@@ -70,7 +76,7 @@ const SettingsSlice = createSlice({
     },
     changeThreeDStyles(
       state,
-      action: PayloadAction<SettingsState["ThreeDStyle"] | undefined>,
+      action: PayloadAction<SettingsState["ThreeDStyle"] | undefined>
     ) {
       state.ThreeDStyle = action.payload;
     },
@@ -88,6 +94,7 @@ export const {
   changeModes,
   setStyleSelectChange,
   toggleStyleSelectChange,
+  setHistoryModel
 } = SettingsSlice.actions;
 
 export default SettingsSlice.reducer;

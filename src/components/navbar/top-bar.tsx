@@ -18,8 +18,8 @@ export default function Topbar() {
   const shouldConnect = !address;
   return (
     <div className="flex items-center justify-between pr-10 py-6">
-      {/* {!shouldConnect ? <RecentChats /> : null} */}
-      <RecentChats />
+      {!shouldConnect ? <RecentChats /> : null}
+      {/* <RecentChats /> */}
       {shouldConnect ? (
         <div className="w-full flex justify-end">
           <Button

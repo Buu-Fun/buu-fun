@@ -3,7 +3,6 @@ import QuestionIcon from "@/assets/icons/Icon.png";
 import logo from "@/assets/icons/logo-no-gradient.png";
 import MagicPenIcon from "@/assets/icons/magicpen";
 import SizePenIcon from "@/assets/icons/size";
-import { HistoryIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 export default function NavigationalBar() {
@@ -15,9 +14,6 @@ export default function NavigationalBar() {
         </div>
 
         <div className="flex flex-col gap-4 items-center justify-center">
-          <div className="group">
-            <HistoryIcon className="text-[#515761] group-hover:text-white w-10 " />
-          </div>
           <Link
             href={"/boards"}
             className="w-10 flex items-center justify-center px-2 py-3 h-10 hover:fill-white"

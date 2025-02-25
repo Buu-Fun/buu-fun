@@ -34,15 +34,13 @@ export default function ThreadsWrapper({ threadId }: TThreadsWrapper) {
   const { address } = useWallet();
 
   const { data } = useQuery({
-    queryKey: ["get-all-sub-threads"],
-    staleTime: 10000,
-
+    queryKey: ["get-all-sub-threads", threadId],
+    staleTime: 1000,
     queryFn: async () => {
       const accessToken = getAccessToken(address ?? "");
-
       return await getSubThreads(
         threadId,
-        getAccessToken(accessToken ?? "") ?? "",
+        getAccessToken(accessToken ?? "") ?? ""
       );
     },
 
