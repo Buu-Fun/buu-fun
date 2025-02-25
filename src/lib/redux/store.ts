@@ -4,6 +4,7 @@ import ChatSlice from "@/lib/redux/features/chat";
 
 export const makeStore = () => {
   return configureStore({
+    devTools: true,
     reducer: {
       settings: SettingsSlice,
       chat: ChatSlice,
