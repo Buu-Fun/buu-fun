@@ -29,3 +29,28 @@ export {
   SizePenIcon,
   DownloadIcon,
 };
+
+import RealisticIcon from "@/assets/icons/styles/Realistic.png";
+import FantasyIcon from "@/assets/icons/styles/Fantasy.png";
+import GunsIcon from "@/assets/icons/styles/Guns.png";
+import LowPolyIcon from "@/assets/icons/styles/LowPoly.png";
+import SciFiIcon from "@/assets/icons/styles/Sci-Fi.png";
+import ToonIcon from "@/assets/icons/styles/Toon.png";
+import VoxelIcon from "@/assets/icons/styles/Voxel.png";
+import cuteIcon from "@/assets/icons/styles/cute.png";
+import EnvironmentIcon from "@/assets/icons/styles/environment.png";
+import StylizedIcon from "@/assets/icons/styles/stylized.png";
+import MetallicIcon from '@/assets/icons/styles/Metallic.png'
+export {
+  RealisticIcon,
+  FantasyIcon,
+  GunsIcon,
+  MetallicIcon,
+  LowPolyIcon,
+  SciFiIcon,
+  ToonIcon,
+  VoxelIcon,
+  cuteIcon,
+  EnvironmentIcon,
+  StylizedIcon,
+};
