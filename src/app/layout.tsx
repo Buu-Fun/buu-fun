@@ -6,8 +6,8 @@ import ReactQueryProvider from "@/providers/react-query";
 import StoreProvider from "@/providers/redux";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
-
 const BricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
   subsets: ["latin"],
@@ -25,7 +25,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/* <Script
+        async
+        strategy="afterInteractive"
+        type="module"
+        src="https://unpkg.com/@google/model-viewer@^2.1.1/dist/model-viewer.min.js"
+      /> */}
+
       <body className={` ${BricolageGrotesque.className} antialiased dark `}>
+        <Toaster />
+
         <NextUIProviders>
           <Providers>
             <StoreProvider>
