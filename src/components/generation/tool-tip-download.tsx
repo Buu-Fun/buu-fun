@@ -1,13 +1,11 @@
-import React from "react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import { motion } from "framer-motion";
-import { buttonVariants } from "./tool-bar-tool-tips";
-import { ToolTips, TToolTipsData } from "./handle-tool-calls";
-import { cn } from "@/lib/utils";
-import { Popover, PopoverTrigger, PopoverContent } from "../ui/popover";
-import { Button } from "../ui/button";
 import { DownloadIcon } from "@/assets/icons";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { ToolTips, TToolTipsData } from "./handle-tool-calls";
+import { buttonVariants } from "./tool-bar-tool-tips";
 
 type TToolTipModify = {
   subThreadId: string;
@@ -65,7 +63,7 @@ export default function ToolTipDownload({
               <div className="flex w-full justify-between items-center gap-1.5 hover:opacity-70 bg-buu-secondary py-1.5 rounded-sm px-2 font-medium   ">
                 <p className="text-xs">To .glb file</p>
                 <div className="w-4 flex items-center justify-center h-4">
-                  <Loader2  className="animate-spin" />
+                  <Loader2 className="animate-spin" />
                 </div>
               </div>
             )}

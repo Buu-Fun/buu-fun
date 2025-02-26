@@ -1,4 +1,4 @@
-import CoinStackIcon from "@/assets/icons/coin";
+// import CoinStackIcon from "@/assets/icons/coin";
 import QuestionIcon from "@/assets/icons/Icon.png";
 import logo from "@/assets/icons/logo-no-gradient.png";
 import MagicPenIcon from "@/assets/icons/magicpen";

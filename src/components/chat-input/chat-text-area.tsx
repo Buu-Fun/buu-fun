@@ -2,7 +2,6 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setInputQuery } from "@/lib/redux/features/chat";
 import { useEffect, useRef } from "react";
-import toast from "react-hot-toast";
 
 export default function ChatTextArea() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);

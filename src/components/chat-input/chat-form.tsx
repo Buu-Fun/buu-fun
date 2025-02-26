@@ -53,7 +53,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       console.log(error);
     },
   });
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 

@@ -76,7 +76,7 @@ const SettingsSlice = createSlice({
     },
     changeThreeDStyles(
       state,
-      action: PayloadAction<SettingsState["ThreeDStyle"] | undefined>
+      action: PayloadAction<SettingsState["ThreeDStyle"] | undefined>,
     ) {
       state.ThreeDStyle = action.payload;
     },
@@ -94,7 +94,7 @@ export const {
   changeModes,
   setStyleSelectChange,
   toggleStyleSelectChange,
-  setHistoryModel
+  setHistoryModel,
 } = SettingsSlice.actions;
 
 export default SettingsSlice.reducer;

@@ -40,7 +40,7 @@ export default function ThreadsWrapper({ threadId }: TThreadsWrapper) {
       const accessToken = getAccessToken(address ?? "");
       return await getSubThreads(
         threadId,
-        getAccessToken(accessToken ?? "") ?? ""
+        getAccessToken(accessToken ?? "") ?? "",
       );
     },
 
