@@ -23,7 +23,9 @@ export default function SettingsCardContainer() {
         dispatch(changeModes("three_d_object"));
       }}
       value={selected}
-      className="w-full aspect-video "
+      // add this when images are BACK DO NOT REMOVE
+      // aspect-video
+      className="w-full  "
     >
       <TabsList className=" flex gap-2 items-center  justify-start w-full bg- mb-6">
         <TabsTrigger
@@ -71,7 +73,7 @@ export default function SettingsCardContainer() {
         </TabsTrigger>{" "}
       </TabsList>
       <TabsContent id="three-d-container" className="" value="three_d_object">
-        <div
+        {/* <div
           id="three-object-content container"
           className="flex flex-1 flex-shrink gap-2"
         >
@@ -92,7 +94,7 @@ export default function SettingsCardContainer() {
               />
             </button>
           ))}
-        </div>
+        </div> */}
         <ThreeDSelectBox />
       </TabsContent>
       <TabsContent id="comic-container" className="" value="comic">

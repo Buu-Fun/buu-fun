@@ -15,15 +15,24 @@ import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { ToolTips, TToolTipEvents } from "./handle-tool-calls";
 import ToolTipModify from "./tool-tip-modify";
+import ToolTipDownload from "./tool-tip-download";
 
 type TToolBarToolTips = {
   subThreadId: string;
   imageUrl: string | null;
+  modelUrl?: string | null;
+};
+export const buttonVariants = {
+  initial: { y: 0, scale: 1 },
+  // hover: { y: -2, scale: 1.05 },
+  tap: { y: 0, scale: 0.95 },
+  drag: { scale: 1.1, boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.2)" },
 };
 
 export default function ToolBarToolTips({
   subThreadId,
   imageUrl,
+  modelUrl,
 }: TToolBarToolTips) {
   const dispatch = useAppDispatch();
   const { getAccessToken } = useAuthentication();
@@ -75,12 +84,6 @@ export default function ToolBarToolTips({
   }
 
   // Define button hover animation variants
-  const buttonVariants = {
-    initial: { y: 0, scale: 1 },
-    hover: { y: -2, scale: 1.05 },
-    tap: { y: 0, scale: 0.95 },
-    drag: { scale: 1.1, boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.2)" },
-  };
 
   return (
     <TooltipProvider>
@@ -98,6 +101,20 @@ export default function ToolBarToolTips({
           );
         }
 
+        if (item.type === "DOWNLOAD") {
+          // key={`tool-tip-contents-${item.content.trim()}-${index}`}
+          return (
+            <ToolTipDownload
+              key={`tool-tip-contents-${item.content.trim()}-${index}`}
+              modelUrl={modelUrl}
+              index={index}
+              length={ToolTips.length}
+              subThreadId={subThreadId}
+              toolTipData={item}
+            />
+          );
+        }
+
         return (
           <Tooltip key={`tool-tip-contents-${item.content.trim()}-${index}`}>
             <TooltipTrigger asChild>
@@ -108,6 +125,7 @@ export default function ToolBarToolTips({
                 whileTap="tap"
                 variants={buttonVariants}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                // group bg-buu-button  hover:bg-white hover:shadow-none  group shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5
                 className="group bg-buu-button pointer-events-auto hover:bg-white hover:shadow-none group shadow-buu-button min-w-[30px] rounded-md flex items-center justify-center p-1.5"
               >
                 <motion.div

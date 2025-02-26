@@ -2,15 +2,6 @@ import { TSubthread as TResponseThread } from "@/lib/react-query/threads-types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { ChatState, TMediaRequest, TSubThread } from "./chat-types";
 
-export type ChatMessage = {
-  threadId: string;
-  message: [][];
-};
-// type ChatState = {
-//   inputQuery: string;
-//   chat: ChatMessage;
-// };
-
 const initialState: ChatState = {
   inputQuery: "",
   threads: {
@@ -89,7 +80,7 @@ const ChatSlice = createSlice({
                 modelMesh: modRes.model_mesh,
                 status: modRes.status,
                 type: modRes.type,
-              })
+              }),
             ),
         }));
         return {
@@ -102,7 +93,7 @@ const ChatSlice = createSlice({
       reducer(state, action: PayloadAction<TSubThread>) {
         console.log("PAYLOAD", action.payload);
         const index = state.threads.subThreads.findIndex(
-          (fv) => fv._id === action.payload._id
+          (fv) => fv._id === action.payload._id,
         );
 
         if (index !== -1) {

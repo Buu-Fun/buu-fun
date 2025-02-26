@@ -25,59 +25,6 @@ export type TValue = {
 };
 
 export const iconByTitle: Record<TKey, TValue> = {
-  LowPoly: {
-    displayName: "Low Poly",
-    value: "LowPoly",
-    Icon: (
-      <Image
-        src={LowPolyIcon.src}
-        width={100}
-        height={100}
-        alt="Low Poly Icon"
-        className="w-full h-full rounded-full"
-      />
-    ),
-  },
-  Metallic: {
-    displayName: "Metallic",
-    value: "Metallic",
-    Icon: (
-      <Image
-        src={MetallicIcon.src}
-        width={100}
-        height={100}
-        alt="Realistic Icon"
-        className="w-full h-full rounded-full"
-      />
-    ),
-  },
-  Realistic: {
-    Icon: (
-      <Image
-        src={RealisticIcon.src}
-        width={100}
-        height={100}
-        alt="Realistic Icon"
-        className="w-full h-full rounded-full"
-      />
-    ),
-    displayName: "Realistic",
-    value: "Realistic",
-  },
-  Clay: {
-    Icon: (
-      <Image
-        src={RealisticIcon.src}
-        width={100}
-        height={100}
-        alt="Realistic Icon"
-        className="w-full h-full rounded-full"
-      />
-    ),
-    displayName: "Clay",
-    value: "Clay",
-  },
-
   Cute: {
     Icon: (
       <Image
@@ -104,31 +51,44 @@ export const iconByTitle: Record<TKey, TValue> = {
     displayName: "Environment",
     value: "Environment",
   },
-  Fantasy: {
+  Realistic: {
     Icon: (
       <Image
-        src={FantasyIcon.src}
+        src={RealisticIcon.src}
         width={100}
         height={100}
-        alt="Fantasy Icon"
+        alt="Realistic Icon"
         className="w-full h-full rounded-full"
       />
     ),
-    displayName: "Fantasy",
-    value: "Fantasy",
+    displayName: "Realistic",
+    value: "Realistic",
   },
-  SciFi: {
+  LowPoly: {
+    displayName: "Low Poly",
+    value: "LowPoly",
     Icon: (
       <Image
-        src={SciFiIcon.src}
+        src={LowPolyIcon.src}
         width={100}
         height={100}
-        alt="SciFi Icon"
+        alt="Low Poly Icon"
         className="w-full h-full rounded-full"
       />
     ),
-    displayName: "Sci-Fi",
-    value: "SciFi",
+  },
+  Voxel: {
+    Icon: (
+      <Image
+        src={VoxelIcon.src}
+        width={100}
+        height={100}
+        alt="Voxel Icon"
+        className="w-full h-full rounded-full"
+      />
+    ),
+    displayName: "Voxel",
+    value: "Voxel",
   },
   Stylized: {
     Icon: (
@@ -156,19 +116,32 @@ export const iconByTitle: Record<TKey, TValue> = {
     displayName: "Toon",
     value: "Toon",
   },
-
-  Voxel: {
+  SciFi: {
     Icon: (
       <Image
-        src={VoxelIcon.src}
+        src={SciFiIcon.src}
         width={100}
         height={100}
-        alt="Voxel Icon"
+        alt="SciFi Icon"
         className="w-full h-full rounded-full"
       />
     ),
-    displayName: "Voxel",
-    value: "Voxel",
+    displayName: "Sci-Fi",
+    value: "SciFi",
+  },
+
+  Fantasy: {
+    Icon: (
+      <Image
+        src={FantasyIcon.src}
+        width={100}
+        height={100}
+        alt="Fantasy Icon"
+        className="w-full h-full rounded-full"
+      />
+    ),
+    displayName: "Fantasy",
+    value: "Fantasy",
   },
   Weapons: {
     Icon: (
@@ -182,6 +155,32 @@ export const iconByTitle: Record<TKey, TValue> = {
     ),
     displayName: "Guns",
     value: "Weapons",
+  },
+  Metallic: {
+    displayName: "Metallic",
+    value: "Metallic",
+    Icon: (
+      <Image
+        src={MetallicIcon.src}
+        width={100}
+        height={100}
+        alt="Realistic Icon"
+        className="w-full h-full rounded-full"
+      />
+    ),
+  },
+  Clay: {
+    Icon: (
+      <Image
+        src={RealisticIcon.src}
+        width={100}
+        height={100}
+        alt="Realistic Icon"
+        className="w-full h-full rounded-full"
+      />
+    ),
+    displayName: "Clay",
+    value: "Clay",
   },
   no_style: {
     Icon: <div className="bg-[#2D323C] w-4 h-4 rounded-full" />,

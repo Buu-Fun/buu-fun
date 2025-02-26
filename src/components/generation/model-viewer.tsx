@@ -80,11 +80,10 @@ export default function ModelViewer({
         ios-src=""
         poster={poster ?? ""}
         alt={alt}
-        // skybox-image=""
         environment-image=""
         shadow-intensity={0}
+        loading="eager"
         exposure={3}
-        seamless-poster
         camera-controls
         auto-rotate
         touch-action="pan-y"
