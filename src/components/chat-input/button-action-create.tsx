@@ -27,10 +27,12 @@ export default function ButtonActionCreate() {
     },
   });
   function handleNewChatCreation() {
-    if (isAuthLoading || isWalletLoading || !address) return;
+    if (isAuthLoading || isWalletLoading || !address) {
+      connect(walletType);
+      return;
+    }
 
     if (!address) {
-      connect(walletType);
       return;
     }
 

@@ -22,16 +22,29 @@ export default function ChatTextArea() {
     // Add event listener to the textarea
     const textarea = textareaRef.current;
     textarea?.addEventListener("input", adjustHeight);
-
     return () => {
       textarea?.removeEventListener("input", adjustHeight);
     };
   }, []);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Allow new lines with Shift+Enter
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+
+      // Let the form's onSubmit handle the submission
+      const form = e.currentTarget.closest("form");
+      if (form) {
+        form.requestSubmit();
+      }
+    }
+  };
+
   return (
     <textarea
       rows={2}
       ref={textareaRef}
+      onKeyDown={handleKeyDown}
       value={value}
       onChange={(e) => {
         const value = e.target.value;
