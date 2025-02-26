@@ -1,10 +1,6 @@
-import ImageIcon from "@/assets/icons/ImageIcon";
 import SettingsBar from "../settings/settings-bar";
-import ButtonActionCreate from "./button-action-create";
-import ButtonActionExisting from "./button-action-existing";
-import ChatTextArea from "./chat-text-area";
-import ImageDragAndDrop from "./image-drag-n-dropper";
 import ChatForm from "./chat-form";
+import ImageDragAndDrop from "./image-drag-n-dropper";
 export type TBottomBarContainer = {
   action: "new_chat" | { threadId: string };
 };

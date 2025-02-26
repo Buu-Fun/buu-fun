@@ -31,14 +31,14 @@ export default function NavigationalBar() {
               <MagicPenIcon />
             </div>
           </Link>
-          <Link
+          {/* <Link
             href={"/"}
             className="w-10 flex group items-center justify-center px-2 py-3 h-10 "
           >
             <div className="w-6 h-6 group-hover:text-white  group-hover:fill-text-white text-gray-500" >
               <CoinStackIcon />
             </div>
-          </Link>
+          </Link> */}
         </div>
         <div>
           <Image

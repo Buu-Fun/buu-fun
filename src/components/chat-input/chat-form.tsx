@@ -1,27 +1,25 @@
 "use client";
-import React from "react";
-import ChatTextArea from "./chat-text-area";
 import { ArrowUp, ImageIcon } from "@/assets/icons";
-import ButtonActionCreate from "./button-action-create";
-import ButtonActionExisting from "./button-action-existing";
-import { TBottomBarContainer } from "./bottom-bar-container";
-import toast from "react-hot-toast";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useAuthentication } from "@/providers/account.context";
-import { useWallet, walletType } from "@/providers/wallet.context";
-import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "@/lib/react-query/query-client";
+import { generateSubThreads } from "@/lib/react-query/threads";
 import {
   clearInput,
   setNewThreadId,
   setSubThread,
 } from "@/lib/redux/features/chat";
-import { generateSubThreads } from "@/lib/react-query/threads";
-import { queryClient } from "@/lib/react-query/query-client";
+import { useAuthentication } from "@/providers/account.context";
+import { useWallet, walletType } from "@/providers/wallet.context";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import React from "react";
+import toast from "react-hot-toast";
+import { TBottomBarContainer } from "./bottom-bar-container";
+import ChatTextArea from "./chat-text-area";
 
 export default function ChatForm({ action }: TBottomBarContainer) {
-  const { loading: isAuthLoading, getAccessToken } = useAuthentication();
-  const { address, loading: isWalletLoading, connect } = useWallet();
+  const { getAccessToken } = useAuthentication();
+  const { address, connect } = useWallet();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const prompt = useAppSelector((state) => state.chat.inputQuery);
@@ -38,6 +36,8 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       console.log(error);
     },
   });
+
+  // mutation for existing chat
   const { mutate: createExistingChat } = useMutation({
     mutationFn: generateSubThreads,
     onSuccess(data) {
@@ -53,16 +53,14 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       console.log(error);
     },
   });
-  // You'll need a similar mutation for existing thread
-
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     // Don't submit if there's no prompt
-    if (!prompt || prompt.trim() === "" || prompt.length < 2) {
+    if (!prompt || prompt.trim() === "") {
       return;
     }
-
-    if (isAuthLoading || isWalletLoading) return;
 
     if (!address) {
       connect(walletType);
@@ -96,7 +94,6 @@ export default function ChatForm({ action }: TBottomBarContainer) {
         <ImageIcon />
         <button
           type="submit"
-          //   onClick={() => handleExistingChat()}
           className="bg-[#737984] rounded-full border p-0.5"
         >
           <ArrowUp className="   w-5 h-5 " />

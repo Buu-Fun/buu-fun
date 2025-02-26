@@ -1,4 +1,4 @@
-import threeDCube from "@/assets/Image/boards/three-d-cube.png";
+import { MagicPenIcon } from "@/assets/icons";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { cn } from "@/lib/utils";
 import "@google/model-viewer";
@@ -7,7 +7,6 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ToolBarToolTips from "./tool-bar-tool-tips";
-import { MagicPenIcon } from "@/assets/icons";
 const ModelViewer = dynamic(() => import("./model-viewer"), {
   // loading: () => <p>Loading...</p>,
   ssr: false,
@@ -79,7 +78,9 @@ export default function Generate3DCard({
               <div className="text-blue-400 w-6 h-6">
                 <MagicPenIcon />
               </div>
-              <p className="text-base tracking-tight text-white  animate-pulse">Generating</p>
+              <p className="text-base tracking-tight text-white  animate-pulse">
+                Generating
+              </p>
             </div>
           </div>
           {/*
@@ -130,7 +131,11 @@ export default function Generate3DCard({
           }
         )}
       >
-        <ToolBarToolTips imageUrl={images.imageUrl} subThreadId={subThreadId} />
+        <ToolBarToolTips
+          imageUrl={images.imageUrl}
+          modelUrl={modelUrl}
+          subThreadId={subThreadId}
+        />
       </div>
 
       <BorderBeam

@@ -13,7 +13,6 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import Generate3DCard from "./generate-3d-card";
-import toast from "react-hot-toast";
 const CurvedEmblaCarousel = ({
   modelRequest,
   subThreadId,
@@ -133,7 +132,7 @@ const CurvedEmblaCarousel = ({
                       api?.scrollTo(index);
                     }}
                     className={cn(
-                      "relative pl-0  border-buu bg-blue-400  pointer-events-none select-none max-w-[264px]  max-h-[370px] h-full rounded-lg shadow-lg",
+                      "relative pl-0  border-buu   pointer-events-none select-none max-w-[264px]  max-h-[370px] h-full rounded-lg shadow-lg",
                       "transition-all duration-500 ease-out"
                     )}
                   >
