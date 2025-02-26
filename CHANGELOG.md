@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.13](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.12...buu-fun-v0.1.13) (2025-02-26)
+
+
+### ✨ Features
+
+* added download button ([67f52a5](https://github.com/muadpn/buu-fun/commit/67f52a518080d6f0c1c59d2a74e94d0aa3d1681c))
+* added enter key for form submittion ([1e06c3d](https://github.com/muadpn/buu-fun/commit/1e06c3d401c3d6bd93294f8379c36bcfdfe0232c))
+* added sidebar content color and hover effects ([6c1657d](https://github.com/muadpn/buu-fun/commit/6c1657de87f9eb17e9c6ac97b0f4b939268cc97f))
+
+
+### 🐛 Bugfixes
+
+* fixed generation text while generating 3d model. allow to scroll through sub images/models ([7845a93](https://github.com/muadpn/buu-fun/commit/7845a938912ee94228872f6656381d57649f5024))
+* **lint:** linted and formatted the code base ([212e4fe](https://github.com/muadpn/buu-fun/commit/212e4fea15c2aab7e0585fd40219556664b44f9c))
+* removed styles image selector and sorted and changed default styles ([3122817](https://github.com/muadpn/buu-fun/commit/312281766d502963e9850fdc6e86215d8a37447e))
+
 ## [0.1.12](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.11...buu-fun-v0.1.12) (2025-02-25)
 
 
