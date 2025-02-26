@@ -43,7 +43,8 @@ export default function SettingsBarPopOver() {
         </PopoverTrigger>
         <PopoverContent
           ref={ref}
-          className="bg-buu min-w-[330px] aspect-video  w-full backdrop-blur-2xl rounded-2xl shadow-buu-secondary"
+          // min-w-[330px] aspect-video
+          className="bg-buu   w-full backdrop-blur-2xl rounded-2xl shadow-buu-secondary"
           sideOffset={18}
           alignOffset={-12}
           align="end"
