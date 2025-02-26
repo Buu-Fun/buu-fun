@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import ChatTextArea from "./chat-text-area";
-import { ImageIcon } from "@/assets/icons";
+import { ArrowUp, ImageIcon } from "@/assets/icons";
 import ButtonActionCreate from "./button-action-create";
 import ButtonActionExisting from "./button-action-existing";
 import { TBottomBarContainer } from "./bottom-bar-container";
@@ -57,10 +57,6 @@ export default function ChatForm({ action }: TBottomBarContainer) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (style) {
-      toast.success(`${style}`);
-      return;
-    }
     // Don't submit if there's no prompt
     if (!prompt || prompt.trim() === "" || prompt.length < 2) {
       return;
@@ -98,11 +94,13 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       <ChatTextArea />
       <div className="w-full  flex justify-between">
         <ImageIcon />
-        {action === "new_chat" ? (
-          <ButtonActionCreate />
-        ) : (
-          <ButtonActionExisting threadId={action.threadId} />
-        )}
+        <button
+          type="submit"
+          //   onClick={() => handleExistingChat()}
+          className="bg-[#737984] rounded-full border p-0.5"
+        >
+          <ArrowUp className="   w-5 h-5 " />
+        </button>
       </div>
     </form>
   );

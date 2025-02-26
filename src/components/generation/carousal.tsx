@@ -13,6 +13,7 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import Generate3DCard from "./generate-3d-card";
+import toast from "react-hot-toast";
 const CurvedEmblaCarousel = ({
   modelRequest,
   subThreadId,
@@ -48,13 +49,38 @@ const CurvedEmblaCarousel = ({
     // Update the ref to track changes
     prevLengthRef.current = modelRequest.length;
   }, [modelRequest.length, api]);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const modelContainer = ref.current;
+    if (!modelContainer) return;
+    const stopPropagation = (e: Event) => {
+      e.stopPropagation();
+    };
+    modelContainer.addEventListener("mousedown", stopPropagation);
+    modelContainer.addEventListener("touchcancel", stopPropagation);
+    modelContainer.addEventListener("touchend", stopPropagation);
+    modelContainer.addEventListener("touchmove", stopPropagation);
+    modelContainer.addEventListener("wheel", stopPropagation);
+    modelContainer.addEventListener("touchstart", stopPropagation);
+    return () => {
+      if (!modelContainer) return;
+      modelContainer.removeEventListener("mousedown", stopPropagation);
+      modelContainer.removeEventListener("touchcancel", stopPropagation);
+      modelContainer.removeEventListener("touchend", stopPropagation);
+      modelContainer.removeEventListener("touchmove", stopPropagation);
+      modelContainer.removeEventListener("wheel", stopPropagation);
+      modelContainer.removeEventListener("touchstart", stopPropagation);
+    };
+  }, [ref]);
+
   return (
     <div
-      className="max-w-[264px] max-h-[370px] h-full w-full"
+      className="max-w-[264px] max-h-[370px] h-full w-full "
       ref={carouselRef}
     >
       {modelRequest.length ? (
         <Carousel
+          ref={ref}
           opts={{
             align: "center",
             startIndex:
@@ -69,24 +95,6 @@ const CurvedEmblaCarousel = ({
           plugins={[WheelGesturesPlugin()]}
           className="overflow-visible  pointer-events-none relative max-w-[264px] max-h-[370px] h-full w-full"
           setApi={setApi}
-          onMouseDown={(e) => {
-            e.stopPropagation();
-          }}
-          onTouchCancel={(e) => {
-            e.stopPropagation();
-          }}
-          onTouchEnd={(e) => {
-            e.stopPropagation();
-          }}
-          onTouchMove={(e) => {
-            e.stopPropagation();
-          }}
-          onTouchStart={(e) => {
-            e.stopPropagation();
-          }}
-          onWheel={(e) => {
-            e.stopPropagation();
-          }}
         >
           <CarouselContent
             className="ml-0 relative h-full pointer-events-none w-full"
@@ -120,9 +128,13 @@ const CurvedEmblaCarousel = ({
                     style={{
                       transform: `translate(${transformX}, ${transformY}) rotate(${rotate}) scale(${scale})`,
                     }}
+                    onClick={() => {
+                      if (isCurrent) return;
+                      api?.scrollTo(index);
+                    }}
                     className={cn(
-                      "relative pl-0  border-buu  pointer-events-none select-none max-w-[264px]  max-h-[370px] h-full rounded-lg shadow-lg",
-                      "transition-all duration-500 ease-out",
+                      "relative pl-0  border-buu bg-blue-400  pointer-events-none select-none max-w-[264px]  max-h-[370px] h-full rounded-lg shadow-lg",
+                      "transition-all duration-500 ease-out"
                     )}
                   >
                     <Generate3DCard
