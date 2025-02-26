@@ -108,6 +108,7 @@ export default function ToolBarToolTips({
                 whileTap="tap"
                 variants={buttonVariants}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                // group bg-buu-button  hover:bg-white hover:shadow-none  group shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5
                 className="group bg-buu-button pointer-events-auto hover:bg-white hover:shadow-none group shadow-buu-button min-w-[30px] rounded-md flex items-center justify-center p-1.5"
               >
                 <motion.div
