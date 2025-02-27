@@ -50,7 +50,7 @@ const initialState: SettingsState = {
   isRecentChatOpen: false,
   isStyleBoxOpen: false,
   isPopoverOpen: false,
-  ThreeDStyle: "Metallic",
+  ThreeDStyle: "Cute",
   modes: "three_d_object",
 };
 

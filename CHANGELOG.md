@@ -1,5 +1,35 @@
 # Changelog
 
+## [0.1.14](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.13...buu-fun-v0.1.14) (2025-02-27)
+
+
+### ✨ Features
+
+* added dice bear profile picture ([3308180](https://github.com/muadpn/buu-fun/commit/33081804dba2c8dfa7c964073fd4cf88926ff5a7))
+* added styles icon on generate menu ([da45cef](https://github.com/muadpn/buu-fun/commit/da45ceffb73f25e93a7b63b4ab023e1a0aa787b0))
+
+
+### 🐛 Bugfixes
+
+* added loading state while chat is fetching ([d5cc0a6](https://github.com/muadpn/buu-fun/commit/d5cc0a6b3130f872c1f6e523d936c0ec0cfed1a1))
+* removed unused tool calls ([f08ee56](https://github.com/muadpn/buu-fun/commit/f08ee56310f51dcec0112822b2cef20f91f9b074))
+
+## [0.1.13](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.12...buu-fun-v0.1.13) (2025-02-26)
+
+
+### ✨ Features
+
+* added download button ([67f52a5](https://github.com/muadpn/buu-fun/commit/67f52a518080d6f0c1c59d2a74e94d0aa3d1681c))
+* added enter key for form submittion ([1e06c3d](https://github.com/muadpn/buu-fun/commit/1e06c3d401c3d6bd93294f8379c36bcfdfe0232c))
+* added sidebar content color and hover effects ([6c1657d](https://github.com/muadpn/buu-fun/commit/6c1657de87f9eb17e9c6ac97b0f4b939268cc97f))
+
+
+### 🐛 Bugfixes
+
+* fixed generation text while generating 3d model. allow to scroll through sub images/models ([7845a93](https://github.com/muadpn/buu-fun/commit/7845a938912ee94228872f6656381d57649f5024))
+* **lint:** linted and formatted the code base ([212e4fe](https://github.com/muadpn/buu-fun/commit/212e4fea15c2aab7e0585fd40219556664b44f9c))
+* removed styles image selector and sorted and changed default styles ([3122817](https://github.com/muadpn/buu-fun/commit/312281766d502963e9850fdc6e86215d8a37447e))
+
 ## [0.1.12](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.11...buu-fun-v0.1.12) (2025-02-25)
 
 

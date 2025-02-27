@@ -143,6 +143,9 @@ body {
 .bg-buu {
   background: rgba(28, 32, 39, 0.36);
 }
+.bg-buu-50 {
+  background: rgba(28, 32, 39, 0.50);
+}
 .bg-buu-secondary {
   background: rgba(26, 30, 36, 0.603);
 }

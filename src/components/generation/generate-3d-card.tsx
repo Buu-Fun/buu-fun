@@ -1,4 +1,4 @@
-import threeDCube from "@/assets/Image/boards/three-d-cube.png";
+import { MagicPenIcon } from "@/assets/icons";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { cn } from "@/lib/utils";
 import "@google/model-viewer";
@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ToolBarToolTips from "./tool-bar-tool-tips";
 const ModelViewer = dynamic(() => import("./model-viewer"), {
-  loading: () => <p>Loading...</p>,
+  // loading: () => <p>Loading...</p>,
   ssr: false,
 });
 
@@ -66,16 +66,38 @@ export default function Generate3DCard({
           transition={{ duration: 0.5 }}
           className="absolute inset-0 w-full h-full"
         >
-          <Image
-            src={images?.imageUrl ?? threeDCube.src}
-            width={1920}
-            height={1080}
-            alt="3D model preview"
-            className={cn("w-full h-full object-cover", {
-              "blur-md": isGenerating,
-            })}
-            priority
-          />
+          <div
+            className={cn(
+              "w-full h-full hidden  items-center bg-black/30 relative justify-center",
+              {
+                "z-10 flex bg-none absolute": isGenerating,
+              },
+            )}
+          >
+            <div className="flex items-center justify-center gap-2 ">
+              <div className="text-blue-400 w-6 h-6">
+                <MagicPenIcon />
+              </div>
+              <p className="text-base tracking-tight text-white  animate-pulse">
+                Generating
+              </p>
+            </div>
+          </div>
+          {/*
+         
+          */}
+          {images?.imageUrl ? (
+            <Image
+              src={images?.imageUrl}
+              width={1920}
+              height={1080}
+              alt="3D model preview"
+              className={cn("w-full h-full  object-cover", {
+                "blur-md": isGenerating,
+              })}
+              priority
+            />
+          ) : null}
         </motion.div>
 
         {/* Conditionally render the 3D model with opacity transition */}
@@ -109,7 +131,11 @@ export default function Generate3DCard({
           },
         )}
       >
-        <ToolBarToolTips imageUrl={images.imageUrl} subThreadId={subThreadId} />
+        <ToolBarToolTips
+          imageUrl={images.imageUrl}
+          modelUrl={modelUrl}
+          subThreadId={subThreadId}
+        />
       </div>
 
       <BorderBeam

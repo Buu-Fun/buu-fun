@@ -1,4 +1,4 @@
-import CoinStackIcon from "@/assets/icons/coin";
+// import CoinStackIcon from "@/assets/icons/coin";
 import QuestionIcon from "@/assets/icons/Icon.png";
 import logo from "@/assets/icons/logo-no-gradient.png";
 import MagicPenIcon from "@/assets/icons/magicpen";
@@ -16,22 +16,29 @@ export default function NavigationalBar() {
         <div className="flex flex-col gap-4 items-center justify-center">
           <Link
             href={"/boards"}
-            className="w-10 flex items-center justify-center px-2 py-3 h-10 hover:fill-white"
+            // group bg-buu-button  hover:bg-white hover:shadow-none  group shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5
+            className="w-10 flex  items-center group   justify-center    h-10  text-black"
           >
-            <SizePenIcon />
+            <div className="w-6 h-6 group-hover:text-white  group-hover:fill-text-white text-gray-500">
+              <SizePenIcon />
+            </div>
           </Link>
           <Link
             href={"/"}
-            className="w-10 flex items-center justify-center px-2 py-3 h-10 hover:fill-white"
+            className="w-10 flex  items-center group   justify-center    h-10 "
           >
-            <MagicPenIcon />
+            <div className="w-6 h-6 group-hover:text-white  group-hover:fill-text-white text-gray-500">
+              <MagicPenIcon />
+            </div>
           </Link>
-          <Link
+          {/* <Link
             href={"/"}
-            className="w-10 flex items-center justify-center px-2 py-3 h-10 hover:fill-white"
+            className="w-10 flex group items-center justify-center px-2 py-3 h-10 "
           >
-            <CoinStackIcon />
-          </Link>
+            <div className="w-6 h-6 group-hover:text-white  group-hover:fill-text-white text-gray-500" >
+              <CoinStackIcon />
+            </div>
+          </Link> */}
         </div>
         <div>
           <Image

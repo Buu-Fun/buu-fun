@@ -2,15 +2,6 @@ import { TSubthread as TResponseThread } from "@/lib/react-query/threads-types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { ChatState, TMediaRequest, TSubThread } from "./chat-types";
 
-export type ChatMessage = {
-  threadId: string;
-  message: [][];
-};
-// type ChatState = {
-//   inputQuery: string;
-//   chat: ChatMessage;
-// };
-
 const initialState: ChatState = {
   inputQuery: "",
   threads: {
