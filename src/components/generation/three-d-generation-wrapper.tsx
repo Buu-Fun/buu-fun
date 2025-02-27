@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useEffect } from "react";
 import CurvedEmblaCarousel from "./carousal";
+import { iconByTitle, TKey } from "../settings/styles-data";
 
 type TThreeDGenerationWrapper = {
   threadId: string;
@@ -24,7 +25,7 @@ export default function ThreeDGenerationWrapper({
   const { getAccessToken } = useAuthentication();
   const { address } = useWallet();
   const $SubThread = useAppSelector((state) =>
-    getSubThreadsFromStore(state, subThread._id),
+    getSubThreadsFromStore(state, subThread._id)
   );
 
   const { data } = useQuery({
@@ -51,10 +52,10 @@ export default function ThreeDGenerationWrapper({
 
       // check if there is any request's are in Progress, if so return true
       const isPendingFoundInQuery = query.state.data?.modelRequests?.find(
-        (item) => item.status === "InProgress",
+        (item) => item.status === "InProgress"
       );
       const isPendingFoundInState = $SubThread.modelRequest.find(
-        (item) => item.status === "InProgress",
+        (item) => item.status === "InProgress"
       );
 
       if (isPendingFoundInQuery?._id || isPendingFoundInState?._id) return true;
@@ -71,16 +72,27 @@ export default function ThreeDGenerationWrapper({
       dispatch(setSubThread(data));
     }
   }, [dispatch, data]);
-
+  const styleColor = ($SubThread?.style ?? "no_style") as TKey;
+  const IconData = iconByTitle[styleColor];
+  console.log("STYLES",styleColor)
   return (
     <div className="flex  items-center pointer-events-none  justify-center h-full     flex-col gap-4">
-      <div className="bg-buu  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
-        <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">
-          {/* {selected?.message[ZERO][ZERO]?.time ?? "07:00:AM"} */}
-          {format($SubThread?.createdAt ?? Date.now(), "KK:mm:a")}
-          {/* {id} */}
-        </p>
+      <div className="flex gap-2 items-center justify-center">
+        <div className="bg-buu  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
+          <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">
+            {format($SubThread?.createdAt ?? Date.now(), "KK:mm:a")}
+          </p>
+        </div>
+        {IconData ? (
+          <div className="bg-buu flex items-center justify-center gap-1  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
+            <div className="w-4 h-4">{IconData?.Icon}</div>
+            <p className="text-xs font-semibold px-0.5  text-[#D5D9DF60] capitalize line-clamp-2">
+              {IconData?.displayName}
+            </p>
+          </div>
+        ) : null}
       </div>
+
       <h2
         className={cn(
           "text-2xl max-w-md text-center  relative font-medium tracking-tighter",
@@ -90,7 +102,7 @@ export default function ThreeDGenerationWrapper({
             "text-base": $SubThread && $SubThread?.message?.length > 120,
             "text-sm line-clamp-3":
               $SubThread && $SubThread?.message?.length > 160,
-          },
+          }
         )}
       >
         {$SubThread?.message}
