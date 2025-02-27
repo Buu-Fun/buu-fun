@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.14](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.13...buu-fun-v0.1.14) (2025-02-27)
+
+
+### ✨ Features
+
+* added dice bear profile picture ([3308180](https://github.com/muadpn/buu-fun/commit/33081804dba2c8dfa7c964073fd4cf88926ff5a7))
+* added styles icon on generate menu ([da45cef](https://github.com/muadpn/buu-fun/commit/da45ceffb73f25e93a7b63b4ab023e1a0aa787b0))
+
+
+### 🐛 Bugfixes
+
+* added loading state while chat is fetching ([d5cc0a6](https://github.com/muadpn/buu-fun/commit/d5cc0a6b3130f872c1f6e523d936c0ec0cfed1a1))
+* removed unused tool calls ([f08ee56](https://github.com/muadpn/buu-fun/commit/f08ee56310f51dcec0112822b2cef20f91f9b074))
+
 ## [0.1.13](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.12...buu-fun-v0.1.13) (2025-02-26)
 
 
