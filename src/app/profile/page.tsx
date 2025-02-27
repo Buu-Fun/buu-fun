@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import ProfileImage from "@/assets/Image/profile-icon.png";
 import Image from "next/image";
@@ -5,12 +6,22 @@ import CopyAddress from "@/components/navbar/copy-address";
 import { Button } from "@/components/ui/button";
 import { AddImage } from "@/assets/icons";
 import AccountLinking from "@/components/profile/account-linking";
+import { profilePicture } from "@/lib/dice-bear";
+import { useWallet } from "@/providers/wallet.context";
+import { redirect } from "next/navigation";
+import ProfileSkeleton from "@/components/profile/profile-skeleton";
 export default function ProfilePage() {
+  // made the profile fully client based because it doesn't matter to render fully on server
+  const { address, loading } = useWallet();
+  if (loading) return <ProfileSkeleton />;
+
+  if(!address) redirect('/')
+
   return (
     <main className="flex items-center flex-col justify-center ">
       <div className="flex w-16 h-16">
         <Image
-          src={ProfileImage}
+          src={profilePicture(address)}
           width={480}
           className="w-full h-full border-2 rounded-2xl border-profile shadow-inner shadow-gray-200"
           alt="Profile image"
@@ -30,7 +41,7 @@ export default function ProfilePage() {
             Credits Used
           </h3>
           <div className="text-2xl font-medium">
-            <p>0/3</p>
+            <p>$4.21</p>
           </div>
         </div>
         <div className="w-[1.5px] min-h-[50px]  bg-muted-foreground/40" />

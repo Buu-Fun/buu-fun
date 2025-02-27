@@ -10,7 +10,7 @@ export default function CreditUsedIcon() {
         className="px-2.5 h-[40px] group py-2 bg-buu shadow-buu-secondary border-buu rounded-[10px]"
       >
         <FlashIcon />
-        <p className="text-white">0/3</p>
+        <p className="text-white">$4.21</p>
         Credits Used{" "}
       </Button>
     </div>
