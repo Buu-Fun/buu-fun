@@ -4,7 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import AddImage from "@/assets/icons/add.png";
 import LogoutIcon from "@/assets/icons/log-out-Icon";
 import SettingsIcon from "@/assets/icons/settings-icon";
-import { profileIcon } from "@/assets/Image";
+import { profilePicture } from "@/lib/dice-bear";
 import { useWallet, walletType } from "@/providers/wallet.context";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
@@ -46,7 +46,7 @@ export default function Topbar() {
               <button className="flex items-center gap-1.5 text-sm px-2 h-[40px] group py-1.5   bg-white text-black  rounded-md">
                 <div className="relative flex w-8 h-8 border-profile shadow-inner rounded-md overflow-hidden">
                   <Image
-                    src={profileIcon.src}
+                    src={profilePicture(address)}
                     width={100}
                     alt="sample profile Icon"
                     height={100}

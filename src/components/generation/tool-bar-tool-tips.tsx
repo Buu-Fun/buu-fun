@@ -14,7 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { ToolTips, TToolTipEvents } from "./handle-tool-calls";
-import ToolTipModify from "./tool-tip-modify";
+// import ToolTipModify from "./tool-tip-modify";
 import ToolTipDownload from "./tool-tip-download";
 
 type TToolBarToolTips = {
@@ -31,7 +31,7 @@ export const buttonVariants = {
 
 export default function ToolBarToolTips({
   subThreadId,
-  imageUrl,
+  // imageUrl,
   modelUrl,
 }: TToolBarToolTips) {
   const dispatch = useAppDispatch();
@@ -54,10 +54,6 @@ export default function ToolBarToolTips({
     },
   });
 
-  // function handleModifyDrag() {
-  //   // Set the dragged image URL in Redux store
-  //   dispatch(setDraggedImage(imageUrl ?? undefined));
-  // }
 
   function handleEvent(events: TToolTipEvents) {
     const accessToken = getAccessToken(address ?? "");
@@ -73,10 +69,9 @@ export default function ToolBarToolTips({
         });
         break;
       }
-      case "MODIFY": {
-        toast.loading("Generating model...");
-        break;
-      }
+      // case "MODIFY": {
+      //   break;
+      // }
       default: {
         console.log("NOT FOUND");
       }
@@ -88,18 +83,18 @@ export default function ToolBarToolTips({
   return (
     <TooltipProvider>
       {ToolTips.map((item, index) => {
-        if (item.type === "MODIFY" && imageUrl) {
-          return (
-            <ToolTipModify
-              key={`tool-tip-contents-${item.content.trim()}-${subThreadId}-${index}`}
-              index={index}
-              length={ToolTips.length}
-              subThreadId={subThreadId}
-              toolTipData={item}
-              imageUrl={imageUrl}
-            />
-          );
-        }
+        // if (item.type === "MODIFY" && imageUrl) {
+        //   return (
+        //     <ToolTipModify
+        //       key={`tool-tip-contents-${item.content.trim()}-${subThreadId}-${index}`}
+        //       index={index}
+        //       length={ToolTips.length}
+        //       subThreadId={subThreadId}
+        //       toolTipData={item}
+        //       imageUrl={imageUrl}
+        //     />
+        //   );
+        // }
 
         if (item.type === "DOWNLOAD") {
           // key={`tool-tip-contents-${item.content.trim()}-${index}`}
