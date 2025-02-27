@@ -4,7 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import AddImage from "@/assets/icons/add.png";
 import LogoutIcon from "@/assets/icons/log-out-Icon";
 import SettingsIcon from "@/assets/icons/settings-icon";
-import { profileIcon } from "@/assets/Image";
+import { profilePicture } from "@/lib/dice-bear";
 import { useWallet, walletType } from "@/providers/wallet.context";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
@@ -13,7 +13,6 @@ import { Button } from "../ui/button";
 import CopyAddress from "./copy-address";
 import CreditUsedIcon from "./credit-used-icon";
 import RecentChats from "./recent-chats";
-import { profilePicture } from "@/lib/dice-bear";
 export default function Topbar() {
   const { address, disconnect, connect } = useWallet();
   const shouldConnect = !address;

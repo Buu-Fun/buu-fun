@@ -16,6 +16,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { TBottomBarContainer } from "./bottom-bar-container";
 import ChatTextArea from "./chat-text-area";
+import { Loader2 } from "lucide-react";
 
 export default function ChatForm({ action }: TBottomBarContainer) {
   const { getAccessToken } = useAuthentication();
@@ -26,7 +27,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
   const style = useAppSelector((state) => state.settings.ThreeDStyle);
 
   // Mutation for creating a new chat
-  const { mutate: createNewChat } = useMutation({
+  const { mutate: createNewChat, isPending: isCreatePending } = useMutation({
     mutationFn: generateSubThreads,
     onSuccess(data) {
       dispatch(setNewThreadId(data.threadId));
@@ -38,21 +39,22 @@ export default function ChatForm({ action }: TBottomBarContainer) {
   });
 
   // mutation for existing chat
-  const { mutate: createExistingChat } = useMutation({
-    mutationFn: generateSubThreads,
-    onSuccess(data) {
-      toast.loading("Generating new model...", { duration: 8000 });
-      dispatch(setSubThread(data));
-      dispatch(clearInput());
+  const { mutate: createExistingChat, isPending: isExistingChatPending } =
+    useMutation({
+      mutationFn: generateSubThreads,
+      onSuccess(data) {
+        toast.loading("Generating new model...", { duration: 8000 });
+        dispatch(setSubThread(data));
+        dispatch(clearInput());
 
-      queryClient.invalidateQueries({
-        queryKey: [data.threadId, "get-all-sub-threads"],
-      });
-    },
-    onError(error) {
-      console.log(error);
-    },
-  });
+        queryClient.invalidateQueries({
+          queryKey: [data.threadId, "get-all-sub-threads"],
+        });
+      },
+      onError(error) {
+        console.log(error);
+      },
+    });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,10 +95,15 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       <div className="w-full  flex justify-between">
         <ImageIcon />
         <button
+          disabled={isCreatePending || isExistingChatPending}
           type="submit"
           className="bg-[#737984] rounded-full border p-0.5"
         >
-          <ArrowUp className="   w-5 h-5 " />
+          {!isCreatePending || !isExistingChatPending ? (
+            <ArrowUp className="   w-5 h-5 " />
+          ) : (
+            <Loader2 className="animate-spin" />
+          )}
         </button>
       </div>
     </form>

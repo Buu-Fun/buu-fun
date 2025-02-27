@@ -1,15 +1,13 @@
 "use client";
-import React from "react";
-import ProfileImage from "@/assets/Image/profile-icon.png";
-import Image from "next/image";
-import CopyAddress from "@/components/navbar/copy-address";
-import { Button } from "@/components/ui/button";
 import { AddImage } from "@/assets/icons";
+import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
+import ProfileSkeleton from "@/components/profile/profile-skeleton";
+import { Button } from "@/components/ui/button";
 import { profilePicture } from "@/lib/dice-bear";
 import { useWallet } from "@/providers/wallet.context";
+import Image from "next/image";
 import { redirect } from "next/navigation";
-import ProfileSkeleton from "@/components/profile/profile-skeleton";
 export default function ProfilePage() {
   // made the profile fully client based because it doesn't matter to render fully on server
   const { address, loading } = useWallet();

@@ -14,7 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { ToolTips, TToolTipEvents } from "./handle-tool-calls";
-import ToolTipModify from "./tool-tip-modify";
+// import ToolTipModify from "./tool-tip-modify";
 import ToolTipDownload from "./tool-tip-download";
 
 type TToolBarToolTips = {
@@ -31,7 +31,7 @@ export const buttonVariants = {
 
 export default function ToolBarToolTips({
   subThreadId,
-  imageUrl,
+  // imageUrl,
   modelUrl,
 }: TToolBarToolTips) {
   const dispatch = useAppDispatch();
