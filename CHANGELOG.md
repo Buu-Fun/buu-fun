@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.1.17](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.16...buu-fun-v0.1.17) (2025-02-28)
+
+
+### ✨ Features
+
+* added new modal for authentication ([eb8798a](https://github.com/muadpn/buu-fun/commit/eb8798ac4b686a2f8365e2408869bafb3a2baf9c))
+
+
+### 🐛 Bugfixes
+
+* fixed atuhentication asking for sign after each request ([8bb4029](https://github.com/muadpn/buu-fun/commit/8bb40294c2b2aaae198a62cca4f750ff6d5b047b))
+
+
+### 👽 Miscellaneous
+
+* **lint:** fixed and formatted linting issues and warning ([573580c](https://github.com/muadpn/buu-fun/commit/573580ce2e4dcd96ff52d26ba5b5dd2d9b6df17b))
+
 ## [0.1.16](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.15...buu-fun-v0.1.16) (2025-02-28)
 
 
