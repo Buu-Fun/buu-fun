@@ -1,19 +1,86 @@
 import { TSubthread as TResponseThread } from "@/lib/react-query/threads-types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { ChatState, TMediaRequest, TSubThread } from "./chat-types";
+import { InfiniteData } from "@tanstack/react-query";
+import {
+  ChatState,
+  TAllSubThreadsResponse,
+  TMediaRequest,
+  TSubThread,
+  TSubThreadsMedia,
+  TSubThreadsResponse,
+  TSubthreadV1,
+} from "./chat-types";
 
 const initialState: ChatState = {
   inputQuery: "",
+  currentGenRequestIndex: 0,
+  currentSubThreadIndex: 0,
+  subThreads: [],
+  genRequest: {},
   threads: {
     threadId: "",
     subThreads: [],
   },
 };
-
 const ChatSlice = createSlice({
   name: "Chat",
   initialState,
   reducers: {
+    pushNewSubThreads(state, action: PayloadAction<TSubthreadV1>) {
+      state.subThreads.push(action.payload);
+    },
+    setNewGenRequest(state, action: PayloadAction<TSubThreadsMedia>) {
+      state.genRequest[action.payload.subthreadId].push(action.payload);
+    },
+    setSubThreadIndex(state, action: PayloadAction<number>) {
+      state.currentSubThreadIndex = action.payload;
+    },
+    setGenRequestIndex(state, action: PayloadAction<number>) {
+      state.currentGenRequestIndex = action.payload;
+    },
+    setSubThreadResponse: {
+      reducer(
+        state,
+        action: PayloadAction<{
+          subThreadId: string;
+          Media: TSubThreadsMedia[];
+        }>
+      ) {
+        state.genRequest[action.payload.subThreadId] = action.payload.Media;
+      },
+      prepare(Media: TSubThreadsResponse["items"], subThreadId: string) {
+        return {
+          payload: {
+            Media,
+            subThreadId,
+          },
+        };
+      },
+    },
+    setInfinitySubThreads: {
+      reducer(state, action: PayloadAction<TSubthreadV1[]>) {
+        state.subThreads = action.payload;
+      },
+      prepare(data: InfiniteData<TAllSubThreadsResponse>) {
+        const transformedData: TSubthreadV1[] = data.pages
+          .flatMap((eachPage) => {
+            return eachPage.items.map(
+              (item): TSubthreadV1 => ({
+                ...item,
+              })
+            );
+          })
+          .sort(
+            (a, b) =>
+              new Date(a.createdAt as string).getTime() -
+              new Date(b.createdAt as string).getTime()
+          );
+
+        return {
+          payload: transformedData,
+        };
+      },
+    },
     setDraggedImage(state, action: PayloadAction<string | undefined>) {
       state.draggingImage = action.payload;
     },
@@ -80,7 +147,7 @@ const ChatSlice = createSlice({
                 modelMesh: modRes.model_mesh,
                 status: modRes.status,
                 type: modRes.type,
-              }),
+              })
             ),
         }));
         return {
@@ -93,7 +160,7 @@ const ChatSlice = createSlice({
       reducer(state, action: PayloadAction<TSubThread>) {
         console.log("PAYLOAD", action.payload);
         const index = state.threads.subThreads.findIndex(
-          (fv) => fv._id === action.payload._id,
+          (fv) => fv._id === action.payload._id
         );
 
         if (index !== -1) {
@@ -152,6 +219,12 @@ export const {
   clearInput,
   setPlacedImage,
   setDraggedImage,
+  setInfinitySubThreads,
+  setSubThreadResponse,
+  setGenRequestIndex,
+  setSubThreadIndex,
+  pushNewSubThreads,
+  setNewGenRequest,
 } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

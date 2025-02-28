@@ -1,3 +1,9 @@
+import {
+  GetSubthreadGenRequestsQuery,
+  GetSubthreadsQuery
+} from "@/gql/types/graphql";
+import { TThreeDStyles } from "./settings";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type TMediaData = {
   content_type: string;
@@ -45,8 +51,48 @@ export type ChatMessage = {
 
 export type ChatState = {
   inputQuery: string;
+  currentSubThreadIndex: number;
+  currentGenRequestIndex: number;
   draggingImage?: string;
   placedImage?: string;
-
   threads: ChatMessage;
+  subThreads: TSubthreadV1[];
+  genRequest: Record<string, TSubThreadsMedia[]>;
+};
+
+export type TErrorTypeName = { __typename?: "HandledError" };
+
+export type TAllSubThreads = TAllSubThreadsResponse["items"];
+
+export type TAllSubThreadsResponse = Exclude<
+  GetSubthreadsQuery["getSubthreads"],
+  TErrorTypeName
+>;
+
+export type TSubThreadsResponse = Exclude<
+  GetSubthreadGenRequestsQuery["getSubthreadGenRequests"],
+  TErrorTypeName
+>;
+export type TGenResponseStatus = "InProgress" | "Success" | "Error";
+export type TSubThreadsMedia = Omit<
+  TSubThreadsResponse["items"][number],
+  "status"
+> & { status: TGenResponseStatus };
+
+export type TSubthreadV1 = TAllSubThreads[number];
+
+export type TGenerationalData = {
+  style: TThreeDStyles | null | undefined;
+  isGenerating: boolean;
+  isErrored: boolean;
+  model?: {
+    modelId: string;
+    modelUrl?: string;
+    modelStatus: TGenResponseStatus;
+  };
+  image: {
+    imageId: string;
+    imageStatus: TGenResponseStatus;
+    imageUrl: string | null;
+  };
 };
