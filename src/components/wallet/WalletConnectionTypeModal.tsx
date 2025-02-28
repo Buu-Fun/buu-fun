@@ -21,28 +21,31 @@ export const WalletConnectionTypeModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger className="sr-only">LOGIN</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="sr-only">Login dialog</DialogTitle>
-          <DialogDescription className="sr-only">Login</DialogDescription>
+      <DialogContent className="max-w-[300px] bg-buu-opacity-100 border-buu shadow-buu-button">
+        <DialogHeader className="">
+          <DialogTitle className="">Sign in</DialogTitle>
+          <DialogDescription className="">
+            Choose the type of login method <br /> you want to connect Buu.fun
+          </DialogDescription>
         </DialogHeader>
 
-        <div>
-          <div>Sign in</div>
-
-          <div>{`Choose the type of wallet you want to connect`}</div>
-
-          <div>
+        <div className="w-full">
+          <div className="flex gap-2 items-center justify-center flex-col w-full">
             <Button
+              className="w-full bg-buu shadow-buu-secondary 
+              hover:bg-buu-secondary hover:opacity-100"
+              variant={"secondary"}
               onClick={() => {
                 connect(WalletConnectionType.Web2);
                 onOpenChange(false);
               }}
             >
-              Login
+              Email
             </Button>
             <Button
-              color="primary"
+              className="w-full bg-buu shadow-buu-secondary
+              hover:bg-buu-secondary hover:opacity-100"
+              variant={"secondary"}
               onClick={() => {
                 connect(WalletConnectionType.Web3);
                 onOpenChange(false);

@@ -2,10 +2,7 @@
 import { PrivyProvider } from "@privy-io/react-auth";
 import * as React from "react";
 
-// import '../../styles/solana-modal.css';
 import "@/styles/solana-modal.css";
-// import { AuthenticationProvider } from '@/src/context/account.context';
-// import { WalletProvider } from '@/src/context/wallet.context';
 import "@solana/wallet-adapter-react-ui/styles.css";
 
 const NEXT_PUBLIC_PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
@@ -17,7 +14,6 @@ import {
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import {
   CoinbaseWalletAdapter,
-  LedgerWalletAdapter,
   PhantomWalletAdapter,
   SolflareWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
@@ -38,7 +34,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     () => [
       new CoinbaseWalletAdapter(),
       new SolflareWalletAdapter(),
-      new LedgerWalletAdapter(),
+      // new LedgerWalletAdapter(),
       new PhantomWalletAdapter(),
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,11 +45,16 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <PrivyProvider
       appId={NEXT_PUBLIC_PRIVY_APP_ID as string}
       config={{
+        loginMethods: ["wallet", "email"],
+
         // Customize Privy's appearance in your app
+
         appearance: {
-          theme: "light",
-          accentColor: "#676FFF",
-          //   logo: 'https://your-logo-url',
+          theme: "dark",
+
+          accentColor: "#1c20275c",
+          // eslint-disable-next-line @next/next/no-img-element
+          logo: <img src="/logo.png" className="w-12" alt="Buu.fun Logo" />,
         },
         // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {

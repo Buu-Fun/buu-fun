@@ -1,30 +1,6 @@
 "use client";
 import React, { createContext, useCallback, useContext, useMemo } from "react";
-// import { serverRequest } from '../gql/client';
-// import {
-//   DisconnectTelegram,
-//   DisconnectTwitter,
-//   LoginAuthMutation,
-//   LoginChallengeMutation,
-//   LoginRefreshMutation,
-//   Me,
-// } from '../gql/documents/account';
-// import {
-//   Account,
-//   LoginAuth,
-//   LoginChallenge,
-//   SolanaSignInOutput,
-// } from '../gql/types/graphql';
-import { useWallet } from "./wallet.context";
-import { SolanaSignInInput } from "@solana/wallet-standard-features";
-import { PublicKey } from "@solana/web3.js";
-import {
-  Account,
-  LoginAuth,
-  LoginChallenge,
-  SolanaSignInOutput,
-} from "@/gql/types/graphql";
-import { serverRequest } from "@/gql/client";
+import { serverRequest } from "../gql/client";
 import {
   DisconnectTelegram,
   DisconnectTwitter,
@@ -32,11 +8,18 @@ import {
   LoginChallengeMutation,
   LoginRefreshMutation,
   Me,
-} from "@/gql/documents/account";
+} from "../gql/documents/account";
+import {
+  Account,
+  LoginAuth,
+  LoginChallenge,
+  SolanaSignInOutput,
+} from "../gql/types/graphql";
+import { SERVER_URL, TELEGRAM_AUTH_BOT_HANDLE } from "../config";
+import { useWallet } from "./wallet.context";
+import { SolanaSignInInput } from "@solana/wallet-standard-features";
 import { createSignInMessageText } from "./privy";
-const SERVER_URL =
-  process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:4000";
-const TELEGRAM_AUTH_BOT_HANDLE = "leonardo_cash_auth_bot";
+import { PublicKey } from "@solana/web3.js";
 
 interface Props {
   children: React.ReactNode;
@@ -46,7 +29,7 @@ interface AuthenticationContextType {
   loading: boolean;
   account?: Account;
   fetchAccount: () => Promise<void>;
-  getAccessToken: (address: string) => string | null;
+  getAccessToken: (account: string) => string | null;
   connectTwitterAccount: (account: string) => Promise<void>;
   disconnectTwitterAccount: (account: string) => Promise<void>;
   connectTelegramAccount: (account: string) => Promise<void>;
@@ -69,15 +52,16 @@ export const AuthenticationProvider = ({ children }: Props) => {
     return [];
   };
 
-  const getAccessTokenKey = (address: string) => `x-accessToken-${address}`;
+  const getAccessTokenKey = (account: string) => `x-accessToken-${account}`;
 
-  const getAccessToken = useCallback((address: string) => {
-    const value = localStorage.getItem(getAccessTokenKey(address));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getAccessToken = (account: string) => {
+    const value = localStorage.getItem(getAccessTokenKey(account));
     if (value) {
       return JSON.parse(value) as string;
     }
     return null;
-  }, []);
+  };
 
   const fetchAccount = useCallback(async () => {
     if (!address) return;
@@ -95,7 +79,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
     } catch (error) {
       console.error("Error fetching account:", error);
     }
-  }, [address, getAccessToken]);
+  }, [getAccessToken, address]);
 
   const authenticate = useCallback(async () => {
     try {
@@ -213,18 +197,17 @@ export const AuthenticationProvider = ({ children }: Props) => {
       setLoading(false);
       fetchAccount();
     }
-  }, [address, adapter, fetchAccount, disconnect, getAccessToken]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address, adapter, fetchAccount]);
 
-  const connectTwitterAccount = useCallback(
-    async (account: string) => {
-      const accessToken = getAccessToken(account);
-      if (!accessToken) return;
-      const token = encodeURIComponent(accessToken);
-      const url = `${SERVER_URL}/accounts/auth/twitter?token=${token}`;
-      window.location.href = url; // Redirige al backend
-    },
-    [getAccessToken],
-  );
+  const connectTwitterAccount = useCallback(async (account: string) => {
+    const accessToken = getAccessToken(account);
+    if (!accessToken) return;
+    const token = encodeURIComponent(accessToken);
+    const url = `${SERVER_URL}/accounts/auth/twitter?token=${token}`;
+    window.location.href = url; // Redirige al backend
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const disconnectTwitterAccount = useCallback(
     async (account: string) => {
@@ -237,17 +220,16 @@ export const AuthenticationProvider = ({ children }: Props) => {
       );
       await fetchAccount();
     },
-    [fetchAccount, getAccessToken],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fetchAccount],
   );
 
-  const connectTelegramAccount = useCallback(
-    async (account: string) => {
-      const text = `Hey!\n\nPlease link my wallet ${account} to my Telegram account.\n\nMy verification code is:\n\n$${getAccessToken(account)}$\n\nThanks!`;
-      const url = `https://t.me/${TELEGRAM_AUTH_BOT_HANDLE}?text=${encodeURIComponent(text)}`;
-      window.open(url, "_blank");
-    },
-    [getAccessToken],
-  );
+  const connectTelegramAccount = useCallback(async (account: string) => {
+    const text = `Hey!\n\nPlease link my wallet ${account} to my Telegram account.\n\nMy verification code is:\n\n$${getAccessToken(account)}$\n\nThanks!`;
+    const url = `https://t.me/${TELEGRAM_AUTH_BOT_HANDLE}?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const disconnectTelegramAccount = useCallback(
     async (account: string) => {
@@ -260,14 +242,16 @@ export const AuthenticationProvider = ({ children }: Props) => {
       );
       await fetchAccount();
     },
-    [fetchAccount, getAccessToken],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fetchAccount],
   );
 
   React.useEffect(() => {
     authenticate();
     const interval = setInterval(async () => authenticate(), 1000 * 60 * 5);
     return () => clearInterval(interval);
-  }, [address, authenticate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
 
   React.useEffect(() => {
     fetchAccount();
@@ -284,8 +268,10 @@ export const AuthenticationProvider = ({ children }: Props) => {
       connectTelegramAccount,
       disconnectTelegramAccount,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       loading,
+      fetchAccount,
       fetchAccount,
       getAccessToken,
       connectTwitterAccount,

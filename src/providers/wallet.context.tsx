@@ -26,7 +26,7 @@ export enum WalletConnectionType {
   Web2 = "web2",
   Web3 = "web3",
 }
-export const walletType = WalletConnectionType.Web3;
+
 interface WalletContextType {
   loading: boolean;
   address?: string | null;
@@ -35,7 +35,6 @@ interface WalletContextType {
   openConnectionModal: () => void;
   disconnect: () => Promise<void>;
   switchConnectionType: () => Promise<void>;
-  connect: (type: WalletConnectionType) => Promise<void>;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
@@ -65,7 +64,8 @@ export const WalletProvider = ({ children }: Props) => {
     }
     localStorage.removeItem(connectedWalletConnectionTypeKey);
     router.push("/");
-  }, [user, logout, disconnectWeb3Wallet, router, wallet]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, logout, disconnectWeb3Wallet]);
 
   const connect = useCallback(
     async (type: WalletConnectionType) => {
@@ -83,7 +83,8 @@ export const WalletProvider = ({ children }: Props) => {
       setConnectionType(type);
       localStorage.setItem(connectedWalletConnectionTypeKey, type);
     },
-    [user, login, setVisible, wallet],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [user, disconnect, login, setVisible],
   );
 
   const switchConnectionType = useCallback(async () => {
@@ -107,16 +108,15 @@ export const WalletProvider = ({ children }: Props) => {
     if (savedType) {
       connect(savedType as WalletConnectionType);
     }
-  }, [connect]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const address =
     connectionType === WalletConnectionType.Web2
       ? wallets[0]?.address
       : wallet?.adapter.publicKey?.toString();
-
   const adapter =
     connectionType === WalletConnectionType.Web2 ? wallets[0] : wallet?.adapter;
-
   const loading =
     connecting || connectionDisclosure.isOpen || visible || isModalOpen;
 
@@ -129,7 +129,6 @@ export const WalletProvider = ({ children }: Props) => {
       openConnectionModal: () => connectionDisclosure.onOpen(),
       disconnect,
       switchConnectionType,
-      connect,
     }),
     [
       loading,
@@ -139,7 +138,6 @@ export const WalletProvider = ({ children }: Props) => {
       connectionDisclosure,
       disconnect,
       switchConnectionType,
-      connect,
     ],
   );
 
