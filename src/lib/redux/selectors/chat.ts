@@ -2,19 +2,24 @@ import { isError, isInProgress } from "@/lib/helpers/status-checker";
 import { RootState } from "@/types/reduxStore";
 import { createSelector } from "@reduxjs/toolkit";
 import { TGenerationalData } from "../features/chat-types";
+import {
+  isImageModel,
+  isSubThreadInProgressForFirstTimeOrForTheLastObject,
+  isThreeDModel,
+  mergeImageAndMedia,
+} from "../utils";
+import { isOverAllRequestLimitReached } from "@/lib/utils";
 const Threads = (state: RootState) => state.chat.threads.subThreads;
 export const getSubThreadsFromStore = createSelector(
   [Threads, (_, id: string) => id],
   (SubThread, id) => {
     const FoundedSubthread = SubThread.find((fv) => fv._id === id);
     return FoundedSubthread;
-  },
+  }
 );
 
 const SubThreads = (state: RootState) => state.chat.subThreads;
 const Medias = (state: RootState) => state.chat.genRequest;
-const ImageModelType = "fal-ai/flux-lora";
-const ThreeDModelType = "fal-ai/trellis";
 
 export const getSubThreadsMedia = createSelector(
   [SubThreads, Medias, (_, __, subThreadId: string) => subThreadId],
@@ -24,17 +29,17 @@ export const getSubThreadsMedia = createSelector(
     const Media = Medias[subThreadId] ?? [];
 
     const ImageGenerated =
-      Media?.filter((item) => item.type === ImageModelType) ?? [];
+      Media?.filter((item) => isImageModel(item.type)) ?? [];
 
     const ThreeDGenerated =
-      Media?.filter((item) => item.type === ThreeDModelType) ?? [];
+      Media?.filter((item) => isThreeDModel(item.type)) ?? [];
 
     const style = SubThread?.style;
 
     const GeneratedRequestMedias: TGenerationalData[] = ImageGenerated?.map(
       (item) => {
         const FoundedModel = ThreeDGenerated.find(
-          (fv) => fv.metadata.imageRequestId === item?._id,
+          (fv) => fv.metadata.imageRequestId === item?._id
         );
 
         const imageStatus = item.status;
@@ -64,9 +69,43 @@ export const getSubThreadsMedia = createSelector(
             imageUrl: item.images?.length ? item?.images[0]?.url : null,
           },
         };
-      },
+      }
     );
 
     return GeneratedRequestMedias;
-  },
+  }
+);
+
+export const isSubThreadGenerating = createSelector(
+  [SubThreads, Medias],
+  (SubThread, Medias) => {
+    const lastThread = SubThread?.length
+      ? SubThread[SubThread.length - 1]
+      : null;
+
+    if (!lastThread) {
+      return {
+        totalRequest: 1,
+        isJustStarted: true,
+        isLimitReached: false,
+      };
+    }
+    const lastSubThreadGenRequest = Medias[lastThread._id] ?? [];
+    // First request and its Generating
+    const isJustStarted = isSubThreadInProgressForFirstTimeOrForTheLastObject(
+      lastSubThreadGenRequest
+    );
+    const totalRequests = Object.keys(Medias).reduce((acc, item) => {
+      const subThreads = mergeImageAndMedia(Medias[item]).filter((item) => {
+        return item.isGenerating === true;
+      }).length;
+      return subThreads + acc;
+    }, 0);
+
+    return {
+      isJustStarted: isJustStarted.isFirstGenerating,
+      totalRequest: totalRequests,
+      isLimitReached: isOverAllRequestLimitReached(totalRequests),
+    };
+  }
 );
