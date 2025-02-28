@@ -72,9 +72,12 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     }
 
     if (isChatLoading) {
-      return toast.error(
-        "Whoa, you're on fire! You've hit the limit of 4 creations."
-      );
+      if (isOverAllRequestLimitReached(isChatPending.totalRequest)) {
+        return toast.error(
+          "Whoa, you're on fire 🔥. You've hit the limit of 4 creations."
+        );
+      }
+      return toast.error("Hold on!, Still generating your model...");
     }
     if (!address) {
       openConnectionModal();
