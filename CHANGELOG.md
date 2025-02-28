@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.18](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.17...buu-fun-v0.1.18) (2025-02-28)
+
+
+### 🐛 Bugfixes
+
+* added conditional for opening up model when user is not loggedIn and added Logo Icon to redirect to home page ([cb5ed7b](https://github.com/muadpn/buu-fun/commit/cb5ed7b0420bfbee7e021beff021dd1b85ee495c))
+
 ## [0.1.17](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.16...buu-fun-v0.1.17) (2025-02-28)
 
 
