@@ -9,9 +9,12 @@ export default function NavigationalBar() {
   return (
     <nav className="px-3 py-4   w-full h-full">
       <div className="bg-buu py-4 flex flex-col items-center justify-between rounded-[20px] overflow-hidden h-full w-[72px]">
-        <div className="flex shadow-buu-inner bg-buu-opacity-100  items-center justify-center w-12 h-12 px-3 py-4  rounded-lg ">
+        <Link
+          href={"/"}
+          className="flex shadow-buu-inner bg-buu-opacity-100  items-center justify-center w-12 h-12 px-3 py-4  rounded-lg "
+        >
           <Image src={logo} width={250} height={20} alt="Bunn.fun logo" />
-        </div>
+        </Link>
 
         <div className="flex flex-col gap-4 items-center justify-center">
           <Link

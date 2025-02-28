@@ -8,6 +8,8 @@ import {
   pushNewSubThreads,
   setNewThreadId,
 } from "@/lib/redux/features/chat";
+import { isSubThreadGenerating } from "@/lib/redux/selectors/chat";
+import { cn, isOverAllRequestLimitReached } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
 import { useWallet } from "@/providers/wallet.context";
 import { useMutation } from "@tanstack/react-query";
@@ -25,7 +27,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
   const router = useRouter();
   const prompt = useAppSelector((state) => state.chat.inputQuery);
   const style = useAppSelector((state) => state.settings.ThreeDStyle);
-
+  const isChatPending = useAppSelector(isSubThreadGenerating);
   // Mutation for creating a new chat
   const { mutate: createNewChat, isPending: isCreatePending } = useMutation({
     mutationFn: generateSubThreads,
@@ -55,6 +57,12 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       },
     });
 
+  const isChatLoading =
+    isCreatePending ||
+    isExistingChatPending ||
+    (action !== "new_chat" && isChatPending.isJustStarted) ||
+    isOverAllRequestLimitReached(isChatPending.totalRequest);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -63,6 +71,11 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       return;
     }
 
+    if (isChatLoading) {
+      return toast.error(
+        "Whoa, you're on fire! You've hit the limit of 4 creations."
+      );
+    }
     if (!address) {
       openConnectionModal();
       return;
@@ -94,15 +107,19 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       <div className="w-full  flex justify-between">
         <ImageIcon />
         <button
-          disabled={isCreatePending || isExistingChatPending}
+          disabled={isChatLoading}
           type="submit"
-          className="bg-[#737984] rounded-full border p-0.5"
+          className={cn("bg-[#737984]  rounded-full border p-0.5", {
+            "animate-pulse flex items-center justify-center cursor-not-allowed":
+              isChatLoading,
+          })}
         >
-          {!isCreatePending || !isExistingChatPending ? (
-            <ArrowUp className="   w-5 h-5 " />
+          {isChatLoading ? (
+            <Loader2 className="w-5 h-5 flex items-center  animate-spin justify-center   text-black" />
           ) : (
-            <Loader2 className="animate-spin" />
+            <ArrowUp className="w-5 h-5 " />
           )}
+          <span className="sr-only"></span>
         </button>
       </div>
     </form>

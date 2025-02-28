@@ -4,7 +4,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { mutateGenerateNewImage } from "@/lib/react-query/threads";
 import { setNewGenRequest } from "@/lib/redux/features/chat";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import { ToolTips, TToolTipEvents } from "./handle-tool-calls";
 // import ToolTipModify from "./tool-tip-modify";
 import ToolTipDownload from "./tool-tip-download";
+import { isSubThreadGenerating } from "@/lib/redux/selectors/chat";
 
 type TToolBarToolTips = {
   subThreadId: string;
@@ -39,7 +40,7 @@ export default function ToolBarToolTips({
   const { address, openConnectionModal } = useWallet();
   const queryClient = useQueryClient();
 
-  const { mutate: generateNewImage } = useMutation({
+  const { mutate: generateNewImage, isPending } = useMutation({
     mutationFn: mutateGenerateNewImage,
     onSuccess(data) {
       toast.loading("Generating new model...", { duration: 8000 });
@@ -52,6 +53,7 @@ export default function ToolBarToolTips({
       console.log(error);
     },
   });
+  const isChatPending = useAppSelector(isSubThreadGenerating);
 
   function handleEvent(events: TToolTipEvents) {
     const accessToken = getAccessToken(address ?? "");
@@ -61,6 +63,13 @@ export default function ToolBarToolTips({
     }
     switch (events) {
       case "TRY_AGAIN": {
+        if (isPending) {
+          return;
+        }
+        if (isPending || isChatPending?.isLimitReached) {
+          toast.error("Whoa, you're on fire! You've hit the limit of 4 creations.");
+          return;
+        }
         generateNewImage({
           subthreadId: subThreadId,
           accessToken: accessToken,

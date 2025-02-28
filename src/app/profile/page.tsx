@@ -4,31 +4,56 @@ import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import { Button } from "@/components/ui/button";
+import useUserCredits from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
+import { getFixedCredits } from "@/lib/utils";
+import { useAuthentication } from "@/providers/account.context";
 import { useWallet } from "@/providers/wallet.context";
+import { useWallet as useWeb3Wallet } from "@solana/wallet-adapter-react";
+
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { useEffect } from "react";
+
 export default function ProfilePage() {
   // made the profile fully client based because it doesn't matter to render fully on server
-  const { address, loading } = useWallet();
-  if (loading) return <ProfileSkeleton />;
+  const { address, loading, openConnectionModal } = useWallet();
+  const { loading: IsAuthLoading } = useAuthentication();
+  const { wallet } = useWeb3Wallet();
+  const { data } = useUserCredits();
+  // const router = useRouter();
 
-  if (!address) redirect("/");
+  useEffect(() => {
+    if (!IsAuthLoading && !loading && !address) {
+      openConnectionModal();
+    }
+  });
 
+  if (loading || IsAuthLoading || !address) return <ProfileSkeleton />;
   return (
     <main className="flex items-center flex-col justify-center ">
       <div className="flex w-16 h-16">
         <Image
-          src={profilePicture(address)}
+          loading="lazy"
+          src={profilePicture(address ?? "")}
           width={480}
           className="w-full h-full border-2 rounded-2xl border-profile shadow-inner shadow-gray-200"
           alt="Profile image"
           height={480}
         />
       </div>
-      <div className="mt-6 border-buu bg-overlay-primary bg-buu-button px-2 py-1 rounded-full text-sm uppercase">
-        <div className="">Meta Mask</div>
+      <div className="bg-buu flex items-center justify-center mt-6  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
+        <Image
+          className="w-4 h-4"
+          src={wallet?.adapter.icon ?? "/logo.png"}
+          alt="Connected wallet Icon"
+          width={250}
+          height={250}
+        />
+        <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">
+          {wallet?.adapter.name}
+        </p>
       </div>
+
       <div className="mt-4">
         <CopyAddress className="text-xl font-medium" />
       </div>
@@ -39,7 +64,7 @@ export default function ProfilePage() {
             Credits Used
           </h3>
           <div className="text-2xl font-medium">
-            <p>$4.21</p>
+            <p>${getFixedCredits(data?.available)}</p>
           </div>
         </div>
         <div className="w-[1.5px] min-h-[50px]  bg-muted-foreground/40" />
