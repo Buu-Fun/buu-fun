@@ -1,6 +1,6 @@
-'use client';
-import React, { createContext, useCallback, useContext, useMemo } from 'react';
-import { serverRequest } from '../gql/client';
+"use client";
+import React, { createContext, useCallback, useContext, useMemo } from "react";
+import { serverRequest } from "../gql/client";
 import {
   DisconnectTelegram,
   DisconnectTwitter,
@@ -8,18 +8,18 @@ import {
   LoginChallengeMutation,
   LoginRefreshMutation,
   Me,
-} from '../gql/documents/account';
+} from "../gql/documents/account";
 import {
   Account,
   LoginAuth,
   LoginChallenge,
   SolanaSignInOutput,
-} from '../gql/types/graphql';
-import { SERVER_URL, TELEGRAM_AUTH_BOT_HANDLE } from '../config';
-import { useWallet } from './wallet.context';
-import { SolanaSignInInput } from '@solana/wallet-standard-features';
-import { createSignInMessageText } from './privy';
-import { PublicKey } from '@solana/web3.js';
+} from "../gql/types/graphql";
+import { SERVER_URL, TELEGRAM_AUTH_BOT_HANDLE } from "../config";
+import { useWallet } from "./wallet.context";
+import { SolanaSignInInput } from "@solana/wallet-standard-features";
+import { createSignInMessageText } from "./privy";
+import { PublicKey } from "@solana/web3.js";
 
 interface Props {
   children: React.ReactNode;
@@ -45,7 +45,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
   const { address, adapter, disconnect } = useWallet();
 
   const getAccessTokenKeys = () => {
-    const value = localStorage.getItem('x-accessToken-keys');
+    const value = localStorage.getItem("x-accessToken-keys");
     if (value) {
       return JSON.parse(value) as string[];
     }
@@ -54,6 +54,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
 
   const getAccessTokenKey = (account: string) => `x-accessToken-${account}`;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getAccessToken = (account: string) => {
     const value = localStorage.getItem(getAccessTokenKey(account));
     if (value) {
@@ -76,7 +77,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       );
       return response.me;
     } catch (error) {
-      console.error('Error fetching account:', error);
+      console.error("Error fetching account:", error);
     }
   }, [getAccessToken, address]);
 
@@ -108,14 +109,14 @@ export const AuthenticationProvider = ({ children }: Props) => {
             const accessTokenKey = getAccessTokenKey(address);
             if (!accessTokenKeys.includes(accessTokenKey)) {
               localStorage.setItem(
-                'x-accessToken-keys',
+                "x-accessToken-keys",
                 JSON.stringify([...accessTokenKeys, accessTokenKey]),
               );
             }
             return;
           }
         } catch (error) {
-          console.log('Authentication error:', error);
+          console.log("Authentication error:", error);
         }
       }
 
@@ -132,9 +133,9 @@ export const AuthenticationProvider = ({ children }: Props) => {
 
       // Send the signInInput to the wallet and trigger a sign-in request
       let output;
-      if ('signIn' in adapter) {
+      if ("signIn" in adapter) {
         output = await adapter.signIn(input);
-      } else if ('signMessage' in adapter) {
+      } else if ("signMessage" in adapter) {
         const signedMessage = createSignInMessageText(input);
         const signature = await adapter.signMessage(Buffer.from(signedMessage));
         const account = {
@@ -147,7 +148,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
           account,
           signature,
           signedMessage,
-          signatureType: 'ed25519',
+          signatureType: "ed25519",
         };
       }
       if (!output) {
@@ -158,15 +159,15 @@ export const AuthenticationProvider = ({ children }: Props) => {
       const formattedOutput = {
         account: {
           address: output.account.address,
-          publicKey: Buffer.from(output.account.publicKey).toString('base64'),
+          publicKey: Buffer.from(output.account.publicKey).toString("base64"),
           chains: output.account.chains.map((chain) => chain.toString()),
           features: output.account.features.map((feature) =>
             feature.toString(),
           ),
         },
-        signature: Buffer.from(output.signature).toString('base64'),
-        signedMessage: Buffer.from(output.signedMessage).toString('base64'),
-        signatureType: output.signatureType || 'ed25519',
+        signature: Buffer.from(output.signature).toString("base64"),
+        signedMessage: Buffer.from(output.signedMessage).toString("base64"),
+        signatureType: output.signatureType || "ed25519",
       } as SolanaSignInOutput;
       const { loginAuth } = (await serverRequest(LoginAuthMutation, {
         input: challengeInput,
@@ -182,7 +183,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
         const accessTokenKey = getAccessTokenKey(address);
         if (!accessTokenKeys.includes(accessTokenKey)) {
           localStorage.setItem(
-            'x-accessToken-keys',
+            "x-accessToken-keys",
             JSON.stringify([...accessTokenKeys, accessTokenKey]),
           );
         }
@@ -190,12 +191,13 @@ export const AuthenticationProvider = ({ children }: Props) => {
         disconnect();
       }
     } catch (error: unknown) {
-      console.error('Authentication error:', error);
+      console.error("Authentication error:", error);
       disconnect();
     } finally {
       setLoading(false);
       fetchAccount();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, adapter, fetchAccount]);
 
   const connectTwitterAccount = useCallback(async (account: string) => {
@@ -204,6 +206,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
     const token = encodeURIComponent(accessToken);
     const url = `${SERVER_URL}/accounts/auth/twitter?token=${token}`;
     window.location.href = url; // Redirige al backend
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const disconnectTwitterAccount = useCallback(
@@ -217,13 +220,15 @@ export const AuthenticationProvider = ({ children }: Props) => {
       );
       await fetchAccount();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [fetchAccount],
   );
 
   const connectTelegramAccount = useCallback(async (account: string) => {
     const text = `Hey!\n\nPlease link my wallet ${account} to my Telegram account.\n\nMy verification code is:\n\n$${getAccessToken(account)}$\n\nThanks!`;
     const url = `https://t.me/${TELEGRAM_AUTH_BOT_HANDLE}?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const disconnectTelegramAccount = useCallback(
@@ -237,6 +242,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       );
       await fetchAccount();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [fetchAccount],
   );
 
@@ -244,6 +250,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
     authenticate();
     const interval = setInterval(async () => authenticate(), 1000 * 60 * 5);
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
   React.useEffect(() => {
@@ -261,6 +268,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       connectTelegramAccount,
       disconnectTelegramAccount,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       loading,
       fetchAccount,

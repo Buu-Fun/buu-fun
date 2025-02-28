@@ -1,30 +1,30 @@
-'use client';
+"use client";
 import React, {
   createContext,
   useCallback,
   useContext,
   useEffect,
   useMemo,
-} from 'react';
+} from "react";
 import {
   ConnectedSolanaWallet,
   usePrivy,
   useSolanaWallets,
-} from '@privy-io/react-auth';
-import { useWallet as useWeb3Wallet } from '@solana/wallet-adapter-react';
-import { Adapter } from '@solana/wallet-adapter-base';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
-import { useDisclosure } from '@nextui-org/react';
-import { WalletConnectionTypeModal } from '@/components/wallet/WalletConnectionTypeModal';
-import { useRouter } from 'next/navigation';
+} from "@privy-io/react-auth";
+import { useWallet as useWeb3Wallet } from "@solana/wallet-adapter-react";
+import { Adapter } from "@solana/wallet-adapter-base";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useDisclosure } from "@nextui-org/react";
+import { WalletConnectionTypeModal } from "@/components/wallet/WalletConnectionTypeModal";
+import { useRouter } from "next/navigation";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export enum WalletConnectionType {
-  Web2 = 'web2',
-  Web3 = 'web3',
+  Web2 = "web2",
+  Web3 = "web3",
 }
 
 interface WalletContextType {
@@ -38,7 +38,7 @@ interface WalletContextType {
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
-const connectedWalletConnectionTypeKey = 'connected-wallet-connection-type';
+const connectedWalletConnectionTypeKey = "connected-wallet-connection-type";
 
 export const WalletProvider = ({ children }: Props) => {
   const connectionDisclosure = useDisclosure();
@@ -64,6 +64,7 @@ export const WalletProvider = ({ children }: Props) => {
     }
     localStorage.removeItem(connectedWalletConnectionTypeKey);
     router.push("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, logout, disconnectWeb3Wallet]);
 
   const connect = useCallback(
@@ -82,6 +83,7 @@ export const WalletProvider = ({ children }: Props) => {
       setConnectionType(type);
       localStorage.setItem(connectedWalletConnectionTypeKey, type);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, disconnect, login, setVisible],
   );
 
@@ -106,6 +108,7 @@ export const WalletProvider = ({ children }: Props) => {
     if (savedType) {
       connect(savedType as WalletConnectionType);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const address =

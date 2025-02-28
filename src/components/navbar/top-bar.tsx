@@ -1,12 +1,11 @@
 "use client";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
-import AddImage from "@/assets/icons/add.png";
 import LogoutIcon from "@/assets/icons/log-out-Icon";
 import SettingsIcon from "@/assets/icons/settings-icon";
 import { profilePicture } from "@/lib/dice-bear";
 import { useWallet } from "@/providers/wallet.context";
-import { ChevronDown, Fingerprint, LogInIcon } from "lucide-react";
+import { ChevronDown, Fingerprint } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
