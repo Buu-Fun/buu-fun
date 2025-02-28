@@ -8,7 +8,7 @@ export const getSubThreadsFromStore = createSelector(
   (SubThread, id) => {
     const FoundedSubthread = SubThread.find((fv) => fv._id === id);
     return FoundedSubthread;
-  }
+  },
 );
 
 const SubThreads = (state: RootState) => state.chat.subThreads;
@@ -21,7 +21,7 @@ export const getSubThreadsMedia = createSelector(
   (SubThreads, Medias, subThreadId) => {
     const SubThread = SubThreads.find((item) => item._id === subThreadId);
 
-    const Media = Medias[subThreadId] ?? []
+    const Media = Medias[subThreadId] ?? [];
 
     const ImageGenerated =
       Media?.filter((item) => item.type === ImageModelType) ?? [];
@@ -34,7 +34,7 @@ export const getSubThreadsMedia = createSelector(
     const GeneratedRequestMedias: TGenerationalData[] = ImageGenerated?.map(
       (item) => {
         const FoundedModel = ThreeDGenerated.find(
-          (fv) => fv.metadata.imageRequestId === item?._id
+          (fv) => fv.metadata.imageRequestId === item?._id,
         );
 
         const imageStatus = item.status;
@@ -64,9 +64,9 @@ export const getSubThreadsMedia = createSelector(
             imageUrl: item.images?.length ? item?.images[0]?.url : null,
           },
         };
-      }
+      },
     );
 
     return GeneratedRequestMedias;
-  }
+  },
 );

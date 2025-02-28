@@ -1,6 +1,6 @@
 import {
   GetSubthreadGenRequestsQuery,
-  GetSubthreadsQuery
+  GetSubthreadsQuery,
 } from "@/gql/types/graphql";
 import { TThreeDStyles } from "./settings";
 

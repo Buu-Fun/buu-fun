@@ -4,6 +4,6 @@ export function isInProgress(status: TGenResponseStatus) {
   return status === "InProgress";
 }
 
-export function isError(status:TGenResponseStatus) {
-    return status === 'Error'
+export function isError(status: TGenResponseStatus) {
+  return status === "Error";
 }

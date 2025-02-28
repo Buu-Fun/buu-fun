@@ -46,7 +46,7 @@ interface AuthenticationContextType {
   loading: boolean;
   account?: Account;
   fetchAccount: () => Promise<void>;
-  getAccessToken: (account: string) => string | null;
+  getAccessToken: (address: string) => string | null;
   connectTwitterAccount: (account: string) => Promise<void>;
   disconnectTwitterAccount: (account: string) => Promise<void>;
   connectTelegramAccount: (account: string) => Promise<void>;

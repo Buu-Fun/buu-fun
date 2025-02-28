@@ -14,7 +14,7 @@ export default function useMediaResponse({
   const { getAccessToken } = useAuthentication();
   const { address } = useWallet();
   const MediaData = useAppSelector((state) =>
-    getSubThreadsMedia(state, state.chat.genRequest, subThreadId)
+    getSubThreadsMedia(state, state.chat.genRequest, subThreadId),
   );
   return useQuery({
     queryKey: [subThreadId, "get-sub-thread-requests"],
@@ -27,11 +27,11 @@ export default function useMediaResponse({
     },
     refetchInterval(query) {
       const inProgressFoundInQueryState = query.state.data?.find((item) =>
-        isInProgress(item.status)
+        isInProgress(item.status),
       );
 
       const isProgressFoundInReduxState = MediaData.find(
-        (item) => item.isGenerating
+        (item) => item.isGenerating,
       );
       return isProgressFoundInReduxState || inProgressFoundInQueryState
         ? 4500

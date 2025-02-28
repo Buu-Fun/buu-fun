@@ -47,7 +47,7 @@ export async function getSubThreads({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if ("code" in data.getSubthreads) {
@@ -73,7 +73,7 @@ export async function getSubThreadRequests({
     {
       subthreadId: subThreadId,
     },
-    { Authorization: getAuthorization(accessToken) }
+    { Authorization: getAuthorization(accessToken) },
   );
   if ("code" in data.getSubthreadGenRequests) {
     console.log(data);

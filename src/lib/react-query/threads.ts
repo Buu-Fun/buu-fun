@@ -10,14 +10,14 @@ import {
   GenerateSubthreadMutationVariables,
   SubthreadStyle,
   GenerateImageMutation as TGenerateImageMutation,
-  GenerateSubthreadMutation as TGenerateSubthreadMutation
+  GenerateSubthreadMutation as TGenerateSubthreadMutation,
 } from "@/gql/types/graphql";
 import { TThreeDStyles } from "../redux/features/settings";
 import { getAuthorization } from "../utils";
 import {
   TGetAllThreadsResponse,
   TGetSubThreadResponse,
-  TGetSubThreadsResponse
+  TGetSubThreadsResponse,
 } from "./threads-types";
 
 type TGenerateSubThreads = {
@@ -45,7 +45,7 @@ export async function generateSubThreads({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if ("code" in data.generateSubthread) {
@@ -65,7 +65,7 @@ export async function getSubThreads(threadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if ("code" in data.getSubthreads) {
@@ -82,7 +82,7 @@ export async function getSubThread(subThreadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if ("code" in data.getSubthread) {
@@ -105,7 +105,7 @@ export async function mutateGenerateNewImage({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if ("code" in data.generateImage) {
@@ -128,7 +128,7 @@ export async function getAllThreads(accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if ("code" in data.getThreads) {

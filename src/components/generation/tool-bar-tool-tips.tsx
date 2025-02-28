@@ -53,7 +53,6 @@ export default function ToolBarToolTips({
     },
   });
 
-
   function handleEvent(events: TToolTipEvents) {
     const accessToken = getAccessToken(address ?? "");
     if (!address || !accessToken) {

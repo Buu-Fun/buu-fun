@@ -28,7 +28,7 @@ export function useSubThreads({
         },
       });
     },
-    
+
     getNextPageParam: (lastPage) => {
       const { metadata } = lastPage;
       const totalItems = metadata.numElements ?? 1;
