@@ -6,19 +6,22 @@ import {
   GetSubthreadsQuery,
   GetThreadsQuery,
 } from "@/gql/documents/creative-engine";
-import { TThreeDStyles } from "../redux/features/settings";
 import {
-  GenerateSubthreadResponse,
-  TGenerateImageResponse,
+  GenerateSubthreadMutationVariables,
+  SubthreadStyle,
+  GenerateImageMutation as TGenerateImageMutation,
+  GenerateSubthreadMutation as TGenerateSubthreadMutation
+} from "@/gql/types/graphql";
+import { TThreeDStyles } from "../redux/features/settings";
+import { getAuthorization } from "../utils";
+import {
   TGetAllThreadsResponse,
   TGetSubThreadResponse,
-  TGetSubThreadsResponse,
+  TGetSubThreadsResponse
 } from "./threads-types";
 
-// import { SubthreadStyle } from "./path-to-enum"; // Import the enum
-
 type TGenerateSubThreads = {
-  prompt?: string;
+  prompt: string;
   style?: TThreeDStyles;
   threadId?: string;
   accessToken: string;
@@ -30,16 +33,19 @@ export async function generateSubThreads({
   threadId,
   accessToken,
 }: TGenerateSubThreads) {
-  const data = await serverRequest<GenerateSubthreadResponse>(
+  const data = await serverRequest<
+    TGenerateSubthreadMutation,
+    GenerateSubthreadMutationVariables
+  >(
     GenerateSubthreadMutation,
     {
       prompt,
-      style,
+      style: (style as SubthreadStyle) ?? null,
       threadId,
     },
     {
-      Authorization: `Bearer ${accessToken}`,
-    },
+      Authorization: getAuthorization(accessToken),
+    }
   );
 
   if ("code" in data.generateSubthread) {
@@ -58,8 +64,8 @@ export async function getSubThreads(threadId: string, accessToken: string) {
       pagination: {},
     },
     {
-      Authorization: `Bearer ${accessToken}`,
-    },
+      Authorization: getAuthorization(accessToken),
+    }
   );
 
   if ("code" in data.getSubthreads) {
@@ -75,8 +81,8 @@ export async function getSubThread(subThreadId: string, accessToken: string) {
       subthreadId: subThreadId,
     },
     {
-      Authorization: `Bearer ${accessToken}`,
-    },
+      Authorization: getAuthorization(accessToken),
+    }
   );
 
   if ("code" in data.getSubthread) {
@@ -92,14 +98,14 @@ export async function mutateGenerateNewImage({
   subthreadId: string;
   accessToken: string;
 }) {
-  const data = await serverRequest<TGenerateImageResponse>(
+  const data = await serverRequest<TGenerateImageMutation>(
     GenerateImageMutation,
     {
       subthreadId: subthreadId,
     },
     {
-      Authorization: `Bearer ${accessToken}`,
-    },
+      Authorization: getAuthorization(accessToken),
+    }
   );
 
   if ("code" in data.generateImage) {
@@ -121,8 +127,8 @@ export async function getAllThreads(accessToken: string) {
       },
     },
     {
-      Authorization: `Bearer ${accessToken}`,
-    },
+      Authorization: getAuthorization(accessToken),
+    }
   );
 
   if ("code" in data.getThreads) {
