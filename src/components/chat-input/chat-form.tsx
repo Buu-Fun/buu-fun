@@ -5,18 +5,18 @@ import { queryClient } from "@/lib/react-query/query-client";
 import { generateSubThreads } from "@/lib/react-query/threads";
 import {
   clearInput,
+  pushNewSubThreads,
   setNewThreadId,
-  setSubThread,
 } from "@/lib/redux/features/chat";
 import { useAuthentication } from "@/providers/account.context";
 import { useWallet, walletType } from "@/providers/wallet.context";
 import { useMutation } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 import { TBottomBarContainer } from "./bottom-bar-container";
 import ChatTextArea from "./chat-text-area";
-import { Loader2 } from "lucide-react";
 
 export default function ChatForm({ action }: TBottomBarContainer) {
   const { getAccessToken } = useAuthentication();
@@ -44,11 +44,10 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       mutationFn: generateSubThreads,
       onSuccess(data) {
         toast.loading("Generating new model...", { duration: 8000 });
-        dispatch(setSubThread(data));
+        dispatch(pushNewSubThreads(data));
         dispatch(clearInput());
-
         queryClient.invalidateQueries({
-          queryKey: [data.threadId, "get-all-sub-threads"],
+          queryKey: [data.threadId, "get-sub-threads"],
         });
       },
       onError(error) {

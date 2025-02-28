@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useAppDispatch } from "@/hooks/redux";
 import { mutateGenerateNewImage } from "@/lib/react-query/threads";
-import { setSubThread } from "@/lib/redux/features/chat";
+import { setNewGenRequest } from "@/lib/redux/features/chat";
 import { cn } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
 import { useWallet, walletType } from "@/providers/wallet.context";
@@ -43,10 +43,9 @@ export default function ToolBarToolTips({
     mutationFn: mutateGenerateNewImage,
     onSuccess(data) {
       toast.loading("Generating new model...", { duration: 8000 });
-      const IS_LOADING_NEW = true;
-      dispatch(setSubThread(data, IS_LOADING_NEW));
+      dispatch(setNewGenRequest(data));
       queryClient.invalidateQueries({
-        queryKey: [data.threadId, "get-all-sub-threads"],
+        queryKey: [data.subthreadId, "get-all-sub-threads"],
       });
     },
     onError(error) {
