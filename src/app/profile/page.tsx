@@ -4,15 +4,20 @@ import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import { Button } from "@/components/ui/button";
+import useUserCredits from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
+import { getFixedCredits } from "@/lib/utils";
 import { useWallet } from "@/providers/wallet.context";
+import { useWallet as useWeb3Wallet } from "@solana/wallet-adapter-react";
+
 import Image from "next/image";
 import { redirect } from "next/navigation";
 export default function ProfilePage() {
   // made the profile fully client based because it doesn't matter to render fully on server
   const { address, loading } = useWallet();
+  const { wallet } = useWeb3Wallet();
+  const { data } = useUserCredits();
   if (loading) return <ProfileSkeleton />;
-
   if (!address) redirect("/");
 
   return (
@@ -26,9 +31,19 @@ export default function ProfilePage() {
           height={480}
         />
       </div>
-      <div className="mt-6 border-buu bg-overlay-primary bg-buu-button px-2 py-1 rounded-full text-sm uppercase">
-        <div className="">Meta Mask</div>
+      <div className="bg-buu flex items-center justify-center mt-6  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
+        <Image
+          className="w-4 h-4"
+          src={wallet?.adapter.icon ?? "/logo.png"}
+          alt="Connected wallet Icon"
+          width={250}
+          height={250}
+        />
+        <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">
+          {wallet?.adapter.name}
+        </p>
       </div>
+
       <div className="mt-4">
         <CopyAddress className="text-xl font-medium" />
       </div>
@@ -39,7 +54,7 @@ export default function ProfilePage() {
             Credits Used
           </h3>
           <div className="text-2xl font-medium">
-            <p>$4.21</p>
+            <p>${getFixedCredits(data?.available)}</p>
           </div>
         </div>
         <div className="w-[1.5px] min-h-[50px]  bg-muted-foreground/40" />
