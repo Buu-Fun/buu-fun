@@ -123,7 +123,7 @@ export default function ModelViewer({
             alt="model preview image"
             width={720}
             height={720}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover blur-md"
           />
         </div>
       </model-viewer>

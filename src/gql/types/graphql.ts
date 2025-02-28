@@ -52,6 +52,18 @@ export type Account = {
 
 export type AccountResult = Account | Error;
 
+export type Credit = {
+  __typename?: "Credit";
+  _id: Scalars["String"]["output"];
+  available: Scalars["Float"]["output"];
+  confirmed: Scalars["Float"]["output"];
+  createdAt: Scalars["DateTimeISO"]["output"];
+  pending: Scalars["Float"]["output"];
+  updatedAt: Scalars["DateTimeISO"]["output"];
+};
+
+export type CreditResult = Credit | HandledError;
+
 export type Error = {
   __typename?: "Error";
   code: Scalars["String"]["output"];
@@ -61,12 +73,17 @@ export type Error = {
 export type GenRequest = {
   __typename?: "GenRequest";
   _id: Scalars["String"]["output"];
+  address: Scalars["String"]["output"];
+  createdAt: Scalars["DateTimeISO"]["output"];
+  credits: Scalars["Float"]["output"];
   images?: Maybe<Array<GenRequestFile>>;
   metadata: Scalars["JSON"]["output"];
   model_mesh?: Maybe<GenRequestFile>;
   status: GenRequestStatusEnum;
+  subthreadId: Scalars["String"]["output"];
   timings?: Maybe<Timings>;
   type: Scalars["String"]["output"];
+  updatedAt: Scalars["DateTimeISO"]["output"];
 };
 
 export type GenRequestFile = {
@@ -74,8 +91,12 @@ export type GenRequestFile = {
   content_type: Scalars["String"]["output"];
   file_name?: Maybe<Scalars["String"]["output"]>;
   file_size?: Maybe<Scalars["Float"]["output"]>;
+  height?: Maybe<Scalars["Float"]["output"]>;
   url: Scalars["String"]["output"];
+  width?: Maybe<Scalars["Float"]["output"]>;
 };
+
+export type GenRequestResult = GenRequest | HandledError;
 
 /** The status of a request */
 export enum GenRequestStatusEnum {
@@ -83,6 +104,14 @@ export enum GenRequestStatusEnum {
   InProgress = "InProgress",
   Success = "Success",
 }
+
+export type GenRequestsPage = {
+  __typename?: "GenRequestsPage";
+  items: Array<GenRequest>;
+  metadata: Metadata;
+};
+
+export type GenRequestsPageResult = GenRequestsPage | HandledError;
 
 export type HandledError = {
   __typename?: "HandledError";
@@ -111,25 +140,27 @@ export type LoginRefreshInput = {
 
 export type Metadata = {
   __typename?: "Metadata";
-  limit: Scalars["Int"]["output"];
-  numElements: Scalars["Int"]["output"];
-  offset: Scalars["Int"]["output"];
-  orderBy: Scalars["String"]["output"];
-  orderDirection: OrderDirection;
-  page: Scalars["Int"]["output"];
-  pages: Scalars["Int"]["output"];
+  limit?: Maybe<Scalars["Int"]["output"]>;
+  numElements?: Maybe<Scalars["Int"]["output"]>;
+  offset?: Maybe<Scalars["Int"]["output"]>;
+  orderBy?: Maybe<Scalars["String"]["output"]>;
+  orderDirection?: Maybe<OrderDirection>;
+  page?: Maybe<Scalars["Int"]["output"]>;
+  pages?: Maybe<Scalars["Int"]["output"]>;
+  total?: Maybe<Scalars["Int"]["output"]>;
 };
 
 export type Mutation = {
   __typename?: "Mutation";
   disconnectTelegram: AccountResult;
   disconnectTwitter: AccountResult;
-  generateImage: SubthreadResult;
-  generateModel: SubthreadResult;
+  generateImage: GenRequestResult;
+  generateModel: GenRequestResult;
   generateSubthread: SubthreadResult;
   loginAuth: LoginAuthResult;
   loginChallenge: LoginChallengeResult;
   loginRefresh: LoginAuthResult;
+  redeemVoucher: CreditResult;
 };
 
 export type MutationGenerateImageArgs = {
@@ -137,12 +168,16 @@ export type MutationGenerateImageArgs = {
 };
 
 export type MutationGenerateModelArgs = {
-  imageRequestId: Scalars["String"]["input"];
+  imageRequestId?: InputMaybe<Scalars["String"]["input"]>;
+  imageUrl: Scalars["String"]["input"];
   subthreadId: Scalars["String"]["input"];
 };
 
 export type MutationGenerateSubthreadArgs = {
+  imageUrl?: InputMaybe<Scalars["String"]["input"]>;
+  numImages?: InputMaybe<Scalars["Float"]["input"]>;
   prompt: Scalars["String"]["input"];
+  strength?: InputMaybe<Scalars["Float"]["input"]>;
   style?: InputMaybe<SubthreadStyle>;
   threadId?: InputMaybe<Scalars["String"]["input"]>;
 };
@@ -160,6 +195,10 @@ export type MutationLoginRefreshArgs = {
   input: LoginRefreshInput;
 };
 
+export type MutationRedeemVoucherArgs = {
+  code: Scalars["String"]["input"];
+};
+
 /** Order direction */
 export enum OrderDirection {
   Asc = "asc",
@@ -175,13 +214,19 @@ export type Pagination = {
 
 export type Query = {
   __typename?: "Query";
+  getMyCredits: CreditResult;
   getSubthread: SubthreadResult;
+  getSubthreadGenRequests: GenRequestsPageResult;
   getSubthreads: SubthreadPageResult;
   getThreads: ThreadPageResult;
   me: AccountResult;
 };
 
 export type QueryGetSubthreadArgs = {
+  subthreadId: Scalars["String"]["input"];
+};
+
+export type QueryGetSubthreadGenRequestsArgs = {
   subthreadId: Scalars["String"]["input"];
 };
 
@@ -218,10 +263,10 @@ export type Subthread = {
   _id: Scalars["String"]["output"];
   address: Scalars["String"]["output"];
   createdAt: Scalars["DateTimeISO"]["output"];
-  imageRequests?: Maybe<Array<GenRequest>>;
-  modelRequests?: Maybe<Array<GenRequest>>;
+  imageUrl?: Maybe<Scalars["String"]["output"]>;
   prompt: Scalars["String"]["output"];
-  style: SubthreadStyle;
+  strength?: Maybe<Scalars["Float"]["output"]>;
+  style?: Maybe<SubthreadStyle>;
   threadId: Scalars["String"]["output"];
   updatedAt: Scalars["DateTimeISO"]["output"];
 };
@@ -286,6 +331,7 @@ export type Thread = {
   _id: Scalars["String"]["output"];
   address: Scalars["String"]["output"];
   createdAt: Scalars["DateTimeISO"]["output"];
+  title: Scalars["String"]["output"];
   updatedAt: Scalars["DateTimeISO"]["output"];
 };
 
@@ -322,7 +368,7 @@ export type ThreadsPage = {
 
 export type Timings = {
   __typename?: "Timings";
-  inference: Scalars["Float"]["output"];
+  inference?: Maybe<Scalars["Float"]["output"]>;
 };
 
 export type WalletAccount = {
@@ -448,6 +494,9 @@ export type GenerateSubthreadMutationVariables = Exact<{
   prompt: Scalars["String"]["input"];
   style?: InputMaybe<SubthreadStyle>;
   threadId?: InputMaybe<Scalars["String"]["input"]>;
+  imageUrl?: InputMaybe<Scalars["String"]["input"]>;
+  numImages?: InputMaybe<Scalars["Float"]["input"]>;
+  strength?: InputMaybe<Scalars["Float"]["input"]>;
 }>;
 
 export type GenerateSubthreadMutation = {
@@ -462,51 +511,9 @@ export type GenerateSubthreadMutation = {
         updatedAt: any;
         threadId: string;
         prompt: string;
-        style: SubthreadStyle;
-        imageRequests?: Array<{
-          __typename?: "GenRequest";
-          _id: string;
-          status: GenRequestStatusEnum;
-          metadata: any;
-          type: string;
-          images?: Array<{
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          }> | null;
-          model_mesh?: {
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          } | null;
-          timings?: { __typename?: "Timings"; inference: number } | null;
-        }> | null;
-        modelRequests?: Array<{
-          __typename?: "GenRequest";
-          _id: string;
-          status: GenRequestStatusEnum;
-          metadata: any;
-          type: string;
-          images?: Array<{
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          }> | null;
-          model_mesh?: {
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          } | null;
-          timings?: { __typename?: "Timings"; inference: number } | null;
-        }> | null;
+        style?: SubthreadStyle | null;
+        imageUrl?: string | null;
+        strength?: number | null;
       };
 };
 
@@ -517,126 +524,81 @@ export type GenerateImageMutationVariables = Exact<{
 export type GenerateImageMutation = {
   __typename?: "Mutation";
   generateImage:
-    | { __typename?: "HandledError"; code: string; message: string }
     | {
-        __typename?: "Subthread";
+        __typename?: "GenRequest";
         _id: string;
+        subthreadId: string;
         address: string;
+        status: GenRequestStatusEnum;
+        metadata: any;
+        type: string;
+        credits: number;
         createdAt: any;
         updatedAt: any;
-        threadId: string;
-        prompt: string;
-        style: SubthreadStyle;
-        imageRequests?: Array<{
-          __typename?: "GenRequest";
-          _id: string;
-          status: GenRequestStatusEnum;
-          metadata: any;
-          type: string;
-          images?: Array<{
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          }> | null;
-          model_mesh?: {
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          } | null;
-          timings?: { __typename?: "Timings"; inference: number } | null;
+        images?: Array<{
+          __typename?: "GenRequestFile";
+          content_type: string;
+          file_name?: string | null;
+          file_size?: number | null;
+          width?: number | null;
+          height?: number | null;
+          url: string;
         }> | null;
-        modelRequests?: Array<{
-          __typename?: "GenRequest";
-          _id: string;
-          status: GenRequestStatusEnum;
-          metadata: any;
-          type: string;
-          images?: Array<{
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          }> | null;
-          model_mesh?: {
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          } | null;
-          timings?: { __typename?: "Timings"; inference: number } | null;
-        }> | null;
-      };
+        model_mesh?: {
+          __typename?: "GenRequestFile";
+          content_type: string;
+          file_name?: string | null;
+          file_size?: number | null;
+          width?: number | null;
+          height?: number | null;
+          url: string;
+        } | null;
+        timings?: { __typename?: "Timings"; inference?: number | null } | null;
+      }
+    | { __typename?: "HandledError"; code: string; message: string };
 };
 
 export type GenerateModelMutationVariables = Exact<{
-  imageRequestId: Scalars["String"]["input"];
   subthreadId: Scalars["String"]["input"];
+  imageRequestId?: InputMaybe<Scalars["String"]["input"]>;
+  imageUrl: Scalars["String"]["input"];
 }>;
 
 export type GenerateModelMutation = {
   __typename?: "Mutation";
   generateModel:
-    | { __typename?: "HandledError"; code: string; message: string }
     | {
-        __typename?: "Subthread";
+        __typename?: "GenRequest";
         _id: string;
+        subthreadId: string;
         address: string;
+        status: GenRequestStatusEnum;
+        metadata: any;
+        type: string;
+        credits: number;
         createdAt: any;
         updatedAt: any;
-        threadId: string;
-        prompt: string;
-        style: SubthreadStyle;
-        imageRequests?: Array<{
-          __typename?: "GenRequest";
-          _id: string;
-          status: GenRequestStatusEnum;
-          metadata: any;
-          type: string;
-          images?: Array<{
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          }> | null;
-          model_mesh?: {
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          } | null;
-          timings?: { __typename?: "Timings"; inference: number } | null;
+        images?: Array<{
+          __typename?: "GenRequestFile";
+          content_type: string;
+          file_name?: string | null;
+          file_size?: number | null;
+          width?: number | null;
+          height?: number | null;
+          url: string;
         }> | null;
-        modelRequests?: Array<{
-          __typename?: "GenRequest";
-          _id: string;
-          status: GenRequestStatusEnum;
-          metadata: any;
-          type: string;
-          images?: Array<{
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          }> | null;
-          model_mesh?: {
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          } | null;
-          timings?: { __typename?: "Timings"; inference: number } | null;
-        }> | null;
-      };
+        model_mesh?: {
+          __typename?: "GenRequestFile";
+          content_type: string;
+          file_name?: string | null;
+          file_size?: number | null;
+          width?: number | null;
+          height?: number | null;
+          url: string;
+        } | null;
+        timings?: { __typename?: "Timings"; inference?: number | null } | null;
+      }
+    | { __typename?: "HandledError"; code: string; message: string };
 };
 
 export type GetThreadsQueryVariables = Exact<{
@@ -656,16 +618,17 @@ export type GetThreadsQuery = {
           createdAt: any;
           updatedAt: any;
           address: string;
+          title: string;
         }>;
         metadata: {
           __typename?: "Metadata";
-          limit: number;
-          offset: number;
-          orderBy: string;
-          orderDirection: OrderDirection;
-          numElements: number;
-          page: number;
-          pages: number;
+          limit?: number | null;
+          offset?: number | null;
+          orderBy?: string | null;
+          orderDirection?: OrderDirection | null;
+          numElements?: number | null;
+          page?: number | null;
+          pages?: number | null;
         };
       };
 };
@@ -689,61 +652,19 @@ export type GetSubthreadsQuery = {
           updatedAt: any;
           threadId: string;
           prompt: string;
-          style: SubthreadStyle;
-          imageRequests?: Array<{
-            __typename?: "GenRequest";
-            _id: string;
-            status: GenRequestStatusEnum;
-            metadata: any;
-            type: string;
-            images?: Array<{
-              __typename?: "GenRequestFile";
-              content_type: string;
-              file_name?: string | null;
-              file_size?: number | null;
-              url: string;
-            }> | null;
-            model_mesh?: {
-              __typename?: "GenRequestFile";
-              content_type: string;
-              file_name?: string | null;
-              file_size?: number | null;
-              url: string;
-            } | null;
-            timings?: { __typename?: "Timings"; inference: number } | null;
-          }> | null;
-          modelRequests?: Array<{
-            __typename?: "GenRequest";
-            _id: string;
-            status: GenRequestStatusEnum;
-            metadata: any;
-            type: string;
-            images?: Array<{
-              __typename?: "GenRequestFile";
-              content_type: string;
-              file_name?: string | null;
-              file_size?: number | null;
-              url: string;
-            }> | null;
-            model_mesh?: {
-              __typename?: "GenRequestFile";
-              content_type: string;
-              file_name?: string | null;
-              file_size?: number | null;
-              url: string;
-            } | null;
-            timings?: { __typename?: "Timings"; inference: number } | null;
-          }> | null;
+          style?: SubthreadStyle | null;
+          imageUrl?: string | null;
+          strength?: number | null;
         }>;
         metadata: {
           __typename?: "Metadata";
-          limit: number;
-          offset: number;
-          orderBy: string;
-          orderDirection: OrderDirection;
-          numElements: number;
-          page: number;
-          pages: number;
+          limit?: number | null;
+          offset?: number | null;
+          orderBy?: string | null;
+          orderDirection?: OrderDirection | null;
+          numElements?: number | null;
+          page?: number | null;
+          pages?: number | null;
         };
       };
 };
@@ -764,52 +685,104 @@ export type GetSubthreadQuery = {
         updatedAt: any;
         threadId: string;
         prompt: string;
-        style: SubthreadStyle;
-        imageRequests?: Array<{
-          __typename?: "GenRequest";
-          _id: string;
-          status: GenRequestStatusEnum;
-          metadata: any;
-          type: string;
-          images?: Array<{
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          }> | null;
-          model_mesh?: {
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          } | null;
-          timings?: { __typename?: "Timings"; inference: number } | null;
-        }> | null;
-        modelRequests?: Array<{
-          __typename?: "GenRequest";
-          _id: string;
-          status: GenRequestStatusEnum;
-          metadata: any;
-          type: string;
-          images?: Array<{
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          }> | null;
-          model_mesh?: {
-            __typename?: "GenRequestFile";
-            content_type: string;
-            file_name?: string | null;
-            file_size?: number | null;
-            url: string;
-          } | null;
-          timings?: { __typename?: "Timings"; inference: number } | null;
-        }> | null;
+        style?: SubthreadStyle | null;
+        imageUrl?: string | null;
+        strength?: number | null;
       };
+};
+
+export type GetSubthreadGenRequestsQueryVariables = Exact<{
+  subthreadId: Scalars["String"]["input"];
+}>;
+
+export type GetSubthreadGenRequestsQuery = {
+  __typename?: "Query";
+  getSubthreadGenRequests:
+    | {
+        __typename?: "GenRequestsPage";
+        items: Array<{
+          __typename?: "GenRequest";
+          _id: string;
+          subthreadId: string;
+          address: string;
+          status: GenRequestStatusEnum;
+          metadata: any;
+          type: string;
+          credits: number;
+          createdAt: any;
+          updatedAt: any;
+          images?: Array<{
+            __typename?: "GenRequestFile";
+            content_type: string;
+            file_name?: string | null;
+            file_size?: number | null;
+            width?: number | null;
+            height?: number | null;
+            url: string;
+          }> | null;
+          model_mesh?: {
+            __typename?: "GenRequestFile";
+            content_type: string;
+            file_name?: string | null;
+            file_size?: number | null;
+            width?: number | null;
+            height?: number | null;
+            url: string;
+          } | null;
+          timings?: {
+            __typename?: "Timings";
+            inference?: number | null;
+          } | null;
+        }>;
+        metadata: {
+          __typename?: "Metadata";
+          limit?: number | null;
+          offset?: number | null;
+          orderBy?: string | null;
+          orderDirection?: OrderDirection | null;
+          numElements?: number | null;
+          total?: number | null;
+          page?: number | null;
+          pages?: number | null;
+        };
+      }
+    | { __typename?: "HandledError"; code: string; message: string };
+};
+
+export type GetMyCreditsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetMyCreditsQuery = {
+  __typename?: "Query";
+  getMyCredits:
+    | {
+        __typename?: "Credit";
+        _id: string;
+        available: number;
+        pending: number;
+        confirmed: number;
+        updatedAt: any;
+        createdAt: any;
+      }
+    | { __typename?: "HandledError"; code: string; message: string };
+};
+
+export type RedeemVoucherMutationVariables = Exact<{
+  code: Scalars["String"]["input"];
+}>;
+
+export type RedeemVoucherMutation = {
+  __typename?: "Mutation";
+  redeemVoucher:
+    | {
+        __typename?: "Credit";
+        _id: string;
+        available: number;
+        pending: number;
+        confirmed: number;
+        updatedAt: any;
+        createdAt: any;
+      }
+    | { __typename?: "HandledError"; code: string; message: string };
 };
 
 export const LoginChallengeDocument = {
@@ -1454,6 +1427,30 @@ export const GenerateSubthreadDocument = {
           },
           type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
         },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "imageUrl" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "numImages" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "strength" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "Float" } },
+        },
       ],
       selectionSet: {
         kind: "SelectionSet",
@@ -1484,6 +1481,30 @@ export const GenerateSubthreadDocument = {
                 value: {
                   kind: "Variable",
                   name: { kind: "Name", value: "threadId" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "imageUrl" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "imageUrl" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "numImages" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "numImages" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "strength" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "strength" },
                 },
               },
             ],
@@ -1523,191 +1544,11 @@ export const GenerateSubthreadDocument = {
                       { kind: "Field", name: { kind: "Name", value: "style" } },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "imageRequests" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "_id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "status" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "metadata" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "type" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "images" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "model_mesh" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "timings" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "inference" },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
+                        name: { kind: "Name", value: "imageUrl" },
                       },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "modelRequests" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "_id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "status" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "metadata" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "type" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "images" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "model_mesh" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "timings" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "inference" },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
+                        name: { kind: "Name", value: "strength" },
                       },
                     ],
                   },
@@ -1786,7 +1627,7 @@ export const GenerateImageDocument = {
                   kind: "InlineFragment",
                   typeCondition: {
                     kind: "NamedType",
-                    name: { kind: "Name", value: "Subthread" },
+                    name: { kind: "Name", value: "GenRequest" },
                   },
                   selectionSet: {
                     kind: "SelectionSet",
@@ -1794,7 +1635,103 @@ export const GenerateImageDocument = {
                       { kind: "Field", name: { kind: "Name", value: "_id" } },
                       {
                         kind: "Field",
+                        name: { kind: "Name", value: "subthreadId" },
+                      },
+                      {
+                        kind: "Field",
                         name: { kind: "Name", value: "address" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "status" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "metadata" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "type" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "images" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "content_type" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "file_name" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "file_size" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "width" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "height" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "url" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "model_mesh" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "content_type" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "file_name" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "file_size" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "width" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "height" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "url" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "timings" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "inference" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "credits" },
                       },
                       {
                         kind: "Field",
@@ -1803,203 +1740,6 @@ export const GenerateImageDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "updatedAt" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "threadId" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "prompt" },
-                      },
-                      { kind: "Field", name: { kind: "Name", value: "style" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "imageRequests" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "_id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "status" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "metadata" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "type" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "images" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "model_mesh" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "timings" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "inference" },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "modelRequests" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "_id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "status" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "metadata" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "type" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "images" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "model_mesh" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "timings" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "inference" },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
                       },
                     ],
                   },
@@ -2044,7 +1784,7 @@ export const GenerateModelDocument = {
           kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "imageRequestId" },
+            name: { kind: "Name", value: "subthreadId" },
           },
           type: {
             kind: "NonNullType",
@@ -2058,7 +1798,15 @@ export const GenerateModelDocument = {
           kind: "VariableDefinition",
           variable: {
             kind: "Variable",
-            name: { kind: "Name", value: "subthreadId" },
+            name: { kind: "Name", value: "imageRequestId" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "imageUrl" },
           },
           type: {
             kind: "NonNullType",
@@ -2078,6 +1826,14 @@ export const GenerateModelDocument = {
             arguments: [
               {
                 kind: "Argument",
+                name: { kind: "Name", value: "subthreadId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "subthreadId" },
+                },
+              },
+              {
+                kind: "Argument",
                 name: { kind: "Name", value: "imageRequestId" },
                 value: {
                   kind: "Variable",
@@ -2086,10 +1842,10 @@ export const GenerateModelDocument = {
               },
               {
                 kind: "Argument",
-                name: { kind: "Name", value: "subthreadId" },
+                name: { kind: "Name", value: "imageUrl" },
                 value: {
                   kind: "Variable",
-                  name: { kind: "Name", value: "subthreadId" },
+                  name: { kind: "Name", value: "imageUrl" },
                 },
               },
             ],
@@ -2100,7 +1856,7 @@ export const GenerateModelDocument = {
                   kind: "InlineFragment",
                   typeCondition: {
                     kind: "NamedType",
-                    name: { kind: "Name", value: "Subthread" },
+                    name: { kind: "Name", value: "GenRequest" },
                   },
                   selectionSet: {
                     kind: "SelectionSet",
@@ -2108,7 +1864,103 @@ export const GenerateModelDocument = {
                       { kind: "Field", name: { kind: "Name", value: "_id" } },
                       {
                         kind: "Field",
+                        name: { kind: "Name", value: "subthreadId" },
+                      },
+                      {
+                        kind: "Field",
                         name: { kind: "Name", value: "address" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "status" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "metadata" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "type" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "images" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "content_type" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "file_name" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "file_size" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "width" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "height" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "url" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "model_mesh" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "content_type" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "file_name" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "file_size" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "width" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "height" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "url" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "timings" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "inference" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "credits" },
                       },
                       {
                         kind: "Field",
@@ -2117,203 +1969,6 @@ export const GenerateModelDocument = {
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "updatedAt" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "threadId" },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "prompt" },
-                      },
-                      { kind: "Field", name: { kind: "Name", value: "style" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "imageRequests" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "_id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "status" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "metadata" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "type" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "images" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "model_mesh" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "timings" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "inference" },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "modelRequests" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "_id" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "status" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "metadata" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "type" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "images" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "model_mesh" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "timings" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "inference" },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
                       },
                     ],
                   },
@@ -2434,6 +2089,10 @@ export const GetThreadsDocument = {
                             {
                               kind: "Field",
                               name: { kind: "Name", value: "address" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "title" },
                             },
                           ],
                         },
@@ -2565,6 +2224,23 @@ export const GetSubthreadsDocument = {
                   kind: "InlineFragment",
                   typeCondition: {
                     kind: "NamedType",
+                    name: { kind: "Name", value: "HandledError" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "code" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "message" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
                     name: { kind: "Name", value: "SubthreadsPage" },
                   },
                   selectionSet: {
@@ -2610,221 +2286,11 @@ export const GetSubthreadsDocument = {
                             },
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "imageRequests" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "_id" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "status" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "metadata" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "type" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "images" },
-                                    selectionSet: {
-                                      kind: "SelectionSet",
-                                      selections: [
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "content_type",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "file_name",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "file_size",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: { kind: "Name", value: "url" },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "model_mesh" },
-                                    selectionSet: {
-                                      kind: "SelectionSet",
-                                      selections: [
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "content_type",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "file_name",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "file_size",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: { kind: "Name", value: "url" },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "timings" },
-                                    selectionSet: {
-                                      kind: "SelectionSet",
-                                      selections: [
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "inference",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
+                              name: { kind: "Name", value: "imageUrl" },
                             },
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "modelRequests" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "_id" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "status" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "metadata" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "type" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "images" },
-                                    selectionSet: {
-                                      kind: "SelectionSet",
-                                      selections: [
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "content_type",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "file_name",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "file_size",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: { kind: "Name", value: "url" },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "model_mesh" },
-                                    selectionSet: {
-                                      kind: "SelectionSet",
-                                      selections: [
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "content_type",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "file_name",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "file_size",
-                                          },
-                                        },
-                                        {
-                                          kind: "Field",
-                                          name: { kind: "Name", value: "url" },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "timings" },
-                                    selectionSet: {
-                                      kind: "SelectionSet",
-                                      selections: [
-                                        {
-                                          kind: "Field",
-                                          name: {
-                                            kind: "Name",
-                                            value: "inference",
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
+                              name: { kind: "Name", value: "strength" },
                             },
                           ],
                         },
@@ -2865,23 +2331,6 @@ export const GetSubthreadsDocument = {
                             },
                           ],
                         },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: "InlineFragment",
-                  typeCondition: {
-                    kind: "NamedType",
-                    name: { kind: "Name", value: "HandledError" },
-                  },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "code" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "message" },
                       },
                     ],
                   },
@@ -2969,13 +2418,108 @@ export const GetSubthreadDocument = {
                       { kind: "Field", name: { kind: "Name", value: "style" } },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "imageRequests" },
+                        name: { kind: "Name", value: "imageUrl" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "strength" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "HandledError" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "code" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "message" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetSubthreadQuery, GetSubthreadQueryVariables>;
+export const GetSubthreadGenRequestsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetSubthreadGenRequests" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "subthreadId" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getSubthreadGenRequests" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "subthreadId" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "subthreadId" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "GenRequestsPage" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "items" },
                         selectionSet: {
                           kind: "SelectionSet",
                           selections: [
                             {
                               kind: "Field",
                               name: { kind: "Name", value: "_id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "subthreadId" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "address" },
                             },
                             {
                               kind: "Field",
@@ -3012,6 +2556,14 @@ export const GetSubthreadDocument = {
                                   },
                                   {
                                     kind: "Field",
+                                    name: { kind: "Name", value: "width" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "height" },
+                                  },
+                                  {
+                                    kind: "Field",
                                     name: { kind: "Name", value: "url" },
                                   },
                                 ],
@@ -3040,6 +2592,14 @@ export const GetSubthreadDocument = {
                                   },
                                   {
                                     kind: "Field",
+                                    name: { kind: "Name", value: "width" },
+                                  },
+                                  {
+                                    kind: "Field",
+                                    name: { kind: "Name", value: "height" },
+                                  },
+                                  {
+                                    kind: "Field",
                                     name: { kind: "Name", value: "url" },
                                   },
                                 ],
@@ -3057,100 +2617,59 @@ export const GetSubthreadDocument = {
                                   },
                                 ],
                               },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "credits" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "createdAt" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "updatedAt" },
                             },
                           ],
                         },
                       },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "modelRequests" },
+                        name: { kind: "Name", value: "metadata" },
                         selectionSet: {
                           kind: "SelectionSet",
                           selections: [
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "_id" },
+                              name: { kind: "Name", value: "limit" },
                             },
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "status" },
+                              name: { kind: "Name", value: "offset" },
                             },
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "metadata" },
+                              name: { kind: "Name", value: "orderBy" },
                             },
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "type" },
+                              name: { kind: "Name", value: "orderDirection" },
                             },
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "images" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
+                              name: { kind: "Name", value: "numElements" },
                             },
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "model_mesh" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: {
-                                      kind: "Name",
-                                      value: "content_type",
-                                    },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_name" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "file_size" },
-                                  },
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "url" },
-                                  },
-                                ],
-                              },
+                              name: { kind: "Name", value: "total" },
                             },
                             {
                               kind: "Field",
-                              name: { kind: "Name", value: "timings" },
-                              selectionSet: {
-                                kind: "SelectionSet",
-                                selections: [
-                                  {
-                                    kind: "Field",
-                                    name: { kind: "Name", value: "inference" },
-                                  },
-                                ],
-                              },
+                              name: { kind: "Name", value: "page" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "pages" },
                             },
                           ],
                         },
@@ -3182,4 +2701,181 @@ export const GetSubthreadDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<GetSubthreadQuery, GetSubthreadQueryVariables>;
+} as unknown as DocumentNode<
+  GetSubthreadGenRequestsQuery,
+  GetSubthreadGenRequestsQueryVariables
+>;
+export const GetMyCreditsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetMyCredits" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getMyCredits" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "Credit" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "_id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "available" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "pending" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "confirmed" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "updatedAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "HandledError" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "code" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "message" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<GetMyCreditsQuery, GetMyCreditsQueryVariables>;
+export const RedeemVoucherDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "RedeemVoucher" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "code" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "redeemVoucher" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "code" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "code" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "Credit" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "_id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "available" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "pending" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "confirmed" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "updatedAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "HandledError" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "code" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "message" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  RedeemVoucherMutation,
+  RedeemVoucherMutationVariables
+>;

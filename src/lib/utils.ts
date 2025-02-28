@@ -34,3 +34,7 @@ export async function handleResponse(
 export function getRandomInteger(length: number) {
   return Math.floor(Math.random() * (length + 1));
 }
+
+export function getAuthorization(accessToken: string) {
+  return `Bearer ${accessToken}`;
+}

@@ -13,7 +13,7 @@ export default function ProfilePage() {
   const { address, loading } = useWallet();
   if (loading) return <ProfileSkeleton />;
 
-  if(!address) redirect('/')
+  if (!address) redirect("/");
 
   return (
     <main className="flex items-center flex-col justify-center ">
