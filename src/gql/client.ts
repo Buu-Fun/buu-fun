@@ -10,14 +10,19 @@ const serverClient = new GraphQLClient(`${SERVER_URL}/graphql`, {
   },
 });
 
-export const serverRequest = async <T = any>(
+export type TCommonHeaders = {
+  [key: string]: string | undefined;
+  Authorization?: string;
+} & HeadersInit;
+
+export const serverRequest = async <T = any, S = any>(
   query: RequestDocument,
-  variables?: { [key: string]: any },
-  headers?: { [key: string]: string },
-  forceResultIfFail?: any,
+  variables?: S & { [key: string]: any },
+  headers?: TCommonHeaders,
+  forceResultIfFail?: any
 ): Promise<T> => {
   try {
-    return await serverClient.request<T>(query, variables, headers);
+    return await serverClient?.request<T>(query, variables, headers);
   } catch (error) {
     console.error("Error realizando la solicitud GraphQL:", error);
     if (forceResultIfFail) {
