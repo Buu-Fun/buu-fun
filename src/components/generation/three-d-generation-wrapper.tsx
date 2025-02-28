@@ -1,86 +1,49 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { getSubThread } from "@/lib/react-query/threads";
-import { setSubThread } from "@/lib/redux/features/chat";
-import { TSubThread } from "@/lib/redux/features/chat-types";
-import { getSubThreadsFromStore } from "@/lib/redux/selectors/chat";
+import useMediaResponse from "@/hooks/use-media-response";
+import { setSubThreadResponse } from "@/lib/redux/features/chat";
+import { TSubthreadV1 } from "@/lib/redux/features/chat-types";
+import { getSubThreadsMedia } from "@/lib/redux/selectors/chat";
 import { cn } from "@/lib/utils";
-import { useAuthentication } from "@/providers/account.context";
-import { useWallet } from "@/providers/wallet.context";
-import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useEffect } from "react";
-import CurvedEmblaCarousel from "./carousal";
 import { iconByTitle, TKey } from "../settings/styles-data";
+import CurvedEmblaCarousel from "./carousal";
 
 type TThreeDGenerationWrapper = {
   threadId: string;
-  subThread: TSubThread;
+  subThread: TSubthreadV1;
 };
 
 export default function ThreeDGenerationWrapper({
   threadId,
   subThread,
 }: TThreeDGenerationWrapper) {
-  const { getAccessToken } = useAuthentication();
-  const { address } = useWallet();
-  const $SubThread = useAppSelector((state) =>
-    getSubThreadsFromStore(state, subThread._id)
-  );
-
-  const { data } = useQuery({
-    queryKey: [subThread._id, "get-sub-thread"],
-    queryFn: async () => {
-      const accessToken = getAccessToken(address ?? "");
-      return await getSubThread(subThread._id, accessToken ?? "");
-    },
-    enabled: (query) => {
-      // check if there is no model request, if not return enabled.
-      if (
-        !subThread?.modelRequest?.length ||
-        !subThread?.imageRequest ||
-        !$SubThread
-      ) {
-        console.log("Some ModelRequest aren't found");
-        return true;
-      }
-
-      // there is new image but no subThreads. meaning a new model is generating...
-      if (subThread?.modelRequest.length !== subThread?.imageRequest.length) {
-        return true;
-      }
-
-      // check if there is any request's are in Progress, if so return true
-      const isPendingFoundInQuery = query.state.data?.modelRequests?.find(
-        (item) => item.status === "InProgress"
-      );
-      const isPendingFoundInState = $SubThread.modelRequest.find(
-        (item) => item.status === "InProgress"
-      );
-
-      if (isPendingFoundInQuery?._id || isPendingFoundInState?._id) return true;
-
-      return false;
-    },
-    refetchInterval: 3500,
-  });
-
   const dispatch = useAppDispatch();
+  const { data } = useMediaResponse({ subThreadId: subThread._id });
 
   useEffect(() => {
-    if (data && data._id) {
-      dispatch(setSubThread(data));
+    if (data?.length) {
+      console.log("DATA FOR SUB THREAD RESPONSE", data);
+      dispatch(setSubThreadResponse(data, subThread._id));
     }
-  }, [dispatch, data]);
-  const styleColor = ($SubThread?.style ?? "no_style") as TKey;
+  }, [data, dispatch, subThread._id]);
+
+  const MediaData = useAppSelector((state) =>
+    getSubThreadsMedia(state, state.chat.genRequest, subThread._id)
+  );
+
+  const styleColor = (subThread.style ?? "no_style") as TKey;
+
   const IconData = iconByTitle[styleColor];
-  console.log("STYLES",styleColor)
+
+  console.log("STYLES", styleColor);
   return (
     <div className="flex  items-center pointer-events-none  justify-center h-full     flex-col gap-4">
       <div className="flex gap-2 items-center justify-center">
         <div className="bg-buu  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
           <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">
-            {format($SubThread?.createdAt ?? Date.now(), "KK:mm:a")}
+            {format(subThread?.createdAt ?? Date.now(), "KK:mm:a")}
           </p>
         </div>
         {IconData ? (
@@ -97,27 +60,22 @@ export default function ThreeDGenerationWrapper({
         className={cn(
           "text-2xl max-w-md text-center  relative font-medium tracking-tighter",
           {
-            "text-xl": $SubThread && $SubThread?.message?.length > 40,
-            "text-lg": $SubThread && $SubThread?.message?.length > 80,
-            "text-base": $SubThread && $SubThread?.message?.length > 120,
+            "text-xl": subThread && subThread?.prompt?.length > 40,
+            "text-lg": subThread && subThread?.prompt?.length > 80,
+            "text-base": subThread && subThread?.prompt?.length > 120,
             "text-sm line-clamp-3":
-              $SubThread && $SubThread?.message?.length > 160,
+              subThread && subThread?.prompt?.length > 160,
           }
         )}
       >
-        {$SubThread?.message}
+        {subThread?.prompt}
       </h2>
       <div className="flex items-center max-h-[370px]   justify-center w-full h-full">
         <div className="flex items-center  max-h-[370px] h-full   justify-center max-w-sm ">
           <CurvedEmblaCarousel
-            $SubThread={$SubThread}
+            GenRequests={MediaData}
             threadId={threadId}
-            subThreadId={$SubThread ? $SubThread?._id : ""}
-            modelRequest={
-              $SubThread?.modelRequest && $SubThread?.modelRequest.length
-                ? $SubThread?.modelRequest
-                : []
-            }
+            subThreadId={subThread ? subThread?._id : ""}
           />
         </div>
       </div>

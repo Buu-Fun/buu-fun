@@ -1,5 +1,4 @@
-import { ThreeDCubeOne } from "@/assets/Image";
-import { TMediaRequest, TSubThread } from "@/lib/redux/features/chat-types";
+import { TGenerationalData } from "@/lib/redux/features/chat-types";
 import { cn } from "@/lib/utils";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { AnimatePresence } from "framer-motion";
@@ -14,19 +13,17 @@ import {
 } from "../ui/carousel";
 import Generate3DCard from "./generate-3d-card";
 const CurvedEmblaCarousel = ({
-  modelRequest,
   subThreadId,
-  $SubThread,
+  GenRequests,
 }: {
   threadId: string;
   subThreadId: string;
-  modelRequest: TMediaRequest[];
-  $SubThread?: TSubThread;
+  GenRequests: TGenerationalData[];
 }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const prevLengthRef = useRef<number>(modelRequest.length);
+  const prevLengthRef = useRef<number>(GenRequests.length);
 
   useEffect(() => {
     if (!api) return;
@@ -36,18 +33,19 @@ const CurvedEmblaCarousel = ({
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
+
   useEffect(() => {
-    if (api && modelRequest.length > prevLengthRef.current) {
+    if (api && GenRequests.length > prevLengthRef.current) {
       // If a new item was added, scroll to the last item
-      api.scrollTo(modelRequest.length - 1);
+      api.scrollTo(GenRequests.length - 1);
       // Update the current selection after a small delay to ensure the carousel has updated
       setTimeout(() => {
-        setCurrent(modelRequest.length);
+        setCurrent(GenRequests.length);
       }, 100);
     }
     // Update the ref to track changes
-    prevLengthRef.current = modelRequest.length;
-  }, [modelRequest.length, api]);
+    prevLengthRef.current = GenRequests.length;
+  }, [GenRequests.length, api]);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const modelContainer = ref.current;
@@ -77,15 +75,12 @@ const CurvedEmblaCarousel = ({
       className="max-w-[264px] max-h-[370px] h-full w-full "
       ref={carouselRef}
     >
-      {modelRequest.length ? (
+      {GenRequests.length ? (
         <Carousel
           ref={ref}
           opts={{
             align: "center",
-            startIndex:
-              $SubThread && $SubThread.loadingNewGeneration
-                ? (modelRequest?.length ?? 0)
-                : modelRequest.length - 1,
+            startIndex: GenRequests.length - 1,
             dragFree: false,
             watchDrag: false,
             watchResize: true,
@@ -100,7 +95,7 @@ const CurvedEmblaCarousel = ({
             containerClass="overflow-visible pointer-events-none h-full w-full"
           >
             <AnimatePresence>
-              {modelRequest.map((item, index) => {
+              {GenRequests.map((item, index) => {
                 const isCurrent = current === index + 1;
                 const distanceFromCenter = Math.abs(index + 1 - current);
                 const direction = current > index + 1 ? -1.2 : 1.2;
@@ -123,7 +118,7 @@ const CurvedEmblaCarousel = ({
                   : `${TransformDirection * (index + 1) * 1}%`;
                 return (
                   <CarouselItem
-                    key={`carousel-sub-card-${index}-${item.metadata.imageUrl}-${item._id}`}
+                    key={`carousel-sub-card-${index}-${item?.image?.imageId}-${item?.style}`}
                     style={{
                       transform: `translate(${transformX}, ${transformY}) rotate(${rotate}) scale(${scale})`,
                     }}
@@ -133,22 +128,20 @@ const CurvedEmblaCarousel = ({
                     }}
                     className={cn(
                       "relative pl-0  border-buu   pointer-events-none select-none max-w-[264px]  max-h-[370px] h-full rounded-lg shadow-lg",
-                      "transition-all duration-500 ease-out",
+                      "transition-all duration-500 ease-out"
                     )}
                   >
                     <Generate3DCard
                       isCurrent={isCurrent}
                       subThreadId={subThreadId}
                       index={index}
-                      status={item.status as "Success" | "inProgress"}
+                      status={item.isGenerating ? "inProgress" : "Success"}
                       showToolTip={isCurrent}
-                      isGenerating={
-                        !item.modelMesh || item.status !== "Success"
-                      }
+                      isGenerating={item.isGenerating}
                       images={{
-                        imageUrl: item.metadata.imageUrl ?? ThreeDCubeOne.src,
+                        imageUrl: item.image.imageUrl,
                       }}
-                      modelUrl={item?.modelMesh && item?.modelMesh?.url}
+                      modelUrl={item?.model?.modelUrl}
                     />
                   </CarouselItem>
                 );
