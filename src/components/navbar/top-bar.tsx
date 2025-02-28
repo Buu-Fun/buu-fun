@@ -5,8 +5,8 @@ import AddImage from "@/assets/icons/add.png";
 import LogoutIcon from "@/assets/icons/log-out-Icon";
 import SettingsIcon from "@/assets/icons/settings-icon";
 import { profilePicture } from "@/lib/dice-bear";
-import { useWallet, walletType } from "@/providers/wallet.context";
-import { ChevronDown } from "lucide-react";
+import { useWallet } from "@/providers/wallet.context";
+import { ChevronDown, Fingerprint, LogInIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -14,28 +14,21 @@ import CopyAddress from "./copy-address";
 import CreditUsedIcon from "./credit-used-icon";
 import RecentChats from "./recent-chats";
 export default function Topbar() {
-  const { address, disconnect, connect } = useWallet();
+  const { address, disconnect, openConnectionModal } = useWallet();
   const shouldConnect = !address;
   return (
     <div className="flex items-center justify-between pr-10 py-6">
       {!shouldConnect ? <RecentChats /> : null}
-      {/* <RecentChats /> */}
       {shouldConnect ? (
         <div className="w-full flex justify-end">
           <Button
             onClick={() => {
-              connect(walletType);
+              openConnectionModal();
             }}
-            className="px-2 group py-2 h-auto rounded-[10px]"
+            className="border-buu font-medium shadow-buu"
           >
-            <Image
-              className="w-6 h-6 group-hover:brightness-90 transition-all duration-300 ease-in"
-              src={AddImage.src}
-              alt="connect wallet icon"
-              width={100}
-              height={100}
-            />
-            Connect Wallet
+            <Fingerprint className="text-buu-button animate-pulse" />
+            Sign In
           </Button>
         </div>
       ) : (

@@ -9,7 +9,7 @@ import { mutateGenerateNewImage } from "@/lib/react-query/threads";
 import { setNewGenRequest } from "@/lib/redux/features/chat";
 import { cn } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
-import { useWallet, walletType } from "@/providers/wallet.context";
+import { useWallet } from "@/providers/wallet.context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
@@ -36,7 +36,7 @@ export default function ToolBarToolTips({
 }: TToolBarToolTips) {
   const dispatch = useAppDispatch();
   const { getAccessToken } = useAuthentication();
-  const { address, connect } = useWallet();
+  const { address, openConnectionModal } = useWallet();
   const queryClient = useQueryClient();
 
   const { mutate: generateNewImage } = useMutation({
@@ -56,7 +56,7 @@ export default function ToolBarToolTips({
   function handleEvent(events: TToolTipEvents) {
     const accessToken = getAccessToken(address ?? "");
     if (!address || !accessToken) {
-      connect(walletType);
+      openConnectionModal();
       return;
     }
     switch (events) {

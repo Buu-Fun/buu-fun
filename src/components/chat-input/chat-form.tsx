@@ -9,7 +9,7 @@ import {
   setNewThreadId,
 } from "@/lib/redux/features/chat";
 import { useAuthentication } from "@/providers/account.context";
-import { useWallet, walletType } from "@/providers/wallet.context";
+import { useWallet } from "@/providers/wallet.context";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -20,7 +20,7 @@ import ChatTextArea from "./chat-text-area";
 
 export default function ChatForm({ action }: TBottomBarContainer) {
   const { getAccessToken } = useAuthentication();
-  const { address, connect } = useWallet();
+  const { address, openConnectionModal } = useWallet();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const prompt = useAppSelector((state) => state.chat.inputQuery);
@@ -64,7 +64,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     }
 
     if (!address) {
-      connect(walletType);
+      openConnectionModal();
       return;
     }
 

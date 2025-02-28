@@ -74,16 +74,13 @@ body {
 
 .bg-gradient {
   background: radial-gradient(
-      57.04% 136.56% at 44.25% 34.68%,
-      #b7dce6 0%,
-      #b3cbde 25%,
-      rgba(147, 199, 218, 0.6) 44%,
-      rgba(33, 53, 75, 0.2) 72%,
-      rgba(33, 65, 75, 0) 95%
-    )
-    /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
-
-  /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */
+    57.04% 136.56% at 44.25% 34.68%,
+    #b7dce6 0%,
+    #b3cbde 25%,
+    rgba(147, 199, 218, 0.6) 44%,
+    rgba(33, 53, 75, 0.2) 72%,
+    rgba(33, 65, 75, 0) 95%
+  );
 }
 
 .hero-gradient-text {
@@ -144,7 +141,7 @@ body {
   background: rgba(28, 32, 39, 0.36);
 }
 .bg-buu-50 {
-  background: rgba(28, 32, 39, 0.50);
+  background: rgba(28, 32, 39, 0.5);
 }
 .bg-buu-secondary {
   background: rgba(26, 30, 36, 0.603);
