@@ -7,24 +7,34 @@ import { Button } from "@/components/ui/button";
 import useUserCredits from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
 import { getFixedCredits } from "@/lib/utils";
+import { useAuthentication } from "@/providers/account.context";
 import { useWallet } from "@/providers/wallet.context";
 import { useWallet as useWeb3Wallet } from "@solana/wallet-adapter-react";
 
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { useEffect } from "react";
+
 export default function ProfilePage() {
   // made the profile fully client based because it doesn't matter to render fully on server
-  const { address, loading } = useWallet();
+  const { address, loading, openConnectionModal } = useWallet();
+  const { loading: IsAuthLoading } = useAuthentication();
   const { wallet } = useWeb3Wallet();
   const { data } = useUserCredits();
-  if (loading) return <ProfileSkeleton />;
-  if (!address) redirect("/");
+  // const router = useRouter();
 
+  useEffect(() => {
+    if (!IsAuthLoading && !loading && !address) {
+      openConnectionModal();
+    }
+  });
+
+  if (loading || IsAuthLoading || !address) return <ProfileSkeleton />;
   return (
     <main className="flex items-center flex-col justify-center ">
       <div className="flex w-16 h-16">
         <Image
-          src={profilePicture(address)}
+          loading="lazy"
+          src={profilePicture(address ?? "")}
           width={480}
           className="w-full h-full border-2 rounded-2xl border-profile shadow-inner shadow-gray-200"
           alt="Profile image"
