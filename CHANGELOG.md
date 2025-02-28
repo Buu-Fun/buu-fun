@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.1.15](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.14...buu-fun-v0.1.15) (2025-02-28)
+
+
+### ✨ Features
+
+* added blured state for poster image while model is rendering ([6e27121](https://github.com/muadpn/buu-fun/commit/6e271211ca5f89cdb538d800dcb4f240d5f32cfa))
+* added new api for local development ([faeb920](https://github.com/muadpn/buu-fun/commit/faeb920d84e621c1521590eb30b9178ce3d3c2ab))
+* added new api hooks for model-request components ([af8a20e](https://github.com/muadpn/buu-fun/commit/af8a20e171c502e033dbabcb879b2bdcea8675b5))
+* added new api threads query ([25f97c1](https://github.com/muadpn/buu-fun/commit/25f97c122114881b2db8dee81837cd1fd7b9db74))
+* added new dispatch for chat-form and toolbars retries ([a5a5767](https://github.com/muadpn/buu-fun/commit/a5a57677ad9bac9127708e386735bcc63932637b))
+* added new hook to fetch media response using react-query ([30d8e19](https://github.com/muadpn/buu-fun/commit/30d8e191e3978a1d14206160eed710b4b02f1e32))
+* added new selectors for Medias and subthreads ([8deb170](https://github.com/muadpn/buu-fun/commit/8deb17068c308b6cedf386cf68b890a8a7121c5a))
+* added new utils function for checking GenResponse status ([f026342](https://github.com/muadpn/buu-fun/commit/f0263420f04ecf54bd4a0a5fbb27331237c2587c))
+* added react-query inifity queries for subthreads ([830d8dd](https://github.com/muadpn/buu-fun/commit/830d8dd755253d0b18df3adbd6864f3fe4628799))
+* added types and redux state for new api ([7c1b28c](https://github.com/muadpn/buu-fun/commit/7c1b28ca5d8f58d4647aa8b360ae9d905fa36ee4))
+* added typesafe variables for graphQL client ([59b8b8f](https://github.com/muadpn/buu-fun/commit/59b8b8fee6d1c8628804d2b05b2f1598f2562d15))
+* migrated threads to new api, and added scroll smoothing and basic docs ([89fa302](https://github.com/muadpn/buu-fun/commit/89fa302acd6086e290eaa8ab4b0aee9b7c0ac7b3))
+* migrated to new types for fetching data for react query ([dc363d2](https://github.com/muadpn/buu-fun/commit/dc363d278c0bc5bc0794ef1eb0f480e9ecbf06c1))
+
+
+### 👽 Miscellaneous
+
+* **lint:** linted the codebase and formated using prettier ([b22664d](https://github.com/muadpn/buu-fun/commit/b22664d9d0fc33dd3501787531739cfa96695c27))
+
 ## [0.1.14](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.13...buu-fun-v0.1.14) (2025-02-27)
 
 
