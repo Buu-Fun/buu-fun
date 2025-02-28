@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.16](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.15...buu-fun-v0.1.16) (2025-02-28)
+
+
+### 🐛 Bugfixes
+
+* added empty state to poll ([66b609c](https://github.com/muadpn/buu-fun/commit/66b609c7403ba4ff10dd3253d6685dc28141505b))
+
 ## [0.1.15](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.14...buu-fun-v0.1.15) (2025-02-28)
 
 
