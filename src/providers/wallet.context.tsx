@@ -1,32 +1,32 @@
-"use client";
+'use client';
 import React, {
   createContext,
   useCallback,
   useContext,
   useEffect,
   useMemo,
-} from "react";
+} from 'react';
 import {
   ConnectedSolanaWallet,
   usePrivy,
   useSolanaWallets,
-} from "@privy-io/react-auth";
-import { useWallet as useWeb3Wallet } from "@solana/wallet-adapter-react";
-import { Adapter } from "@solana/wallet-adapter-base";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { useDisclosure } from "@nextui-org/react";
-import { WalletConnectionTypeModal } from "@/components/wallet/WalletConnectionTypeModal";
-import { useRouter } from "next/navigation";
+} from '@privy-io/react-auth';
+import { useWallet as useWeb3Wallet } from '@solana/wallet-adapter-react';
+import { Adapter } from '@solana/wallet-adapter-base';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { useDisclosure } from '@nextui-org/react';
+import { WalletConnectionTypeModal } from '@/components/wallet/WalletConnectionTypeModal';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   children: React.ReactNode;
 }
 
 export enum WalletConnectionType {
-  Web2 = "web2",
-  Web3 = "web3",
+  Web2 = 'web2',
+  Web3 = 'web3',
 }
-export const walletType = WalletConnectionType.Web3;
+
 interface WalletContextType {
   loading: boolean;
   address?: string | null;
@@ -35,11 +35,10 @@ interface WalletContextType {
   openConnectionModal: () => void;
   disconnect: () => Promise<void>;
   switchConnectionType: () => Promise<void>;
-  connect: (type: WalletConnectionType) => Promise<void>;
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
-const connectedWalletConnectionTypeKey = "connected-wallet-connection-type";
+const connectedWalletConnectionTypeKey = 'connected-wallet-connection-type';
 
 export const WalletProvider = ({ children }: Props) => {
   const connectionDisclosure = useDisclosure();
@@ -65,7 +64,7 @@ export const WalletProvider = ({ children }: Props) => {
     }
     localStorage.removeItem(connectedWalletConnectionTypeKey);
     router.push("/");
-  }, [user, logout, disconnectWeb3Wallet, router, wallet]);
+  }, [user, logout, disconnectWeb3Wallet]);
 
   const connect = useCallback(
     async (type: WalletConnectionType) => {
@@ -83,7 +82,7 @@ export const WalletProvider = ({ children }: Props) => {
       setConnectionType(type);
       localStorage.setItem(connectedWalletConnectionTypeKey, type);
     },
-    [user, login, setVisible, wallet],
+    [user, disconnect, login, setVisible],
   );
 
   const switchConnectionType = useCallback(async () => {
@@ -107,16 +106,14 @@ export const WalletProvider = ({ children }: Props) => {
     if (savedType) {
       connect(savedType as WalletConnectionType);
     }
-  }, [connect]);
+  }, []);
 
   const address =
     connectionType === WalletConnectionType.Web2
       ? wallets[0]?.address
       : wallet?.adapter.publicKey?.toString();
-
   const adapter =
     connectionType === WalletConnectionType.Web2 ? wallets[0] : wallet?.adapter;
-
   const loading =
     connecting || connectionDisclosure.isOpen || visible || isModalOpen;
 
@@ -129,7 +126,6 @@ export const WalletProvider = ({ children }: Props) => {
       openConnectionModal: () => connectionDisclosure.onOpen(),
       disconnect,
       switchConnectionType,
-      connect,
     }),
     [
       loading,
@@ -139,7 +135,6 @@ export const WalletProvider = ({ children }: Props) => {
       connectionDisclosure,
       disconnect,
       switchConnectionType,
-      connect,
     ],
   );
 
