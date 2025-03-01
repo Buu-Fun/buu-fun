@@ -1,4 +1,15 @@
+import { addCreditsMutation } from "@/lib/react-query/user";
+import {
+  redeemVoucherSchema,
+  TRedeemVoucherSchema,
+} from "@/lib/zod/redeem-voucher";
+import { useAuthentication } from "@/providers/account.context";
+import { useWallet } from "@/providers/wallet.context";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TicketIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -10,40 +21,24 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  redeemVoucherSchema,
-  TRedeemVoucherSchema,
-} from "@/lib/zod/redeem-voucher";
-import toast from "react-hot-toast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addCreditsMutation } from "@/lib/react-query/user";
-import { useWallet } from "@/providers/wallet.context";
-import { useAuthentication } from "@/providers/account.context";
 export default function RedeemVouchers() {
   const { getAccessToken } = useAuthentication();
   const { address, openConnectionModal } = useWallet();
   const queryClient = useQueryClient();
   const { mutate: AddRedeemVoucher } = useMutation({
     mutationFn: addCreditsMutation,
-    onSuccess(data, variables, context) {
+    onSuccess() {
       toast.success("Added Credits your Account");
       queryClient.invalidateQueries({
         queryKey: ["get-user-credits"],
       });
     },
-    onError(error, variables, context) {
+    onError(error) {
       toast.error(error.message);
     },
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TRedeemVoucherSchema>({
+  const { register, handleSubmit } = useForm<TRedeemVoucherSchema>({
     resolver: zodResolver(redeemVoucherSchema),
   });
 

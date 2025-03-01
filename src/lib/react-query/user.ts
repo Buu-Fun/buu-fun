@@ -26,7 +26,7 @@ export async function getUserCredits({ accessToken }: AccessToken) {
     {},
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if ("code" in data.getMyCredits) {
@@ -49,7 +49,7 @@ export async function addCreditsMutation({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if ("code" in data?.redeemVoucher) {

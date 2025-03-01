@@ -67,7 +67,9 @@ export default function ToolBarToolTips({
           return;
         }
         if (isPending || isChatPending?.isLimitReached) {
-          toast.error("Whoa, you're on fire! You've hit the limit of 4 creations.");
+          toast.error(
+            "Whoa, you're on fire! You've hit the limit of 4 creations.",
+          );
           return;
         }
         generateNewImage({

@@ -1,5 +1,4 @@
 "use client";
-import { AddImage } from "@/assets/icons";
 import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
@@ -77,7 +76,7 @@ export default function ProfilePage() {
         </div>
       </div>
       <div className="flex gap-2 items-center justify-center mt-6">
-        <RedeemVouchers/>
+        <RedeemVouchers />
 
         <Button
           variant={"outline"}
