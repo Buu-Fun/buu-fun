@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.21](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.20...buu-fun-v0.1.21) (2025-03-01)
+
+
+### 🐛 Bugfixes
+
+* removed text from small devices ([d5b6457](https://github.com/muadpn/buu-fun/commit/d5b645743b261616fcefe265788d2950a4017277))
+
 ## [0.1.20](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.19...buu-fun-v0.1.20) (2025-03-01)
 
 
