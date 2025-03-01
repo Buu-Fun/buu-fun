@@ -16,7 +16,7 @@ export default {
   theme: {
     extend: {
       screens: {
-        "xs": "420px",
+        xs: "420px",
       },
       colors: {
         buu: {
@@ -81,7 +81,7 @@ export default {
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
   );
 
   addBase({

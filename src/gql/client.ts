@@ -8,7 +8,6 @@ const serverClient = new GraphQLClient(`${SERVER_URL}/graphql`, {
   headers: {
     "Content-Type": "application/json",
   },
-
 });
 
 export type TCommonHeaders = {

@@ -39,7 +39,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       new PhantomWalletAdapter(),
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [network]
+    [network],
   );
 
   return (
@@ -58,20 +58,20 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           // eslint-disable-next-line @next/next/no-img-element
           logo: <img src="/logo.png" className="w-12" alt="Buu.fun Logo" />,
         },
-        
+
         loginMethodsAndOrder: {
-          primary: ["detected_wallets","email", ],
-          overflow: ["phantom","wallet_connect"]
+          primary: ["detected_wallets", "email"],
+          overflow: ["phantom", "wallet_connect"],
         },
         // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {
-            ethereum: {
-              createOnLogin: "users-without-wallets",
-            },
-            solana: {
-              createOnLogin: "users-without-wallets",
-            },
-            showWalletUIs: true,
+          ethereum: {
+            createOnLogin: "users-without-wallets",
+          },
+          solana: {
+            createOnLogin: "users-without-wallets",
+          },
+          showWalletUIs: true,
         },
       }}
     >

@@ -5,7 +5,6 @@ import React, {
   useContext,
   useEffect,
   useMemo,
-  useState,
 } from "react";
 import {
   ConnectedSolanaWallet,
@@ -44,7 +43,7 @@ export const WalletProvider = ({ children }: Props) => {
   const connectionDisclosure = useDisclosure();
   const { isModalOpen, user, login, logout, ready: isPrivyReady } = usePrivy();
 
-  const { wallets, ready } = useSolanaWallets();
+  const { wallets } = useSolanaWallets();
 
   const {
     connecting,
@@ -90,7 +89,7 @@ export const WalletProvider = ({ children }: Props) => {
       setConnectionType(type);
       localStorage.setItem(connectedWalletConnectionTypeKey, type);
     },
-    [user, disconnect, login, setVisible]
+    [user, disconnect, login, setVisible],
   );
 
   const switchConnectionType = useCallback(async () => {
@@ -145,7 +144,7 @@ export const WalletProvider = ({ children }: Props) => {
       connectionDisclosure,
       disconnect,
       switchConnectionType,
-    ]
+    ],
   );
 
   return (

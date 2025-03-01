@@ -10,7 +10,8 @@ export function useSubThreads({
   threadId: string;
   limit?: number;
 }) {
-  const { accessToken } = useAuthentication();
+  const { account, getAccessToken } = useAuthentication();
+  const accessToken = account ? getAccessToken(account.address) : undefined;
   return useInfiniteQuery({
     queryKey: ["get-sub-threads", threadId],
     enabled: () => {
