@@ -42,7 +42,7 @@ export default function CopyAddress({ isNavigation, className }: TCopyAddress) {
               "Copy address"
             ) : address ? (
               <>
-                {address.slice(0, 11)}...
+                {address.slice(0, 4)}...
                 {address.slice(address.length - 5, address.length - 1)}
               </>
             ) : null}

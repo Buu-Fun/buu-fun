@@ -36,7 +36,7 @@ export default function SuggestionBar() {
   }, [handleKeyDown]);
 
   return (
-    <div className="flex gap-2 items-center max-w-sm overflow-hidden">
+    <div className="hidden md:flex gap-2 items-center max-w-sm overflow-hidden">
       {suggestions?.map((item, index) => (
         <Button
           onClick={() => {
