@@ -30,7 +30,7 @@ export default function ThreeDGenerationWrapper({
   }, [data, dispatch, subThread._id]);
 
   const MediaData = useAppSelector((state) =>
-    getSubThreadsMedia(state, state.chat.genRequest, subThread._id),
+    getSubThreadsMedia(state, state.chat.genRequest, subThread._id)
   );
 
   const styleColor = (subThread.style ?? "no_style") as TKey;
@@ -65,7 +65,7 @@ export default function ThreeDGenerationWrapper({
             "text-base": subThread && subThread?.prompt?.length > 120,
             "text-sm line-clamp-3":
               subThread && subThread?.prompt?.length > 160,
-          },
+          }
         )}
       >
         {subThread?.prompt}

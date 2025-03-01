@@ -14,6 +14,7 @@ import {
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import {
   CoinbaseWalletAdapter,
+  LedgerWalletAdapter,
   PhantomWalletAdapter,
   SolflareWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
@@ -34,31 +35,43 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     () => [
       new CoinbaseWalletAdapter(),
       new SolflareWalletAdapter(),
-      // new LedgerWalletAdapter(),
+      new LedgerWalletAdapter(),
       new PhantomWalletAdapter(),
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [network],
+    [network]
   );
 
   return (
     <PrivyProvider
       appId={NEXT_PUBLIC_PRIVY_APP_ID as string}
+      // clientId={process.env.NEXT_PUBIC_PRIVY_CLIENT_ID}
       config={{
-        loginMethods: ["wallet", "email"],
-
+        // loginMethods: ["email", "wallet"],
         // Customize Privy's appearance in your app
-
         appearance: {
           theme: "dark",
 
+          // walletList: ["phantom", "coinbase_wallet", "solflare"],
+          showWalletLoginFirst: true,
           accentColor: "#1c20275c",
           // eslint-disable-next-line @next/next/no-img-element
           logo: <img src="/logo.png" className="w-12" alt="Buu.fun Logo" />,
         },
+        
+        loginMethodsAndOrder: {
+          primary: ["detected_wallets","email", ],
+          overflow: ["phantom","wallet_connect"]
+        },
         // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {
-          createOnLogin: "users-without-wallets",
+            ethereum: {
+              createOnLogin: "users-without-wallets",
+            },
+            solana: {
+              createOnLogin: "users-without-wallets",
+            },
+            showWalletUIs: true,
         },
       }}
     >
