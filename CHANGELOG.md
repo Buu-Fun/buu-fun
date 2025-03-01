@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.20](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.19...buu-fun-v0.1.20) (2025-03-01)
+
+
+### ✨ Features
+
+* added new logo and made navigation responsive ([e1fbf6b](https://github.com/muadpn/buu-fun/commit/e1fbf6b185ef4b56bde447f4075244e64be5878b))
+* added responsiveness in topbar and profile page ([5927939](https://github.com/muadpn/buu-fun/commit/5927939b4726dba544a6a14240c97cdd664860a9))
+* added responsiveness to bottom container and home page ([2bb5cf9](https://github.com/muadpn/buu-fun/commit/2bb5cf9ed2e04e282ed484c8e718f41fc5e13195))
+* added responsiveness to generation card ([61aeb62](https://github.com/muadpn/buu-fun/commit/61aeb620c1757c6af9e5faa15bc82e9fd0b3da6e))
+* added tailwind config to support lower screen sizes and restructured grid-container ([b88779e](https://github.com/muadpn/buu-fun/commit/b88779e89e668e7370ef24c571e44050f2f8691e))
+
+
+### 🐛 Bugfixes
+
+* removed manage subscription from profile page ([4a26c26](https://github.com/muadpn/buu-fun/commit/4a26c2699bf2bc0e9ae6de30b31a018f2a64d40d))
+
 ## [0.1.19](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.18...buu-fun-v0.1.19) (2025-03-01)
 
 
