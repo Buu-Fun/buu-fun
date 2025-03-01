@@ -1,8 +1,8 @@
 "use client";
-import { AddImage } from "@/assets/icons";
 import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
+import RedeemVouchers from "@/components/profile/redeem-vouchers";
 import { Button } from "@/components/ui/button";
 import useUserCredits from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
@@ -30,7 +30,7 @@ export default function ProfilePage() {
 
   if (loading || IsAuthLoading || !address) return <ProfileSkeleton />;
   return (
-    <main className="flex items-center flex-col justify-center ">
+    <main className="flex items-center flex-col justify-center w-full ">
       <div className="flex w-16 h-16">
         <Image
           loading="lazy"
@@ -76,19 +76,7 @@ export default function ProfilePage() {
         </div>
       </div>
       <div className="flex gap-2 items-center justify-center mt-6">
-        <Button
-          //   onClick={openConnectionModal}
-          className="px-2 group py-2 h-[40px] rounded-[10px]"
-        >
-          <Image
-            className="w-6 h-6 group-hover:brightness-90 transition-all duration-300 ease-in"
-            src={AddImage.src}
-            alt="connect wallet icon"
-            width={100}
-            height={100}
-          />
-          Add more credits
-        </Button>
+        <RedeemVouchers />
 
         <Button
           variant={"outline"}

@@ -1,18 +1,23 @@
 // import { GetMyCreditsQuery } from "@/gql/documents/creative-engine";
 
 import { serverRequest } from "@/gql/client";
-import { GetMyCreditsQuery } from "@/gql/documents/creative-engine";
+import {
+  GetMyCreditsQuery,
+  RedeemVoucherMutation,
+} from "@/gql/documents/creative-engine";
 import {
   GetMyCreditsQuery as TGetMyCreditsQuery,
   GetMyCreditsQueryVariables,
+  RedeemVoucherMutation as TRedeemVoucherMutation,
+  RedeemVoucherMutationVariables as TRedeemVoucherMutationVariables,
 } from "@/gql/types/graphql";
 import { getAuthorization } from "../utils";
 
 // import {GetMyCreditsQuery} from '@/gql/types'
-export type TGetUserCredits = {
+export type AccessToken = {
   accessToken: string;
 };
-export async function getUserCredits({ accessToken }: TGetUserCredits) {
+export async function getUserCredits({ accessToken }: AccessToken) {
   const data = await serverRequest<
     TGetMyCreditsQuery,
     GetMyCreditsQueryVariables
@@ -21,11 +26,34 @@ export async function getUserCredits({ accessToken }: TGetUserCredits) {
     {},
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if ("code" in data.getMyCredits) {
     throw new Error(data.getMyCredits.message, { cause: "INVALID_DATA" });
   }
   return data.getMyCredits;
+}
+
+export async function addCreditsMutation({
+  accessToken,
+  code,
+}: AccessToken & { code: string }) {
+  const data = await serverRequest<
+    TRedeemVoucherMutation,
+    TRedeemVoucherMutationVariables
+  >(
+    RedeemVoucherMutation,
+    {
+      code,
+    },
+    {
+      Authorization: getAuthorization(accessToken),
+    },
+  );
+
+  if ("code" in data?.redeemVoucher) {
+    throw new Error(data.redeemVoucher.message, { cause: "INVALID_DATA" });
+  }
+  return data.redeemVoucher;
 }

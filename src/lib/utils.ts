@@ -14,19 +14,19 @@ const simplePlural = (word: string) => `${word}s`;
 export function pluralize(
   num: number,
   word: string,
-  plural: (value: string) => string = simplePlural
+  plural: (value: string) => string = simplePlural,
 ) {
   return isPlural(num) ? plural(word) : word;
 }
 
 export async function handleResponse(
-  response: Response
+  response: Response,
 ): Promise<TDataMuseWord[]> {
   if (!response.ok) {
     // add other generic messages later for api backends.
     throw new DataMuseError(
       `API request failed: ${response.statusText}`,
-      response.status
+      response.status,
     );
   }
   return response.json();
