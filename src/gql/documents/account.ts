@@ -1,5 +1,4 @@
 import { gql } from "graphql-request";
-
 export const LoginChallengeMutation = gql`
   mutation LoginChallenge($account: String!) {
     loginChallenge(account: $account) {

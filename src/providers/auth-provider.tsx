@@ -14,6 +14,7 @@ import {
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import {
   CoinbaseWalletAdapter,
+  LedgerWalletAdapter,
   PhantomWalletAdapter,
   SolflareWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
@@ -25,7 +26,7 @@ import { WalletProvider } from "./wallet.context";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-  const network = WalletAdapterNetwork.Devnet;
+  const network = WalletAdapterNetwork.Devnet
 
   // You can also provide a custom RPC endpoint.
   const endpoint = React.useMemo(() => clusterApiUrl(network), [network]);
@@ -34,30 +35,39 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     () => [
       new CoinbaseWalletAdapter(),
       new SolflareWalletAdapter(),
-      // new LedgerWalletAdapter(),
+      new LedgerWalletAdapter(),
       new PhantomWalletAdapter(),
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [network],
+    [network]
   );
 
   return (
     <PrivyProvider
       appId={NEXT_PUBLIC_PRIVY_APP_ID as string}
+      clientId="client-WY5hALoPcYSNLFgnuBK3H4en8EpYMwFhiJMk7yiaDdGAA"
       config={{
-        loginMethods: ["wallet", "email"],
-
+        // loginMethods: ["email", "wallet"],
         // Customize Privy's appearance in your app
-
         appearance: {
           theme: "dark",
 
+          // walletList: ["phantom", "coinbase_wallet", "solflare"],
+          showWalletLoginFirst: true,
           accentColor: "#1c20275c",
           // eslint-disable-next-line @next/next/no-img-element
           logo: <img src="/logo.png" className="w-12" alt="Buu.fun Logo" />,
         },
+        
+        loginMethodsAndOrder: {
+          primary: ["detected_wallets","email", ],
+          overflow: ["phantom","wallet_connect"]
+        },
         // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {
+
+          showWalletUIs: true,
+          
           createOnLogin: "users-without-wallets",
         },
       }}
