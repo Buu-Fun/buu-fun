@@ -5,6 +5,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useState,
 } from "react";
 import {
   ConnectedSolanaWallet,
@@ -16,7 +17,6 @@ import { Adapter } from "@solana/wallet-adapter-base";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useDisclosure } from "@nextui-org/react";
 import { WalletConnectionTypeModal } from "@/components/wallet/WalletConnectionTypeModal";
-import { useRouter } from "next/navigation";
 
 interface Props {
   children: React.ReactNode;
@@ -42,14 +42,16 @@ const connectedWalletConnectionTypeKey = "connected-wallet-connection-type";
 
 export const WalletProvider = ({ children }: Props) => {
   const connectionDisclosure = useDisclosure();
-  const router = useRouter();
-  const { isModalOpen, user, login, logout } = usePrivy();
-  const { wallets } = useSolanaWallets();
+  const { isModalOpen, user, login, logout, ready: isPrivyReady } = usePrivy();
+
+  const { wallets, ready } = useSolanaWallets();
+
   const {
     connecting,
     wallet,
     disconnect: disconnectWeb3Wallet,
   } = useWeb3Wallet();
+
   const { visible, setVisible } = useWalletModal();
   const [connectionType, setConnectionType] =
     React.useState<WalletConnectionType>(WalletConnectionType.Web2);
@@ -63,15 +65,20 @@ export const WalletProvider = ({ children }: Props) => {
       disconnectWeb3Wallet();
     }
     localStorage.removeItem(connectedWalletConnectionTypeKey);
-    router.push("/");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, logout, disconnectWeb3Wallet]);
 
   const connect = useCallback(
     async (type: WalletConnectionType) => {
       // Connect to wallet
       if (type === WalletConnectionType.Web2) {
+        if (isPrivyReady) {
+          console.log("PRIVY is READY");
+        }
         if (!user) {
+          if (!isPrivyReady) {
+            console.log("PRIVY WAS NOT READY WHEN USER WAS CALLED");
+          }
+
           login();
         }
       } else {
@@ -83,8 +90,7 @@ export const WalletProvider = ({ children }: Props) => {
       setConnectionType(type);
       localStorage.setItem(connectedWalletConnectionTypeKey, type);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user, disconnect, login, setVisible],
+    [user, disconnect, login, setVisible]
   );
 
   const switchConnectionType = useCallback(async () => {
@@ -108,19 +114,19 @@ export const WalletProvider = ({ children }: Props) => {
     if (savedType) {
       connect(savedType as WalletConnectionType);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const address =
     connectionType === WalletConnectionType.Web2
-      ? wallets[0]?.address
+      ? user?.wallet?.address || wallets[0]?.address
       : wallet?.adapter.publicKey?.toString();
-    
+
   const adapter =
     connectionType === WalletConnectionType.Web2 ? wallets[0] : wallet?.adapter;
+  console.log(wallets[0], wallet?.adapter);
   const loading =
     connecting || connectionDisclosure.isOpen || visible || isModalOpen;
-  
+
   const value = useMemo(
     () => ({
       loading,
@@ -139,7 +145,7 @@ export const WalletProvider = ({ children }: Props) => {
       connectionDisclosure,
       disconnect,
       switchConnectionType,
-    ],
+    ]
   );
 
   return (

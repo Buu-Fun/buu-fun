@@ -26,7 +26,7 @@ import { WalletProvider } from "./wallet.context";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-  const network = WalletAdapterNetwork.Devnet
+  const network = WalletAdapterNetwork.Devnet;
 
   // You can also provide a custom RPC endpoint.
   const endpoint = React.useMemo(() => clusterApiUrl(network), [network]);
@@ -45,7 +45,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <PrivyProvider
       appId={NEXT_PUBLIC_PRIVY_APP_ID as string}
-      clientId="client-WY5hALoPcYSNLFgnuBK3H4en8EpYMwFhiJMk7yiaDdGAA"
+      // clientId={process.env.NEXT_PUBIC_PRIVY_CLIENT_ID}
       config={{
         // loginMethods: ["email", "wallet"],
         // Customize Privy's appearance in your app
@@ -58,17 +58,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           // eslint-disable-next-line @next/next/no-img-element
           logo: <img src="/logo.png" className="w-12" alt="Buu.fun Logo" />,
         },
-        
-        loginMethodsAndOrder: {
-          primary: ["detected_wallets","email", ],
-          overflow: ["phantom","wallet_connect"]
-        },
-        // Create embedded wallets for users who don't have a wallet
-        embeddedWallets: {
 
-          showWalletUIs: true,
-          
-          createOnLogin: "users-without-wallets",
+        loginMethodsAndOrder: {
+          primary: ["detected_wallets", "email"],
+          overflow: ["phantom", "wallet_connect"],
         },
       }}
     >
