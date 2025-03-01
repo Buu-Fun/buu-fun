@@ -1,0 +1,103 @@
+import { TicketIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  redeemVoucherSchema,
+  TRedeemVoucherSchema,
+} from "@/lib/zod/redeem-voucher";
+import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addCreditsMutation } from "@/lib/react-query/user";
+import { useWallet } from "@/providers/wallet.context";
+import { useAuthentication } from "@/providers/account.context";
+export default function RedeemVouchers() {
+  const { getAccessToken } = useAuthentication();
+  const { address, openConnectionModal } = useWallet();
+  const queryClient = useQueryClient();
+  const { mutate: AddRedeemVoucher } = useMutation({
+    mutationFn: addCreditsMutation,
+    onSuccess(data, variables, context) {
+      toast.success("Added Credits your Account");
+      queryClient.invalidateQueries({
+        queryKey: ["get-user-credits"],
+      });
+    },
+    onError(error, variables, context) {
+      toast.error(error.message);
+    },
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TRedeemVoucherSchema>({
+    resolver: zodResolver(redeemVoucherSchema),
+  });
+
+  function handleRedeemVoucherSubmit({ code }: TRedeemVoucherSchema) {
+    const accessToken = getAccessToken(address ?? "");
+    if (!accessToken) {
+      openConnectionModal();
+      return;
+    }
+
+    AddRedeemVoucher({
+      accessToken,
+      code,
+    });
+  }
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="px-2 group py-2 h-[40px] rounded-[10px]">
+          <div className="w-6 h-6 icon-blue-with-shadow blue-icon-gradient-background blue-icon-filter-effect rounded-md flex items-center justify-center">
+            <TicketIcon className="text-white stroke-[2.5]" />
+          </div>
+          Redeem Voucher
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-[300px] bg-buu-opacity-100 border-buu shadow-buu-button">
+        <DialogHeader>
+          <DialogTitle>Redeem Voucher</DialogTitle>
+          <DialogDescription>
+            Use your voucher to access exclusive AI-generated assets and
+            features.
+          </DialogDescription>
+        </DialogHeader>
+        <form onSubmit={handleSubmit(handleRedeemVoucherSubmit)}>
+          <div className="items-center gap-4">
+            <Label htmlFor="code" className="text-right">
+              Voucher code
+            </Label>
+            <Input
+              placeholder="Eg: BUU84MSDASG"
+              id="code"
+              className="col-span-3"
+              {...register("code")}
+            />
+          </div>
+          <Button className="px-2 group py-2 h-[40px] w-full mt-4 rounded-[10px]">
+            <div className="w-6 h-6 icon-blue-with-shadow blue-icon-gradient-background blue-icon-filter-effect rounded-md flex items-center justify-center">
+              <TicketIcon className="text-white stroke-[2.5]" />
+            </div>
+            Redeem Voucher
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
