@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.1.19](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.18...buu-fun-v0.1.19) (2025-03-01)
+
+
+### ✨ Features
+
+* added redeem voucher dialog, mutation and validation ([efa2901](https://github.com/muadpn/buu-fun/commit/efa2901bf150d07703359a8fe323da8efda3b700))
+* added shadcn labels, React hookform zod ([a44e3ea](https://github.com/muadpn/buu-fun/commit/a44e3ea8f65d4852b73c071a1a7477d7c294f29c))
+
+
+### 🐛 Bugfixes
+
+* added new state for toast notification ([9591494](https://github.com/muadpn/buu-fun/commit/95914947ba0d7acf2610d5a8572c137ce93b4014))
+* added uninstalled dependencies ([e636282](https://github.com/muadpn/buu-fun/commit/e6362826baa65533992fca83a454924a995bed53))
+
+
+### 👽 Miscellaneous
+
+* **lint:** linted and formatted the codebase ([1995bd0](https://github.com/muadpn/buu-fun/commit/1995bd0993e30de722a0d717dc9ba2ff9548e9ac))
+
 ## [0.1.18](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.17...buu-fun-v0.1.18) (2025-02-28)
 
 
