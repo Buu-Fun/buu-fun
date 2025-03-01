@@ -57,9 +57,11 @@ export default function Generate3DCard({
       initial={{ opacity: 0.5 }}
       animate={{ opacity: 1 }}
       transition={{ ease: "easeInOut", duration: 0.5 }}
-      className="w-[264px] h-[370px] relative p-0"
+      className="w-full min-w-[264px]  lg:w-[264px] h-full lg:h-[370px] relative p-0"
     >
-      <div className="relative -z-[10] rounded-2xl w-full h-full overflow-hidden">
+      <div className="relative bg-[#151924]  -z-[10] rounded-2xl w-full h-full overflow-hidden">
+        <div className="w-[78px] h-[170px] top-0 right-[10%] absolute  bg-overlay-card   rounded-full   rotate-[-10deg]" />
+
         <motion.div
           initial={{ opacity: 1 }}
           animate={{ opacity: shouldShow3D ? 0 : 1 }}
@@ -71,7 +73,7 @@ export default function Generate3DCard({
               "w-full h-full hidden  items-center bg-black/30 relative justify-center",
               {
                 "z-10 flex bg-none absolute": isGenerating,
-              },
+              }
             )}
           >
             <div className="flex items-center justify-center gap-2 ">
@@ -109,7 +111,7 @@ export default function Generate3DCard({
             style={{
               pointerEvents: "auto",
             }}
-            className={cn("absolute inset-0 w-full h-full", {
+            className={cn("absolute inset-0 w-full h-full ", {
               "pointer-events-none": !shouldShow3D,
             })}
           >
@@ -128,7 +130,7 @@ export default function Generate3DCard({
           "absolute -bottom-4 z-50 flex items-center gap-2 justify-center w-full",
           {
             hidden: !showToolTip,
-          },
+          }
         )}
       >
         <ToolBarToolTips

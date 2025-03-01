@@ -47,32 +47,32 @@ const CurvedEmblaCarousel = ({
     prevLengthRef.current = GenRequests.length;
   }, [GenRequests.length, api]);
   const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const modelContainer = ref.current;
-    if (!modelContainer) return;
-    const stopPropagation = (e: Event) => {
-      e.stopPropagation();
-    };
-    modelContainer.addEventListener("mousedown", stopPropagation);
-    modelContainer.addEventListener("touchcancel", stopPropagation);
-    modelContainer.addEventListener("touchend", stopPropagation);
-    modelContainer.addEventListener("touchmove", stopPropagation);
-    modelContainer.addEventListener("wheel", stopPropagation);
-    modelContainer.addEventListener("touchstart", stopPropagation);
-    return () => {
-      if (!modelContainer) return;
-      modelContainer.removeEventListener("mousedown", stopPropagation);
-      modelContainer.removeEventListener("touchcancel", stopPropagation);
-      modelContainer.removeEventListener("touchend", stopPropagation);
-      modelContainer.removeEventListener("touchmove", stopPropagation);
-      modelContainer.removeEventListener("wheel", stopPropagation);
-      modelContainer.removeEventListener("touchstart", stopPropagation);
-    };
-  }, [ref]);
+  // useEffect(() => {
+  //   const modelContainer = ref.current;
+  //   if (!modelContainer) return;
+  //   const stopPropagation = (e: Event) => {
+  //     // e.stopPropagation();
+  //   };
+  //   modelContainer.addEventListener("mousedown", stopPropagation);
+  //   modelContainer.addEventListener("touchcancel", stopPropagation);
+  //   modelContainer.addEventListener("touchend", stopPropagation);
+  //   modelContainer.addEventListener("touchmove", stopPropagation);
+  //   modelContainer.addEventListener("wheel", stopPropagation);
+  //   modelContainer.addEventListener("touchstart", stopPropagation);
+  //   return () => {
+  //     if (!modelContainer) return;
+  //     modelContainer.removeEventListener("mousedown", stopPropagation);
+  //     modelContainer.removeEventListener("touchcancel", stopPropagation);
+  //     modelContainer.removeEventListener("touchend", stopPropagation);
+  //     modelContainer.removeEventListener("touchmove", stopPropagation);
+  //     modelContainer.removeEventListener("wheel", stopPropagation);
+  //     modelContainer.removeEventListener("touchstart", stopPropagation);
+  //   };
+  // }, [ref]);
 
   return (
     <div
-      className="max-w-[264px] max-h-[370px] h-full w-full "
+      className="md:max-w-[264px]  md:max-h-[370px] h-full w-full "
       ref={carouselRef}
     >
       {GenRequests.length ? (
@@ -87,12 +87,12 @@ const CurvedEmblaCarousel = ({
             watchSlides: true,
           }}
           plugins={[WheelGesturesPlugin()]}
-          className="overflow-visible  pointer-events-none relative max-w-[264px] max-h-[370px] h-full w-full"
+          className="overflow-visible   pointer-events-none relative md:max-w-[264px] md:max-h-[370px] h-full w-full"
           setApi={setApi}
         >
           <CarouselContent
             className="ml-0 relative h-full pointer-events-none w-full"
-            containerClass="overflow-visible pointer-events-none h-full w-full"
+            containerClass="overflow-visible  pointer-events-none h-full w-full"
           >
             <AnimatePresence>
               {GenRequests.map((item, index) => {
@@ -127,7 +127,7 @@ const CurvedEmblaCarousel = ({
                       api?.scrollTo(index);
                     }}
                     className={cn(
-                      "relative pl-0  border-buu   pointer-events-none select-none max-w-[264px]  max-h-[370px] h-full rounded-lg shadow-lg",
+                      "relative pl-0 w-full   max-h-[90%]  pointer-events-none select-none md:max-w-[264px]  md:max-h-[370px] h-full rounded-lg shadow-lg",
                       "transition-all duration-500 ease-out",
                     )}
                   >
@@ -150,10 +150,10 @@ const CurvedEmblaCarousel = ({
           </CarouselContent>
           <div className="absolute top-[50%] w-full pointer-events-auto">
             <div className="absolute top-[50%] right-0 pointer-events-auto">
-              <CarouselNext className="disabled:hidden pointer-events-auto -right-4 top-auto" />
+              <CarouselNext className="disabled:hidden pointer-events-auto right-0 md:-right-4 top-auto" />
             </div>
             <div className="absolute top-[50%] left-0">
-              <CarouselPrevious className="disabled:hidden pointer-events-auto -left-4 top-auto" />
+              <CarouselPrevious className="disabled:hidden pointer-events-auto left-0 md:-left-4 top-auto" />
             </div>
           </div>
         </Carousel>

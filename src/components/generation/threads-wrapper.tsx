@@ -318,15 +318,15 @@ export default function ThreadsWrapper({ threadId }: TThreadsWrapper) {
   }, [isUserScrolling]);
 
   return (
-    <div className="flex-1 relative h-full scrollbar-w-hidden overflow-y-scroll flex items-center justify-center mt-4 mr-[0.15vw] flex-col scroll-smooth">
-      <div className="w-full h-full relative z-0">
+    <div className="flex-1  px-1 relative h-full scrollbar-w-hidden overflow-y-scroll flex items-center justify-center lg:mt-4 lg:mr-[0.15vw] flex-col scroll-smooth ">
+      <div className="w-full h-full relative z-0 ">
         <div
           ref={scrollContainerRef}
           className={cn(
             "overflow-y-scroll scrollbar-w-hidden snap-y  snap-mandatory w-full h-full relative",
           )}
         >
-          <div className={cn("flex", "-mt-4 flex-col w-full h-full relative")}>
+          <div className={cn("flex  -mt-4 flex-col w-full h-full relative")}>
             <div ref={ref} className="absolute top-6 w-full h-3" />
             {isFetchingNextPage && (
               <motion.div
