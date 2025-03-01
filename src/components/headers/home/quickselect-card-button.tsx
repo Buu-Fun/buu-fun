@@ -12,7 +12,7 @@ import QuickSelectCard from "./quick-select-card";
 
 export default function HeaderQuickSelectButton() {
   return (
-    <section>
+    <section className="hidden lg:block">
       <div className="flex items-center justify-center gap-2 mt-4">
         <QuickSelectCard
           backgroundImage={<Create3DLayout />}

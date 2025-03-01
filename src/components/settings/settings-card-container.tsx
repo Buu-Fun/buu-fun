@@ -6,6 +6,7 @@ import { changeModes, contentModes } from "@/lib/redux/features/settings";
 import Image from "next/image";
 import SettingsBarSelectedDisplay from "./settings-bar-selected-display";
 import ThreeDSelectBox from "./three-d-select-box";
+import Pill from "../elements/pill";
 
 export default function SettingsCardContainer() {
   const selected = useAppSelector((state) => state.settings.modes);
@@ -40,15 +41,19 @@ export default function SettingsCardContainer() {
         <TabsTrigger
           disabled
           onClick={() => {
-            dispatch(changeModes("comic"));
+            // dispatch(changeModes("comic"));
           }}
-          className="text-muted-foreground/60 rounded-[16px] max-w-max py-2 px-4 data-[state=active]:bg-white group data-[state=active]:text-black data-[state=active]:border-none"
+          className="text-muted-foreground/60 disabled:opacity-100 rounded-[16px] max-w-max py-2 px-4 data-[state=active]:bg-white group data-[state=active]:text-black data-[state=active]:border-none"
           value="comic"
         >
           <SettingsBarSelectedDisplay
             title={
-              <span className="relative flex items-center justify-center gap-0.5">
-                Comic <span className="text-[10px]  -top-2 left-0">(soon)</span>
+              <span className="relative flex items-center justify-center gap-1">
+                Comic{" "}
+                <Pill className="text-[10px] py-1 text-white leading-none">
+                  {" "}
+                  soon
+                </Pill>
               </span>
             }
           />
@@ -58,15 +63,19 @@ export default function SettingsCardContainer() {
         <TabsTrigger
           disabled
           onClick={() => {
-            dispatch(changeModes("video"));
+            // dispatch(changeModes("video"));
           }}
-          className="text-muted-foreground/60 rounded-[16px] max-w-max py-2 px-4 data-[state=active]:bg-white group data-[state=active]:text-black data-[state=active]:border-none"
+          className="text-muted-foreground/60 disabled:opacity-100 rounded-[16px] max-w-max py-2 px-4 data-[state=active]:bg-white group data-[state=active]:text-black data-[state=active]:border-none"
           value="video"
         >
           <SettingsBarSelectedDisplay
             title={
-              <span className="relative flex items-center justify-center gap-0.5">
-                Video <span className="text-[10px]  -top-2 left-0">(soon)</span>
+              <span className="relative flex items-center justify-center gap-1">
+                Video{" "}
+                <Pill className="text-[10px] py-1 text-white opacity-100 leading-none">
+                  {" "}
+                  soon
+                </Pill>
               </span>
             }
           />
@@ -114,14 +123,14 @@ export default function SettingsCardContainer() {
                   height={170}
                 />
               </button>
-            ),
+            )
           )}
         </div>
       </TabsContent>
       <TabsContent id="video-container" className="" value="video">
         <div className="flex flex-1 flex-shrink gap-2">
           {ThreeDImages.sort((a, b) =>
-            a.alt.length > b.alt.length ? 1 : -1,
+            a.alt.length > b.alt.length ? 1 : -1
           ).map((item, index) => (
             <button
               key={`${index}-${item.alt}-video`}

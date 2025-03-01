@@ -1,5 +1,12 @@
 "use client";
-import React, { createContext, useCallback, useContext, useMemo } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { serverRequest } from "../gql/client";
 import {
   DisconnectTelegram,
@@ -34,6 +41,7 @@ interface AuthenticationContextType {
   disconnectTwitterAccount: (account: string) => Promise<void>;
   connectTelegramAccount: (account: string) => Promise<void>;
   disconnectTelegramAccount: (account: string) => Promise<void>;
+  accessToken: string | null
 }
 
 const AuthenticationContext = createContext<
@@ -43,7 +51,7 @@ const AuthenticationContext = createContext<
 export const AuthenticationProvider = ({ children }: Props) => {
   const [loading, setLoading] = React.useState(true);
   const { address, adapter, disconnect } = useWallet();
-
+  const [accessToken, setAccessToken] = useState<string | null>(null);
   const getAccessTokenKeys = () => {
     const value = localStorage.getItem("x-accessToken-keys");
     if (value) {
@@ -62,7 +70,18 @@ export const AuthenticationProvider = ({ children }: Props) => {
     }
     return null;
   };
-
+  useEffect(() => {
+    const getAccessToken = (account: string) => {
+      const value = localStorage.getItem(getAccessTokenKey(account));
+      if (value) {
+        return JSON.parse(value) as string;
+      }
+      return null;
+    };
+    const accessToken = getAccessToken(address ?? "");
+    setAccessToken(accessToken);
+  }, [address]);
+  
   const fetchAccount = useCallback(async () => {
     if (!address) return;
     const accessToken = getAccessToken(address);
@@ -73,7 +92,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
         {},
         {
           Authorization: `Bearer ${accessToken}`,
-        },
+        }
       );
       return response.me;
     } catch (error) {
@@ -97,20 +116,20 @@ export const AuthenticationProvider = ({ children }: Props) => {
             },
             {
               Authorization: `Bearer ${getAccessToken(address)}`,
-            },
+            }
           )) as { loginRefresh: LoginAuth | null };
 
           if (loginRefresh && loginRefresh.token) {
             localStorage.setItem(
               getAccessTokenKey(address),
-              JSON.stringify(loginRefresh.token),
+              JSON.stringify(loginRefresh.token)
             );
             const accessTokenKeys = getAccessTokenKeys();
             const accessTokenKey = getAccessTokenKey(address);
             if (!accessTokenKeys.includes(accessTokenKey)) {
               localStorage.setItem(
                 "x-accessToken-keys",
-                JSON.stringify([...accessTokenKeys, accessTokenKey]),
+                JSON.stringify([...accessTokenKeys, accessTokenKey])
               );
             }
             return;
@@ -162,7 +181,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
           publicKey: Buffer.from(output.account.publicKey).toString("base64"),
           chains: output.account.chains.map((chain) => chain.toString()),
           features: output.account.features.map((feature) =>
-            feature.toString(),
+            feature.toString()
           ),
         },
         signature: Buffer.from(output.signature).toString("base64"),
@@ -177,14 +196,14 @@ export const AuthenticationProvider = ({ children }: Props) => {
       if (loginAuth && loginAuth.token) {
         localStorage.setItem(
           getAccessTokenKey(address),
-          JSON.stringify(loginAuth.token),
+          JSON.stringify(loginAuth.token)
         );
         const accessTokenKeys = getAccessTokenKeys();
         const accessTokenKey = getAccessTokenKey(address);
         if (!accessTokenKeys.includes(accessTokenKey)) {
           localStorage.setItem(
             "x-accessToken-keys",
-            JSON.stringify([...accessTokenKeys, accessTokenKey]),
+            JSON.stringify([...accessTokenKeys, accessTokenKey])
           );
         }
       } else {
@@ -205,7 +224,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
     if (!accessToken) return;
     const token = encodeURIComponent(accessToken);
     const url = `${SERVER_URL}/accounts/auth/twitter?token=${token}`;
-    window.location.href = url; // Redirige al backend
+    window.location.href = url;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -216,12 +235,12 @@ export const AuthenticationProvider = ({ children }: Props) => {
         {},
         {
           Authorization: `Bearer ${getAccessToken(account)}`,
-        },
+        }
       );
       await fetchAccount();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fetchAccount],
+    [fetchAccount]
   );
 
   const connectTelegramAccount = useCallback(async (account: string) => {
@@ -238,12 +257,12 @@ export const AuthenticationProvider = ({ children }: Props) => {
         {},
         {
           Authorization: `Bearer ${getAccessToken(account)}`,
-        },
+        }
       );
       await fetchAccount();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fetchAccount],
+    [fetchAccount]
   );
 
   React.useEffect(() => {
@@ -260,6 +279,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
   const value = useMemo(
     () => ({
       loading,
+      accessToken,
       account: undefined,
       fetchAccount,
       getAccessToken,
@@ -268,17 +288,16 @@ export const AuthenticationProvider = ({ children }: Props) => {
       connectTelegramAccount,
       disconnectTelegramAccount,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       loading,
       fetchAccount,
-      fetchAccount,
+      accessToken,
       getAccessToken,
       connectTwitterAccount,
       disconnectTwitterAccount,
       connectTelegramAccount,
       disconnectTelegramAccount,
-    ],
+    ]
   );
 
   return (
@@ -292,7 +311,7 @@ export function useAuthentication() {
   const context = useContext(AuthenticationContext);
   if (context === undefined) {
     throw new Error(
-      `useAuthentication must be used within a AuthenticationProvider`,
+      `useAuthentication must be used within a AuthenticationProvider`
     );
   }
   return context;

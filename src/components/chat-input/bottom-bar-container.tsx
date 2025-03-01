@@ -6,9 +6,9 @@ export type TBottomBarContainer = {
 };
 export default function BottomBarContainer({ action }: TBottomBarContainer) {
   return (
-    <div className="w-full  max-w-2xl mx-auto ">
+    <div className="w-full px-1 py-1  max-w-2xl mx-auto ">
       <SettingsBar />
-      <div className=" p-4 border mb-12 rounded-[20px]  shadow-buu-inner bg-buu">
+      <div className="p-4  mb-2 lg:mb-12 rounded-[20px]  shadow-buu-inner bg-buu">
         <ChatForm action={action} />
         <ImageDragAndDrop />
       </div>

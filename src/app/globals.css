@@ -137,9 +137,9 @@ body {
   background: rgba(28, 32, 39, 1);
 }
 
-.bg-buu {
+/* .bg-buu {
   background: rgba(28, 32, 39, 0.36);
-}
+} */
 .bg-buu-50 {
   background: rgba(28, 32, 39, 0.5);
 }
@@ -215,6 +215,31 @@ body {
   backdrop-filter: blur(120px);
   /* filter: blur(300px); */
 }
+
+.bg-overlay-card {
+  fill: linear-gradient(180deg, #6a69d5 0%, #d4d4ff 100%);
+  opacity: 0.8;
+
+  background: rgb(106, 105, 213);
+  background: -moz-linear-gradient(
+    180deg,
+    rgba(106, 105, 213, 1) 0%,
+    rgba(212, 212, 255, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    180deg,
+    rgba(106, 105, 213, 1) 0%,
+    rgba(212, 212, 255, 1) 100%
+  );
+  background: linear-gradient(
+    180deg,
+    rgba(106, 105, 213, 1) 0%,
+    rgba(212, 212, 255, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6a69d5",endColorstr="#d4d4ff",GradientType=1);
+  filter: blur(122.79068756103516px);
+}
+
 /* 
 .grid-container {  display: grid;
   grid-template-columns: 0.15fr 1.85fr;
@@ -255,6 +280,31 @@ body {
 
 .navigation {
   grid-area: navigation;
+}
+
+@media (max-width: 1024px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: 0.2fr 1.8fr;
+    grid-template-rows: 0.1fr 1.1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "navigation top-bar"
+      "main-body main-body";
+  }
+
+  .top-bar {
+    grid-area: top-bar;
+  }
+
+  .navigation {
+    grid-area: navigation;
+  }
+
+  .main-body {
+    grid-area: main-body;
+  }
 }
 
 @layer base {
@@ -303,14 +353,13 @@ body {
   filter: drop-shadow(0px 5.143px 6.857px rgba(0, 0, 0, 0.1));
 }
 
-
 .blue-icon-filter-effect {
   /* Drop shadow */
   box-shadow: 0px 5.14286px 6.85714px rgba(0, 0, 0, 0.1);
-  
+
   /* Unfortunately, CSS doesn't have a direct equivalent for the inner shadow effects
      defined in the SVG filter. We can approximate with multiple inset shadows: */
-  box-shadow: 
+  box-shadow:
     0px 5.14286px 6.85714px rgba(0, 0, 0, 0.1),
     inset 0px -1.71429px 5.14286px rgba(9, 52, 92, 0.5),
     inset 0px 1.71429px 3.42858px rgba(197, 231, 255, 1);
@@ -318,7 +367,7 @@ body {
 
 /* For the linear gradient */
 .blue-icon-gradient-background {
-  background: linear-gradient(to right bottom, #52BAFF, #90D1F2);
+  background: linear-gradient(to right bottom, #52baff, #90d1f2);
   /* Alternative syntax for better browser support: */
-  background: linear-gradient(135deg, #52BAFF 0%, #90D1F2 100%);
+  background: linear-gradient(135deg, #52baff 0%, #90d1f2 100%);
 }

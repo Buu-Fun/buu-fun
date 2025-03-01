@@ -14,7 +14,7 @@ export default function CreditUsedIcon() {
       >
         <FlashIcon />
         <p className="text-white">${getFixedCredits(data?.available)}</p>
-        Credits Used{" "}
+        <p className="xs:block hidden">Credits Available </p>
       </Button>
     </div>
   );

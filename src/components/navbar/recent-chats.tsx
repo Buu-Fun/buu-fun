@@ -24,7 +24,7 @@ export default function RecentChats() {
         dispatch(setHistoryModel(value));
       }}
     >
-      <SheetTrigger asChild>
+      <SheetTrigger asChild className="">
         <div className="flex  items-center gap-1 justify-center">
           <div>
             <Button
@@ -32,7 +32,7 @@ export default function RecentChats() {
               className="px-3 flex items-center hover:bg-buu-button justify-center gap-1 text-base h-[40px] group  py-2 bg-buu shadow-buu-secondary border-buu rounded-[10px]"
             >
               <HistoryIcon className="w-4 h-4  " />
-              History{" "}
+              <span className="hidden lg:block">History</span>
             </Button>
           </div>
         </div>

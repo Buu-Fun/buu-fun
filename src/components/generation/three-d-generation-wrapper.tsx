@@ -58,7 +58,7 @@ export default function ThreeDGenerationWrapper({
 
       <h2
         className={cn(
-          "text-2xl max-w-md text-center  relative font-medium tracking-tighter",
+          "text-2xl max-w-md text-center hidden md:block  relative font-medium tracking-tighter",
           {
             "text-xl": subThread && subThread?.prompt?.length > 40,
             "text-lg": subThread && subThread?.prompt?.length > 80,
@@ -70,8 +70,8 @@ export default function ThreeDGenerationWrapper({
       >
         {subThread?.prompt}
       </h2>
-      <div className="flex items-center max-h-[370px]   justify-center w-full h-full">
-        <div className="flex items-center  max-h-[370px] h-full   justify-center max-w-sm ">
+      <div className="flex items-center bor md:max-h-[370px]   justify-center w-full h-full">
+        <div className="flex items-center  md:max-h-[370px] h-full   justify-center w-full md:max-w-sm ">
           <CurvedEmblaCarousel
             GenRequests={MediaData}
             threadId={threadId}

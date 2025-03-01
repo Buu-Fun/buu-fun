@@ -15,8 +15,12 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        "xs": "420px",
+      },
       colors: {
         buu: {
+          DEFAULT: "rgba(28, 32, 39, 0.36)",
           button: "#1a2129",
           secondary: "rgba(37, 41, 49, 0.8);",
           muted: {
@@ -77,7 +81,7 @@ export default {
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val]),
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
 
   addBase({

@@ -3,7 +3,6 @@ import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import RedeemVouchers from "@/components/profile/redeem-vouchers";
-import { Button } from "@/components/ui/button";
 import useUserCredits from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
 import { getFixedCredits } from "@/lib/utils";
@@ -20,7 +19,6 @@ export default function ProfilePage() {
   const { loading: IsAuthLoading } = useAuthentication();
   const { wallet } = useWeb3Wallet();
   const { data } = useUserCredits();
-  // const router = useRouter();
 
   useEffect(() => {
     if (!IsAuthLoading && !loading && !address) {
@@ -78,12 +76,12 @@ export default function ProfilePage() {
       <div className="flex gap-2 items-center justify-center mt-6">
         <RedeemVouchers />
 
-        <Button
+        {/* <Button
           variant={"outline"}
           className="px-2.5 h-[40px] group py-2 bg-buu shadow-buu-secondary border-buu rounded-[10px]"
         >
           Manage subscription{" "}
-        </Button>
+        </Button> */}
       </div>
       <div className="mt-6">
         <p className=" font-medium text-buu-muted-text">Link your accounts</p>

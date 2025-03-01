@@ -1,5 +1,5 @@
 import BottomBarContainer from "@/components/chat-input/bottom-bar-container";
-import ThreadsWrapper from "@/components/generation/threads";
+import ThreadsWrapper from "@/components/generation/threads-wrapper";
 import { DndKitProvider } from "@/providers/dnd-kit-provider";
 
 export type TNewChatPage = {

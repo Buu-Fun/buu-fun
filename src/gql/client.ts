@@ -8,6 +8,7 @@ const serverClient = new GraphQLClient(`${SERVER_URL}/graphql`, {
   headers: {
     "Content-Type": "application/json",
   },
+
 });
 
 export type TCommonHeaders = {
@@ -25,7 +26,7 @@ export const serverRequest = async <T = any, S = any>(
     return await serverClient?.request<T>(query, variables, headers);
   } catch (error) {
     console.error("Error realizando la solicitud GraphQL:", error);
-    if (forceResultIfFail) {
+    if (!forceResultIfFail) {
       return forceResultIfFail;
     }
     throw error;

@@ -40,11 +40,13 @@ export default function RootLayout({
             <StoreProvider>
               <ReactQueryProvider>
                 <div className="h-screen min-h-screen overflow-hidden relative max-h-screen   w-full">
-                  <div className="w-[200px] h-[100px] bg-overlay-secondary bg-[#69CCD5]  rounded-full right-[20%] absolute bottom-[-140px] -z-10 blur-[100px]  rotate-[-10deg]" />
+                  <div className=" w-[200px] h-[100px] bg-overlay-secondary bg-[#69CCD5]  rounded-full right-[20%] absolute bottom-[-140px] -z-10 blur-[100px]  rotate-[-10deg]" />
 
                   <div className="grid-container w-full h-full">
                     <div className="main-body relative">
-                      <div className="w-[176px] h-[334px] bg-overlay-primary bg-[#6A69D580] left-[45%]  rounded-full  absolute top-[5%] -z-10 blur-[100px]  rotate-[-10deg]" />
+                      <div
+                        className="w-[176px] h-[334px] bg-overlay-primary bg-[#6A69D580] left-[45%]  rounded-full  absolute top-[5%] -z-10 blur-[100px] md:block hidden  rotate-[-10deg]"
+                      />
                       {children}
                     </div>
                     <div className="top-bar">
