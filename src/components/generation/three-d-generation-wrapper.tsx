@@ -58,7 +58,7 @@ export default function ThreeDGenerationWrapper({
 
       <h2
         className={cn(
-          "text-2xl max-w-md text-center hidden md:block  relative font-medium tracking-tighter",
+          "text-2xl max-w-md text-center hidden lg:block  relative font-medium tracking-tighter",
           {
             "text-xl": subThread && subThread?.prompt?.length > 40,
             "text-lg": subThread && subThread?.prompt?.length > 80,
