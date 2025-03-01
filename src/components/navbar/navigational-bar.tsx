@@ -8,15 +8,23 @@ import Link from "next/link";
 export default function NavigationalBar() {
   return (
     <nav className="px-3 py-4   w-full h-full">
-      <div className="bg-buu py-4 flex flex-col items-center justify-between rounded-[20px] overflow-hidden h-full w-[72px]">
-        <Link
-          href={"/"}
-          className="flex shadow-buu-inner bg-buu-opacity-100  items-center justify-center w-12 h-12 px-3 py-4  rounded-lg "
-        >
-          <Image src={logo} width={250} height={20} alt="Bunn.fun logo" />
-        </Link>
+      <div className="lg:bg-buu lg:py-4  flex flex-col items-center justify-between lg:rounded-[20px] overflow-hidden lg:h-full lg:w-[72px]">
+        <div className="flex items-center justify-center">
+          <Link
+            href={"/"}
+            className="flex items-center justify-center h-10 w-10 lg:w-12 lg:h-12   rounded-lg "
+          >
+            <Image
+              className="w-full h-full "
+              src={logo}
+              width={250}
+              height={250}
+              alt="Bunn.fun logo"
+            />
+          </Link>
+        </div>
 
-        <div className="flex flex-col gap-4 items-center justify-center">
+        <div className="hidden lg:flex flex-col gap-4 items-center justify-center">
           <Link
             href={"/boards"}
             // group bg-buu-button  hover:bg-white hover:shadow-none  group shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5
@@ -43,7 +51,7 @@ export default function NavigationalBar() {
             </div>
           </Link> */}
         </div>
-        <div>
+        <div className="hidden lg:flex">
           <Image
             className="w-6 h-6"
             src={QuestionIcon}
