@@ -16,7 +16,7 @@ export default function Topbar() {
   const { address, disconnect, openConnectionModal } = useWallet();
   const shouldConnect = !address;
   return (
-    <div className="flex items-center justify-between pr-10 py-6">
+    <div className="flex items-center justify-end lg:gap-0 gap-2  lg:justify-between pr-1 lg:pr-10 py-4 lg:py-6">
       {!shouldConnect ? <RecentChats /> : null}
       {shouldConnect ? (
         <div className="w-full flex justify-end">
@@ -44,9 +44,11 @@ export default function Topbar() {
                     height={100}
                   />
                 </div>
-                {address.slice(0, 11)}...
-                {address.slice(address.length - 5, address.length - 1)}
-                <div className="w-0.5 h-[90%] my-auto bg-muted/80" />
+                <p className="hidden lg:flex">
+                  {address.slice(0, 4)}...
+                  {address.slice(address.length - 5, address.length - 1)}
+                </p>
+                <div className="w-0.5 h-[90%] my-auto bg-muted/80 hidden lg:flex" />
                 <ChevronDown />
               </button>
             </PopoverTrigger>

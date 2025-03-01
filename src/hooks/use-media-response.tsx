@@ -16,10 +16,11 @@ export default function useMediaResponse({
   const MediaData = useAppSelector((state) =>
     getSubThreadsMedia(state, state.chat.genRequest, subThreadId),
   );
+  const accessToken = getAccessToken(address ?? "");
+
   return useQuery({
     queryKey: [subThreadId, "get-sub-thread-requests"],
     queryFn: async () => {
-      const accessToken = getAccessToken(address ?? "");
       return await getSubThreadRequests({
         accessToken: accessToken ?? "",
         subThreadId,

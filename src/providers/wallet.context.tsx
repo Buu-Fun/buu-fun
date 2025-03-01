@@ -115,11 +115,12 @@ export const WalletProvider = ({ children }: Props) => {
     connectionType === WalletConnectionType.Web2
       ? wallets[0]?.address
       : wallet?.adapter.publicKey?.toString();
+    
   const adapter =
     connectionType === WalletConnectionType.Web2 ? wallets[0] : wallet?.adapter;
   const loading =
     connecting || connectionDisclosure.isOpen || visible || isModalOpen;
-
+  
   const value = useMemo(
     () => ({
       loading,
