@@ -82,8 +82,6 @@ export const AuthenticationProvider = ({ children }: Props) => {
 
   const authenticate = useCallback(async () => {
     try {
-      console.log("ADAPTER", adapter);
-
       if (!address || !adapter) return;
       setLoading(true);
       const accessToken = getAccessToken(address);
@@ -133,7 +131,6 @@ export const AuthenticationProvider = ({ children }: Props) => {
       const input = challengeInput as SolanaSignInInput;
 
       // Send the signInInput to the wallet and trigger a sign-in request
-      console.log("ADAPTER", adapter);
       let output;
       if ("signIn" in adapter) {
         output = await adapter.signIn(input);

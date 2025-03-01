@@ -5,8 +5,6 @@ import * as React from "react";
 import "@/styles/solana-modal.css";
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-const NEXT_PUBLIC_PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
-
 import {
   ConnectionProvider,
   WalletProvider as SolanaWalletProvider,
@@ -23,6 +21,7 @@ import { clusterApiUrl } from "@solana/web3.js";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { AuthenticationProvider } from "./account.context";
 import { WalletProvider } from "./wallet.context";
+import { PRIVY_APP_ID } from "@/config";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
@@ -44,30 +43,16 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <PrivyProvider
-      appId={NEXT_PUBLIC_PRIVY_APP_ID as string}
-      // clientId={process.env.NEXT_PUBIC_PRIVY_CLIENT_ID}
+      appId={PRIVY_APP_ID as string}
       config={{
-        // loginMethods: ["email", "wallet"],
-        // Customize Privy's appearance in your app
         appearance: {
           theme: "dark",
-
-          // walletList: ["phantom", "coinbase_wallet", "solflare"],
-          showWalletLoginFirst: true,
           accentColor: "#1c20275c",
           // eslint-disable-next-line @next/next/no-img-element
           logo: <img src="/logo.png" className="w-12" alt="Buu.fun Logo" />,
         },
-
-        loginMethodsAndOrder: {
-          primary: ["detected_wallets", "email"],
-          overflow: ["phantom", "wallet_connect"],
-        },
         // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {
-          ethereum: {
-            createOnLogin: "users-without-wallets",
-          },
           solana: {
             createOnLogin: "users-without-wallets",
           },
