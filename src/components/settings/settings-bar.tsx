@@ -1,5 +1,6 @@
 import SuggestionBar from "../chat-input/suggestion-bar";
 import PopoverHiddenTrigger from "./popover-hidden-trigger";
+import RecentChatButton from "./recent-chat-button";
 import SelectedStyles from "./selected-styles";
 import SettingsBarPopOver from "./settings-bar-pop-over-button";
 import SettingsBarDisplayTitle from "./settings-bar-selected-display-title";
@@ -8,6 +9,7 @@ export default function SettingsBar() {
     <div className="flex group relative  items-center justify-between mb-3">
       <div className="ml-3 pb-0 px-2 flex  self-end">
         <SuggestionBar />
+        <RecentChatButton/>
       </div>
       <div className="px-4 rounded-2xl py-2  border items-center relative justify-center mr-4 flex gap-2 bg-buu shadow-buu-inner">
         <PopoverHiddenTrigger />

@@ -17,6 +17,7 @@ import { setHistoryModel } from "@/lib/redux/features/settings";
 export default function RecentChats() {
   const isOpen = useAppSelector((state) => state.settings.isRecentChatOpen);
   const dispatch = useAppDispatch();
+
   return (
     <Sheet
       open={isOpen}
@@ -24,7 +25,7 @@ export default function RecentChats() {
         dispatch(setHistoryModel(value));
       }}
     >
-      <SheetTrigger asChild className="">
+      <SheetTrigger asChild className="hidden md:flex">
         <div className="flex  items-center gap-1 justify-center">
           <div>
             <Button

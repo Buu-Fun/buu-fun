@@ -25,7 +25,7 @@ export default function NavigationalBar() {
         </div>
 
         <div className="hidden lg:flex flex-col gap-4 items-center justify-center">
-          <Link
+          {/* <Link
             href={"/boards"}
             // group bg-buu-button  hover:bg-white hover:shadow-none  group shadow-buu-button min-w-[30px]  rounded-md flex items-center justify-center p-1.5
             className="w-10 flex  items-center group   justify-center    h-10  text-black"
@@ -33,7 +33,7 @@ export default function NavigationalBar() {
             <div className="w-6 h-6 group-hover:text-white  group-hover:fill-text-white text-gray-500">
               <SizePenIcon />
             </div>
-          </Link>
+          </Link> */}
           <Link
             href={"/"}
             className="w-10 flex  items-center group   justify-center    h-10 "
