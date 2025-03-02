@@ -156,32 +156,32 @@ export const iconByTitle: Record<TKey, TValue> = {
     displayName: "Guns",
     value: "Weapons",
   },
-  Metallic: {
-    displayName: "Metallic",
-    value: "Metallic",
-    Icon: (
-      <Image
-        src={MetallicIcon.src}
-        width={100}
-        height={100}
-        alt="Realistic Icon"
-        className="w-full h-full rounded-full"
-      />
-    ),
-  },
-  Clay: {
-    Icon: (
-      <Image
-        src={RealisticIcon.src}
-        width={100}
-        height={100}
-        alt="Realistic Icon"
-        className="w-full h-full rounded-full"
-      />
-    ),
-    displayName: "Clay",
-    value: "Clay",
-  },
+  // Metallic: {
+  //   displayName: "Metallic",
+  //   value: "Metallic",
+  //   Icon: (
+  //     <Image
+  //       src={MetallicIcon.src}
+  //       width={100}
+  //       height={100}
+  //       alt="Realistic Icon"
+  //       className="w-full h-full rounded-full"
+  //     />
+  //   ),
+  // },
+  // Clay: {
+  //   Icon: (
+  //     <Image
+  //       src={RealisticIcon.src}
+  //       width={100}
+  //       height={100}
+  //       alt="Realistic Icon"
+  //       className="w-full h-full rounded-full"
+  //     />
+  //   ),
+  //   displayName: "Clay",
+  //   value: "Clay",
+  // },
   no_style: {
     Icon: <div className="bg-[#2D323C] w-4 h-4 rounded-full" />,
     displayName: "No Style",
