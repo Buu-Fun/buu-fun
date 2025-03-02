@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.22](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.21...buu-fun-v0.1.22) (2025-03-01)
+
+
+### 🐛 Bugfixes
+
+* create solana wallet on privy ([e95d509](https://github.com/muadpn/buu-fun/commit/e95d50941ec2c3f54c27f44b18ecab370ba93dec))
+* privy authentication provider ([048c44f](https://github.com/muadpn/buu-fun/commit/048c44fd47245103b47c5512abb543ac058d0f6e))
+* test ([60e158f](https://github.com/muadpn/buu-fun/commit/60e158f05d9802ff56308c3333626bafd3fe3edc))
+
+
+### 👽 Miscellaneous
+
+* fix build + format ([b91c887](https://github.com/muadpn/buu-fun/commit/b91c8878e2a3db6edb87ab18095053a334526b4b))
+* query fix and redirection when disconnected ([64191c1](https://github.com/muadpn/buu-fun/commit/64191c1161a2f306ce32ef2ef857e609b3e19813))
+
 ## [0.1.21](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.20...buu-fun-v0.1.21) (2025-03-01)
 
 
