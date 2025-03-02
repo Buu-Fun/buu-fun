@@ -4,7 +4,6 @@ import {
   TRedeemVoucherSchema,
 } from "@/lib/zod/redeem-voucher";
 import { useAuthentication } from "@/providers/account.context";
-import { useWallet } from "@/providers/wallet.context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TicketIcon } from "lucide-react";
@@ -22,8 +21,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 export default function RedeemVouchers() {
-  const { getAccessToken } = useAuthentication();
-  const { address, openConnectionModal } = useWallet();
+  const { identityToken, login } = useAuthentication();
   const queryClient = useQueryClient();
   const { mutate: AddRedeemVoucher } = useMutation({
     mutationFn: addCreditsMutation,
@@ -43,9 +41,9 @@ export default function RedeemVouchers() {
   });
 
   function handleRedeemVoucherSubmit({ code }: TRedeemVoucherSchema) {
-    const accessToken = getAccessToken(address ?? "");
+    const accessToken = identityToken;
     if (!accessToken) {
-      openConnectionModal();
+      login();
       return;
     }
 

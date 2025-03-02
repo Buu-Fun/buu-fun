@@ -9,14 +9,14 @@ import { mutateGenerateNewImage } from "@/lib/react-query/threads";
 import { setNewGenRequest } from "@/lib/redux/features/chat";
 import { cn } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
-import { useWallet } from "@/providers/wallet.context";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { ToolTips, TToolTipEvents } from "./handle-tool-calls";
 // import ToolTipModify from "./tool-tip-modify";
 import ToolTipDownload from "./tool-tip-download";
 import { isSubThreadGenerating } from "@/lib/redux/selectors/chat";
+import { usePrivy } from "@privy-io/react-auth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type TToolBarToolTips = {
   subThreadId: string;
@@ -36,8 +36,8 @@ export default function ToolBarToolTips({
   modelUrl,
 }: TToolBarToolTips) {
   const dispatch = useAppDispatch();
-  const { getAccessToken } = useAuthentication();
-  const { address, openConnectionModal } = useWallet();
+  const { identityToken, login } = useAuthentication();
+  // const {}= usePrivy({})
   const queryClient = useQueryClient();
 
   const { mutate: generateNewImage, isPending } = useMutation({
@@ -56,9 +56,9 @@ export default function ToolBarToolTips({
   const isChatPending = useAppSelector(isSubThreadGenerating);
 
   function handleEvent(events: TToolTipEvents) {
-    const accessToken = getAccessToken(address ?? "");
-    if (!address || !accessToken) {
-      openConnectionModal();
+    const accessToken = identityToken;
+    if (!accessToken) {
+      login();
       return;
     }
     switch (events) {
@@ -68,13 +68,13 @@ export default function ToolBarToolTips({
         }
         if (isPending || isChatPending?.isLimitReached) {
           toast.error(
-            "Whoa, you're on fire! You've hit the limit of 4 creations.",
+            "Whoa, you're on fire! You've hit the limit of 4 creations."
           );
           return;
         }
         generateNewImage({
           subthreadId: subThreadId,
-          accessToken: accessToken,
+          accessToken,
         });
         break;
       }

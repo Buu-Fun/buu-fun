@@ -1,7 +1,7 @@
 "use client";
 import CopyIcon from "@/assets/icons/copy-icon";
 import { cn } from "@/lib/utils";
-import { useWallet } from "@/providers/wallet.context";
+import { useAuthentication } from "@/providers/account.context";
 import { Check } from "lucide-react";
 import { useState } from "react";
 type TCopyAddress = {
@@ -9,7 +9,7 @@ type TCopyAddress = {
   className?: string;
 };
 export default function CopyAddress({ isNavigation, className }: TCopyAddress) {
-  const { address } = useWallet();
+  const { address } = useAuthentication();
   const [isCopy, setIsCopied] = useState(false);
 
   function handleCopy() {
@@ -31,7 +31,7 @@ export default function CopyAddress({ isNavigation, className }: TCopyAddress) {
           "hover:bg-buu-secondary py-2 flex-row rounded-md px-2 font-medium":
             isNavigation,
         },
-        className,
+        className
       )}
     >
       {!isCopy ? (

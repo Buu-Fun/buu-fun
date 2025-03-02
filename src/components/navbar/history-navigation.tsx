@@ -1,6 +1,5 @@
 import { getAllThreads } from "@/lib/react-query/threads";
 import { useAuthentication } from "@/providers/account.context";
-import { useWallet } from "@/providers/wallet.context";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
@@ -27,12 +26,11 @@ export default function HistoryNavigation() {
   //   const data = mockData;
   //   const isLoading = false;
   const dispatch = useAppDispatch();
-  const { getAccessToken } = useAuthentication();
-  const { address } = useWallet();
+  const { identityToken } = useAuthentication();
   const { data, isLoading } = useQuery({
     queryKey: ["get-all-recent-threads"],
     queryFn: async () => {
-      const accessToken = getAccessToken(address ?? "");
+      const accessToken = identityToken;
       return await getAllThreads(accessToken ?? "");
     },
   });
