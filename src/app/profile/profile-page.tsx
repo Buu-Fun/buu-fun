@@ -1,5 +1,4 @@
 "use client";
-import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import RedeemVouchers from "@/components/profile/redeem-vouchers";
@@ -8,15 +7,13 @@ import { profilePicture } from "@/lib/dice-bear";
 import { getFixedCredits } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
 import { useWallet } from "@/providers/wallet.context";
-import { usePrivy } from "@privy-io/react-auth";
 import { useWallet as useWeb3Wallet } from "@solana/wallet-adapter-react";
 
 import Image from "next/image";
 import { useEffect } from "react";
 export default function Profile() {
   // made the profile fully client based because it doesn't matter to render fully on server
-  const { address, loading, openConnectionModal,adapter } = useWallet();
-  const { user} = usePrivy()
+  const { address, loading, openConnectionModal } = useWallet();
   const { loading: IsAuthLoading } = useAuthentication();
   const { wallet } = useWeb3Wallet();
   const { data } = useUserCredits();

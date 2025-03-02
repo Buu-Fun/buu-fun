@@ -77,7 +77,7 @@ export default function ToolBarToolTips({
           );
           return;
         }
-        new Array(3).fill(0).map((item) => {
+        new Array(3).fill(0).map(() => {
           return generateNewImage({
             subthreadId: subThreadId,
             accessToken: accessToken,

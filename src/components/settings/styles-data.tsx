@@ -4,7 +4,7 @@ import {
   FantasyIcon,
   GunsIcon,
   LowPolyIcon,
-  MetallicIcon,
+  // MetallicIcon,
   RealisticIcon,
   SciFiIcon,
   StylizedIcon,
