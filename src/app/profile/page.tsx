@@ -1,12 +1,13 @@
 "use client";
 // import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
+import Base64ImageDiv from "@/components/profile/icon-render";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import RedeemVouchers from "@/components/profile/redeem-vouchers";
 import ProtectedWrapper from "@/components/wrapper/protected-wrapper";
 import useUserCredits from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
-import { getFixedCredits } from "@/lib/utils";
+import { getFixedCredits, isImageUrl } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
 
 import Image from "next/image";
@@ -28,16 +29,25 @@ export default function ProfilePage() {
             height={480}
           />
         </div>
-        <div className="bg-buu flex items-center justify-center mt-6  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
-          <Image
-            className="w-4 h-4"
-            src={wallet?.icon ?? "/logo.png"}
-            alt="Connected wallet Icon"
-            width={250}
-            height={250}
-          />
+        <div className="bg-buu flex items-center gap-0.5 justify-center mt-6  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
+          {isImageUrl(wallet?.icon)?.imageUrl ? (
+            <Image
+              className="w-4 h-4 rounded-full"
+              src={isImageUrl(wallet?.icon)?.imageUrl ?? "/logo.png"}
+              alt="Connected wallet Icon"
+              width={250}
+              height={250}
+            />
+          ) : isImageUrl(wallet?.icon)?.imageUri ? (
+            <Base64ImageDiv
+              className="w-4 h-4 rounded-full"
+              base64String={isImageUrl(wallet?.icon)?.imageUri}
+            />
+          ) : null}
           <p className="text-xs font-semibold px-0.5 uppercase text-[#D5D9DF60] line-clamp-2">
-            {wallet?.name}
+            {wallet?.name
+              ? `${wallet?.name.slice(0, 4)}...${wallet?.name.slice(wallet?.name.length - 3, wallet?.name.length)}`
+              : null}
           </p>
         </div>
 
