@@ -91,7 +91,7 @@ export default function HistoryNavigation() {
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <TimerIcon className="w-4 h-4 text-blue-300" />
-              {format(new Date(item.createdAt), "iii, do MMMM")}
+              {format(new Date(item.createdAt), "HH:mm, dd MMMM, EEEE")}
             </div>
           </motion.div>
         </SheetClose>

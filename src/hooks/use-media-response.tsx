@@ -35,7 +35,7 @@ export default function useMediaResponse({
         isInProgress(item.status),
       );
 
-      const isProgressFoundInReduxState = MediaData.find(
+      const isProgressFoundInReduxState = MediaData.medias.find(
         (item) => item.isGenerating,
       );
       return isProgressFoundInReduxState || inProgressFoundInQueryState

@@ -7,7 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { mutateGenerateNewImage } from "@/lib/react-query/threads";
 import { setNewGenRequest } from "@/lib/redux/features/chat";
-import { cn } from "@/lib/utils";
+import { cn, isRetryExceeded } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
@@ -21,6 +21,7 @@ type TToolBarToolTips = {
   subThreadId: string;
   imageUrl: string | null;
   modelUrl?: string | null;
+  totalGenerations: number;
 };
 export const buttonVariants = {
   initial: { y: 0, scale: 1 },
@@ -33,6 +34,7 @@ export default function ToolBarToolTips({
   subThreadId,
   // imageUrl,
   modelUrl,
+  totalGenerations,
 }: TToolBarToolTips) {
   const dispatch = useAppDispatch();
   const { identityToken, login } = useAuthentication();
@@ -62,6 +64,9 @@ export default function ToolBarToolTips({
     }
     switch (events) {
       case "TRY_AGAIN": {
+        if (isRetryExceeded(totalGenerations)) {
+          toast.error("You have exceeded total number of retries.");
+        }
         if (isPending) {
           return;
         }
@@ -71,9 +76,11 @@ export default function ToolBarToolTips({
           );
           return;
         }
-        generateNewImage({
-          subthreadId: subThreadId,
-          accessToken,
+        new Array(3).fill(0).map(() => {
+          return generateNewImage({
+            subthreadId: subThreadId,
+            accessToken,
+          });
         });
         break;
       }
@@ -120,7 +127,18 @@ export default function ToolBarToolTips({
 
         return (
           <Tooltip key={`tool-tip-contents-${item.content.trim()}-${index}`}>
-            <TooltipTrigger asChild>
+            <TooltipTrigger
+              disabled={(() => {
+                if (
+                  item.type === "TRY_AGAIN" &&
+                  isRetryExceeded(totalGenerations)
+                ) {
+                  return true;
+                }
+                return false;
+              })()}
+              asChild
+            >
               <motion.div
                 onClick={() => handleEvent(item.type)}
                 initial="initial"

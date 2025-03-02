@@ -2,7 +2,10 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { DataMuseError } from "./class/data-muse-error";
 import { TDataMuseWord } from "./fetcher/query/query-suggestion-api";
-import { MAXIMUM_REQUEST_LIMIT } from "@/constants/request.config";
+import {
+  MAXIMUM_REQUEST_LIMIT,
+  MAXIMUM_RETRY_ALLOWED,
+} from "@/constants/request.config";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -45,5 +48,9 @@ export function isOverAllRequestLimitReached(limits: number) {
 }
 
 export function getFixedCredits(credits = 0.0) {
-  return credits.toFixed(3);
+  return credits.toFixed(2);
+}
+
+export function isRetryExceeded(totalGenerations: number) {
+  return totalGenerations >= MAXIMUM_RETRY_ALLOWED;
 }
