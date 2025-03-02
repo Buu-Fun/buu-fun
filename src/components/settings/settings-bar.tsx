@@ -9,7 +9,7 @@ export default function SettingsBar() {
     <div className="flex group relative  items-center justify-between mb-3">
       <div className="ml-3 pb-0 px-2 flex  self-end">
         <SuggestionBar />
-        <RecentChatButton/>
+        <RecentChatButton />
       </div>
       <div className="px-4 rounded-2xl py-2  border items-center relative justify-center mr-4 flex gap-2 bg-buu shadow-buu-inner">
         <PopoverHiddenTrigger />

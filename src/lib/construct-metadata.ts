@@ -6,7 +6,7 @@ export function constructMetadata({
   MetaHeadTitle = "Buu - AI-Powered 3D Asset Creation & Animation",
   description = "Create 3D assets, auto-rigged models, and animations with Buu. Turn prompts or images into pro 3D designs using AI at buu.fun!",
   OgImage = "/thumbnail.jpg",
-  openGraph =  {
+  openGraph = {
     title: "Buu - Create 3D Assets & Animations with AI",
     description:
       "Explore Buu at buu.fun - the AI platform for generating 3D assets, auto-rigging, and animations from prompts or images. Simplify your 3D workflow!",

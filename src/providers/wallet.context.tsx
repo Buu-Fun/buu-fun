@@ -82,7 +82,7 @@ export const WalletProvider = ({ children }: Props) => {
       localStorage.setItem(connectedWalletConnectionTypeKey, type);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user, disconnect, login, setVisible]
+    [user, disconnect, login, setVisible],
   );
 
   const switchConnectionType = useCallback(async () => {
@@ -144,7 +144,7 @@ export const WalletProvider = ({ children }: Props) => {
       connectionDisclosure,
       disconnect,
       switchConnectionType,
-    ]
+    ],
   );
 
   return (

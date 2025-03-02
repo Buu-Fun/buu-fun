@@ -48,7 +48,6 @@ const CurvedEmblaCarousel = ({
     // Update the ref to track changes
     prevLengthRef.current = GenRequests.length;
   }, [GenRequests.length, api]);
-  
 
   return (
     <div
@@ -107,7 +106,7 @@ const CurvedEmblaCarousel = ({
                     }}
                     className={cn(
                       "relative pl-0 w-full   max-h-[90%]  pointer-events-none select-none md:max-w-[264px]  md:max-h-[370px] h-full rounded-lg shadow-lg",
-                      "transition-all duration-500 ease-out"
+                      "transition-all duration-500 ease-out",
                     )}
                   >
                     <Generate3DCard
