@@ -7,7 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { mutateGenerateNewImage } from "@/lib/react-query/threads";
 import { setNewGenRequest } from "@/lib/redux/features/chat";
-import { cn } from "@/lib/utils";
+import { cn, isRetryExceeded } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
 import { useWallet } from "@/providers/wallet.context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -22,6 +22,7 @@ type TToolBarToolTips = {
   subThreadId: string;
   imageUrl: string | null;
   modelUrl?: string | null;
+  totalGenerations: number;
 };
 export const buttonVariants = {
   initial: { y: 0, scale: 1 },
@@ -34,6 +35,7 @@ export default function ToolBarToolTips({
   subThreadId,
   // imageUrl,
   modelUrl,
+  totalGenerations,
 }: TToolBarToolTips) {
   const dispatch = useAppDispatch();
   const { getAccessToken } = useAuthentication();
@@ -63,19 +65,25 @@ export default function ToolBarToolTips({
     }
     switch (events) {
       case "TRY_AGAIN": {
+        if (isRetryExceeded(totalGenerations)) {
+          toast.error("You have exceeded total number of retries.");
+        }
         if (isPending) {
           return;
         }
         if (isPending || isChatPending?.isLimitReached) {
           toast.error(
-            "Whoa, you're on fire! You've hit the limit of 4 creations.",
+            "Whoa, you're on fire! You've hit the limit of 4 creations."
           );
           return;
         }
-        generateNewImage({
-          subthreadId: subThreadId,
-          accessToken: accessToken,
-        });
+        // new Array(3).fill(0).map((item) => {
+          // return
+           generateNewImage({
+            subthreadId: subThreadId,
+            accessToken: accessToken,
+          });
+        // });
         break;
       }
       // case "MODIFY": {
@@ -121,7 +129,18 @@ export default function ToolBarToolTips({
 
         return (
           <Tooltip key={`tool-tip-contents-${item.content.trim()}-${index}`}>
-            <TooltipTrigger asChild>
+            <TooltipTrigger
+              disabled={(() => {
+                if (
+                  item.type === "TRY_AGAIN" &&
+                  isRetryExceeded(totalGenerations)
+                ) {
+                  return true;
+                }
+                return false;
+              })()}
+              asChild
+            >
               <motion.div
                 onClick={() => handleEvent(item.type)}
                 initial="initial"

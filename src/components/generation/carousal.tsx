@@ -15,10 +15,12 @@ import Generate3DCard from "./generate-3d-card";
 const CurvedEmblaCarousel = ({
   subThreadId,
   GenRequests,
+  totalGenerations,
 }: {
   threadId: string;
   subThreadId: string;
   GenRequests: TGenerationalData[];
+  totalGenerations: number;
 }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
@@ -46,29 +48,7 @@ const CurvedEmblaCarousel = ({
     // Update the ref to track changes
     prevLengthRef.current = GenRequests.length;
   }, [GenRequests.length, api]);
-  const ref = useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   const modelContainer = ref.current;
-  //   if (!modelContainer) return;
-  //   const stopPropagation = (e: Event) => {
-  //     // e.stopPropagation();
-  //   };
-  //   modelContainer.addEventListener("mousedown", stopPropagation);
-  //   modelContainer.addEventListener("touchcancel", stopPropagation);
-  //   modelContainer.addEventListener("touchend", stopPropagation);
-  //   modelContainer.addEventListener("touchmove", stopPropagation);
-  //   modelContainer.addEventListener("wheel", stopPropagation);
-  //   modelContainer.addEventListener("touchstart", stopPropagation);
-  //   return () => {
-  //     if (!modelContainer) return;
-  //     modelContainer.removeEventListener("mousedown", stopPropagation);
-  //     modelContainer.removeEventListener("touchcancel", stopPropagation);
-  //     modelContainer.removeEventListener("touchend", stopPropagation);
-  //     modelContainer.removeEventListener("touchmove", stopPropagation);
-  //     modelContainer.removeEventListener("wheel", stopPropagation);
-  //     modelContainer.removeEventListener("touchstart", stopPropagation);
-  //   };
-  // }, [ref]);
+  
 
   return (
     <div
@@ -77,7 +57,6 @@ const CurvedEmblaCarousel = ({
     >
       {GenRequests.length ? (
         <Carousel
-          ref={ref}
           opts={{
             align: "center",
             startIndex: GenRequests.length - 1,
@@ -128,10 +107,11 @@ const CurvedEmblaCarousel = ({
                     }}
                     className={cn(
                       "relative pl-0 w-full   max-h-[90%]  pointer-events-none select-none md:max-w-[264px]  md:max-h-[370px] h-full rounded-lg shadow-lg",
-                      "transition-all duration-500 ease-out",
+                      "transition-all duration-500 ease-out"
                     )}
                   >
                     <Generate3DCard
+                      totalGenerations={totalGenerations}
                       isCurrent={isCurrent}
                       subThreadId={subThreadId}
                       index={index}
@@ -160,8 +140,8 @@ const CurvedEmblaCarousel = ({
       ) : (
         <Generate3DCard
           isCurrent={true}
-          // id={`generating-${threadId}`}
-          subThreadId="s"
+          totalGenerations={totalGenerations}
+          subThreadId=""
           index={0}
           status={"inProgress"}
           showToolTip={true}

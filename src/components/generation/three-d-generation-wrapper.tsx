@@ -29,15 +29,14 @@ export default function ThreeDGenerationWrapper({
     }
   }, [data, dispatch, subThread._id]);
 
-  const MediaData = useAppSelector((state) =>
-    getSubThreadsMedia(state, state.chat.genRequest, subThread._id),
+  const { medias, totalGenerated } = useAppSelector((state) =>
+    getSubThreadsMedia(state, state.chat.genRequest, subThread._id)
   );
 
   const styleColor = (subThread.style ?? "no_style") as TKey;
 
   const IconData = iconByTitle[styleColor];
 
-  console.log("STYLES", styleColor);
   return (
     <div className="flex  items-center pointer-events-none  justify-center h-full     flex-col gap-4">
       <div className="flex gap-2 items-center justify-center">
@@ -65,7 +64,7 @@ export default function ThreeDGenerationWrapper({
             "text-base": subThread && subThread?.prompt?.length > 120,
             "text-sm line-clamp-3":
               subThread && subThread?.prompt?.length > 160,
-          },
+          }
         )}
       >
         {subThread?.prompt}
@@ -73,9 +72,10 @@ export default function ThreeDGenerationWrapper({
       <div className="flex items-center bor md:max-h-[370px]   justify-center w-full h-full">
         <div className="flex items-center  md:max-h-[370px] h-full   justify-center w-full md:max-w-sm ">
           <CurvedEmblaCarousel
-            GenRequests={MediaData}
+            GenRequests={medias}
             threadId={threadId}
             subThreadId={subThread ? subThread?._id : ""}
+            totalGenerations={totalGenerated}
           />
         </div>
       </div>
