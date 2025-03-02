@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.1.23](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.22...buu-fun-v0.1.23) (2025-03-02)
+
+
+### ✨ Features
+
+* added metadata and metadata helpers ([a359d55](https://github.com/muadpn/buu-fun/commit/a359d557435d71be0698e2b0d8299be7db7a2124))
+* added request config utils and configurations ([cff112b](https://github.com/muadpn/buu-fun/commit/cff112baaa7c3189816c5015f8dae822377a28f1))
+* extracted page from client side to servers side for user profile page ([25c991a](https://github.com/muadpn/buu-fun/commit/25c991ac5fccf277b84bddf4047d6516df019802))
+
+
+### 🐛 Bugfixes
+
+* added error toast when failed to create subthreasds ([677b2b6](https://github.com/muadpn/buu-fun/commit/677b2b68f22d21b58097a0c270fda906254b2b49))
+* allow subthread maximum retry to be four ([9826cc4](https://github.com/muadpn/buu-fun/commit/9826cc49e17a3fade7a70a171579a1c5b36a7b24))
+* fixed credit model to be closed, recent chat button to be on user input, disabled board page ([03e7b93](https://github.com/muadpn/buu-fun/commit/03e7b93fe2b47b768719577408891e4a26f80527))
+* removed metallic and clay from the styles ([49010ce](https://github.com/muadpn/buu-fun/commit/49010ce5e4e3d9af9921b8dda7bf11ea4b30a18f))
+* state variable to be changed to media for model generation ([f89070e](https://github.com/muadpn/buu-fun/commit/f89070e73a87d13e5fd9898701c16ddc84e7bd30))
+
+
+### 👽 Miscellaneous
+
+* **lint:** linted and formatted the codebase ([5bd1c88](https://github.com/muadpn/buu-fun/commit/5bd1c88c836b405d6d7caaa698d7289c7462a954))
+
 ## [0.1.22](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.21...buu-fun-v0.1.22) (2025-03-01)
 
 
