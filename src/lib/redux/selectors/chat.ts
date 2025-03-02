@@ -15,7 +15,7 @@ export const getSubThreadsFromStore = createSelector(
   (SubThread, id) => {
     const FoundedSubthread = SubThread.find((fv) => fv._id === id);
     return FoundedSubthread;
-  },
+  }
 );
 
 const SubThreads = (state: RootState) => state.chat.subThreads;
@@ -39,7 +39,7 @@ export const getSubThreadsMedia = createSelector(
     const GeneratedRequestMedias: TGenerationalData[] = ImageGenerated?.map(
       (item) => {
         const FoundedModel = ThreeDGenerated.find(
-          (fv) => fv.metadata.imageRequestId === item?._id,
+          (fv) => fv.metadata.imageRequestId === item?._id
         );
 
         const imageStatus = item.status;
@@ -69,11 +69,14 @@ export const getSubThreadsMedia = createSelector(
             imageUrl: item.images?.length ? item?.images[0]?.url : null,
           },
         };
-      },
+      }
     );
 
-    return GeneratedRequestMedias;
-  },
+    return {
+      medias: GeneratedRequestMedias,
+      totalGenerated: GeneratedRequestMedias.length,
+    };
+  }
 );
 
 export const isSubThreadGenerating = createSelector(
@@ -93,7 +96,7 @@ export const isSubThreadGenerating = createSelector(
     const lastSubThreadGenRequest = Medias[lastThread._id] ?? [];
     // First request and its Generating
     const isJustStarted = isSubThreadInProgressForFirstTimeOrForTheLastObject(
-      lastSubThreadGenRequest,
+      lastSubThreadGenRequest
     );
     const totalRequests = Object.keys(Medias).reduce((acc, item) => {
       const subThreads = mergeImageAndMedia(Medias[item]).filter((item) => {
@@ -107,5 +110,5 @@ export const isSubThreadGenerating = createSelector(
       totalRequest: totalRequests,
       isLimitReached: isOverAllRequestLimitReached(totalRequests),
     };
-  },
+  }
 );
