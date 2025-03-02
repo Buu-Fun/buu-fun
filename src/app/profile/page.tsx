@@ -1,5 +1,5 @@
 "use client";
-import CopyAddress from "@/components/navbar/copy-address";
+// import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import RedeemVouchers from "@/components/profile/redeem-vouchers";
@@ -41,9 +41,9 @@ export default function ProfilePage() {
           </p>
         </div>
 
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <CopyAddress className="text-xl font-medium" />
-        </div>
+        </div> */}
 
         <div className="flex items-center justify-center  max-w-sm w-full  mt-5    gap-5">
           <div className="flex items-center justify-start w-full   flex-col">
@@ -54,7 +54,7 @@ export default function ProfilePage() {
               <p>${getFixedCredits(data?.available)}</p>
             </div>
           </div>
-          <div className="w-[1.5px] min-h-[50px]  bg-muted-foreground/40" />
+          <div className="w-[2.5px] min-h-[50px] h-full  bg-gray-700/60" />
           <div className="flex items-center justify-start w-full flex-col">
             <h3 className="text-lg font-medium text-buu-muted-text">Plan</h3>
             <div className="text-2xl font-medium">

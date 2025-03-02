@@ -47,7 +47,7 @@ export function isOverAllRequestLimitReached(limits: number) {
   return limits >= MAXIMUM_REQUEST_LIMIT;
 }
 
-export function getFixedCredits(credits = 0.0) {
+export function getFixedCredits(credits = 0.00) {
   return credits.toFixed(2);
 }
 
