@@ -36,7 +36,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       router.push(`/generation/${data.threadId}`);
     },
     onError(error) {
-      console.log(error);
+      toast.error("Our servers are busy, Please try again");
     },
   });
 
@@ -53,6 +53,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
         });
       },
       onError(error) {
+        toast.error("Our servers are busy, Please try again");
         console.log(error);
       },
     });
@@ -74,7 +75,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     if (isChatLoading) {
       if (isOverAllRequestLimitReached(isChatPending.totalRequest)) {
         return toast.error(
-          "Whoa, you're on fire 🔥. You've hit the limit of 4 creations.",
+          "Whoa, you're on fire 🔥. You've hit the limit of 4 creations."
         );
       }
       return toast.error("Hold on!, Still generating your model...");

@@ -77,13 +77,12 @@ export default function ToolBarToolTips({
           );
           return;
         }
-        // new Array(3).fill(0).map((item) => {
-          // return
-           generateNewImage({
+        new Array(3).fill(0).map((item) => {
+          return generateNewImage({
             subthreadId: subThreadId,
             accessToken: accessToken,
           });
-        // });
+        });
         break;
       }
       // case "MODIFY": {
