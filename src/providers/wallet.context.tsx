@@ -42,7 +42,7 @@ const connectedWalletConnectionTypeKey = "connected-wallet-connection-type";
 export const WalletProvider = ({ children }: Props) => {
   const router = useRouter();
   const connectionDisclosure = useDisclosure();
-  const { isModalOpen, user, login, logout } = usePrivy();
+  const { isModalOpen, user, login, logout, ready } = usePrivy();
   const { wallets } = useSolanaWallets();
   const {
     connecting,
@@ -62,6 +62,7 @@ export const WalletProvider = ({ children }: Props) => {
       disconnectWeb3Wallet();
     }
     localStorage.removeItem(connectedWalletConnectionTypeKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, logout, disconnectWeb3Wallet]);
 
   const connect = useCallback(
@@ -80,6 +81,7 @@ export const WalletProvider = ({ children }: Props) => {
       setConnectionType(type);
       localStorage.setItem(connectedWalletConnectionTypeKey, type);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, disconnect, login, setVisible],
   );
 
@@ -100,16 +102,17 @@ export const WalletProvider = ({ children }: Props) => {
   }, [connect, connectionType, wallet, wallets]);
 
   useEffect(() => {
-    if (!user) {
+    if (ready && !user) {
       router.push("/");
     }
-  }, [user]);
+  }, [user, router, ready]);
 
   useEffect(() => {
     const savedType = localStorage.getItem(connectedWalletConnectionTypeKey);
     if (savedType) {
       connect(savedType as WalletConnectionType);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const address =
@@ -131,6 +134,8 @@ export const WalletProvider = ({ children }: Props) => {
       disconnect,
       switchConnectionType,
     }),
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       loading,
       address,

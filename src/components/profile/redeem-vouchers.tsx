@@ -7,7 +7,7 @@ import { useAuthentication } from "@/providers/account.context";
 import { useWallet } from "@/providers/wallet.context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { TicketIcon } from "lucide-react";
+import { Loader2, TicketIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
@@ -21,14 +21,21 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useDisclosure } from "@mantine/hooks";
 export default function RedeemVouchers() {
+  const [open, SetIsOpen] = useDisclosure(false);
   const { getAccessToken } = useAuthentication();
   const { address, openConnectionModal } = useWallet();
   const queryClient = useQueryClient();
-  const { mutate: AddRedeemVoucher } = useMutation({
+  const { register, handleSubmit, reset } = useForm<TRedeemVoucherSchema>({
+    resolver: zodResolver(redeemVoucherSchema),
+  });
+  const { mutate: AddRedeemVoucher, isPending } = useMutation({
     mutationFn: addCreditsMutation,
     onSuccess() {
+      SetIsOpen.close();
       toast.success("Added Credits your Account");
+      reset();
       queryClient.invalidateQueries({
         queryKey: ["get-user-credits"],
       });
@@ -36,10 +43,6 @@ export default function RedeemVouchers() {
     onError(error) {
       toast.error(error.message);
     },
-  });
-
-  const { register, handleSubmit } = useForm<TRedeemVoucherSchema>({
-    resolver: zodResolver(redeemVoucherSchema),
   });
 
   function handleRedeemVoucherSubmit({ code }: TRedeemVoucherSchema) {
@@ -56,7 +59,7 @@ export default function RedeemVouchers() {
   }
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={SetIsOpen.toggle} open={open}>
       <DialogTrigger asChild>
         <Button className="px-2 group py-2 h-[40px] rounded-[10px]">
           <div className="w-6 h-6 icon-blue-with-shadow blue-icon-gradient-background blue-icon-filter-effect rounded-md flex items-center justify-center">
@@ -65,7 +68,7 @@ export default function RedeemVouchers() {
           Redeem Voucher
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-[300px] bg-buu-opacity-100 border-buu shadow-buu-button">
+      <DialogContent className="rounded-[20px] lg:rounded-[20px] max-w-[300px] bg-buu-opacity-100 border-buu shadow-buu-button">
         <DialogHeader>
           <DialogTitle>Redeem Voucher</DialogTitle>
           <DialogDescription>
@@ -85,11 +88,23 @@ export default function RedeemVouchers() {
               {...register("code")}
             />
           </div>
-          <Button className="px-2 group py-2 h-[40px] w-full mt-4 rounded-[10px]">
-            <div className="w-6 h-6 icon-blue-with-shadow blue-icon-gradient-background blue-icon-filter-effect rounded-md flex items-center justify-center">
-              <TicketIcon className="text-white stroke-[2.5]" />
-            </div>
-            Redeem Voucher
+          <Button
+            disabled={isPending}
+            className="px-2 group py-2 h-[40px] w-full mt-4 rounded-[10px]"
+          >
+            {!isPending ? (
+              <>
+                <div className="w-6 h-6 icon-blue-with-shadow blue-icon-gradient-background blue-icon-filter-effect rounded-md flex items-center justify-center">
+                  <TicketIcon className="text-white stroke-[2.5]" />
+                </div>
+                Redeem Voucher
+              </>
+            ) : (
+              <>
+                <Loader2 className="animate-spin" />
+                Loading...
+              </>
+            )}
           </Button>
         </form>
       </DialogContent>

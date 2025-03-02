@@ -54,6 +54,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
 
   const getAccessTokenKey = (account: string) => `x-accessToken-${account}`;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getAccessToken = (account: string) => {
     const value = localStorage.getItem(getAccessTokenKey(account));
     if (value) {
@@ -196,6 +197,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       setLoading(false);
       fetchAccount();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, adapter, fetchAccount]);
 
   const connectTwitterAccount = useCallback(async (account: string) => {
@@ -204,6 +206,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
     const token = encodeURIComponent(accessToken);
     const url = `${SERVER_URL}/accounts/auth/twitter?token=${token}`;
     window.location.href = url; // Redirige al backend
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const disconnectTwitterAccount = useCallback(
@@ -217,6 +220,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       );
       await fetchAccount();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [fetchAccount],
   );
 
@@ -224,6 +228,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
     const text = `Hey!\n\nPlease link my wallet ${account} to my Telegram account.\n\nMy verification code is:\n\n$${getAccessToken(account)}$\n\nThanks!`;
     const url = `https://t.me/${TELEGRAM_AUTH_BOT_HANDLE}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const disconnectTelegramAccount = useCallback(
@@ -237,6 +242,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       );
       await fetchAccount();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [fetchAccount],
   );
 
@@ -244,6 +250,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
     authenticate();
     const interval = setInterval(async () => authenticate(), 1000 * 60 * 5);
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
   React.useEffect(() => {
@@ -261,6 +268,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       connectTelegramAccount,
       disconnectTelegramAccount,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       loading,
       fetchAccount,

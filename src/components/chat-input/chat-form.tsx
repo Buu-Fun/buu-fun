@@ -35,8 +35,8 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       dispatch(setNewThreadId(data.threadId));
       router.push(`/generation/${data.threadId}`);
     },
-    onError(error) {
-      console.log(error);
+    onError() {
+      toast.error("Our servers are busy, Please try again");
     },
   });
 
@@ -53,6 +53,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
         });
       },
       onError(error) {
+        toast.error("Our servers are busy, Please try again");
         console.log(error);
       },
     });

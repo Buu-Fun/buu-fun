@@ -72,7 +72,10 @@ export const getSubThreadsMedia = createSelector(
       },
     );
 
-    return GeneratedRequestMedias;
+    return {
+      medias: GeneratedRequestMedias,
+      totalGenerated: GeneratedRequestMedias.length,
+    };
   },
 );
 
