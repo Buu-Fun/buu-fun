@@ -12,7 +12,7 @@ export default function Pill({
     <div
       className={cn(
         "bg-buu flex items-center justify-center   relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1",
-        className
+        className,
       )}
     >
       {children}

@@ -1,6 +1,7 @@
 import { SUB_THREAD_QUERY_LIMIT } from "@/constants/infinity.config";
 import { getSubThreads } from "@/lib/react-query/threads-v2";
 import { useAuthentication } from "@/providers/account.context";
+import { useWallet } from "@/providers/wallet.context";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 export function useSubThreads({
@@ -10,7 +11,10 @@ export function useSubThreads({
   threadId: string;
   limit?: number;
 }) {
-  const { accessToken } = useAuthentication();
+  const { getAccessToken } = useAuthentication();
+  const { address } = useWallet();
+  const accessToken = getAccessToken(address ?? "");
+
   return useInfiniteQuery({
     queryKey: ["get-sub-threads", threadId],
     enabled: () => {

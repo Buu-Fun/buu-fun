@@ -9,7 +9,6 @@ export default function HomePage() {
 
       {/* Centered main content with Help cards */}
       <div className="flex-1 flex items-center justify-center mr-[0.15vw] flex-col">
-        
         <HeroHeader />
         <HeaderQuickSelectCard />
       </div>
