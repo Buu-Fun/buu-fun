@@ -5,8 +5,6 @@ import * as React from "react";
 import "@/styles/solana-modal.css";
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-import { toSolanaWalletConnectors } from "@privy-io/react-auth/solana";
-
 import { PRIVY_APP_ID } from "@/config";
 import { AuthenticationProvider } from "./account.context";
 

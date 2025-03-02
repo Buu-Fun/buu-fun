@@ -36,6 +36,7 @@ interface AuthenticationContextType {
   address?: string;
   wallet?: WalletInfo;
   wallets: WalletInfo[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   login: (options?: LoginModalOptions | React.MouseEvent<any, any>) => void;
   logout: () => Promise<void>;
 }
@@ -145,7 +146,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       const userPrimaryWallet = processedWallets.find(
         (w) =>
           w.address === user?.wallet?.address &&
-          w.chainType === user?.wallet?.chainType
+          w.chainType === user?.wallet?.chainType,
       );
 
       if (userPrimaryWallet) {
@@ -194,7 +195,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       allWallets,
       login,
       logout,
-    ]
+    ],
   );
 
   return (
@@ -208,7 +209,7 @@ export function useAuthentication() {
   const context = useContext(AuthenticationContext);
   if (context === undefined) {
     throw new Error(
-      `useAuthentication must be used within a AuthenticationProvider`
+      `useAuthentication must be used within a AuthenticationProvider`,
     );
   }
   return context;

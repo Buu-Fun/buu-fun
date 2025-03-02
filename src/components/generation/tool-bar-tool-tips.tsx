@@ -13,10 +13,9 @@ import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { ToolTips, TToolTipEvents } from "./handle-tool-calls";
 // import ToolTipModify from "./tool-tip-modify";
-import ToolTipDownload from "./tool-tip-download";
 import { isSubThreadGenerating } from "@/lib/redux/selectors/chat";
-import { usePrivy } from "@privy-io/react-auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import ToolTipDownload from "./tool-tip-download";
 
 type TToolBarToolTips = {
   subThreadId: string;
@@ -68,7 +67,7 @@ export default function ToolBarToolTips({
         }
         if (isPending || isChatPending?.isLimitReached) {
           toast.error(
-            "Whoa, you're on fire! You've hit the limit of 4 creations."
+            "Whoa, you're on fire! You've hit the limit of 4 creations.",
           );
           return;
         }

@@ -31,7 +31,7 @@ export default function CopyAddress({ isNavigation, className }: TCopyAddress) {
           "hover:bg-buu-secondary py-2 flex-row rounded-md px-2 font-medium":
             isNavigation,
         },
-        className
+        className,
       )}
     >
       {!isCopy ? (
