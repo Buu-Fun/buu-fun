@@ -60,7 +60,7 @@ export default function RootLayout({
           <Providers>
             <StoreProvider>
               <ReactQueryProvider>
-                <div className="h-screen min-h-screen overflow-hidden relative max-h-screen   w-full">
+                <div className="h-[100dvh] min-h-[100dvh] overflow-hidden relative max-h-[100dvh]   w-full">
                   <div className=" w-[200px] h-[100px] bg-overlay-secondary  bg-[#69CCD5]  rounded-full right-[20%] absolute bottom-[-140px] -z-10 blur-[100px]  rotate-[-10deg]" />
 
                   <div className="grid-container w-full h-full">
