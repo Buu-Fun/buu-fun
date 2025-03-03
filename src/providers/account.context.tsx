@@ -13,7 +13,6 @@ import React, {
   useEffect,
   useMemo,
   useState,
-  useRef,
 } from "react";
 
 interface Props {
@@ -60,113 +59,117 @@ const getWalletIcon = (connector: string): string => {
 export const AuthenticationProvider = ({ children }: Props) => {
   const [activeWallet, setActiveWallet] = useState<WalletInfo | undefined>();
   const [allWallets, setAllWallets] = useState<WalletInfo[]>([]);
+  const [isProcessingWallets, setIsProcessingWallets] = useState(false);
 
   const { ready, authenticated, user, login, logout } = usePrivy();
   const { identityToken } = useIdentityToken();
   const { wallets: solanaWallets, ready: isSolanaReady } = useSolanaWallets();
   const { wallets: evmWallets, ready: isEVMReady } = useWallets();
 
-  // Use refs to track previous values to avoid unnecessary updates
-  const prevEvmWalletsRef = useRef(evmWallets);
-  const prevSolanaWalletsRef = useRef(solanaWallets);
-
-  const prevUserWalletRef = useRef({
-    address: user?.wallet?.address,
-    chainType: user?.wallet?.chainType,
-  });
-
   // Process wallets and set them in state
   useEffect(() => {
-    if (!ready || (!isSolanaReady && !isEVMReady)) return;
+    if (isProcessingWallets) return;
+    
+    // Only process when Privy is ready
+    if (!ready) return;
+    
+    setIsProcessingWallets(true);
+    
+    try {
+      if (!authenticated) {
+        setAllWallets([]);
+        setActiveWallet(undefined);
+        return;
+      }
 
-    // Check if wallets or user wallet has actually changed
-    const evmWalletsChanged =
-      JSON.stringify(prevEvmWalletsRef.current) !== JSON.stringify(evmWallets);
-    const solanaWalletsChanged =
-      JSON.stringify(prevSolanaWalletsRef.current) !==
-      JSON.stringify(solanaWallets);
-    const userWalletChanged =
-      prevUserWalletRef.current.address !== user?.wallet?.address ||
-      prevUserWalletRef.current.chainType !== user?.wallet?.chainType;
+      const processedWallets: WalletInfo[] = [];
 
-    // Only process if something relevant has changed
-    if (!evmWalletsChanged && !solanaWalletsChanged && !userWalletChanged) {
-      return;
-    }
+      // Add user's primary wallet if available
+      if (user?.wallet?.address) {
+        processedWallets.push({
+          address: user.wallet.address,
+          id: `primary-${user.wallet.address.slice(0, 8)}`,
+          name: user.wallet.walletClientType ?? 'Privy',
+          chainType: user.wallet.chainType,
+          icon: getWalletIcon(user.wallet.walletClientType || ""),
+        });
+      }
 
-    // Update refs with current values
-    prevEvmWalletsRef.current = evmWallets;
-    prevSolanaWalletsRef.current = solanaWallets;
-    prevUserWalletRef.current = {
-      address: user?.wallet?.address,
-      chainType: user?.wallet?.chainType,
-    };
+      // Process EVM wallets if ready
+      if (isEVMReady && evmWallets.length > 0) {
+        evmWallets.forEach((wallet) => {
+          if (wallet?.address) {
+            processedWallets.push({
+              address: wallet.address,
+              id: wallet.meta?.id || `evm-${wallet.address.slice(0, 8)}`,
+              name: wallet.meta?.name || "EVM Wallet",
+              icon:
+                wallet.meta?.icon ||
+                getWalletIcon(wallet.meta?.name?.toLowerCase() || ""),
+              chainType: "ethereum",
+            });
+          }
+        });
+      }
 
-    const processedWallets: WalletInfo[] = [];
+      // Process Solana wallets if ready
+      if (isSolanaReady && solanaWallets.length > 0) {
+        solanaWallets.forEach((wallet) => {
+          if (wallet?.address) {
+            processedWallets.push({
+              address: wallet.address,
+              id: wallet.meta?.id || `solana-${wallet.address.slice(0, 8)}`,
+              name: wallet.meta?.name || "Solana Wallet",
+              icon:
+                wallet.meta?.icon ||
+                getWalletIcon(wallet.meta?.name?.toLowerCase() || ""),
+              chainType: "solana",
+            });
+          }
+        });
+      }
 
-    // Process EVM wallets
-    if (isEVMReady && evmWallets.length > 0) {
-      evmWallets.forEach((wallet) => {
-        if (wallet?.address) {
-          processedWallets.push({
-            address: wallet.address,
-            id: wallet.meta?.id || `evm-${wallet.address.slice(0, 8)}`,
-            name: wallet.meta?.name || "EVM Wallet",
-            icon:
-              wallet.meta?.icon ||
-              getWalletIcon(wallet.meta?.name?.toLowerCase() || ""),
-            chainType: "ethereum",
-          });
-        }
-      });
-    }
-
-    // Process Solana wallets
-    if (isSolanaReady && solanaWallets.length > 0) {
-      solanaWallets.forEach((wallet) => {
-        if (wallet?.address) {
-          processedWallets.push({
-            address: wallet.address,
-            id: wallet.meta?.id || `solana-${wallet.address.slice(0, 8)}`,
-            name: wallet.meta?.name || "Solana Wallet",
-            icon:
-              wallet.meta?.icon ||
-              getWalletIcon(wallet.meta?.name?.toLowerCase() || ""),
-            chainType: "solana",
-          });
-        }
-      });
-    }
-
-    setAllWallets(processedWallets);
-
-    // Set active wallet based on user preference or first available wallet
-    if (processedWallets.length > 0) {
-      // Try to find the wallet that matches user's primary wallet
-      const userPrimaryWallet = processedWallets.find(
-        (w) =>
-          w.address === user?.wallet?.address &&
-          w.chainType === user?.wallet?.chainType,
+      // Remove duplicates 
+      const uniqueWallets = Array.from(
+        new Map(processedWallets.map(wallet => [wallet.address, wallet])).values()
       );
 
-      if (userPrimaryWallet) {
-        setActiveWallet(userPrimaryWallet);
+      setAllWallets(uniqueWallets);
+
+      // Set active wallet based on user preference or first available wallet
+      if (uniqueWallets.length > 0) {
+        // Try to find the wallet that matches user's primary wallet
+        const userPrimaryWallet = uniqueWallets.find(
+          (w) => w.address === user?.wallet?.address
+        );
+
+        if (userPrimaryWallet) {
+          setActiveWallet(userPrimaryWallet);
+        } else {
+          // Default to first wallet if no match found
+          setActiveWallet(uniqueWallets[0]);
+        }
       } else {
-        // Default to first wallet if no match found
-        setActiveWallet(processedWallets[0]);
+        setActiveWallet(undefined);
       }
-    } else {
-      setActiveWallet(undefined);
+    } finally {
+      // Always clear the processing flag
+      setIsProcessingWallets(false);
     }
   }, [
-    ready,
-    isEVMReady,
-    isSolanaReady,
-    evmWallets,
-    solanaWallets,
+    ready, 
+    authenticated, 
     user?.wallet?.address,
-    user?.wallet?.chainType,
+    // Only include isEVMReady, isSolanaReady if they have wallets to process
+    evmWallets.length > 0 ? isEVMReady : null,
+    solanaWallets.length > 0 ? isSolanaReady : null,
+    // Include wallet lengths to detect changes
+    evmWallets.length,
+    solanaWallets.length
   ]);
+
+  // Define loading state based only on Privy readiness
+  const isLoading = !ready;
 
   // Get the address from the active wallet
   const address = activeWallet?.address || user?.wallet?.address;
@@ -174,7 +177,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
   const value = useMemo(
     () => ({
       address,
-      loading: !ready || (!isSolanaReady && !isEVMReady),
+      loading: isLoading,
       isAuthenticated: authenticated,
       identityToken,
       user,
@@ -185,9 +188,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
     }),
     [
       address,
-      ready,
-      isSolanaReady,
-      isEVMReady,
+      isLoading,
       authenticated,
       identityToken,
       user,
@@ -195,7 +196,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       allWallets,
       login,
       logout,
-    ],
+    ]
   );
 
   return (
@@ -209,7 +210,7 @@ export function useAuthentication() {
   const context = useContext(AuthenticationContext);
   if (context === undefined) {
     throw new Error(
-      `useAuthentication must be used within a AuthenticationProvider`,
+      `useAuthentication must be used within a AuthenticationProvider`
     );
   }
   return context;
