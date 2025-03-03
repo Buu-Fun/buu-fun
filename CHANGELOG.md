@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.24](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.23...buu-fun-v0.1.24) (2025-03-03)
+
+
+### ✨ Features
+
+* added cors headers and changed auth-provider ([69e7464](https://github.com/muadpn/buu-fun/commit/69e746407b4b4c5bc1a5431b2209fab98a17f082))
+
+
+### 👽 Miscellaneous
+
+* **lint:** formatted and linted the codebase ([4bf6524](https://github.com/muadpn/buu-fun/commit/4bf6524922185306c8229a4bc674e2b0344a5acd))
+
 ## [0.1.23](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.22...buu-fun-v0.1.23) (2025-03-02)
 
 
