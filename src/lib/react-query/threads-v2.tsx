@@ -47,7 +47,7 @@ export async function getSubThreads({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -75,7 +75,7 @@ export async function getSubThreadRequests({
     {
       subthreadId: subThreadId,
     },
-    { Authorization: getAuthorization(accessToken) }
+    { Authorization: getAuthorization(accessToken) },
   );
   if (!data) {
     throw new Error("Internal server error");

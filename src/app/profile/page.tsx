@@ -48,7 +48,7 @@ export default function ProfilePage() {
             {wallet?.name && wallet?.name.length > 8
               ? `${wallet?.name.slice(0, 3)}...${wallet?.name.slice(wallet?.name.length - 3, wallet?.name.length)}`
               : wallet?.name
-                ? `${wallet?.name}` 
+                ? `${wallet?.name}`
                 : null}
           </p>
         </div>

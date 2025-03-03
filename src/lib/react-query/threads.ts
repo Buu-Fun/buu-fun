@@ -45,7 +45,7 @@ export async function generateSubThreads({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -68,7 +68,7 @@ export async function getSubThreads(threadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -88,7 +88,7 @@ export async function getSubThread(subThreadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -114,7 +114,7 @@ export async function mutateGenerateNewImage({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -140,7 +140,7 @@ export async function getAllThreads(accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");

@@ -65,16 +65,18 @@ export const AuthenticationProvider = ({ children }: Props) => {
   const { identityToken } = useIdentityToken();
   const { wallets: solanaWallets, ready: isSolanaReady } = useSolanaWallets();
   const { wallets: evmWallets, ready: isEVMReady } = useWallets();
+  const EvmWalletDep = evmWallets.length > 0 ? isEVMReady : null
+  const SolanaWalletsDep = solanaWallets.length > 0 ? isSolanaReady : null
 
   // Process wallets and set them in state
   useEffect(() => {
     if (isProcessingWallets) return;
-    
+
     // Only process when Privy is ready
     if (!ready) return;
-    
+
     setIsProcessingWallets(true);
-    
+
     try {
       if (!authenticated) {
         setAllWallets([]);
@@ -89,7 +91,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
         processedWallets.push({
           address: user.wallet.address,
           id: `primary-${user.wallet.address.slice(0, 8)}`,
-          name: user.wallet.walletClientType ?? 'Privy',
+          name: user.wallet.walletClientType ?? "Privy",
           chainType: user.wallet.chainType,
           icon: getWalletIcon(user.wallet.walletClientType || ""),
         });
@@ -129,9 +131,11 @@ export const AuthenticationProvider = ({ children }: Props) => {
         });
       }
 
-      // Remove duplicates 
+      // Remove duplicates
       const uniqueWallets = Array.from(
-        new Map(processedWallets.map(wallet => [wallet.address, wallet])).values()
+        new Map(
+          processedWallets.map((wallet) => [wallet.address, wallet]),
+        ).values(),
       );
 
       setAllWallets(uniqueWallets);
@@ -140,7 +144,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       if (uniqueWallets.length > 0) {
         // Try to find the wallet that matches user's primary wallet
         const userPrimaryWallet = uniqueWallets.find(
-          (w) => w.address === user?.wallet?.address
+          (w) => w.address === user?.wallet?.address,
         );
 
         if (userPrimaryWallet) {
@@ -156,16 +160,17 @@ export const AuthenticationProvider = ({ children }: Props) => {
       // Always clear the processing flag
       setIsProcessingWallets(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    ready, 
-    authenticated, 
+    ready,
+    authenticated,
     user?.wallet?.address,
     // Only include isEVMReady, isSolanaReady if they have wallets to process
-    evmWallets.length > 0 ? isEVMReady : null,
-    solanaWallets.length > 0 ? isSolanaReady : null,
+    SolanaWalletsDep,
+    EvmWalletDep,
     // Include wallet lengths to detect changes
     evmWallets.length,
-    solanaWallets.length
+    solanaWallets.length,
   ]);
 
   // Define loading state based only on Privy readiness
@@ -196,7 +201,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       allWallets,
       login,
       logout,
-    ]
+    ],
   );
 
   return (
@@ -210,7 +215,7 @@ export function useAuthentication() {
   const context = useContext(AuthenticationContext);
   if (context === undefined) {
     throw new Error(
-      `useAuthentication must be used within a AuthenticationProvider`
+      `useAuthentication must be used within a AuthenticationProvider`,
     );
   }
   return context;

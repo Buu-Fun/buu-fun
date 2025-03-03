@@ -13,12 +13,12 @@ export type TBase64ImageDiv = {
 
 const Base64ImageDiv = ({
   base64String,
-//   width = "300px",
-//   height = "200px",
+  //   width = "300px",
+  //   height = "200px",
   backgroundSize = "contain",
   backgroundPosition = "center",
   backgroundRepeat = "no-repeat",
-  className
+  className,
 }: TBase64ImageDiv) => {
   // Check if the string already includes the data URI prefix
   if (!base64String) return null;

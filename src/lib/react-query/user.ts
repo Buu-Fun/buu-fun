@@ -26,7 +26,7 @@ export async function getUserCredits({ accessToken }: AccessToken) {
     {},
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -52,7 +52,7 @@ export async function addCreditsMutation({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
