@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.25](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.24...buu-fun-v0.1.25) (2025-03-03)
+
+
+### ✨ Features
+
+* made dvh instead of svh for view-port scroll ([e8c9927](https://github.com/muadpn/buu-fun/commit/e8c9927a00157d3fe2d4916e5abeb1cc958b9c09))
+
 ## [0.1.24](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.23...buu-fun-v0.1.24) (2025-03-03)
 
 
