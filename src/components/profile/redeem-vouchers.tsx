@@ -4,7 +4,6 @@ import {
   TRedeemVoucherSchema,
 } from "@/lib/zod/redeem-voucher";
 import { useAuthentication } from "@/providers/account.context";
-import { useWallet } from "@/providers/wallet.context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Loader2, TicketIcon } from "lucide-react";
@@ -24,8 +23,7 @@ import { Label } from "../ui/label";
 import { useDisclosure } from "@mantine/hooks";
 export default function RedeemVouchers() {
   const [open, SetIsOpen] = useDisclosure(false);
-  const { getAccessToken } = useAuthentication();
-  const { address, openConnectionModal } = useWallet();
+  const { identityToken, login } = useAuthentication();
   const queryClient = useQueryClient();
   const { register, handleSubmit, reset } = useForm<TRedeemVoucherSchema>({
     resolver: zodResolver(redeemVoucherSchema),
@@ -46,9 +44,9 @@ export default function RedeemVouchers() {
   });
 
   function handleRedeemVoucherSubmit({ code }: TRedeemVoucherSchema) {
-    const accessToken = getAccessToken(address ?? "");
+    const accessToken = identityToken;
     if (!accessToken) {
-      openConnectionModal();
+      login();
       return;
     }
 

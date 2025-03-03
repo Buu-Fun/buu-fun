@@ -9,14 +9,13 @@ import { mutateGenerateNewImage } from "@/lib/react-query/threads";
 import { setNewGenRequest } from "@/lib/redux/features/chat";
 import { cn, isRetryExceeded } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
-import { useWallet } from "@/providers/wallet.context";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { ToolTips, TToolTipEvents } from "./handle-tool-calls";
 // import ToolTipModify from "./tool-tip-modify";
-import ToolTipDownload from "./tool-tip-download";
 import { isSubThreadGenerating } from "@/lib/redux/selectors/chat";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import ToolTipDownload from "./tool-tip-download";
 
 type TToolBarToolTips = {
   subThreadId: string;
@@ -38,8 +37,8 @@ export default function ToolBarToolTips({
   totalGenerations,
 }: TToolBarToolTips) {
   const dispatch = useAppDispatch();
-  const { getAccessToken } = useAuthentication();
-  const { address, openConnectionModal } = useWallet();
+  const { identityToken, login } = useAuthentication();
+  // const {}= usePrivy({})
   const queryClient = useQueryClient();
 
   const { mutate: generateNewImage, isPending } = useMutation({
@@ -58,9 +57,9 @@ export default function ToolBarToolTips({
   const isChatPending = useAppSelector(isSubThreadGenerating);
 
   function handleEvent(events: TToolTipEvents) {
-    const accessToken = getAccessToken(address ?? "");
-    if (!address || !accessToken) {
-      openConnectionModal();
+    const accessToken = identityToken;
+    if (!accessToken) {
+      login();
       return;
     }
     switch (events) {
@@ -80,7 +79,7 @@ export default function ToolBarToolTips({
         new Array(3).fill(0).map(() => {
           return generateNewImage({
             subthreadId: subThreadId,
-            accessToken: accessToken,
+            accessToken,
           });
         });
         break;

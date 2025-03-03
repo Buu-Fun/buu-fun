@@ -49,7 +49,9 @@ export async function getSubThreads({
       Authorization: getAuthorization(accessToken),
     },
   );
-
+  if (!data) {
+    throw new Error("Internal server error");
+  }
   if ("code" in data.getSubthreads) {
     console.log(data);
     throw new Error("Failed to fetch data");
@@ -75,6 +77,10 @@ export async function getSubThreadRequests({
     },
     { Authorization: getAuthorization(accessToken) },
   );
+  if (!data) {
+    throw new Error("Internal server error");
+  }
+
   if ("code" in data.getSubthreadGenRequests) {
     console.log(data);
     throw new Error("Failed to fetch data");

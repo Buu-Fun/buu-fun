@@ -1,283 +1,206 @@
 "use client";
-import React, { createContext, useCallback, useContext, useMemo } from "react";
-import { serverRequest } from "../gql/client";
 import {
-  DisconnectTelegram,
-  DisconnectTwitter,
-  LoginAuthMutation,
-  LoginChallengeMutation,
-  LoginRefreshMutation,
-  Me,
-} from "../gql/documents/account";
-import {
-  Account,
-  LoginAuth,
-  LoginChallenge,
-  SolanaSignInOutput,
-} from "../gql/types/graphql";
-import { SERVER_URL, TELEGRAM_AUTH_BOT_HANDLE } from "../config";
-import { useWallet } from "./wallet.context";
-import { SolanaSignInInput } from "@solana/wallet-standard-features";
-import { createSignInMessageText } from "./privy";
-import { PublicKey } from "@solana/web3.js";
+  LoginModalOptions,
+  useIdentityToken,
+  usePrivy,
+  User,
+  useSolanaWallets,
+  useWallets,
+} from "@privy-io/react-auth";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 interface Props {
   children: React.ReactNode;
 }
 
+interface WalletInfo {
+  address?: string;
+  id: string;
+  name: string;
+  icon?: string;
+  chainType?: string;
+}
+
 interface AuthenticationContextType {
   loading: boolean;
-  account?: Account;
-  fetchAccount: () => Promise<void>;
-  getAccessToken: (account: string) => string | null;
-  connectTwitterAccount: (account: string) => Promise<void>;
-  disconnectTwitterAccount: (account: string) => Promise<void>;
-  connectTelegramAccount: (account: string) => Promise<void>;
-  disconnectTelegramAccount: (account: string) => Promise<void>;
+  isAuthenticated: boolean;
+  identityToken: string | null;
+  user: User | null;
+  address?: string;
+  wallet?: WalletInfo;
+  wallets: WalletInfo[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  login: (options?: LoginModalOptions | React.MouseEvent<any, any>) => void;
+  logout: () => Promise<void>;
 }
 
 const AuthenticationContext = createContext<
   AuthenticationContextType | undefined
 >(undefined);
 
+// Helper function to get wallet icon
+const getWalletIcon = (connector: string): string => {
+  const walletIcons: Record<string, string> = {
+    metamask: "https://avatars.githubusercontent.com/u/11744586?s=200&v=4",
+    walletconnect: "https://avatars.githubusercontent.com/u/37784886?s=200&v=4",
+    coinbase: "https://avatars.githubusercontent.com/u/1885080?s=200&v=4",
+    phantom: "https://avatars.githubusercontent.com/u/78782331?s=200&v=4",
+  };
+
+  return walletIcons[connector.toLowerCase()] || "";
+};
+
 export const AuthenticationProvider = ({ children }: Props) => {
-  const [loading, setLoading] = React.useState(true);
-  const { address, adapter, disconnect } = useWallet();
+  const [activeWallet, setActiveWallet] = useState<WalletInfo | undefined>();
+  const [allWallets, setAllWallets] = useState<WalletInfo[]>([]);
+  const [isProcessingWallets, setIsProcessingWallets] = useState(false);
 
-  const getAccessTokenKeys = () => {
-    const value = localStorage.getItem("x-accessToken-keys");
-    if (value) {
-      return JSON.parse(value) as string[];
-    }
-    return [];
-  };
+  const { ready, authenticated, user, login, logout } = usePrivy();
+  const { identityToken } = useIdentityToken();
+  const { wallets: solanaWallets, ready: isSolanaReady } = useSolanaWallets();
+  const { wallets: evmWallets, ready: isEVMReady } = useWallets();
+  const EvmWalletDep = evmWallets.length > 0 ? isEVMReady : null
+  const SolanaWalletsDep = solanaWallets.length > 0 ? isSolanaReady : null
 
-  const getAccessTokenKey = (account: string) => `x-accessToken-${account}`;
+  // Process wallets and set them in state
+  useEffect(() => {
+    if (isProcessingWallets) return;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getAccessToken = (account: string) => {
-    const value = localStorage.getItem(getAccessTokenKey(account));
-    if (value) {
-      return JSON.parse(value) as string;
-    }
-    return null;
-  };
+    // Only process when Privy is ready
+    if (!ready) return;
 
-  const fetchAccount = useCallback(async () => {
-    if (!address) return;
-    const accessToken = getAccessToken(address);
-    if (!accessToken) return;
+    setIsProcessingWallets(true);
+
     try {
-      const response = await serverRequest(
-        Me,
-        {},
-        {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      );
-      return response.me;
-    } catch (error) {
-      console.error("Error fetching account:", error);
-    }
-  }, [getAccessToken, address]);
-
-  const authenticate = useCallback(async () => {
-    try {
-      if (!address || !adapter) return;
-      setLoading(true);
-      const accessToken = getAccessToken(address);
-      if (accessToken) {
-        try {
-          const { loginRefresh } = (await serverRequest(
-            LoginRefreshMutation,
-            {
-              input: {
-                account: address,
-              },
-            },
-            {
-              Authorization: `Bearer ${getAccessToken(address)}`,
-            },
-          )) as { loginRefresh: LoginAuth | null };
-
-          if (loginRefresh && loginRefresh.token) {
-            localStorage.setItem(
-              getAccessTokenKey(address),
-              JSON.stringify(loginRefresh.token),
-            );
-            const accessTokenKeys = getAccessTokenKeys();
-            const accessTokenKey = getAccessTokenKey(address);
-            if (!accessTokenKeys.includes(accessTokenKey)) {
-              localStorage.setItem(
-                "x-accessToken-keys",
-                JSON.stringify([...accessTokenKeys, accessTokenKey]),
-              );
-            }
-            return;
-          }
-        } catch (error) {
-          console.log("Authentication error:", error);
-        }
-      }
-
-      const { loginChallenge } = (await serverRequest(LoginChallengeMutation, {
-        account: address,
-      })) as {
-        loginChallenge: LoginChallenge | null;
-      };
-
-      if (!loginChallenge?.input) return;
-
-      const challengeInput = loginChallenge.input;
-      const input = challengeInput as SolanaSignInInput;
-
-      // Send the signInInput to the wallet and trigger a sign-in request
-      let output;
-      if ("signIn" in adapter) {
-        output = await adapter.signIn(input);
-      } else if ("signMessage" in adapter) {
-        const signedMessage = createSignInMessageText(input);
-        const signature = await adapter.signMessage(Buffer.from(signedMessage));
-        const account = {
-          address: address,
-          publicKey: new PublicKey(address).toBuffer(),
-          chains: [],
-          features: [],
-        };
-        output = {
-          account,
-          signature,
-          signedMessage,
-          signatureType: "ed25519",
-        };
-      }
-      if (!output) {
-        disconnect();
+      if (!authenticated) {
+        setAllWallets([]);
+        setActiveWallet(undefined);
         return;
       }
 
-      const formattedOutput = {
-        account: {
-          address: output.account.address,
-          publicKey: Buffer.from(output.account.publicKey).toString("base64"),
-          chains: output.account.chains.map((chain) => chain.toString()),
-          features: output.account.features.map((feature) =>
-            feature.toString(),
-          ),
-        },
-        signature: Buffer.from(output.signature).toString("base64"),
-        signedMessage: Buffer.from(output.signedMessage).toString("base64"),
-        signatureType: output.signatureType || "ed25519",
-      } as SolanaSignInOutput;
-      const { loginAuth } = (await serverRequest(LoginAuthMutation, {
-        input: challengeInput,
-        output: formattedOutput,
-      })) as { loginAuth: LoginAuth | null };
+      const processedWallets: WalletInfo[] = [];
 
-      if (loginAuth && loginAuth.token) {
-        localStorage.setItem(
-          getAccessTokenKey(address),
-          JSON.stringify(loginAuth.token),
+      // Add user's primary wallet if available
+      if (user?.wallet?.address) {
+        processedWallets.push({
+          address: user.wallet.address,
+          id: `primary-${user.wallet.address.slice(0, 8)}`,
+          name: user.wallet.walletClientType ?? "Privy",
+          chainType: user.wallet.chainType,
+          icon: getWalletIcon(user.wallet.walletClientType || ""),
+        });
+      }
+
+      // Process EVM wallets if ready
+      if (isEVMReady && evmWallets.length > 0) {
+        evmWallets.forEach((wallet) => {
+          if (wallet?.address) {
+            processedWallets.push({
+              address: wallet.address,
+              id: wallet.meta?.id || `evm-${wallet.address.slice(0, 8)}`,
+              name: wallet.meta?.name || "EVM Wallet",
+              icon:
+                wallet.meta?.icon ||
+                getWalletIcon(wallet.meta?.name?.toLowerCase() || ""),
+              chainType: "ethereum",
+            });
+          }
+        });
+      }
+
+      // Process Solana wallets if ready
+      if (isSolanaReady && solanaWallets.length > 0) {
+        solanaWallets.forEach((wallet) => {
+          if (wallet?.address) {
+            processedWallets.push({
+              address: wallet.address,
+              id: wallet.meta?.id || `solana-${wallet.address.slice(0, 8)}`,
+              name: wallet.meta?.name || "Solana Wallet",
+              icon:
+                wallet.meta?.icon ||
+                getWalletIcon(wallet.meta?.name?.toLowerCase() || ""),
+              chainType: "solana",
+            });
+          }
+        });
+      }
+
+      // Remove duplicates
+      const uniqueWallets = Array.from(
+        new Map(
+          processedWallets.map((wallet) => [wallet.address, wallet]),
+        ).values(),
+      );
+
+      setAllWallets(uniqueWallets);
+
+      // Set active wallet based on user preference or first available wallet
+      if (uniqueWallets.length > 0) {
+        // Try to find the wallet that matches user's primary wallet
+        const userPrimaryWallet = uniqueWallets.find(
+          (w) => w.address === user?.wallet?.address,
         );
-        const accessTokenKeys = getAccessTokenKeys();
-        const accessTokenKey = getAccessTokenKey(address);
-        if (!accessTokenKeys.includes(accessTokenKey)) {
-          localStorage.setItem(
-            "x-accessToken-keys",
-            JSON.stringify([...accessTokenKeys, accessTokenKey]),
-          );
+
+        if (userPrimaryWallet) {
+          setActiveWallet(userPrimaryWallet);
+        } else {
+          // Default to first wallet if no match found
+          setActiveWallet(uniqueWallets[0]);
         }
       } else {
-        disconnect();
+        setActiveWallet(undefined);
       }
-    } catch (error: unknown) {
-      console.error("Authentication error:", error);
-      disconnect();
     } finally {
-      setLoading(false);
-      fetchAccount();
+      // Always clear the processing flag
+      setIsProcessingWallets(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, adapter, fetchAccount]);
+  }, [
+    ready,
+    authenticated,
+    user?.wallet?.address,
+    // Only include isEVMReady, isSolanaReady if they have wallets to process
+    SolanaWalletsDep,
+    EvmWalletDep,
+    // Include wallet lengths to detect changes
+    evmWallets.length,
+    solanaWallets.length,
+  ]);
 
-  const connectTwitterAccount = useCallback(async (account: string) => {
-    const accessToken = getAccessToken(account);
-    if (!accessToken) return;
-    const token = encodeURIComponent(accessToken);
-    const url = `${SERVER_URL}/accounts/auth/twitter?token=${token}`;
-    window.location.href = url; // Redirige al backend
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Define loading state based only on Privy readiness
+  const isLoading = !ready;
 
-  const disconnectTwitterAccount = useCallback(
-    async (account: string) => {
-      await serverRequest(
-        DisconnectTwitter,
-        {},
-        {
-          Authorization: `Bearer ${getAccessToken(account)}`,
-        },
-      );
-      await fetchAccount();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fetchAccount],
-  );
-
-  const connectTelegramAccount = useCallback(async (account: string) => {
-    const text = `Hey!\n\nPlease link my wallet ${account} to my Telegram account.\n\nMy verification code is:\n\n$${getAccessToken(account)}$\n\nThanks!`;
-    const url = `https://t.me/${TELEGRAM_AUTH_BOT_HANDLE}?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const disconnectTelegramAccount = useCallback(
-    async (account: string) => {
-      await serverRequest(
-        DisconnectTelegram,
-        {},
-        {
-          Authorization: `Bearer ${getAccessToken(account)}`,
-        },
-      );
-      await fetchAccount();
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [fetchAccount],
-  );
-
-  React.useEffect(() => {
-    authenticate();
-    const interval = setInterval(async () => authenticate(), 1000 * 60 * 5);
-    return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address]);
-
-  React.useEffect(() => {
-    fetchAccount();
-  }, [fetchAccount]);
+  // Get the address from the active wallet
+  const address = activeWallet?.address || user?.wallet?.address;
 
   const value = useMemo(
     () => ({
-      loading,
-      account: undefined,
-      fetchAccount,
-      getAccessToken,
-      connectTwitterAccount,
-      disconnectTwitterAccount,
-      connectTelegramAccount,
-      disconnectTelegramAccount,
+      address,
+      loading: isLoading,
+      isAuthenticated: authenticated,
+      identityToken,
+      user,
+      wallet: activeWallet,
+      wallets: allWallets,
+      login,
+      logout,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
-      loading,
-      fetchAccount,
-      fetchAccount,
-      getAccessToken,
-      connectTwitterAccount,
-      disconnectTwitterAccount,
-      connectTelegramAccount,
-      disconnectTelegramAccount,
+      address,
+      isLoading,
+      authenticated,
+      identityToken,
+      user,
+      activeWallet,
+      allWallets,
+      login,
+      logout,
     ],
   );
 

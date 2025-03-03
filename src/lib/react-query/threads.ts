@@ -47,6 +47,9 @@ export async function generateSubThreads({
       Authorization: getAuthorization(accessToken),
     },
   );
+  if (!data) {
+    throw new Error("Internal server error");
+  }
 
   if ("code" in data.generateSubthread) {
     throw new Error(data.generateSubthread.message, { cause: "INVALID_DATA" });
@@ -67,6 +70,9 @@ export async function getSubThreads(threadId: string, accessToken: string) {
       Authorization: getAuthorization(accessToken),
     },
   );
+  if (!data) {
+    throw new Error("Internal server error");
+  }
 
   if ("code" in data.getSubthreads) {
     throw new Error(data.getSubthreads.message, { cause: "INVALID_DATA" });
@@ -84,6 +90,9 @@ export async function getSubThread(subThreadId: string, accessToken: string) {
       Authorization: getAuthorization(accessToken),
     },
   );
+  if (!data) {
+    throw new Error("Internal server error");
+  }
 
   if ("code" in data.getSubthread) {
     throw new Error(data.getSubthread.message, { cause: "INVALID_DATA" });
@@ -107,6 +116,9 @@ export async function mutateGenerateNewImage({
       Authorization: getAuthorization(accessToken),
     },
   );
+  if (!data) {
+    throw new Error("Internal server error");
+  }
 
   if ("code" in data.generateImage) {
     throw new Error(data.generateImage.message, { cause: "INVALID_DATA" });
@@ -130,6 +142,9 @@ export async function getAllThreads(accessToken: string) {
       Authorization: getAuthorization(accessToken),
     },
   );
+  if (!data) {
+    throw new Error("Internal server error");
+  }
 
   if ("code" in data.getThreads) {
     throw new Error(data.getThreads.message, { cause: "INVALID_DATA" });

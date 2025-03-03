@@ -28,6 +28,9 @@ export async function getUserCredits({ accessToken }: AccessToken) {
       Authorization: getAuthorization(accessToken),
     },
   );
+  if (!data) {
+    throw new Error("Internal server error");
+  }
 
   if ("code" in data.getMyCredits) {
     throw new Error(data.getMyCredits.message, { cause: "INVALID_DATA" });
@@ -51,6 +54,9 @@ export async function addCreditsMutation({
       Authorization: getAuthorization(accessToken),
     },
   );
+  if (!data) {
+    throw new Error("Internal server error");
+  }
 
   if ("code" in data?.redeemVoucher) {
     throw new Error(data.redeemVoucher.message, { cause: "INVALID_DATA" });

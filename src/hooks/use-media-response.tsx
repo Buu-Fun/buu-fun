@@ -1,7 +1,6 @@
 import { isInProgress } from "@/lib/helpers/status-checker";
 import { getSubThreadRequests } from "@/lib/react-query/threads-v2";
 import { useAuthentication } from "@/providers/account.context";
-import { useWallet } from "@/providers/wallet.context";
 import { useQuery } from "@tanstack/react-query";
 import { useAppSelector } from "./redux";
 import { getSubThreadsMedia } from "@/lib/redux/selectors/chat";
@@ -11,18 +10,22 @@ export default function useMediaResponse({
 }: {
   subThreadId: string;
 }) {
-  const { getAccessToken } = useAuthentication();
-  const { address } = useWallet();
+  const { identityToken } = useAuthentication();
   const MediaData = useAppSelector((state) =>
     getSubThreadsMedia(state, state.chat.genRequest, subThreadId),
   );
-  const accessToken = getAccessToken(address ?? "");
 
   return useQuery({
     queryKey: [subThreadId, "get-sub-thread-requests"],
+    enabled: () => {
+      if (!identityToken) {
+        return false;
+      }
+      return true;
+    },
     queryFn: async () => {
       return await getSubThreadRequests({
-        accessToken: accessToken ?? "",
+        accessToken: identityToken ?? "",
         subThreadId,
       });
     },

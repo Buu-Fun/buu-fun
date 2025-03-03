@@ -1,50 +1,4 @@
 import { gql } from "graphql-request";
-export const LoginChallengeMutation = gql`
-  mutation LoginChallenge($account: String!) {
-    loginChallenge(account: $account) {
-      ... on LoginChallenge {
-        input {
-          address
-          nonce
-        }
-      }
-      ... on Error {
-        code
-        message
-      }
-    }
-  }
-`;
-
-export const LoginAuthMutation = gql`
-  mutation LoginAuth($output: SolanaSignInOutput!, $input: SolanaSignInInput!) {
-    loginAuth(output: $output, input: $input) {
-      ... on LoginAuth {
-        token
-        tokenExpiry
-      }
-      ... on Error {
-        code
-        message
-      }
-    }
-  }
-`;
-
-export const LoginRefreshMutation = gql`
-  mutation LoginRefresh($input: LoginRefreshInput!) {
-    loginRefresh(input: $input) {
-      ... on LoginAuth {
-        token
-        tokenExpiry
-      }
-      ... on Error {
-        code
-        message
-      }
-    }
-  }
-`;
 
 export const Me = gql`
   query Me {
@@ -59,11 +13,10 @@ export const Me = gql`
         telegramName
         telegramUsername
         telegramAvatar
-        solanaPubKey
         createdAt
         updatedAt
       }
-      ... on Error {
+      ... on HandledError {
         code
         message
       }
@@ -84,11 +37,10 @@ export const DisconnectTwitter = gql`
         telegramName
         telegramUsername
         telegramAvatar
-        solanaPubKey
         createdAt
         updatedAt
       }
-      ... on Error {
+      ... on HandledError {
         code
         message
       }
@@ -109,11 +61,10 @@ export const DisconnectTelegram = gql`
         telegramName
         telegramUsername
         telegramAvatar
-        solanaPubKey
         createdAt
         updatedAt
       }
-      ... on Error {
+      ... on HandledError {
         code
         message
       }

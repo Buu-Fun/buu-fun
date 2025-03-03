@@ -3,12 +3,18 @@ import { SERVER_URL } from "@/config";
 import { GraphQLClient, type RequestDocument } from "graphql-request";
 
 // const ponderClient = new GraphQLClient(PONDER_URL);
-const serverClient = new GraphQLClient(`${SERVER_URL}/graphql`, {
-  credentials: "include",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+const serverClient = (() => {
+  try {
+    return new GraphQLClient(`${SERVER_URL}/graphql`, {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    return null;
+  }
+})();
 
 export type TCommonHeaders = {
   [key: string]: string | undefined;
@@ -20,7 +26,7 @@ export const serverRequest = async <T = any, S = any>(
   variables?: S & { [key: string]: any },
   headers?: TCommonHeaders,
   forceResultIfFail?: any,
-): Promise<T> => {
+): Promise<T | undefined> => {
   try {
     return await serverClient?.request<T>(query, variables, headers);
   } catch (error) {

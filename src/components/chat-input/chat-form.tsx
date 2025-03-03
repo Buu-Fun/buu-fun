@@ -11,7 +11,6 @@ import {
 import { isSubThreadGenerating } from "@/lib/redux/selectors/chat";
 import { cn, isOverAllRequestLimitReached } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
-import { useWallet } from "@/providers/wallet.context";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -21,8 +20,7 @@ import { TBottomBarContainer } from "./bottom-bar-container";
 import ChatTextArea from "./chat-text-area";
 
 export default function ChatForm({ action }: TBottomBarContainer) {
-  const { getAccessToken } = useAuthentication();
-  const { address, openConnectionModal } = useWallet();
+  const { identityToken, login } = useAuthentication();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const prompt = useAppSelector((state) => state.chat.inputQuery);
@@ -80,21 +78,21 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       }
       return toast.error("Hold on!, Still generating your model...");
     }
-    if (!address) {
-      openConnectionModal();
+    if (!identityToken) {
+      login();
       return;
     }
 
     // Handle based on action type
     if (action === "new_chat") {
       createNewChat({
-        accessToken: getAccessToken(address) ?? "",
+        accessToken: identityToken ?? "",
         prompt: prompt,
         style: style,
       });
     } else if (typeof action !== "string") {
       createExistingChat({
-        accessToken: getAccessToken(address) ?? "",
+        accessToken: identityToken ?? "",
         prompt,
         style,
         threadId: action.threadId,

@@ -37,7 +37,6 @@ export type Account = {
   __typename?: "Account";
   address: Scalars["String"]["output"];
   createdAt: Scalars["DateTimeISO"]["output"];
-  solanaPubKey?: Maybe<Scalars["String"]["output"]>;
   telegramAvatar?: Maybe<Scalars["String"]["output"]>;
   telegramId?: Maybe<Scalars["Float"]["output"]>;
   telegramName?: Maybe<Scalars["String"]["output"]>;
@@ -50,7 +49,7 @@ export type Account = {
   updatedAt: Scalars["DateTimeISO"]["output"];
 };
 
-export type AccountResult = Account | Error;
+export type AccountResult = Account | HandledError;
 
 export type Credit = {
   __typename?: "Credit";
@@ -63,12 +62,6 @@ export type Credit = {
 };
 
 export type CreditResult = Credit | HandledError;
-
-export type Error = {
-  __typename?: "Error";
-  code: Scalars["String"]["output"];
-  message: Scalars["String"]["output"];
-};
 
 export type GenRequest = {
   __typename?: "GenRequest";
@@ -119,25 +112,6 @@ export type HandledError = {
   message: Scalars["String"]["output"];
 };
 
-export type LoginAuth = {
-  __typename?: "LoginAuth";
-  token: Scalars["String"]["output"];
-  tokenExpiry: Scalars["DateTimeISO"]["output"];
-};
-
-export type LoginAuthResult = Error | LoginAuth;
-
-export type LoginChallenge = {
-  __typename?: "LoginChallenge";
-  input: SolanaSignIn;
-};
-
-export type LoginChallengeResult = Error | LoginChallenge;
-
-export type LoginRefreshInput = {
-  account: Scalars["String"]["input"];
-};
-
 export type Metadata = {
   __typename?: "Metadata";
   limit?: Maybe<Scalars["Int"]["output"]>;
@@ -157,9 +131,6 @@ export type Mutation = {
   generateImage: GenRequestResult;
   generateModel: GenRequestResult;
   generateSubthread: SubthreadResult;
-  loginAuth: LoginAuthResult;
-  loginChallenge: LoginChallengeResult;
-  loginRefresh: LoginAuthResult;
   redeemVoucher: CreditResult;
 };
 
@@ -182,19 +153,6 @@ export type MutationGenerateSubthreadArgs = {
   threadId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
-export type MutationLoginAuthArgs = {
-  input: SolanaSignInInput;
-  output: SolanaSignInOutput;
-};
-
-export type MutationLoginChallengeArgs = {
-  account: Scalars["String"]["input"];
-};
-
-export type MutationLoginRefreshArgs = {
-  input: LoginRefreshInput;
-};
-
 export type MutationRedeemVoucherArgs = {
   code: Scalars["String"]["input"];
 };
@@ -206,8 +164,8 @@ export enum OrderDirection {
 }
 
 export type Pagination = {
-  limit?: InputMaybe<Scalars["Float"]["input"]>;
-  offset?: InputMaybe<Scalars["Float"]["input"]>;
+  limit?: InputMaybe<Scalars["Int"]["input"]>;
+  offset?: InputMaybe<Scalars["Int"]["input"]>;
   orderBy?: InputMaybe<Scalars["String"]["input"]>;
   orderDirection?: InputMaybe<OrderDirection>;
 };
@@ -238,24 +196,6 @@ export type QueryGetSubthreadsArgs = {
 export type QueryGetThreadsArgs = {
   filters?: InputMaybe<ThreadFilter>;
   pagination?: InputMaybe<Pagination>;
-};
-
-export type SolanaSignIn = {
-  __typename?: "SolanaSignIn";
-  address: Scalars["String"]["output"];
-  nonce: Scalars["String"]["output"];
-};
-
-export type SolanaSignInInput = {
-  address: Scalars["String"]["input"];
-  nonce: Scalars["String"]["input"];
-};
-
-export type SolanaSignInOutput = {
-  account: WalletAccount;
-  signature: Scalars["String"]["input"];
-  signatureType: Scalars["String"]["input"];
-  signedMessage: Scalars["String"]["input"];
 };
 
 export type Subthread = {
@@ -371,52 +311,6 @@ export type Timings = {
   inference?: Maybe<Scalars["Float"]["output"]>;
 };
 
-export type WalletAccount = {
-  address: Scalars["String"]["input"];
-  chains: Array<Scalars["String"]["input"]>;
-  features: Array<Scalars["String"]["input"]>;
-  icon?: InputMaybe<Scalars["String"]["input"]>;
-  label?: InputMaybe<Scalars["String"]["input"]>;
-  publicKey: Scalars["String"]["input"];
-};
-
-export type LoginChallengeMutationVariables = Exact<{
-  account: Scalars["String"]["input"];
-}>;
-
-export type LoginChallengeMutation = {
-  __typename?: "Mutation";
-  loginChallenge:
-    | { __typename?: "Error"; code: string; message: string }
-    | {
-        __typename?: "LoginChallenge";
-        input: { __typename?: "SolanaSignIn"; address: string; nonce: string };
-      };
-};
-
-export type LoginAuthMutationVariables = Exact<{
-  output: SolanaSignInOutput;
-  input: SolanaSignInInput;
-}>;
-
-export type LoginAuthMutation = {
-  __typename?: "Mutation";
-  loginAuth:
-    | { __typename?: "Error"; code: string; message: string }
-    | { __typename?: "LoginAuth"; token: string; tokenExpiry: any };
-};
-
-export type LoginRefreshMutationVariables = Exact<{
-  input: LoginRefreshInput;
-}>;
-
-export type LoginRefreshMutation = {
-  __typename?: "Mutation";
-  loginRefresh:
-    | { __typename?: "Error"; code: string; message: string }
-    | { __typename?: "LoginAuth"; token: string; tokenExpiry: any };
-};
-
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
@@ -433,11 +327,10 @@ export type MeQuery = {
         telegramName?: string | null;
         telegramUsername?: string | null;
         telegramAvatar?: string | null;
-        solanaPubKey?: string | null;
         createdAt: any;
         updatedAt: any;
       }
-    | { __typename?: "Error"; code: string; message: string };
+    | { __typename?: "HandledError"; code: string; message: string };
 };
 
 export type DisconnectTwitterMutationVariables = Exact<{
@@ -458,11 +351,10 @@ export type DisconnectTwitterMutation = {
         telegramName?: string | null;
         telegramUsername?: string | null;
         telegramAvatar?: string | null;
-        solanaPubKey?: string | null;
         createdAt: any;
         updatedAt: any;
       }
-    | { __typename?: "Error"; code: string; message: string };
+    | { __typename?: "HandledError"; code: string; message: string };
 };
 
 export type DisconnectTelegramMutationVariables = Exact<{
@@ -483,11 +375,10 @@ export type DisconnectTelegramMutation = {
         telegramName?: string | null;
         telegramUsername?: string | null;
         telegramAvatar?: string | null;
-        solanaPubKey?: string | null;
         createdAt: any;
         updatedAt: any;
       }
-    | { __typename?: "Error"; code: string; message: string };
+    | { __typename?: "HandledError"; code: string; message: string };
 };
 
 export type GenerateSubthreadMutationVariables = Exact<{
@@ -785,298 +676,6 @@ export type RedeemVoucherMutation = {
     | { __typename?: "HandledError"; code: string; message: string };
 };
 
-export const LoginChallengeDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "LoginChallenge" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "account" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "loginChallenge" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "account" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "account" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "InlineFragment",
-                  typeCondition: {
-                    kind: "NamedType",
-                    name: { kind: "Name", value: "LoginChallenge" },
-                  },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "input" },
-                        selectionSet: {
-                          kind: "SelectionSet",
-                          selections: [
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "address" },
-                            },
-                            {
-                              kind: "Field",
-                              name: { kind: "Name", value: "nonce" },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: "InlineFragment",
-                  typeCondition: {
-                    kind: "NamedType",
-                    name: { kind: "Name", value: "Error" },
-                  },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "code" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "message" },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  LoginChallengeMutation,
-  LoginChallengeMutationVariables
->;
-export const LoginAuthDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "LoginAuth" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "output" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "SolanaSignInOutput" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "input" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "SolanaSignInInput" },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "loginAuth" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "output" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "output" },
-                },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "input" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "input" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "InlineFragment",
-                  typeCondition: {
-                    kind: "NamedType",
-                    name: { kind: "Name", value: "LoginAuth" },
-                  },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "token" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "tokenExpiry" },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: "InlineFragment",
-                  typeCondition: {
-                    kind: "NamedType",
-                    name: { kind: "Name", value: "Error" },
-                  },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "code" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "message" },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<LoginAuthMutation, LoginAuthMutationVariables>;
-export const LoginRefreshDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "LoginRefresh" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "input" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "LoginRefreshInput" },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "loginRefresh" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "input" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "input" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                {
-                  kind: "InlineFragment",
-                  typeCondition: {
-                    kind: "NamedType",
-                    name: { kind: "Name", value: "LoginAuth" },
-                  },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "token" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "tokenExpiry" },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: "InlineFragment",
-                  typeCondition: {
-                    kind: "NamedType",
-                    name: { kind: "Name", value: "Error" },
-                  },
-                  selectionSet: {
-                    kind: "SelectionSet",
-                    selections: [
-                      { kind: "Field", name: { kind: "Name", value: "code" } },
-                      {
-                        kind: "Field",
-                        name: { kind: "Name", value: "message" },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<
-  LoginRefreshMutation,
-  LoginRefreshMutationVariables
->;
 export const MeDocument = {
   kind: "Document",
   definitions: [
@@ -1140,10 +739,6 @@ export const MeDocument = {
                       },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "solanaPubKey" },
-                      },
-                      {
-                        kind: "Field",
                         name: { kind: "Name", value: "createdAt" },
                       },
                       {
@@ -1157,7 +752,7 @@ export const MeDocument = {
                   kind: "InlineFragment",
                   typeCondition: {
                     kind: "NamedType",
-                    name: { kind: "Name", value: "Error" },
+                    name: { kind: "Name", value: "HandledError" },
                   },
                   selectionSet: {
                     kind: "SelectionSet",
@@ -1241,10 +836,6 @@ export const DisconnectTwitterDocument = {
                       },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "solanaPubKey" },
-                      },
-                      {
-                        kind: "Field",
                         name: { kind: "Name", value: "createdAt" },
                       },
                       {
@@ -1258,7 +849,7 @@ export const DisconnectTwitterDocument = {
                   kind: "InlineFragment",
                   typeCondition: {
                     kind: "NamedType",
-                    name: { kind: "Name", value: "Error" },
+                    name: { kind: "Name", value: "HandledError" },
                   },
                   selectionSet: {
                     kind: "SelectionSet",
@@ -1345,10 +936,6 @@ export const DisconnectTelegramDocument = {
                       },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "solanaPubKey" },
-                      },
-                      {
-                        kind: "Field",
                         name: { kind: "Name", value: "createdAt" },
                       },
                       {
@@ -1362,7 +949,7 @@ export const DisconnectTelegramDocument = {
                   kind: "InlineFragment",
                   typeCondition: {
                     kind: "NamedType",
-                    name: { kind: "Name", value: "Error" },
+                    name: { kind: "Name", value: "HandledError" },
                   },
                   selectionSet: {
                     kind: "SelectionSet",

@@ -54,3 +54,22 @@ export function getFixedCredits(credits = 0.0) {
 export function isRetryExceeded(totalGenerations: number) {
   return totalGenerations >= MAXIMUM_RETRY_ALLOWED;
 }
+
+export function isHttpUrl(value: string | undefined | null) {
+  if (!value) return undefined;
+  return value.startsWith("http") ? value : undefined;
+}
+
+export function isDataUri(value: string | null | undefined) {
+  if (!value) return undefined;
+  console.log(value);
+  return value.trim().startsWith("data") ? value : undefined;
+}
+
+export function isImageUrl(value: string | null | undefined) {
+  if (!isHttpUrl(value) && !isDataUri(value)) return undefined;
+  return {
+    imageUrl: isHttpUrl(value),
+    imageUri: isDataUri(value),
+  };
+}
