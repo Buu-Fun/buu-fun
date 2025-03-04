@@ -6,8 +6,8 @@ import {
   RedeemVoucherMutation,
 } from "@/gql/documents/creative-engine";
 import {
-  GetMyCreditsQuery as TGetMyCreditsQuery,
   GetMyCreditsQueryVariables,
+  GetMyCreditsQuery as TGetMyCreditsQuery,
   RedeemVoucherMutation as TRedeemVoucherMutation,
   RedeemVoucherMutationVariables as TRedeemVoucherMutationVariables,
 } from "@/gql/types/graphql";

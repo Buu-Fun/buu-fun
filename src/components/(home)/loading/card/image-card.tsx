@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
-import { Mesh, TextureLoader, DoubleSide } from "three";
 import { RectangleRounded } from "@/lib/helpers/threejs/rectangle-rounded";
+import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
+import { useEffect, useMemo, useRef } from "react";
+import { DoubleSide, Mesh, TextureLoader } from "three";
 import { getPositionByIndex, getRotationByIndex } from "./get-positions";
 
 export default function ImageCard({
@@ -20,7 +20,12 @@ export default function ImageCard({
 
   const texture = useMemo(() => {
     const loader = new TextureLoader();
-    const tex = loader.load(imageUrl);
+    const tex = loader.load(
+      imageUrl,
+      () => console.log(`Loaded: ${imageUrl}`),
+      undefined,
+      (error) => console.error(`Texture loading failed for ${imageUrl}`, error),
+    );
     tex.anisotropy = 4;
     return tex;
   }, [imageUrl]);
@@ -33,13 +38,12 @@ export default function ImageCard({
   const x = radius * Math.sin(phi) * Math.cos(theta);
   const y = radius * Math.sin(phi) * Math.sin(theta);
   const z = radius * Math.cos(phi) + 0.5; // Small offset to avoid center congestion
-  console.log(index, z);
   useFrame(() => {
     if (!meshRef.current) return;
 
     if (progress < 100) {
       meshRef.current.rotation.z += 0.01;
-    //   meshRef.current.rotation.x -= 0.08;
+      //   meshRef.current.rotation.x -= 0.08;
       meshRef.current.rotation.y -= 0.05;
     } else {
     }
@@ -111,7 +115,7 @@ export default function ImageCard({
     }, [meshRef, progress]);
 
     return () => ctx.revert();
-  }, [progress, meshRef, x, y, z,index]);
+  }, [progress, meshRef, x, y, z, index]);
   return (
     <mesh
       ref={meshRef}
