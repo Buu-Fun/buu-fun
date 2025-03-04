@@ -74,7 +74,7 @@ export default function ImageGlobeV3({ progress }: { progress: number }) {
           total={imageUrls.length}
         />
       )),
-    [progress]
+    [progress],
   );
 
   return <group ref={groupRef}>{images}</group>;

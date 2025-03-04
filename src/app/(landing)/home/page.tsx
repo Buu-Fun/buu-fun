@@ -25,7 +25,7 @@ export default function HomePage() {
     <div className="">
       <div className="w-full  h-screen relative ">
         <Canvas
-          camera={{ position:[0, 0, 20], fov: 60 }}
+          camera={{ position: [0, 0, 20], fov: 60 }}
           className="w-full h-full z-10 relative"
         >
           <ambientLight intensity={1} />
@@ -48,8 +48,8 @@ export default function HomePage() {
           Unleash Your Imagination in 3D
         </h1>
         <p className="text-xl max-w-2xl text-center">
-          Transform ideas into fully animated 3D models with BUU.FUN&apos;s advanced
-          AI technology
+          Transform ideas into fully animated 3D models with BUU.FUN&apos;s
+          advanced AI technology
         </p>
 
         <Button className="px-2 group py-2 h-[40px] rounded-[10px]">

@@ -1,7 +1,7 @@
+import "@/app/globals.css";
 import { constructMetadata } from "@/lib/construct-metadata";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
-import "@/app/globals.css";
 const BricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
   subsets: ["latin"],

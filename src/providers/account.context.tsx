@@ -65,8 +65,8 @@ export const AuthenticationProvider = ({ children }: Props) => {
   const { identityToken } = useIdentityToken();
   const { wallets: solanaWallets, ready: isSolanaReady } = useSolanaWallets();
   const { wallets: evmWallets, ready: isEVMReady } = useWallets();
-  const EvmWalletDep = evmWallets.length > 0 ? isEVMReady : null
-  const SolanaWalletsDep = solanaWallets.length > 0 ? isSolanaReady : null
+  const EvmWalletDep = evmWallets.length > 0 ? isEVMReady : null;
+  const SolanaWalletsDep = solanaWallets.length > 0 ? isSolanaReady : null;
 
   // Process wallets and set them in state
   useEffect(() => {

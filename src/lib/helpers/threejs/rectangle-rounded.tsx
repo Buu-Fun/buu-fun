@@ -26,11 +26,11 @@ export function RectangleRounded(w: number, h: number, r: number, s: number) {
   geometry.setIndex(new THREE.BufferAttribute(new Uint16Array(indices), 1));
   geometry.setAttribute(
     "position",
-    new THREE.BufferAttribute(new Float32Array(positions), 3)
+    new THREE.BufferAttribute(new Float32Array(positions), 3),
   );
   geometry.setAttribute(
     "uv",
-    new THREE.BufferAttribute(new Float32Array(uvs), 2)
+    new THREE.BufferAttribute(new Float32Array(uvs), 2),
   );
 
   return geometry;

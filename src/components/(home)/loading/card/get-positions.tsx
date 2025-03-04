@@ -42,12 +42,12 @@ export const getPositionByIndex = (index: number) => {
       break;
     }
     case 10: {
-        return { x: -8, y: 5, z: 8 };
-        break;
+      return { x: -8, y: 5, z: 8 };
+      break;
     }
     case 10: {
-        return { x: -0, y: 5, z: 8 };
-        break;
+      return { x: -0, y: 5, z: 8 };
+      break;
     }
     default: {
       return { x: 0, y: 0, z: 8 };
