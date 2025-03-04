@@ -53,3 +53,7 @@ export { ThreeDCubeFour, ThreeDCubeOne, ThreeDCubeThree, ThreeDCubeTwo };
 import profileIcon from "./profile-icon.png";
 
 export { profileIcon };
+
+import cyberGuy from "@/assets/Image/loader-image/cyber-sword-guy.png";
+
+export { cyberGuy };
