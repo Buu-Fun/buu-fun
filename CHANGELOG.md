@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.26](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.25...buu-fun-v0.1.26) (2025-03-04)
+
+
+### ✨ Features
+
+* added loading transition in animation ([4e1cd27](https://github.com/muadpn/buu-fun/commit/4e1cd27d87ca9dd3a4c4a01494650bc1e7fce219))
+
 ## [0.1.25](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.24...buu-fun-v0.1.25) (2025-03-03)
 
 
