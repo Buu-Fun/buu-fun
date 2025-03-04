@@ -46,7 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${BricolageGrotesque.className} antialiased dark `}>
+      <body className={`${BricolageGrotesque.className} antialiased dark `}>
         {children}
       </body>
     </html>

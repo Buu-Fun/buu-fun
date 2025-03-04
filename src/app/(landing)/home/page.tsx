@@ -25,7 +25,7 @@ export default function HomePage() {
     <div className="">
       <div className="w-full  h-screen relative ">
         <Canvas
-          camera={{ position: [0, 0, 20], fov: 60 }}
+          camera={{ position:[0, 0, 20], fov: 60 }}
           className="w-full h-full z-10 relative"
         >
           <ambientLight intensity={1} />

@@ -1,7 +1,7 @@
 "use client";
 import { useFrame, useThree } from "@react-three/fiber";
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Group } from "three";
 import ImageCard from "./card/image-card";
 import { imageUrls } from "./image-data";
@@ -24,7 +24,7 @@ export default function ImageGlobeV3({ progress }: { progress: number }) {
         });
 
         // Capture the current rotation values
-        const {  } = groupRef.current.rotation;
+        const {} = groupRef.current.rotation;
 
         // Smoothly transition the rotation to zero
         gsap.to(groupRef.current.rotation, {
@@ -63,23 +63,9 @@ export default function ImageGlobeV3({ progress }: { progress: number }) {
     }
   });
 
-//   const images = useMemo(
-//     () =>
-//       imageUrls.map((item, index) => (
-//         <ImageCard
-//           progress={progress}
-//           key={`${index}-${item}`}
-//           index={index}
-//           imageUrl={item}
-//           total={imageUrls.length}
-//         />
-//       )),
-//     [progress]
-//   );
-
-  return (
-    <group ref={groupRef}>
-      {imageUrls.map((item, index) => (
+  const images = useMemo(
+    () =>
+      imageUrls.map((item, index) => (
         <ImageCard
           progress={progress}
           key={`${index}-${item}`}
@@ -87,7 +73,9 @@ export default function ImageGlobeV3({ progress }: { progress: number }) {
           imageUrl={item}
           total={imageUrls.length}
         />
-      ))}
-    </group>
+      )),
+    [progress]
   );
+
+  return <group ref={groupRef}>{images}</group>;
 }
