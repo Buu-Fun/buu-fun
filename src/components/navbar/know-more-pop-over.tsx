@@ -20,7 +20,7 @@ import Link from "next/link";
 
 export default function KnowMorePopover() {
   return (
-    <Popover defaultOpen>
+    <Popover >
       <PopoverTrigger>
         <Image
           className="w-6 h-6"
