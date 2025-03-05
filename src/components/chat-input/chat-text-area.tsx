@@ -19,11 +19,43 @@ export default function ChatTextArea() {
         textarea.style.height = `${textarea.scrollHeight}px`;
       }
     };
-    // Add event listener to the textarea
+    const handleFocus = () => {
+      setTimeout(() => {
+        if (window.screen.width > 680) return;
+        if (textareaRef.current) {
+          textareaRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "end",
+          });
+        }
+      }, 500);
+    };
+
+    const handleFocusOut = () => {
+      setTimeout(() => {
+        if (window.screen.width > 680) return;
+        // Scroll to bottom of the page
+        if (textareaRef.current) {
+          textareaRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+            inline: "end",
+          });
+        }
+      }, 500);
+    };
+
     const textarea = textareaRef.current;
+
     textarea?.addEventListener("input", adjustHeight);
+    textarea?.addEventListener("focusin", handleFocus);
+
+    textarea?.addEventListener("focusout", handleFocusOut);
     return () => {
       textarea?.removeEventListener("input", adjustHeight);
+      textarea?.removeEventListener("focusin", handleFocus);
+      textarea?.removeEventListener("focusout", handleFocusOut);
     };
   }, []);
 
@@ -51,7 +83,7 @@ export default function ChatTextArea() {
         dispatch(setInputQuery(value));
       }}
       placeholder="What do you want to see..."
-      className="w-full  py-2  max-h-[200px] scrollbar-w-2 scrollbar-track-orange-lighter scrollbar-thumb-orange scrollbar-thumb-rounded  bg-transparent rounded-md resize-none text-base placeholder:text-muted-foreground/40 focus:outline-none scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-orange-100"
+      className="w-full  py-1 md:py-2  max-h-[200px] scrollbar-w-2 scrollbar-track-orange-lighter scrollbar-thumb-orange scrollbar-thumb-rounded  bg-transparent rounded-md resize-none text-base placeholder:text-muted-foreground/40 focus:outline-none scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-orange-100"
     />
   );
 }

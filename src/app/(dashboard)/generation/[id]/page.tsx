@@ -18,7 +18,7 @@ export default async function NewChatPage({ params }: TNewChatPage) {
         <ThreadsWrapper threadId={threadId} />
 
         {/* Bottom input section */}
-        <div className="mr-[0.15vw]">
+        <div className="lg:mr-[0.15vw]">
           <BottomBarContainer
             action={{
               threadId: threadId,
