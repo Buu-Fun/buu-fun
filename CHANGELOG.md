@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.27](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.26...buu-fun-v0.1.27) (2025-03-04)
+
+
+### 🐛 Bugfixes
+
+* fixed image cards are not displaying on firefox because of geometry indexes ([5348f70](https://github.com/muadpn/buu-fun/commit/5348f7071f55867cfbd999ec93d7c371e55e678a))
+
+
+### 👽 Miscellaneous
+
+* **ui:** fixed builded and formatted the code-base ([dc5c46e](https://github.com/muadpn/buu-fun/commit/dc5c46ef5f09bdc482d6db2b45b067663a6c5099))
+
 ## [0.1.26](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.25...buu-fun-v0.1.26) (2025-03-04)
 
 
