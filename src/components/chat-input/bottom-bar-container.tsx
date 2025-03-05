@@ -6,11 +6,14 @@ export type TBottomBarContainer = {
 };
 export default function BottomBarContainer({ action }: TBottomBarContainer) {
   return (
-    <div className="w-full px-1 py-1  max-w-2xl mx-auto ">
+    <div className="w-full px-1 py-1 mb-1  max-w-2xl mx-auto ">
       <SettingsBar />
-      <div className="p-4  mb-2 lg:mb-12 rounded-[20px]  shadow-buu-inner bg-buu">
+      <div className="p-4  mb-2  rounded-[20px]  shadow-buu-inner bg-buu">
         <ChatForm action={action} />
         <ImageDragAndDrop />
+      </div>
+      <div className="flex items-center justify-center">
+        <p className="text-[12px] font-medium text-muted-foreground/80">Each 3D creation will cost only $0.25</p>
       </div>
     </div>
   );

@@ -2,10 +2,10 @@ import { MagicPenIcon } from "@/assets/icons";
 import LogoutIcon from "@/assets/icons/log-out-Icon";
 import SettingsIcon from "@/assets/icons/settings-icon";
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
 import { profilePicture } from "@/lib/dice-bear";
 import { useAuthentication } from "@/providers/account.context";
@@ -13,13 +13,13 @@ import { ArrowDown, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerDescription,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
 } from "../ui/drawer";
 import CopyAddress from "./copy-address";
 import KnowMoreContent from "./know-more-content";
