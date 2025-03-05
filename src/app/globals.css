@@ -190,6 +190,7 @@ body {
 .bg-overlay-primary {
   /* border-radius: 200px; */
   opacity: 0.8;
+  /* D4FFFE */
   /* background: "#6A69D5"; */
   background: -moz-linear-gradient(180deg, "#6A69D5" 0%, "#D4D4FF" 100%);
   background: -webkit-linear-gradient(180deg, "#6A69D5" 0%, "#D4D4FF" 100%);
