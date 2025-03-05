@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.29](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.28...buu-fun-v0.1.29) (2025-03-05)
+
+
+### 🐛 Bugfixes
+
+* mobile navigation scroll up when focused ([2be483d](https://github.com/muadpn/buu-fun/commit/2be483dae3f6dd126806b1f2cf1d8e8db082c89a))
+
 ## [0.1.28](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.27...buu-fun-v0.1.28) (2025-03-05)
 
 
