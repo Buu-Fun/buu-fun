@@ -49,8 +49,17 @@ export type ChatMessage = {
   subThreads: TSubThread[];
 };
 
+export type ImageData = {
+  file: File;
+  url: string;
+  name: string;
+  size: number;
+  type: string;
+};
 export type ChatState = {
   inputQuery: string;
+  inputImageUrl: string | null;
+  inputFile: ImageData | null;
   currentSubThreadIndex: number;
   currentGenRequestIndex: number;
   draggingImage?: string;

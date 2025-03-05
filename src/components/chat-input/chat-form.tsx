@@ -18,6 +18,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { TBottomBarContainer } from "./bottom-bar-container";
 import ChatTextArea from "./chat-text-area";
+import DragImageCard from "./drag-image-card";
 
 export default function ChatForm({ action }: TBottomBarContainer) {
   const { identityToken, login } = useAuthentication();
@@ -73,7 +74,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     if (isChatLoading) {
       if (isOverAllRequestLimitReached(isChatPending.totalRequest)) {
         return toast.error(
-          "Whoa, you're on fire 🔥. You've hit the limit of 4 creations.",
+          "Whoa, you're on fire 🔥. You've hit the limit of 4 creations."
         );
       }
       return toast.error("Hold on!, Still generating your model...");
@@ -105,6 +106,13 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       onSubmit={handleSubmit}
       className="relative flex-col gap-1 flex items-start w-full"
     >
+        {/* Other components */}
+        <DragImageCard
+          className={""}
+          onImageSelected={() => {
+            toast.success("image has been selected/");
+          }}
+        />
       <ChatTextArea />
       <div className="w-full  flex justify-between">
         <ImageIcon />
