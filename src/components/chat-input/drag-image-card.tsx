@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setInputFile } from "@/lib/redux/features/chat";
+import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
 
 interface ImageData {
   file: File;
