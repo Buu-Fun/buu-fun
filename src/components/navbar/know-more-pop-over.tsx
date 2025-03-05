@@ -1,26 +1,22 @@
-import React from "react";
-import {
-  Popover,
-  PopoverAnchor,
-  PopoverContent,
-  PopoverTrigger,
-} from "../ui/popover";
-import Image from "next/image";
+import { DiscordIcon } from "@/assets/icons";
+import DocumentationIcon from "@/assets/icons/documenation-icon";
 import QuestionIcon from "@/assets/icons/Icon.png";
-import { BookOpenText } from "lucide-react";
-import { DiscordIcon, InstagramIcon } from "@/assets/icons";
-import TwitterIcon from "@/assets/icons/TwitterIcon";
-import TelegramIcon from "@/assets/icons/telegram-icon";
+import MailIcon from "@/assets/icons/mail-icon";
 import TelegramIconWhite from "@/assets/icons/Telegram-icon-white";
 import TikTokIcon from "@/assets/icons/tictok-icon";
-import MailIcon from "@/assets/icons/mail-icon";
+import TwitterIcon from "@/assets/icons/TwitterIcon";
 import YoutubePlayIcon from "@/assets/icons/youtube-play";
-import DocumentationIcon from "@/assets/icons/documenation-icon";
+import Image from "next/image";
 import Link from "next/link";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger
+} from "../ui/popover";
 
 export default function KnowMorePopover() {
   return (
-    <Popover >
+    <Popover>
       <PopoverTrigger>
         <Image
           className="w-6 h-6"
