@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.28](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.27...buu-fun-v0.1.28) (2025-03-05)
+
+
+### ✨ Features
+
+* added popover component for the knowmore tag ([e47ea1e](https://github.com/muadpn/buu-fun/commit/e47ea1eba0bcad2cd7eec44c41de8d464b852ce7))
+
+
+### 🐛 Bugfixes
+
+* linted and removed unused variables ([bc20076](https://github.com/muadpn/buu-fun/commit/bc2007604a3167ca696925441a02ef19c0d5ed07))
+* removed default open for the pop-over menu ([79de79d](https://github.com/muadpn/buu-fun/commit/79de79d9eea1320a9a29790d5c93ebe5ec867075))
+
 ## [0.1.27](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.26...buu-fun-v0.1.27) (2025-03-04)
 
 
