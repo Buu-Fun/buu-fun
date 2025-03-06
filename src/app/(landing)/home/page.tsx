@@ -1,11 +1,12 @@
 "use client";
 
+import BringYourIdeasSection from "@/components/(home)/hero/hero-section-content";
 import HeroLoadingWrapper from "@/components/(home)/loading/loading-hero-wrapper";
-
 export default function HomePage() {
   return (
-    <HeroLoadingWrapper>
-      <div className=""></div>
-    </HeroLoadingWrapper>
+    <main className="h-full w-full">
+      <HeroLoadingWrapper />
+      <BringYourIdeasSection />
+    </main>
   );
 }

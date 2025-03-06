@@ -1,17 +1,20 @@
 "use client";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 
-import { MagicPenIcon, StarIcon } from "@/assets/icons";
+import { StarIcon } from "@/assets/icons";
+import MultiArrowDownIcon from "@/assets/icons/mutli-arrow-down-icon";
 import ImageGlobeV3 from "@/components/(home)/loading/image-globe.v3";
 import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
+import MagicPenTitle from "../elements/magic-pen-title";
 
 export default function HeroLoadingWrapper({
   children,
 }: {
-  children: ReactNode;
+  children?: ReactNode;
 }) {
   const [progress, setProgress] = useState<number>(70);
 
@@ -26,7 +29,7 @@ export default function HeroLoadingWrapper({
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="">
+    <div className="w-full h-full">
       <div className="w-full  h-screen relative ">
         <Canvas
           camera={{ position: [0, 0, 20], fov: 60 }}
@@ -47,31 +50,38 @@ export default function HeroLoadingWrapper({
         </div>
       </div>
       <motion.div
-        className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-white pointer-events-none"
+        className="absolute top-0 left-0 w-full h-full flex flex-col items-center z-10 justify-center text-white "
         initial={{ opacity: 0 }}
         animate={{ opacity: progress >= 100 ? 1 : 0 }}
         transition={{ duration: 2.5, delay: 1.5 }}
       >
-        <div className="flex items-center justify-center text-blue-300 gap-2 ">
-          <div className="w-5 h-5 ">
-            <MagicPenIcon />
-          </div>
-          <p>Welcome to BUU.FUN</p>
-        </div>
-        <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4">
-          Unleash Your Imagination in 3D
+        <MagicPenTitle className="flex items-center justify-center text-blue-300 gap-2" title="Welcome to BUU.FUN" />
+        <h1 className="text-2xl mt-6 md:text-3xl lg:text-4xl xl:text-7xl text-center font-bold hero-gradient-text mb-8 ">
+          Unleash Your <br /> Imagination in 3D
         </h1>
         <p className="text-xl max-w-2xl text-center">
           Transform ideas into fully animated 3D models with BUU.FUN&apos;s
           advanced AI technology
         </p>
-
-        <Button className="px-2 group py-2 h-[40px] rounded-[10px]">
-          <div className="w-6 h-6 icon-blue-with-shadow blue-icon-gradient-background blue-icon-filter-effect rounded-md flex items-center justify-center">
-            <StarIcon />
-          </div>
-          Try Now
-        </Button>
+        <div className="flex items-center gap-4 text-white/40 mt-10">
+          <Button className="px-2 group py-2 h-[40px] rounded-[10px]">
+            <div className="w-6 h-6 icon-blue-with-shadow blue-icon-gradient-background blue-icon-filter-effect rounded-md flex items-center justify-center">
+              <StarIcon />
+            </div>
+            Try Now
+          </Button>
+          <Link href={'/home#bring-your-ideas'} scroll className="flex items-center pointer-events-auto justify-center gap-1 ">
+            <p className="font-medium">Scroll to explore</p>
+            <div className="flex relative w-[18px] h-[18px] flex-col -top-1">
+              <div className="flex w-full  text-white/40">
+                <MultiArrowDownIcon />
+              </div>
+              <div className="flex text-white w-full relative -top-2">
+                <MultiArrowDownIcon />
+              </div>
+            </div>
+          </Link>
+        </div>
       </motion.div>
       {progress >= 100 ? children : null}
     </div>
