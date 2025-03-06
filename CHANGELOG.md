@@ -1,5 +1,44 @@
 # Changelog
 
+## [0.1.29](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.28...buu-fun-v0.1.29) (2025-03-05)
+
+
+### 🐛 Bugfixes
+
+* mobile navigation scroll up when focused ([2be483d](https://github.com/muadpn/buu-fun/commit/2be483dae3f6dd126806b1f2cf1d8e8db082c89a))
+
+## [0.1.28](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.27...buu-fun-v0.1.28) (2025-03-05)
+
+
+### ✨ Features
+
+* added popover component for the knowmore tag ([e47ea1e](https://github.com/muadpn/buu-fun/commit/e47ea1eba0bcad2cd7eec44c41de8d464b852ce7))
+
+
+### 🐛 Bugfixes
+
+* linted and removed unused variables ([bc20076](https://github.com/muadpn/buu-fun/commit/bc2007604a3167ca696925441a02ef19c0d5ed07))
+* removed default open for the pop-over menu ([79de79d](https://github.com/muadpn/buu-fun/commit/79de79d9eea1320a9a29790d5c93ebe5ec867075))
+
+## [0.1.27](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.26...buu-fun-v0.1.27) (2025-03-04)
+
+
+### 🐛 Bugfixes
+
+* fixed image cards are not displaying on firefox because of geometry indexes ([5348f70](https://github.com/muadpn/buu-fun/commit/5348f7071f55867cfbd999ec93d7c371e55e678a))
+
+
+### 👽 Miscellaneous
+
+* **ui:** fixed builded and formatted the code-base ([dc5c46e](https://github.com/muadpn/buu-fun/commit/dc5c46ef5f09bdc482d6db2b45b067663a6c5099))
+
+## [0.1.26](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.25...buu-fun-v0.1.26) (2025-03-04)
+
+
+### ✨ Features
+
+* added loading transition in animation ([4e1cd27](https://github.com/muadpn/buu-fun/commit/4e1cd27d87ca9dd3a4c4a01494650bc1e7fce219))
+
 ## [0.1.25](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.24...buu-fun-v0.1.25) (2025-03-03)
 
 
