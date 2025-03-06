@@ -54,3 +54,8 @@ export {
   ToonIcon,
   VoxelIcon,
 };
+
+import DiscordIcon from "./discord";
+import InstagramIcon from "./Instagram";
+
+export { DiscordIcon,InstagramIcon };

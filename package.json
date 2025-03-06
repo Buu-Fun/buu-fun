@@ -1,6 +1,6 @@
 {
   "name": "buu-fun",
-  "version": "0.1.27",
+  "version": "0.1.30",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,6 +21,7 @@
     "@mantine/hooks": "^7.17.0",
     "@nextui-org/react": "^2.6.11",
     "@privy-io/react-auth": "^2.4.5",
+    "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-popover": "^1.1.6",
@@ -53,10 +54,12 @@
     "graphql": "^16.10.0",
     "graphql-request": "^7.1.2",
     "gsap": "^3.12.7",
+    "lenis": "^1.2.1",
     "lucide-react": "^0.475.0",
     "motion": "^12.4.5",
     "next": "15.1.7",
     "react": "^19.0.0",
+    "react-compare-slider": "^3.1.0",
     "react-dom": "^19.0.0",
     "react-dropzone": "^14.3.8",
     "react-hook-form": "^7.54.2",
@@ -66,6 +69,7 @@
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.169.0",
+    "vaul": "^1.1.2",
     "zod": "^3.24.2"
   },
   "devDependencies": {

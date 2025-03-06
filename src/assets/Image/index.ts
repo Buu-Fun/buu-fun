@@ -57,3 +57,9 @@ export { profileIcon };
 import cyberGuy from "@/assets/Image/loader-image/cyber-sword-guy.png";
 
 export { cyberGuy };
+
+import HomeBackground from "@/assets/Image/home/background-cyber.png";
+import MutantAlien from "@/assets/Image/home/mutant-alien.png";
+import MutantAlienMesh from "@/assets/Image/home/mutant-alien-mesh.png";
+
+export { HomeBackground, MutantAlien,MutantAlienMesh };
