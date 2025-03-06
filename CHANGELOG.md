@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.30](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.29...buu-fun-v0.1.30) (2025-03-06)
+
+
+### ✨ Features
+
+* added bring your own section ([25e7d31](https://github.com/muadpn/buu-fun/commit/25e7d3127fb0266e7b1b4abb950577edd1cb629a))
+* added know-more section ([9e7a136](https://github.com/muadpn/buu-fun/commit/9e7a136e09f5fc43a98ad792cb5c538e5878fbf8))
+
 ## [0.1.29](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.28...buu-fun-v0.1.29) (2025-03-05)
 
 
