@@ -1,6 +1,7 @@
 "use client";
 import { ArrowUp, ImageIcon } from "@/assets/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getPresignedUrl } from "@/lib/react-query/image-upload";
 import { queryClient } from "@/lib/react-query/query-client";
 import { generateSubThreads } from "@/lib/react-query/threads";
 import {
@@ -18,14 +19,13 @@ import {
 } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
 import { useMutation } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { Loader2, TableRowsSplit } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 import { TBottomBarContainer } from "./bottom-bar-container";
 import ChatTextArea from "./chat-text-area";
 import DragImageCard, { ImageData } from "./drag-image-card";
-import { getPresignedUrl } from "@/lib/react-query/image-upload";
 
 export default function ChatForm({ action }: TBottomBarContainer) {
   const { identityToken, login } = useAuthentication();
@@ -38,6 +38,10 @@ export default function ChatForm({ action }: TBottomBarContainer) {
   const isChatPending = useAppSelector(isSubThreadGenerating);
   // Mutation for creating a new chat
   const { mutate: createNewChat, isPending: isCreatePending } = useMutation({
+    onMutate() {
+      toast.dismiss();
+      toast.loading("Generating model...", { duration: 2000 });
+    },
     mutationFn: generateSubThreads,
     onSuccess(data) {
       dispatch(setNewThreadId(data.threadId));
@@ -53,7 +57,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     useMutation({
       mutationFn: generateSubThreads,
       onSuccess(data) {
-        toast.loading("Generating new model...", { duration: 8000 });
+        toast.loading("Generating your model...", { duration: 8000 });
         dispatch(pushNewSubThreads(data));
         dispatch(clearInput());
         queryClient.invalidateQueries({
@@ -62,7 +66,6 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       },
       onError(error) {
         toast.error("Our servers are busy, Please try again");
-        console.log(error);
       },
     });
 
@@ -75,58 +78,67 @@ export default function ChatForm({ action }: TBottomBarContainer) {
   const { mutateAsync: getImagePresignedUrl } = useMutation({
     mutationFn: getPresignedUrl,
     async onSuccess(data) {
-      toast.success(`GOT PRESIGNED URL`);
-      console.log(data.presignedUrl);
-
-      const uploadFile = await fetch(data.presignedUrl, {
-        method: "PUT",
-      });
+      toast.loading("Uploading image..");
     },
     onError(error) {
       toast.error(error.message);
     },
   });
-  const handleImageGeneration = async (
+
+  const handleImageUploadUrl = async (
     ImageData: ImageData,
     accessToken: string
   ) => {
-    const file = await blobUrlToFile(ImageData.url, ImageData.name);
-    toast.success(`Received File ${file.name}`);
-    const contentType = getAllowedContentTypeMaps(file.type);
-    if (!contentType) {
-      toast.success("This Content type is not supported yet");
-      return;
-    }
+    try {
+      toast.loading("Preparing image for uploading....");
+      const file = await blobUrlToFile(ImageData.url, ImageData.name);
+      if (!file?.name) {
+        toast.dismiss();
+        toast.error("Failed to retrieve file");
+        return null;
+      }
+      const contentType = getAllowedContentTypeMaps(file.type);
+      if (!contentType) {
+        toast.dismiss();
+        toast.error("This Content type is not supported yet");
+        return null;
+      }
 
-    const data = await getImagePresignedUrl({
-      contentType: contentType,
-      accessToken,
-    });
+      const data = await getImagePresignedUrl({
+        contentType: contentType,
+        accessToken,
+      });
 
-    if (!data) {
+      if (!data) {
+        toast.dismiss();
+        toast.error("Failed to upload the image");
+        return null;
+      }
+      toast.dismiss();
+      toast.loading("Uploading file...");
+      const uploadFile = await fetch(data.presignedUrl, {
+        method: "PUT",
+        body: file,
+        headers: {
+          "Content-Type": file.type,
+        },
+      });
+
+      if (uploadFile.status !== 200) {
+        toast.dismiss();
+        toast.error("Failed to upload the image");
+        return null;
+      }
+      dispatch(setInputFile(null));
+      URL.revokeObjectURL(ImageData.url);
+      return data.url;
+    } catch (error) {
       toast.error("Failed to upload the image");
-      return;
+      console.log(error);
+      return null;
+    } finally {
+      toast.dismiss();
     }
-
-    // Prepare FormData
-    const formData = new FormData();
-    formData.append("file", file);
-    const uploadFile = await fetch(data.presignedUrl, {
-      method: "PUT",
-      body: formData,
-      headers: {
-        "Content-Type": file.type,
-      },
-    });
-    if (uploadFile.status !== 200) {
-      console.log(uploadFile.status);
-      console.log(await uploadFile.json());
-    }
-    const response = await uploadFile.json();
-    console.log(response);
-    // createExistingChat({
-
-    // })
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -149,28 +161,31 @@ export default function ChatForm({ action }: TBottomBarContainer) {
       login();
       return;
     }
+    let imageUrl: string | null = null;
+    if (inputFile?.url) {
+      imageUrl = await handleImageUploadUrl(inputFile, identityToken);
+      console.log("GOT THE URL", imageUrl);
+      // stopper condition, because error message is done in `handleImageUploadUrl` already
+      if (!imageUrl) {
+        return;
+      }
+    }
 
     // Handle based on action type
     if (action === "new_chat") {
-      if (inputFile?.url) {
-        await handleImageGeneration(inputFile, identityToken);
-        return;
-      }
       createNewChat({
         accessToken: identityToken ?? "",
         prompt: prompt,
         style: style,
+        imageUrl,
       });
     } else if (typeof action !== "string") {
-      if (inputFile?.url) {
-        await handleImageGeneration(inputFile, identityToken);
-        return;
-      }
       createExistingChat({
         accessToken: identityToken ?? "",
         prompt,
         style,
         threadId: action.threadId,
+        imageUrl,
       });
     }
   };

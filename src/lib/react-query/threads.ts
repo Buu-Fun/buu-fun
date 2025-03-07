@@ -21,7 +21,7 @@ import {
 } from "./threads-types";
 
 type TGenerateSubThreads = {
-  prompt: string;
+  prompt: string
   style?: TThreeDStyles;
   threadId?: string;
   accessToken: string;
@@ -41,7 +41,7 @@ export async function generateSubThreads({
   >(
     GenerateSubthreadMutation,
     {
-      prompt,
+      prompt: prompt,
       style: (style as SubthreadStyle) ?? null,
       imageUrl: imageUrl ?? null,
       threadId,
