@@ -161,7 +161,7 @@ export default function InteractiveDropzone({
     <>
       <div
         {...getRootProps()}
-        className="w-[150%] -z-10 h-[150%]  absolute -top-24 -left-[25%] p-24"
+        className="w-[150%] -z-10 h-[150%]   absolute -top-24 -left-[25%] p-24"
       />
       <AnimatePresence>
         {isDraggingOver && (

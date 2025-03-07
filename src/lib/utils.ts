@@ -1,12 +1,12 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-import { DataMuseError } from "./class/data-muse-error";
-import { TDataMuseWord } from "./fetcher/query/query-suggestion-api";
+import { AllowedContentType } from "@/constants/content-type.config";
 import {
   MAXIMUM_REQUEST_LIMIT,
   MAXIMUM_RETRY_ALLOWED,
 } from "@/constants/request.config";
-import { AllowedContentType } from "@/constants/content-type.config";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { DataMuseError } from "./class/data-muse-error";
+import { TDataMuseWord } from "./fetcher/query/query-suggestion-api";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

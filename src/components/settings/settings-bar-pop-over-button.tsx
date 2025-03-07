@@ -26,11 +26,11 @@ export default function SettingsBarPopOver() {
   return (
     <div className="">
       <Popover
-        onOpenChange={(value) => dispatch(setSettingsPopoverChange(!value))}
+        onOpenChange={(value) => dispatch(setSettingsPopoverChange(value))}
         open={isSettingsPopoverOpen.isPopoverOpen}
       >
         <PopoverTrigger asChild className="">
-          <button className="flex items-center justify-center ml-1 ">
+          <button  className="flex items-center justify-center ml-1 ">
             <ChevronUp
               className={cn(
                 "-rotate-180 transition-transform duration-300 ease-in-out",

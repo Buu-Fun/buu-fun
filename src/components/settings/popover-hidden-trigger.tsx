@@ -1,15 +1,18 @@
 "use client";
-import React from "react";
 
-import { useAppDispatch } from "@/hooks/redux";
-import { toggleCreateTodoDrawerOpen } from "@/lib/redux/features/settings";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import {
+  setSettingsPopoverChange
+} from "@/lib/redux/features/settings";
 export default function PopoverHiddenTrigger() {
   const dispatch = useAppDispatch();
+  const isSettingsPopoverOpen = useAppSelector((state) => state.settings);
 
   return (
     <button
+      disabled={isSettingsPopoverOpen.isPopoverOpen}
       onClick={() => {
-        dispatch(toggleCreateTodoDrawerOpen());
+        dispatch(setSettingsPopoverChange(true));
       }}
       className="absolute z-20 w-full h-full "
     ></button>
