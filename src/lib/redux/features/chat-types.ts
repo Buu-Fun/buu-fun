@@ -50,7 +50,6 @@ export type ChatMessage = {
 };
 
 export type ImageData = {
-  file: File;
   url: string;
   name: string;
   size: number;
