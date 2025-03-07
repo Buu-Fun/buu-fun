@@ -7,6 +7,7 @@ export default function ChatTextArea() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const value = useAppSelector((state) => state.chat.inputQuery);
+  const isImage = useAppSelector((state) => state.chat.inputFile?.url);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -76,6 +77,7 @@ export default function ChatTextArea() {
     <textarea
       rows={2}
       ref={textareaRef}
+      disabled={isImage?.length ? true : false}
       onKeyDown={handleKeyDown}
       value={value}
       onChange={(e) => {

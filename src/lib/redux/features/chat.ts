@@ -3,6 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { InfiniteData } from "@tanstack/react-query";
 import {
   ChatState,
+  ImageData,
   TAllSubThreadsResponse,
   TMediaRequest,
   TSubThread,
@@ -13,6 +14,8 @@ import {
 
 const initialState: ChatState = {
   inputQuery: "",
+  inputImageUrl: "",
+  inputFile: null,
   currentGenRequestIndex: 0,
   currentSubThreadIndex: 0,
   subThreads: [],
@@ -26,6 +29,12 @@ const ChatSlice = createSlice({
   name: "Chat",
   initialState,
   reducers: {
+    setInputFile(state, action: PayloadAction<ImageData | null>) {
+      state.inputFile = action.payload;
+    },
+    setInputImageUrl(state, action: PayloadAction<string>) {
+      state.inputImageUrl = action.payload;
+    },
     pushNewSubThreads(state, action: PayloadAction<TSubthreadV1>) {
       state.subThreads.push(action.payload);
     },
@@ -44,7 +53,7 @@ const ChatSlice = createSlice({
         action: PayloadAction<{
           subThreadId: string;
           Media: TSubThreadsMedia[];
-        }>,
+        }>
       ) {
         state.genRequest[action.payload.subThreadId] = action.payload.Media;
       },
@@ -67,13 +76,13 @@ const ChatSlice = createSlice({
             return eachPage.items.map(
               (item): TSubthreadV1 => ({
                 ...item,
-              }),
+              })
             );
           })
           .sort(
             (a, b) =>
               new Date(a.createdAt as string).getTime() -
-              new Date(b.createdAt as string).getTime(),
+              new Date(b.createdAt as string).getTime()
           );
 
         return {
@@ -147,7 +156,7 @@ const ChatSlice = createSlice({
                 modelMesh: modRes.model_mesh,
                 status: modRes.status,
                 type: modRes.type,
-              }),
+              })
             ),
         }));
         return {
@@ -160,7 +169,7 @@ const ChatSlice = createSlice({
       reducer(state, action: PayloadAction<TSubThread>) {
         console.log("PAYLOAD", action.payload);
         const index = state.threads.subThreads.findIndex(
-          (fv) => fv._id === action.payload._id,
+          (fv) => fv._id === action.payload._id
         );
 
         if (index !== -1) {
@@ -225,6 +234,8 @@ export const {
   setSubThreadIndex,
   pushNewSubThreads,
   setNewGenRequest,
+  setInputFile,
+  setInputImageUrl,
 } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

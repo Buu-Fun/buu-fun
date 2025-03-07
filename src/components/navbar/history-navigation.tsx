@@ -1,13 +1,14 @@
+import { SheetClose } from "@/components/ui/sheet";
+import { useAppDispatch } from "@/hooks/redux";
 import { getAllThreads } from "@/lib/react-query/threads";
+import { setHistoryModel } from "@/lib/redux/features/settings";
 import { useAuthentication } from "@/providers/account.context";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { Ghost, Loader2, MessageCircle, TimerIcon } from "lucide-react";
-import { SheetClose } from "@/components/ui/sheet";
 import Link from "next/link";
-import { useAppDispatch } from "@/hooks/redux";
-import { setHistoryModel } from "@/lib/redux/features/settings";
+import { iconByTitle, TKey } from "../settings/styles-data";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 10 },
@@ -67,35 +68,48 @@ export default function HistoryNavigation() {
       animate="visible"
       variants={containerVariants}
     >
-      {data?.items.map((item) => (
-        <SheetClose key={item._id} asChild>
-          <motion.div
-            className="border-buu relative bg-buu flex flex-col gap-2 shadow-buu-muted p-3 rounded-xl backdrop-blur-10 "
-            variants={itemVariants}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.999 }}
-          >
-            <Link
-              onClick={() => {
-                dispatch(setHistoryModel(false));
-              }}
-              prefetch={false}
-              href={`/generation/${item._id}`}
-              className="w-full top-0 left-0 absolute  h-full"
-            />
-            <div className="flex items-center gap-2">
-              <MessageCircle className="w-5 h-5 text-blue-300" />
-              <h1 className="line-clamp-1 font-medium text-foreground">
-                {item.title}
-              </h1>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <TimerIcon className="w-4 h-4 text-blue-300" />
-              {format(new Date(item.createdAt), "HH:mm, dd MMMM, EEEE")}
-            </div>
-          </motion.div>
-        </SheetClose>
-      ))}
+      {data?.items.map((item) => {
+        const styleColor = (item.style ?? "no_style") as TKey;
+
+        const IconData = iconByTitle[styleColor];
+        return (
+          <SheetClose key={item._id} asChild>
+            <motion.div
+              className="border-buu relative bg-buu flex flex-col gap-2 shadow-buu-muted p-3 rounded-xl backdrop-blur-10 "
+              variants={itemVariants}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.999 }}
+            >
+              <Link
+                onClick={() => {
+                  dispatch(setHistoryModel(false));
+                }}
+                prefetch={false}
+                href={`/generation/${item._id}`}
+                className="w-full top-0 left-0 absolute  h-full"
+              />
+              <div className="flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-blue-300" />
+                <h1 className="line-clamp-1 font-medium text-foreground">
+                  {item.title}
+                </h1>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <TimerIcon className="w-4 h-4 text-blue-300" />
+                  {format(new Date(item.createdAt), "HH:mm: dd MMMM")}
+                </div>
+                <div className="bg-buu flex items-center justify-center gap-1  relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1">
+                  <div className="w-4 h-4">{IconData?.Icon}</div>
+                  <p className="text-xs font-semibold px-0.5  text-[#D5D9DF60] capitalize line-clamp-2">
+                    {IconData?.displayName}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </SheetClose>
+        );
+      })}
     </motion.div>
   );
 }

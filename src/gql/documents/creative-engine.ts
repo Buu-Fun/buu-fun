@@ -47,19 +47,17 @@ export const GenerateImageMutation = gql`
         metadata
         type
         images {
-          content_type
-          file_name
-          file_size
-          width
-          height
+          alt
+          keyS3
+          size
+          type
           url
         }
         model_mesh {
-          content_type
-          file_name
-          file_size
-          width
-          height
+          alt
+          keyS3
+          size
+          type
           url
         }
         timings {
@@ -96,19 +94,17 @@ export const GenerateModelMutation = gql`
         metadata
         type
         images {
-          content_type
-          file_name
-          file_size
-          width
-          height
+          alt
+          keyS3
+          size
+          type
           url
         }
         model_mesh {
-          content_type
-          file_name
-          file_size
-          width
-          height
+          alt
+          keyS3
+          size
+          type
           url
         }
         timings {
@@ -136,6 +132,7 @@ export const GetThreadsQuery = gql`
           updatedAt
           address
           title
+          style
         }
         metadata {
           limit
@@ -223,19 +220,17 @@ export const GetSubthreadGenRequestsQuery = gql`
           metadata
           type
           images {
-            content_type
-            file_name
-            file_size
-            width
-            height
+            alt
+            keyS3
+            size
+            type
             url
           }
           model_mesh {
-            content_type
-            file_name
-            file_size
-            width
-            height
+            alt
+            keyS3
+            size
+            type
             url
           }
           timings {
@@ -297,6 +292,23 @@ export const RedeemVoucherMutation = gql`
       ... on HandledError {
         code
         message
+      }
+    }
+  }
+`;
+
+export const GeneratePresignedUrl = gql`
+  mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {
+    generatePresignedUrl(input: $input) {
+      ...on GeneratePresignedUrl {
+          presignedUrl
+          url
+          key
+          expiresIn
+      }
+      ... on HandledError {
+          code
+          message
       }
     }
   }
