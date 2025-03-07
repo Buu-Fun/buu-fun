@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.1.31](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.30...buu-fun-v0.1.31) (2025-03-07)
+
+
+### ✨ Features
+
+* added checks for prompt ([6645503](https://github.com/muadpn/buu-fun/commit/6645503ee47854cbf085ae5078b683566beb2537))
+* added drag and drop and image apis ([2af8aa4](https://github.com/muadpn/buu-fun/commit/2af8aa4724d2c222085479e8e79a394420f77a2f))
+* added drag and drop for images ([9d8c2f8](https://github.com/muadpn/buu-fun/commit/9d8c2f873518d65092158ae7bc9e9d363507b019))
+* added image drag and drop to be expandable, and file picked. ([1d089c3](https://github.com/muadpn/buu-fun/commit/1d089c3ef45179fb5bd2110929be3b26e3ce6cd6))
+* added new button for image loader ([7c4bcbc](https://github.com/muadpn/buu-fun/commit/7c4bcbcf0ee149e2acb0ede38754c47055e4f6d4))
+* added pills in subthreads ([9a88d51](https://github.com/muadpn/buu-fun/commit/9a88d5186415b62b9c1232d8d96c0a962f7afbcb))
+* added query api for presigned Urls ([c9dd7d9](https://github.com/muadpn/buu-fun/commit/c9dd7d9b2d0fe6a9caf0e393c968d58bf1f86db8))
+
+
+### 🐛 Bugfixes
+
+* added diffrent design for credit usage info and added cdn.buu to next config ([39d9298](https://github.com/muadpn/buu-fun/commit/39d929847201b5fb20fdf41d6214b825af8a63ab))
+
+
+### 👽 Miscellaneous
+
+* **lint:** linted the code-base ([9d1c3d2](https://github.com/muadpn/buu-fun/commit/9d1c3d222c54e6235a2a3d63a46d36877291b8e7))
+
 ## [0.1.30](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.29...buu-fun-v0.1.30) (2025-03-06)
 
 
