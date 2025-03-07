@@ -16,9 +16,8 @@ import {
 import { TThreeDStyles } from "../redux/features/settings";
 import { getAuthorization } from "../utils";
 import {
-  TGetAllThreadsResponse,
   TGetSubThreadResponse,
-  TGetSubThreadsResponse,
+  TGetSubThreadsResponse
 } from "./threads-types";
 
 type TGenerateSubThreads = {

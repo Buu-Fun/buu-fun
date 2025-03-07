@@ -84,7 +84,10 @@ export async function blobUrlToFile(
     const blob = await response.blob();
     return new File([blob], fileName, { type: blob.type });
   } catch (error) {
-    return null;
+    if (error) {
+      return null;
+    }
+    return null
   }
 }
 

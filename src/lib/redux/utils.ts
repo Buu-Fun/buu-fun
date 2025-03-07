@@ -14,6 +14,7 @@ export function isImageModel(type: string) {
 type GenMedias = {
   isGenerating: boolean;
   isErrored: boolean;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   createdAt: any;
 };
 

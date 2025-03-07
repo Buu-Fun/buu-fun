@@ -1,13 +1,9 @@
 import { serverRequest } from "@/gql/client";
 import {
-  GeneratePresignedUrl,
-  GetSubthreadsQuery,
+  GeneratePresignedUrl
 } from "@/gql/documents/creative-engine";
 import {
-  GeneratePresignedUrlInput,
-  GeneratePresignedUrlMutation,
-  GeneratePresignedUrlMutationVariables,
-  SupportedUploadContentTypesEnum,
+  GeneratePresignedUrlMutation
 } from "@/gql/types/graphql";
 import { getAuthorization } from "../utils";
 

@@ -1,14 +1,13 @@
+import { SheetClose } from "@/components/ui/sheet";
+import { useAppDispatch } from "@/hooks/redux";
 import { getAllThreads } from "@/lib/react-query/threads";
+import { setHistoryModel } from "@/lib/redux/features/settings";
 import { useAuthentication } from "@/providers/account.context";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { Ghost, Loader2, MessageCircle, TimerIcon } from "lucide-react";
-import { SheetClose } from "@/components/ui/sheet";
 import Link from "next/link";
-import { useAppDispatch } from "@/hooks/redux";
-import { setHistoryModel } from "@/lib/redux/features/settings";
-import Pill from "../elements/pill";
 import { iconByTitle, TKey } from "../settings/styles-data";
 
 const containerVariants = {

@@ -64,8 +64,8 @@ export default function ChatForm({ action }: TBottomBarContainer) {
           queryKey: [data.threadId, "get-sub-threads"],
         });
       },
-      onError(error) {
-        toast.error("Our servers are busy, Please try again");
+      onError(data) {
+        toast.error(data.message);
       },
     });
 
@@ -77,7 +77,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
 
   const { mutateAsync: getImagePresignedUrl } = useMutation({
     mutationFn: getPresignedUrl,
-    async onSuccess(data) {
+    async onSuccess() {
       toast.loading("Uploading image..");
     },
     onError(error) {
@@ -219,7 +219,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
         </div>
       </button>
       {/* Other components */}
-      <DragImageCard className={""} onImageSelected={(imageData) => {}} />
+      <DragImageCard className={""} onImageSelected={() => {}} />
       <ChatTextArea />
       <div className="w-full  flex justify-between">
         <label htmlFor="file-input" className="cursor-pointer">
