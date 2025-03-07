@@ -132,6 +132,7 @@ export const GetThreadsQuery = gql`
           updatedAt
           address
           title
+          style
         }
         metadata {
           limit
