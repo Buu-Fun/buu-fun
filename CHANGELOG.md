@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.32](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.31...buu-fun-v0.1.32) (2025-03-07)
+
+
+### 🐛 Bugfixes
+
+* fixed the style selected is not clickable ([586097d](https://github.com/muadpn/buu-fun/commit/586097df42fe25cb7a024d42a10017d9e1363de8))
+
 ## [0.1.31](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.30...buu-fun-v0.1.31) (2025-03-07)
 
 
