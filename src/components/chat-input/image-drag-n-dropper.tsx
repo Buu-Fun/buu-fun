@@ -28,7 +28,7 @@ export default function ImageDragAndDrop() {
   }, [placedImage]);
 
   return (
-    <div className="absolute max-w-[77px] w-full h-[110px] -left-[100px] top-3">
+    <div className="absolute max-w-[77px] w-full h-[110px] -left-[100px] top-[80px]">
       <AnimatePresence>
         {(isImageDragging || placedImage) && (
           <motion.div

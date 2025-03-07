@@ -1,12 +1,12 @@
 import { MagicPenIcon } from "@/assets/icons";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { cn } from "@/lib/utils";
-import "@google/model-viewer";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ToolBarToolTips from "./tool-bar-tool-tips";
+
 const ModelViewer = dynamic(() => import("./model-viewer"), {
   // loading: () => <p>Loading...</p>,
   ssr: false,
@@ -39,6 +39,10 @@ export default function Generate3DCard({
 }: TGenerate3DCard) {
   const [shouldShow3D, setShouldShow3D] = useState(false);
   const timerRef = useRef<NodeJS.Timeout>(null);
+  useEffect(() => {
+    import("@google/model-viewer").catch(console.error);
+  }, []);
+
   useEffect(() => {
     if (isCurrent && !isGenerating && modelUrl) {
       // Delay showing the 3D model to allow animations to complete
@@ -75,7 +79,7 @@ export default function Generate3DCard({
               "w-full h-full hidden  items-center bg-black/30 relative justify-center",
               {
                 "z-10 flex bg-none absolute": isGenerating,
-              },
+              }
             )}
           >
             <div className="flex items-center justify-center gap-2 ">
@@ -132,7 +136,7 @@ export default function Generate3DCard({
           "absolute -bottom-4 z-50 flex items-center gap-2 justify-center w-full",
           {
             hidden: !showToolTip,
-          },
+          }
         )}
       >
         <ToolBarToolTips

@@ -21,10 +21,11 @@ import {
 } from "./threads-types";
 
 type TGenerateSubThreads = {
-  prompt: string;
+  prompt: string
   style?: TThreeDStyles;
   threadId?: string;
   accessToken: string;
+  imageUrl?: string | null;
 };
 
 export async function generateSubThreads({
@@ -32,6 +33,7 @@ export async function generateSubThreads({
   style,
   threadId,
   accessToken,
+  imageUrl,
 }: TGenerateSubThreads) {
   const data = await serverRequest<
     TGenerateSubthreadMutation,
@@ -39,13 +41,14 @@ export async function generateSubThreads({
   >(
     GenerateSubthreadMutation,
     {
-      prompt,
+      prompt: prompt,
       style: (style as SubthreadStyle) ?? null,
+      imageUrl: imageUrl ?? null,
       threadId,
     },
     {
       Authorization: getAuthorization(accessToken),
-    },
+    }
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -68,7 +71,7 @@ export async function getSubThreads(threadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    },
+    }
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -88,7 +91,7 @@ export async function getSubThread(subThreadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    },
+    }
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -114,7 +117,7 @@ export async function mutateGenerateNewImage({
     },
     {
       Authorization: getAuthorization(accessToken),
-    },
+    }
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -140,7 +143,7 @@ export async function getAllThreads(accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    },
+    }
   );
   if (!data) {
     throw new Error("Internal server error");
