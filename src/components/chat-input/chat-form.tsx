@@ -19,7 +19,7 @@ import {
 } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
 import { useMutation } from "@tanstack/react-query";
-import { Loader2, TableRowsSplit } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
@@ -193,8 +193,31 @@ export default function ChatForm({ action }: TBottomBarContainer) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative flex-col gap-1 flex items-start w-full"
+      className={cn(
+        "relative flex-col gap-1 flex items-start w-full p-4  mb-2  rounded-[20px]  shadow-buu-inner bg-buu",
+        {
+          // "p-0": !inputFile?.url.length
+        }
+      )}
     >
+      <button
+        disabled={isChatLoading}
+        className={cn(
+          "bg-buu-button     shadow-buu-button rounded-xl left-0 absolute w-full h-full top-0",
+          {
+            hidden: !inputFile?.url.length,
+          }
+        )}
+      >
+        <div className="flex   gap-2 items-center justify-center">
+          <p className="font-medium animate-pulse text-white/60">
+            Continue with image
+          </p>
+          <div className="w-5  h-5 ">
+            <ImageIcon />
+          </div>
+        </div>
+      </button>
       {/* Other components */}
       <DragImageCard className={""} onImageSelected={(imageData) => {}} />
       <ChatTextArea />
@@ -220,7 +243,9 @@ export default function ChatForm({ action }: TBottomBarContainer) {
               }
             }}
           />
-          <ImageIcon />
+          <div className="w-6 h-6">
+            <ImageIcon />
+          </div>
         </label>
 
         <button

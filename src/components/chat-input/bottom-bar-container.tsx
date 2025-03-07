@@ -8,7 +8,7 @@ export default function BottomBarContainer({ action }: TBottomBarContainer) {
   return (
     <div className="w-full px-1 py-1 mb-1  max-w-2xl mx-auto ">
       <SettingsBar />
-      <div className="p-4  mb-2  rounded-[20px]  shadow-buu-inner bg-buu">
+      <div className="relative">
         <ChatForm action={action} />
         <ImageDragAndDrop />
       </div>

@@ -173,7 +173,7 @@ export default function InteractiveDropzone({
                 transformStyle: "preserve-3d",
                 rotate: `${rotation.x}deg`,
               }}
-              className="absolute -top-[70%] "
+              className="absolute top-[-20px] "
             >
               <motion.div
                 initial="hidden"
@@ -206,7 +206,7 @@ export default function InteractiveDropzone({
         {!isDraggingOver && image && (
           <div
             className="
-        absolute -left-[20px] -top-[70%]
+        absolute -left-[20px] top-[-20px]
         transform -rotate-12 
         border-buu border rounded-xl z-50 pointer-events-none
         w-[77px] h-[106px]
