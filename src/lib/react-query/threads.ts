@@ -11,6 +11,7 @@ import {
   SubthreadStyle,
   GenerateImageMutation as TGenerateImageMutation,
   GenerateSubthreadMutation as TGenerateSubthreadMutation,
+  GetThreadsQuery as TGetThreadsQuery
 } from "@/gql/types/graphql";
 import { TThreeDStyles } from "../redux/features/settings";
 import { getAuthorization } from "../utils";
@@ -130,9 +131,8 @@ export async function mutateGenerateNewImage({
 }
 
 // GetThreadsQuery
-
 export async function getAllThreads(accessToken: string) {
-  const data = await serverRequest<TGetAllThreadsResponse>(
+  const data = await serverRequest<TGetThreadsQuery>(
     GetThreadsQuery,
     {
       filters: {},
