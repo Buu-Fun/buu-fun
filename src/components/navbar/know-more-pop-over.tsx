@@ -27,7 +27,7 @@ export default function KnowMorePopover() {
         className="mb-8 bg-buu border-buu shadow-buu-inner opacity-100 max-w-[250px]"
         side="right"
       >
-       <KnowMoreContent/> 
+        <KnowMoreContent />
       </PopoverContent>
     </Popover>
   );

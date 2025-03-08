@@ -61,5 +61,6 @@ export { cyberGuy };
 import HomeBackground from "@/assets/Image/home/background-cyber.png";
 import MutantAlien from "@/assets/Image/home/mutant-alien.png";
 import MutantAlienMesh from "@/assets/Image/home/mutant-alien-mesh.png";
+import MutantAlienWireFrame from "@/assets/Image/home/mutant-alien-wire-frame.png";
 
-export { HomeBackground, MutantAlien,MutantAlienMesh };
+export { HomeBackground, MutantAlien, MutantAlienMesh, MutantAlienWireFrame };

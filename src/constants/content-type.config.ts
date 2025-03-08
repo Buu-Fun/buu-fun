@@ -7,4 +7,4 @@ export const AllowedContentType: Record<string, "ImageJpeg" | "ImagePng"> = {
   "image/pjp": "ImageJpeg",
   "image/png": "ImagePng",
   "image/x-png": "ImagePng", // Older non-standard MIME type for PNG
-}
+};

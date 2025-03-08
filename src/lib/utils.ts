@@ -18,19 +18,19 @@ const simplePlural = (word: string) => `${word}s`;
 export function pluralize(
   num: number,
   word: string,
-  plural: (value: string) => string = simplePlural
+  plural: (value: string) => string = simplePlural,
 ) {
   return isPlural(num) ? plural(word) : word;
 }
 
 export async function handleResponse(
-  response: Response
+  response: Response,
 ): Promise<TDataMuseWord[]> {
   if (!response.ok) {
     // add other generic messages later for api backends.
     throw new DataMuseError(
       `API request failed: ${response.statusText}`,
-      response.status
+      response.status,
     );
   }
   return response.json();
@@ -77,7 +77,7 @@ export function isImageUrl(value: string | null | undefined) {
 
 export async function blobUrlToFile(
   blobUrl: string,
-  fileName: string
+  fileName: string,
 ): Promise<File | null> {
   try {
     const response = await fetch(blobUrl);
@@ -87,7 +87,7 @@ export async function blobUrlToFile(
     if (error) {
       return null;
     }
-    return null
+    return null;
   }
 }
 

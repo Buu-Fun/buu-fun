@@ -11,7 +11,7 @@ export default function SliderIcon() {
     >
       <foreignObject x="-40" y="-40" width="100" height="100">
         <div
-        //   xmlns="http://www.w3.org/1999/xhtml"
+          //   xmlns="http://www.w3.org/1999/xhtml"
           style={{
             backdropFilter: "blur(20px)",
             clipPath: "url(#bgblur_0_2420_14436_clip_path)",
@@ -26,7 +26,7 @@ export default function SliderIcon() {
       </g>
       <foreignObject x="-13" y="-13" width="46" height="46">
         <div
-        //   xmlns="http://www.w3.org/1999/xhtml"
+          //   xmlns="http://www.w3.org/1999/xhtml"
           style={{
             backdropFilter: "blur(10px)",
             clipPath: "url(#bgblur_1_2420_14436_clip_path)",

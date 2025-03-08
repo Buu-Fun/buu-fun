@@ -58,4 +58,4 @@ export {
 import DiscordIcon from "./discord";
 import InstagramIcon from "./Instagram";
 
-export { DiscordIcon,InstagramIcon };
+export { DiscordIcon, InstagramIcon };

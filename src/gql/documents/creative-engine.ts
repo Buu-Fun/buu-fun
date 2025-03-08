@@ -300,15 +300,15 @@ export const RedeemVoucherMutation = gql`
 export const GeneratePresignedUrl = gql`
   mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {
     generatePresignedUrl(input: $input) {
-      ...on GeneratePresignedUrl {
-          presignedUrl
-          url
-          key
-          expiresIn
+      ... on GeneratePresignedUrl {
+        presignedUrl
+        url
+        key
+        expiresIn
       }
       ... on HandledError {
-          code
-          message
+        code
+        message
       }
     }
   }

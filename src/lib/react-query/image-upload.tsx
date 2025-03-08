@@ -1,10 +1,6 @@
 import { serverRequest } from "@/gql/client";
-import {
-  GeneratePresignedUrl
-} from "@/gql/documents/creative-engine";
-import {
-  GeneratePresignedUrlMutation
-} from "@/gql/types/graphql";
+import { GeneratePresignedUrl } from "@/gql/documents/creative-engine";
+import { GeneratePresignedUrlMutation } from "@/gql/types/graphql";
 import { getAuthorization } from "../utils";
 
 export async function getPresignedUrl({
@@ -17,7 +13,7 @@ export async function getPresignedUrl({
   //   TGenerateSubthreadMutation,
   //     GenerateSubthreadMutationVariables
   const data = await serverRequest<GeneratePresignedUrlMutation>(
-  // GeneratePresignedUrlMutationVariables
+    // GeneratePresignedUrlMutationVariables
     GeneratePresignedUrl,
     {
       input: {
@@ -26,7 +22,7 @@ export async function getPresignedUrl({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");

@@ -10,7 +10,12 @@ export default function MagicPenTitle({
   className?: string;
 }) {
   return (
-    <div className={cn("flex items-center justify-center gap-1 text-blue-300",className)}>
+    <div
+      className={cn(
+        "flex items-center justify-center gap-1 text-blue-300",
+        className,
+      )}
+    >
       <div className="w-5 h-5 ">
         <MagicPenIcon />
       </div>

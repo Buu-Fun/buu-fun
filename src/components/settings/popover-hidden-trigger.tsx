@@ -1,9 +1,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  setSettingsPopoverChange
-} from "@/lib/redux/features/settings";
+import { setSettingsPopoverChange } from "@/lib/redux/features/settings";
 export default function PopoverHiddenTrigger() {
   const dispatch = useAppDispatch();
   const isSettingsPopoverOpen = useAppSelector((state) => state.settings);

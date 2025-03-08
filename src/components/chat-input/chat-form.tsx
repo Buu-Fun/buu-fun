@@ -87,7 +87,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
 
   const handleImageUploadUrl = async (
     ImageData: ImageData,
-    accessToken: string
+    accessToken: string,
   ) => {
     try {
       toast.loading("Preparing image for uploading....");
@@ -152,7 +152,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     if (isChatLoading) {
       if (isOverAllRequestLimitReached(isChatPending.totalRequest)) {
         return toast.error(
-          "Whoa, you're on fire 🔥. You've hit the limit of 4 creations."
+          "Whoa, you're on fire 🔥. You've hit the limit of 4 creations.",
         );
       }
       return toast.error("Hold on!, Still generating your model...");
@@ -197,7 +197,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
         "relative flex-col gap-1 flex items-start w-full p-4  mb-2  rounded-[20px]  shadow-buu-inner bg-buu",
         {
           // "p-0": !inputFile?.url.length
-        }
+        },
       )}
     >
       <button
@@ -206,7 +206,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
           "bg-buu-button     shadow-buu-button rounded-xl left-0 absolute w-full h-full top-0",
           {
             hidden: !inputFile?.url.length,
-          }
+          },
         )}
       >
         <div className="flex   gap-2 items-center justify-center">
