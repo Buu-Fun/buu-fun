@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.33](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.32...buu-fun-v0.1.33) (2025-03-08)
+
+
+### ✨ Features
+
+* added new responsive bring your ideas section ([560c398](https://github.com/muadpn/buu-fun/commit/560c3987da6a991e10463afc717842cee2f0e1c2))
+* added new responsive bring your ideas section ([dd4700f](https://github.com/muadpn/buu-fun/commit/dd4700fc6d83d3d325aab93eca414b8f316e7f8b))
+
+
+### 👽 Miscellaneous
+
+* **lint:** linted and formatted the codebase ([636f792](https://github.com/muadpn/buu-fun/commit/636f792c4824c0ec6ce894ced9e02e779108099d))
+
 ## [0.1.32](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.31...buu-fun-v0.1.32) (2025-03-07)
 
 
