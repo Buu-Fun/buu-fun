@@ -63,4 +63,4 @@ import MutantAlien from "@/assets/Image/home/mutant-alien.png";
 import MutantAlienMesh from "@/assets/Image/home/mutant-alien-mesh.png";
 import MutantAlienWireFrame from "@/assets/Image/home/mutant-alien-wire-frame.png";
 
-export { HomeBackground, MutantAlien,MutantAlienMesh ,MutantAlienWireFrame};
+export { HomeBackground, MutantAlien, MutantAlienMesh, MutantAlienWireFrame };

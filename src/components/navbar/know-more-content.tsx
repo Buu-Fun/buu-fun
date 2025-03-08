@@ -8,7 +8,6 @@ import TwitterIcon from "@/assets/icons/TwitterIcon";
 import YoutubePlayIcon from "@/assets/icons/youtube-play";
 import Link from "next/link";
 
-
 export default function KnowMoreContent() {
   return (
     <div className="w-full h-full">

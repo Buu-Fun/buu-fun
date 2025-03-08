@@ -1,9 +1,3 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
-import {
-  ReactCompareSlider,
-  ReactCompareSliderImage,
-} from "react-compare-slider";
-import SliderHandle from "./slider-handle";
 import {
   HomeBackground,
   MutantAlien,
@@ -12,7 +6,12 @@ import {
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { AnimatedBringYourIdeas } from "./bring-ideas";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import {
+  ReactCompareSlider,
+  ReactCompareSliderImage,
+} from "react-compare-slider";
+import SliderHandle from "./slider-handle";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +22,6 @@ export default function ImageComparisonSlider({
 }) {
   const [position, setPosition] = useState(100);
   const containerRef = useRef<HTMLDivElement>(null);
-  const backgroundRef = useRef<HTMLImageElement>(null);
   const sliderContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -40,9 +38,8 @@ export default function ImageComparisonSlider({
             trigger: containerRef.current,
             start: "top top",
             toggleActions: "play play play reverse",
-            markers: true, // Uncomment for debugging
           },
-        }
+        },
       );
     }, containerRef);
 
@@ -66,19 +63,14 @@ export default function ImageComparisonSlider({
 
     // Function to update slider position based on current viewport
     const updateSliderPosition = () => {
-      if (
-        !sliderContainerRef.current ||
-        !backgroundRef.current ||
-        !containerRef.current
-      )
-        return;
+      if (!sliderContainerRef.current || !containerRef.current) return;
 
       // Get current container dimensions
       const containerWidth = containerRef.current.offsetWidth;
       const containerHeight = containerRef.current.offsetHeight;
 
       // Calculate how the background image is actually rendered
-      const bgImage = backgroundRef.current;
+      // const bgImage = backgroundRef.current;
 
       // Get background image dimensions as it's rendered
       const bgRatio = designWidth / designHeight;
@@ -133,7 +125,6 @@ export default function ImageComparisonSlider({
     >
       <div className="h-full absolute top-0 left-0 w-full ">
         <Image
-          ref={backgroundRef}
           src={HomeBackground}
           width={1920}
           height={1080}

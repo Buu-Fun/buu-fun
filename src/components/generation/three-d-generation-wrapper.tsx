@@ -59,9 +59,12 @@ export default function ThreeDGenerationWrapper({
         className={cn(
           "text-2xl max-w-md text-center hidden lg:block  relative font-medium tracking-tighter",
           {
-            "text-xl": subThread && subThread.prompt && subThread?.prompt?.length > 40,
-            "text-lg": subThread && subThread.prompt && subThread?.prompt?.length > 80,
-            "text-base": subThread && subThread.prompt && subThread?.prompt?.length > 120,
+            "text-xl":
+              subThread && subThread.prompt && subThread?.prompt?.length > 40,
+            "text-lg":
+              subThread && subThread.prompt && subThread?.prompt?.length > 80,
+            "text-base":
+              subThread && subThread.prompt && subThread?.prompt?.length > 120,
             "text-sm line-clamp-3":
               subThread && subThread.prompt && subThread?.prompt?.length > 160,
           },

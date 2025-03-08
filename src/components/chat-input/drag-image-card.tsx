@@ -92,7 +92,7 @@ export default function InteractiveDropzone({
       if (
         items &&
         Array.from(items).some(
-          (item) => item.kind === "file" && item.type.startsWith("image/")
+          (item) => item.kind === "file" && item.type.startsWith("image/"),
         )
       ) {
         setIsDraggingOver(true);

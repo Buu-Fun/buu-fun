@@ -55,7 +55,10 @@ export default function HeroLoadingWrapper({
         animate={{ opacity: progress >= 100 ? 1 : 0 }}
         transition={{ duration: 2.5, delay: 1.5 }}
       >
-        <MagicPenTitle className="flex items-center justify-center text-blue-300 gap-2" title="Welcome to BUU.FUN" />
+        <MagicPenTitle
+          className="flex items-center justify-center text-blue-300 gap-2"
+          title="Welcome to BUU.FUN"
+        />
         <h1 className="text-2xl mt-6 md:text-3xl lg:text-4xl xl:text-7xl text-center font-bold hero-gradient-text mb-8 ">
           Unleash Your <br /> Imagination in 3D
         </h1>
@@ -70,7 +73,11 @@ export default function HeroLoadingWrapper({
             </div>
             Try Now
           </Button>
-          <Link href={'/home#bring-your-ideas'} scroll className="flex items-center pointer-events-auto justify-center gap-1 ">
+          <Link
+            href={"/home#bring-your-ideas"}
+            scroll
+            className="flex items-center pointer-events-auto justify-center gap-1 "
+          >
             <p className="font-medium">Scroll to explore</p>
             <div className="flex relative w-[18px] h-[18px] flex-col -top-1">
               <div className="flex w-full  text-white/40">
