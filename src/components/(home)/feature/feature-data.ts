@@ -1,14 +1,13 @@
+import { robLoxIcon } from "@/assets/icons";
 import {
   BgExcludedGrid,
   BgGrid,
   HomeBackground,
   MutantAlien,
   MutantAlienMesh,
-  MutantAlienWireFrame,
-  mutantAutoRigging,
+  mutantAutoRigging
 } from "@/assets/Image";
 import ExcludedImage from "./exluded-image.png";
-import { robLoxIcon } from "@/assets/icons";
 
 export const features = [
   {

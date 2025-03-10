@@ -2,11 +2,13 @@ import { HomeBackground } from "@/assets/Image";
 import Image from "next/image";
 import { ReactNode } from "react";
 import exludedImage from "./exluded-image.png";
-export default function FeatureContainer({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function FeatureContainer(
+  {
+    // children,
+  }: {
+    children: ReactNode;
+  }
+) {
   return (
     <div className="relative h-screen w-full overflow-visible ">
       <div className="h-full absolute top-0 left-0 w-full ">

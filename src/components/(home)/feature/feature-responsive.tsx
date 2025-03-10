@@ -2,16 +2,14 @@ import {
   CircularMotion,
   SliderIconSecondary,
 } from "@/assets/icons/slider-icon-secondary";
-import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUp } from "lucide-react";
 import Image from "next/image";
 import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArchGradient } from "./arch-gradient";
-import FeatureTextSlider from "./feature-text-slider";
 import { features } from "./feature-data";
+import FeatureTextSlider from "./feature-text-slider";
 import FeatureTopBar, {
   FeatureRobloxTopBar,
   ScanningOverlay,
@@ -19,14 +17,9 @@ import FeatureTopBar, {
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ImageComparisonSlider({
-  children,
-}: {
-  children?: ReactNode;
-}) {
+export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const sliderContainerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
 
   // Set up responsive positioning that works with any aspect ratio
   useLayoutEffect(() => {
@@ -109,27 +102,7 @@ export default function ImageComparisonSlider({
       setIndex((prev) => (prev + 1) % features.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [features.length]);
-
-  console.log("INDEX:", index);
-  useEffect(() => {
-    if (textRef.current) {
-      gsap.fromTo(
-        textRef.current.querySelectorAll(".animate-text"),
-        {
-          y: 20,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: "power3.out",
-        }
-      );
-    }
-  }, [index]);
+  }, []);
 
   // Define enhanced variants for smoother animations
   const backgroundVariants = {
@@ -178,11 +151,6 @@ export default function ImageComparisonSlider({
       },
     }),
   };
-
-  // Update direction when index changes
-  useEffect(() => {
-    setDirection(1); // Always enter from right for simplicity
-  }, [index]);
 
   return (
     <AnimatePresence mode="wait">
@@ -287,10 +255,7 @@ export default function ImageComparisonSlider({
               <ArchGradient index={index} />
             </div>
           </motion.div>
-          <div
-            ref={textRef}
-            className="w-[100%] absolute bottom-[-68%] z-50 aspect-square"
-          >
+          <div className="w-[100%] absolute bottom-[-68%] z-50 aspect-square ">
             <FeatureTextSlider
               title={features[index].title}
               description={features[index].description}

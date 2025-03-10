@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 // Enhanced SliderIconSecondary with animation capabilities
-export const SliderIconSecondary = ({ index }: { index: number }) => {
+export const SliderIconSecondary = ({  }: { index: number }) => {
   return (
     <motion.div
       // initial={{ opacity: 0 }}
@@ -55,7 +55,7 @@ export const SliderIconSecondary = ({ index }: { index: number }) => {
 };
 
 export const CircularMotion = ({
-  index,
+  // index,
   children,
 }: {
   index: number;

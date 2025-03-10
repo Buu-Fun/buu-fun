@@ -1,7 +1,6 @@
 "use client";
 
-import FeatureContainer from "@/components/(home)/feature/feature-responsive";
-import FeatureSlider from "@/components/(home)/feature/feature-slider";
+import FeatureShowcaseContainer from "@/components/(home)/feature/feature-responsive";
 import BringYourIdeasSection from "@/components/(home)/hero/hero-section-content";
 import HeroLoadingWrapper from "@/components/(home)/loading/loading-hero-wrapper";
 export default function HomePage() {
@@ -9,7 +8,7 @@ export default function HomePage() {
     <main className="h-full  max-w-screen overflow-hidden">
       <HeroLoadingWrapper />
       <BringYourIdeasSection />
-      <FeatureContainer />
+      <FeatureShowcaseContainer />
 
       {/* <div className="" /> */}
       {/* <div>

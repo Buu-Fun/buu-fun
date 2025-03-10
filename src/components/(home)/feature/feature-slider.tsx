@@ -1,13 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import {
+  MutantAlienWireFrame
+} from "@/assets/Image";
+import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-import {
-  HomeBackground,
-  MutantAlien,
-  MutantAlienWireFrame,
-} from "@/assets/Image";
+import { useEffect, useState } from "react";
 const features = [
   {
     title: "Auto Rigging",

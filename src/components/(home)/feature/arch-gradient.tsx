@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-export const ArchGradient = ({ index }: { index: number }) => {
+export const ArchGradient = ({  }: { index: number }) => {
   return (
     <motion.svg 
       viewBox="0 0 499 113" 
