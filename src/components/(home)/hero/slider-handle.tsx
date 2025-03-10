@@ -10,3 +10,9 @@ export default function SliderHandle() {
     </div>
   );
 }
+
+export function GradientBottomBar() {
+  return (
+    <div className="w-full h-[3px] image-slider-gradient-bg-two relative"></div>
+  );
+}

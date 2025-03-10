@@ -46,6 +46,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      {/* uncomment for checking performance */}
+      {/* <head>
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+      </head> */}
       <body className={`${BricolageGrotesque.className} antialiased dark `}>
         {children}
       </body>

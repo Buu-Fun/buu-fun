@@ -62,5 +62,16 @@ import HomeBackground from "@/assets/Image/home/background-cyber.png";
 import MutantAlien from "@/assets/Image/home/mutant-alien.png";
 import MutantAlienMesh from "@/assets/Image/home/mutant-alien-mesh.png";
 import MutantAlienWireFrame from "@/assets/Image/home/mutant-alien-wire-frame.png";
+import BgExcludedGrid from "@/assets/Image/home/Excluded-grid-bg.png";
+import BgGrid from "@/assets/Image/home/grid-background.png";
+import mutantAutoRigging from "@/assets/Image/home/mutant-auto-rigging.png";
 
-export { HomeBackground, MutantAlien, MutantAlienMesh, MutantAlienWireFrame };
+export {
+  mutantAutoRigging,
+  HomeBackground,
+  BgGrid,
+  BgExcludedGrid,
+  MutantAlien,
+  MutantAlienMesh,
+  MutantAlienWireFrame,
+};
