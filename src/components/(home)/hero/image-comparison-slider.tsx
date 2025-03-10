@@ -6,7 +6,7 @@ import {
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
@@ -24,7 +24,7 @@ export default function ImageComparisonSlider({
   const containerRef = useRef<HTMLDivElement>(null);
   const sliderContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(
         {},
@@ -39,7 +39,7 @@ export default function ImageComparisonSlider({
             start: "top top",
             toggleActions: "play play play reverse",
           },
-        },
+        }
       );
     }, containerRef);
 
@@ -47,7 +47,7 @@ export default function ImageComparisonSlider({
   }, []);
 
   // Set up responsive positioning that works with any aspect ratio
-  useEffect(() => {
+  useLayoutEffect(() => {
     // These are the coordinates and dimensions from the design
     // Based on the 1920x1080 reference.
     const designWidth = 1920;
@@ -145,6 +145,8 @@ export default function ImageComparisonSlider({
           position={position}
           itemTwo={
             <ReactCompareSliderImage
+              width={"auto"}
+              height={"auto"}
               src={MutantAlienWireFrame.src}
               alt="Wireframe version"
               className="w-full h-full"
@@ -153,6 +155,8 @@ export default function ImageComparisonSlider({
           itemOne={
             <ReactCompareSliderImage
               src={MutantAlien.src}
+              width={"auto"}
+              height={"auto"}
               alt="Full color version"
               className="w-full h-full relative "
             />
