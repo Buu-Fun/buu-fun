@@ -94,8 +94,7 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
   }, []);
 
   const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(1); // 1 for right, -1 for left
-
+  const direction = 1;
   // Enhanced animation timing control
   useEffect(() => {
     const interval = setInterval(() => {
