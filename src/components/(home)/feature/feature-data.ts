@@ -5,7 +5,7 @@ import {
   HomeBackground,
   MutantAlien,
   MutantAlienMesh,
-  mutantAutoRigging
+  mutantAutoRigging,
 } from "@/assets/Image";
 import ExcludedImage from "./exluded-image.png";
 
@@ -17,14 +17,16 @@ export const features = [
     image: MutantAlien.src,
     bgExcluded: ExcludedImage.src,
     background: HomeBackground.src,
+    autoRig: false,
   },
   {
     title: "Auto Rigging",
     description:
       "Automatically add skeletons to your models, making them ready for animation without manual effort.",
-    image: mutantAutoRigging.src,
+    image: MutantAlien.src,
     bgExcluded: BgExcludedGrid.src,
     background: BgGrid.src,
+    autoRig: true,
   },
   {
     title: "Texture Remeshing",
@@ -33,6 +35,7 @@ export const features = [
     image: MutantAlienMesh.src,
     bgExcluded: BgExcludedGrid.src,
     background: BgGrid.src,
+    autoRig: false,
   },
   {
     title: "One-Click Animation",
@@ -41,6 +44,7 @@ export const features = [
     image: MutantAlien.src,
     bgExcluded: BgExcludedGrid.src,
     background: BgGrid.src,
+    autoRig: false,
   },
   {
     title: "Roblox Studio Integration",
@@ -49,6 +53,7 @@ export const features = [
     image: MutantAlien.src,
     bgExcluded: BgExcludedGrid.src,
     background: BgGrid.src,
+    autoRig: false,
     scan: true,
     robloxTitle: "Integrating to Roblox Studio...",
     robloxIcon: robLoxIcon.src,

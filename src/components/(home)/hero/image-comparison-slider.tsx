@@ -20,7 +20,7 @@ export default function ImageComparisonSlider({
 }: {
   children: ReactNode;
 }) {
-  const [position, setPosition] = useState(100);
+  const [position, setPosition] = useState(40);
   const containerRef = useRef<HTMLDivElement>(null);
   const sliderContainerRef = useRef<HTMLDivElement>(null);
 
@@ -32,12 +32,13 @@ export default function ImageComparisonSlider({
           duration: 2,
           ease: "power2.inOut",
           onUpdate: function () {
-            setPosition(this.progress() * 100);
+            console.log("THIS PROGRESS", this.progress());
+            setPosition((this.progress() + 0.4) * 100);
           },
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top top",
-            toggleActions: "play play play reverse",
+            start: "top 10%",
+            toggleActions: "play none none reverse",
           },
         }
       );

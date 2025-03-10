@@ -14,6 +14,7 @@ import FeatureTopBar, {
   FeatureRobloxTopBar,
   ScanningOverlay,
 } from "./feature-top-bar";
+import MutantMesh from "@/assets/Image/home/mutant-mesh";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -94,111 +95,178 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
   }, []);
 
   const [index, setIndex] = useState(0);
-  const direction = 1;
+  const [prevIndex, setPrevIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+
   // Enhanced animation timing control
   useEffect(() => {
     const interval = setInterval(() => {
+      setPrevIndex(index);
       setIndex((prev) => (prev + 1) % features.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [index]);
+
+  // Determine if we should animate background based on whether it has changed
+  const shouldAnimateBackground =
+    features[index].background !== features[prevIndex].background;
 
   // Define enhanced variants for smoother animations
   const backgroundVariants = {
     initial: {
       opacity: 0,
-      scale: 1.05,
+      transition: {
+        duration: 0.4,
+      },
+    },
+    animate: {
+      opacity: 1,
+      transition: {
+        duration: 1.2,
+        ease: [0.43, 0.13, 0.23, 0.96], // Custom easing for smoother transition
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 1.2, // Match the duration of the entering animation
+        ease: [0.43, 0.13, 0.23, 0.96],
+      },
+    },
+  };
+
+  // Enhanced image variants for morphing effect
+  const imageVariants: Variants = {
+    initial: {
+      opacity: 0.2,
+      // scale: 0.95,
+      transition: {
+        duration: 0.4,
+      },
     },
     animate: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 2.5,
-        ease: [0.25, 0.1, 0.25, 1.0], // cubic-bezier easing
+        duration: 1.2,
+        // ease: [0.43, 0.13, 0.23, 0.96], // Custom easing for smoother transition
       },
     },
     exit: {
-      opacity: 0,
-      scale: 0.98,
+      opacity: 0.2,
+      scale: 1,
       transition: {
-        duration: 1.5,
-        ease: "easeOut",
+        duration: 0.8, // Match the duration of the entering animation
+        // ease: [0.43, 0.13, 0.23, 0.96],
       },
     },
-  };
-
-  const imageVariants: Variants = {
-    initial: (custom) => ({
-      opacity: 0,
-      x: custom * 30,
-    }),
-    animate: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 1.2,
-        ease: "easeOut",
-        delay: 0.3,
-      },
-    },
-    exit: (custom) => ({
-      opacity: 0,
-      x: custom * -30,
-      transition: {
-        duration: 0.8,
-        ease: "easeIn",
-      },
-    }),
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <div
-        ref={containerRef}
-        className="relative h-screen w-full overflow-hidden"
-      >
-        <motion.div
-          key={`bg-${features[index].background}`}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          variants={backgroundVariants}
-          className="h-full absolute top-0 left-0 w-full"
-        >
-          <Image
-            src={features[index].background}
-            width={1920}
-            height={1080}
-            className="w-full h-full blur-[4px] object-cover"
-            alt="Home page background"
-            priority
-          />
+    <div
+      ref={containerRef}
+      className="relative h-screen w-full overflow-hidden"
+    >
+      {/* Background animation - only animate if the background actually changes */}
+      <AnimatePresence mode="wait" initial={false}>
+        {shouldAnimateBackground ? (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 1.5 } }}
-            className="bg-[#05050562] w-full absolute left-0 top-0 h-full"
-          />
+            key={`bg-${features[index].background}`}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={backgroundVariants}
+            className="h-full absolute top-0 left-0 w-full"
+          >
+            <Image
+              src={features[index].background}
+              width={1920}
+              height={1080}
+              className="w-full h-full blur-[4px] object-cover"
+              alt="Home page background"
+              priority
+            />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 1.5 } }}
+              className="bg-[#05050562] w-full absolute left-0 top-0 h-full"
+            />
+          </motion.div>
+        ) : (
+          <div
+            key={`static-bg-${features[index].background}`}
+            className="h-full absolute top-0 left-0 w-full"
+          >
+            <Image
+              src={features[index].background}
+              width={1920}
+              height={1080}
+              className="w-full h-full blur-[4px] object-cover"
+              alt="Home page background"
+              priority
+            />
+            <div className="bg-[#05050562] w-full absolute left-0 top-0 h-full" />
+          </div>
+        )}
+      </AnimatePresence>
+
+      <div ref={sliderContainerRef} className="relative">
+        <AnimatePresence mode="wait" initial={false}>
+          {features[index].autoRig ? (
+            <motion.div
+              key={`auto-rig-${index}`}
+              initial={{ opacity: 0.3 }}
+              animate={{ opacity: 1, transition: { duration: 0.8 } }}
+              exit={{ opacity: 0, transition: { duration: 0.6 } }}
+              className="w-full z-50 h-full bottom-0 absolute"
+            >
+              <MutantMesh />
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+
+        <motion.div
+          initial={{ y: -10, opacity: 0 }}
+          animate={{
+            y: 0,
+            opacity: 1,
+            transition: { duration: 0.6, delay: 0.2 },
+          }}
+          className="absolute top-[-3%] mx-auto w-full z-10"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={`topbar-${features[index].scan ? "roblox" : "standard"}-${index}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, transition: { duration: 0.6 } }}
+              exit={{ opacity: 0, transition: { duration: 0.3 } }}
+            >
+              {features[index].scan ? (
+                <FeatureRobloxTopBar />
+              ) : (
+                <FeatureTopBar />
+              )}
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
 
-        <div ref={sliderContainerRef} className="relative">
-          <motion.div
-            initial={{ y: -10, opacity: 0 }}
-            animate={{
-              y: 0,
-              opacity: 1,
-              transition: { duration: 0.6, delay: 0.2 },
-            }}
-            className="absolute top-[-3%] mx-auto w-full z-10"
-          >
-            {features[index].scan ? <FeatureRobloxTopBar /> : <FeatureTopBar />}
-          </motion.div>
-          <div className="w-[120%] rounded-full h-[50%] bg-[#0C0C0D] blur-[150px] absolute left-[-10%] bottom-[-30%] z-30" />
-          <div className="relative overflow-hidden border-white/20 border rounded-2xl">
+        <div className="w-[120%] rounded-full h-[50%] bg-[#0C0C0D] blur-[150px] absolute left-[-10%] bottom-[-30%] z-30" />
+        <div className="relative overflow-hidden border-white/20 border rounded-2xl">
+          <AnimatePresence mode="wait" initial={false}>
             {features[index].scan ? (
-              <div className="z-20 w-full h-full absolute top-0 left-0">
+              <motion.div
+                key={`scanning-overlay-${index}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { duration: 0.8 } }}
+                exit={{ opacity: 0, transition: { duration: 0.6 } }}
+                className="z-20 w-full h-full absolute top-0 left-0"
+              >
                 <ScanningOverlay />
-              </div>
+              </motion.div>
             ) : null}
+          </AnimatePresence>
+
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={`bgExcluded-${features[index].bgExcluded}`}
               initial="initial"
@@ -215,34 +283,41 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
                 className="rounded-2xl object-cover"
               />
             </motion.div>
+          </AnimatePresence>
 
-            <motion.div
-              key={`image-${features[index].image}`}
-              custom={direction}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              variants={imageVariants}
-              className="absolute bottom-0 left-0"
-            >
-              <Image
-                src={features[index].image}
-                alt="Alien Image"
-                width={1920}
-                height={1080}
-                className="z-10 relative object-contain"
-              />
-            </motion.div>
+          {/* Image morphing container */}
+          <div className="absolute -bottom-[5%] left-0 w-full h-full">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={`image-${index}`}
+                custom={direction}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={imageVariants}
+                className="absolute w-full h-full"
+              >
+                <Image
+                  src={features[index].image}
+                  alt="Alien Image"
+                  width={1920}
+                  height={1080}
+                  className="z-10 relative object-contain w-full h-full"
+                  priority
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
+
           <motion.div
-            key={`slider-controls-${index}`}
-            initial={{ y: 10, opacity: 0 }}
-            animate={{
-              y: 0,
-              opacity: 1,
-              transition: { duration: 0.6, delay: 0.4 },
-            }}
-            className="absolute bottom-[-10%] w-full z-50"
+            // key={`slider-controls-${index}`}
+            // initial={{ y: 10, opacity: 0 }}
+            // animate={{
+            //   y: 0,
+            //   opacity: 1,
+            //   transition: { duration: 0.6, delay: 0.4 },
+            // }}
+            className="absolute bottom-[-10%]  w-full z-50"
           >
             <div className="relative">
               <div className="mx-auto w-full flex items-center justify-center">
@@ -251,18 +326,22 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
                   <SliderIconSecondary index={index} />
                 </CircularMotion>
               </div>
-              <ArchGradient index={index} />
+              <div className="flip">
+                <ArchGradient progress={index} />
+              </div>
+            </div>
+            <div className="w-[100%] absolute bottom-[20%] z-50">
+              <AnimatePresence mode="sync" initial={false} propagate>
+                <FeatureTextSlider
+                  title={features[index].title}
+                  description={features[index].description}
+                  key={`text-${index}`}
+                />
+              </AnimatePresence>
             </div>
           </motion.div>
-          <div className="w-[100%] absolute bottom-[-68%] z-50 aspect-square ">
-            <FeatureTextSlider
-              title={features[index].title}
-              description={features[index].description}
-              key={`text-${index}`}
-            />
-          </div>
         </div>
       </div>
-    </AnimatePresence>
+    </div>
   );
 }
