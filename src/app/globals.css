@@ -385,6 +385,17 @@ html {
   );
 }
 
+
+
+.image-slider-gradient-bg-two {
+  background: linear-gradient(
+    90deg,
+    rgba(120, 219, 255, 0) 0%,
+    #78dbff 50.1391%,
+    rgba(120, 219, 255, 0) 100%
+  );
+}
+
 .blur-overlay {
   position: absolute;
   top: 0;
@@ -408,7 +419,6 @@ html {
   -webkit-mask-repeat: no-repeat;
 }
 
-
 .ReactCompareSlider {
   transition: transform 0.3s ease;
   will-change: transform;
@@ -418,4 +428,60 @@ html {
 /* Enhance slider interaction */
 .ReactCompareSlider:hover {
   box-shadow: 0 0 60px rgba(0, 160, 255, 0.3);
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin_meow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-meow {
+  animation: spin_meow 4s linear infinite;
+}
+
+.scan-roblox {
+  opacity: 0.2;
+  background: linear-gradient(180deg, #78dbff 0%, rgba(120, 219, 255, 0) 100%);
 }

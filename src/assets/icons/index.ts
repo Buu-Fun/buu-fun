@@ -57,5 +57,6 @@ export {
 
 import DiscordIcon from "./discord";
 import InstagramIcon from "./Instagram";
+import robLoxIcon from "./roblox-logo.png";
 
-export { DiscordIcon, InstagramIcon };
+export { DiscordIcon, InstagramIcon,robLoxIcon };
