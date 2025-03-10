@@ -385,8 +385,6 @@ html {
   );
 }
 
-
-
 .image-slider-gradient-bg-two {
   background: linear-gradient(
     90deg,
@@ -484,4 +482,11 @@ html {
 .scan-roblox {
   opacity: 0.2;
   background: linear-gradient(180deg, #78dbff 0%, rgba(120, 219, 255, 0) 100%);
+}
+
+.flip {
+  -webkit-transform: scale(-1, 1);
+  -moz-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  transform: scale(-1, 1);
 }
