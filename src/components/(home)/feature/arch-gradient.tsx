@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-export const ArchGradient = ({ progress }: { progress: any }) => {
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+export const ArchGradient = ({}: { progress: any }) => {
   return (
     <motion.svg
       viewBox="0 0 499 113"
