@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.34](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.33...buu-fun-v0.1.34) (2025-03-10)
+
+
+### ✨ Features
+
+* added assets for the feature carousal ([34b7c13](https://github.com/muadpn/buu-fun/commit/34b7c13a0d169e940763b26231d5e82de04c83f5))
+* added slider handle and robolox feature title ([d907527](https://github.com/muadpn/buu-fun/commit/d907527d52a4493e125966e7577cb32a6a290c4d))
+* added text slider and carousal card ([4b6a2b9](https://github.com/muadpn/buu-fun/commit/4b6a2b9d59fbbba73176ff1e7410aa19e3b33d26))
+* feature carousal card ([3486cc3](https://github.com/muadpn/buu-fun/commit/3486cc301c67a6ab2438a84c6abe3c6adb73b0b4))
+* fixed and linted build issues ([011d403](https://github.com/muadpn/buu-fun/commit/011d403bfbd84da786d0a6c4ba1cbbd69c9632c2))
+
+
+### 🐛 Bugfixes
+
+* fixed the setDirection to be constant ([b613935](https://github.com/muadpn/buu-fun/commit/b6139357e4405c38ff1b4be8cb8d29929f1932a3))
+
 ## [0.1.33](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.32...buu-fun-v0.1.33) (2025-03-08)
 
 
