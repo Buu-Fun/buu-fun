@@ -12,7 +12,7 @@ import DevilWomen from "./DevilWomen.png";
 import Mock3DCard from "./mock-3d-card";
 export default function MobileMockCard({ progress }: { progress: number }) {
   return (
-    <div className="border-2  border-muted-foreground/60 flex flex-col bg-background rounded-3xl  w-full h-full px-2 py-2">
+    <div className="border-2  border-muted-foreground/20 flex flex-col bg-background rounded-[30px]  w-full h-full px-2 py-2">
       <div className="flex  w-full justify-between px-1 py-2">
         <div className="">
           <Image
@@ -25,14 +25,14 @@ export default function MobileMockCard({ progress }: { progress: number }) {
         </div>
 
         <div className="flex gap-1  justify-center items-start">
-          <button className="flex  max-h-[40px]items-center justify-center bg-buu shadow-buu-secondary border-buu py-2 px-1 rounded-xl">
+          <button className="flex gap-1  max-h-[40px]items-center justify-center bg-buu shadow-buu-secondary border-buu py-2 px-1 rounded-xl">
             <FlashIcon />
-            <p className="text-white text-xs">${getFixedCredits(1.9)}</p>
-            <p className="text-xs">Credits used </p>
+            <p className="text-white text-[11px]">${getFixedCredits(1.9)}</p>
+            <p className="text-[11px]"> Credits used </p>
           </button>
 
-          <div className="flex max-h-[40px] items-center gap-1.5 text-sm  group py-1 px-1  bg-white text-black rounded-md">
-            <div className="relative flex w-6 h-6 border-profile shadow-inner rounded-md overflow-hidden">
+          <div className="flex max-h-[40px] items-center gap-0.5 text-sm  group py-1 px-1  bg-white text-black rounded-md">
+            <div className="relative flex w-6 h-6  border-profile shadow-inner rounded-md overflow-hidden">
               <Image
                 src={profilePicture("")}
                 width={100}
@@ -41,7 +41,7 @@ export default function MobileMockCard({ progress }: { progress: number }) {
                 className="w-full h-full"
               />
             </div>
-            <div className="w-0.5 h-[90%] my-auto bg-muted-foreground/60 hidden lg:flex" />
+            <div className="w-0.5 h-[90%] my-auto bg-muted-foreground/60 hidden " />
             <ChevronDown size={18} />
           </div>
         </div>

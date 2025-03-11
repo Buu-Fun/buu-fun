@@ -81,7 +81,7 @@ export default function HowToContainer() {
       <div className="absolute w-full h-full -top-12 left-0 flex justify-center items-center">
         <div
           ref={mobileRef}
-          className="max-h-[584px] p-2 border-2 border-muted-foreground/60 rounded-3xl flex h-full w-full  max-w-[300px]"
+          className="max-h-[584px] p-2 border-2 border-muted-foreground/20 rounded-[40px] flex h-full w-full  max-w-[300px]"
         >
           <MobileMockCard progress={progress} />
         </div>
