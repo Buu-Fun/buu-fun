@@ -63,7 +63,7 @@ export function isHttpUrl(value: string | undefined | null) {
 
 export function isDataUri(value: string | null | undefined) {
   if (!value) return undefined;
-  console.log(value);
+  // console.log(value);
   return value.trim().startsWith("data") ? value : undefined;
 }
 

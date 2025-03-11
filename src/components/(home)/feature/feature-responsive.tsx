@@ -140,12 +140,12 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
       opacity: 0.2,
       // scale: 0.95,
       transition: {
-        duration: 0.4,
+        // duration: 0.4,
       },
     },
     animate: {
       opacity: 1,
-      scale: 1,
+      // scale: 1,
       transition: {
         duration: 1.2,
         // ease: [0.43, 0.13, 0.23, 0.96], // Custom easing for smoother transition
@@ -153,7 +153,7 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
     },
     exit: {
       opacity: 0.2,
-      scale: 1,
+      // scale: 1,
       transition: {
         duration: 0.8, // Match the duration of the entering animation
         // ease: [0.43, 0.13, 0.23, 0.96],
@@ -326,7 +326,7 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
                 </CircularMotion>
               </div>
               <div className="flip">
-                <ArchGradient progress={index} />
+                <ArchGradient key={index} index={index} />
               </div>
             </div>
             <div className="w-[100%] absolute bottom-[20%] z-50">

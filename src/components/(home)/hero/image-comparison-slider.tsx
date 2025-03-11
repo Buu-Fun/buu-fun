@@ -32,7 +32,6 @@ export default function ImageComparisonSlider({
           duration: 2,
           ease: "power2.inOut",
           onUpdate: function () {
-            console.log("THIS PROGRESS", this.progress());
             setPosition((this.progress() + 0.4) * 100);
           },
           scrollTrigger: {

@@ -29,8 +29,8 @@ export default function HeroLoadingWrapper({
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="w-full h-full">
-      <div className="w-full  h-screen relative ">
+    <div className="w-full h-full relative">
+      <div className="w-full h-screen relative ">
         <Canvas
           camera={{ position: [0, 0, 20], fov: 60 }}
           className="w-full h-full z-10 relative"
@@ -50,10 +50,10 @@ export default function HeroLoadingWrapper({
         </div>
       </div>
       <motion.div
-        className="absolute top-0 left-0 w-full h-full flex flex-col items-center z-10 justify-center text-white "
+        className="absolute top-0 z-[10000] left-0 w-full h-full flex flex-col items-center   justify-center text-white "
         initial={{ opacity: 0 }}
-        animate={{ opacity: progress >= 100 ? 1 : 0 }}
-        transition={{ duration: 2.5, delay: 1.5 }}
+        animate={{ opacity: progress >= 99 ? 1 : 0 }}
+        transition={{ duration: 3.5, delay: 1.7 }}
       >
         <MagicPenTitle
           className="flex items-center justify-center text-blue-300 gap-2"

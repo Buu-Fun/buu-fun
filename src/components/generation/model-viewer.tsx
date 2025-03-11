@@ -80,6 +80,8 @@ export default function ModelViewer({
         ios-src=""
         poster={poster ?? ""}
         alt={alt}
+        rotation-per-second="45deg"
+        auto-rotate-delay={1}
         environment-image=""
         shadow-intensity={0}
         loading="eager"
