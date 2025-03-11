@@ -8,7 +8,7 @@ export default function SettingsBarSelectedDisplay({
 }) {
   //add framer-motion animated-out. or similar apis. for hidden to view transitions.
   return (
-    <div className=" items-center group justify-center   flex gap-2">
+    <div className=" items-center group justify-center flex gap-2">
       <div className="relative group-data-[state=inactive]:hidden   flex items-center w-6 h-6 justify-center   ">
         {/* will need to add dynamic Layouts for each options. */}
         <Create3DLayout
@@ -17,7 +17,7 @@ export default function SettingsBarSelectedDisplay({
           ImageTwoClassName="max-w-max group-hover:rotate-[14deg] rotate-[6deg] h-5 w-5 rounded-sm -bottom-0  left-2 top-1"
         />
       </div>
-      <p className="font-medium ">{title}</p>
+      <p className="font-medium">{title}</p>
     </div>
   );
 }
