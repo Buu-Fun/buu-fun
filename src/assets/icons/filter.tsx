@@ -4,8 +4,8 @@ export default function FilterIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="17"
-      height="17"
+      // width="17"
+      // height="17"
       viewBox="0 0 17 17"
       className="fill-white transition-colors duration-200"
       fill="currentColor"

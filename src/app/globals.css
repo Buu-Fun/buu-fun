@@ -371,7 +371,7 @@ html {
 
 /* For the linear gradient */
 .blue-icon-gradient-background {
-  background: linear-gradient(to right bottom, #52baff, #90d1f2);
+  /* background: linear-gradient(to right bottom, #52baff, #90d1f2); */
   /* Alternative syntax for better browser support: */
   background: linear-gradient(135deg, #52baff 0%, #90d1f2 100%);
 }
@@ -489,4 +489,29 @@ html {
   -moz-transform: scale(-1, 1);
   -o-transform: scale(-1, 1);
   transform: scale(-1, 1);
+}
+
+.dark-text-clip {
+  opacity: 0.2;
+  background: linear-gradient(
+    90deg,
+    rgba(204, 204, 204, 0.2) 3.63%,
+    #ccc 52.06%,
+    rgba(204, 204, 204, 0.2) 99.9%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.blue-text-clip {
+  background: linear-gradient(
+    89deg,
+    #78dbff -26.01%,
+    #caf1ff 27.25%,
+    #78dbff 99.31%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
