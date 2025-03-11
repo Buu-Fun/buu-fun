@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.35](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.34...buu-fun-v0.1.35) (2025-03-11)
+
+
+### 🐛 Bugfixes
+
+* fixd animation exiting in and out in feature carousal ([42668a7](https://github.com/muadpn/buu-fun/commit/42668a7a9c89d08a5118a2518dbf8264932ee7e2))
+* fixd animation exiting in and out in feature carousal ([1164dd8](https://github.com/muadpn/buu-fun/commit/1164dd8076a164317ff3066f685bb42c292bf690))
+
+
+### 👽 Miscellaneous
+
+* fixed eslint issues ([7138e64](https://github.com/muadpn/buu-fun/commit/7138e64c88b931eb80e36b75c8a95e6ef03608fa))
+
 ## [0.1.34](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.33...buu-fun-v0.1.34) (2025-03-10)
 
 
