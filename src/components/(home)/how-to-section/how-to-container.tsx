@@ -35,7 +35,7 @@ export default function HowToContainer() {
           scrub: 1,
           pin: true,
           anticipatePin: 1,
-          markers: true,
+        //   markers: true,
           snap: {
             snapTo: (progress) => {
               const index = Math.round(progress * (sections.length - 1));
