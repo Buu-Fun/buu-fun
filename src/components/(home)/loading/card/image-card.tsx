@@ -22,9 +22,9 @@ export default function ImageCard({
     const loader = new TextureLoader();
     const tex = loader.load(
       imageUrl,
-      () => console.log(`Loaded: ${imageUrl}`),
-      undefined,
-      (error) => console.error(`Texture loading failed for ${imageUrl}`, error),
+      // () => console.log(`Loaded: ${imageUrl}`),
+      undefined
+      // (error) => console.error(`Texture loading failed for ${imageUrl}`, error),
     );
     tex.anisotropy = 4;
     return tex;
