@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import SmoothScrollWrapper from "@/components/(home)/scroll-smoother";
 import { constructMetadata } from "@/lib/construct-metadata";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
@@ -51,7 +52,7 @@ export default function RootLayout({
         <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
       </head> */}
       <body className={`${BricolageGrotesque.className} antialiased dark `}>
-        {children}
+        <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
     </html>
   );

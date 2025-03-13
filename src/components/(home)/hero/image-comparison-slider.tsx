@@ -1,3 +1,4 @@
+'use client'
 import {
   HomeBackground,
   MutantAlien,
