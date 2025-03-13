@@ -26,7 +26,7 @@ export default function TestimonialsContainer() {
         </span>
       );
     });
-  }, [currentIndex, testimonialsData]);
+  }, [currentIndex]);
 
   useGSAP(() => {
     if (!progressRef.current) return;
@@ -80,7 +80,7 @@ export default function TestimonialsContainer() {
         }
         return prev + 1;
       });
-    }, 6000);
+    }, SLIDE_CHANGE_IN);
 
     return () => clearInterval(interval);
   }, []);
