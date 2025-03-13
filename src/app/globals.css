@@ -504,7 +504,30 @@ html {
   -webkit-text-fill-color: transparent;
 }
 
+
+.grayish-text-gradient {
+  background-image: linear-gradient(90deg, #ffffff 3.63%, #999999 99.9%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  /* -webkit-text-fill-color: transparent; */
+  color: transparent;
+  will-change: opacity, filter;
+}
+
+.grayish-text-gradient {
+  background-image: linear-gradient(90deg, #ffffff 3.63%, #999999 99.9%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* The spans inside should be all transparent to reveal the gradient background */
+.word-span {
+  color: transparent;
+}
+
 .blue-text-clip {
+  pointer-events: none;
   background: linear-gradient(
     89deg,
     #78dbff -26.01%,
@@ -514,4 +537,18 @@ html {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.profile-border {
+  border-radius: 6.857px;
+  border: 0.857px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0px 1.714px 3.429px 0px #fff inset,
+    0px -1.714px 5.143px 0px rgba(96, 96, 96, 0.5) inset,
+    0px 5.143px 6.857px 0px rgba(0, 0, 0, 0.1);
+}
+
+.op-0 {
+  opacity: 0;
 }
