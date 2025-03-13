@@ -48,6 +48,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel": "^8.5.2",
+    "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "embla-carousel-wheel-gestures": "^8.0.1",
     "framer-motion": "^12.4.5",

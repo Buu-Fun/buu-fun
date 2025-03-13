@@ -1,4 +1,5 @@
 "use client";
+import ClickToActionContainer from "@/components/(home)/CTA/click-to-action-container";
 import FeatureShowcaseContainer from "@/components/(home)/feature/feature-responsive";
 import BringYourIdeasSection from "@/components/(home)/hero/hero-section-content";
 import HowToContainer from "@/components/(home)/how-to-section/how-to-container";
@@ -17,6 +18,9 @@ export default function HomePage() {
       </div>
       <section className="h-full w-full relative">
         <TestimonialsContainer />
+      </section>
+      <section className="h-full w-full  relative">
+        <ClickToActionContainer/>
       </section>
     </main>
   );

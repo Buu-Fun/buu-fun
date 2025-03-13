@@ -200,7 +200,6 @@ html {
   background: linear-gradient(180deg, "#6A69D5" 0%, "#D4D4FF" 100%);
 
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#6a69d5",endColorstr="#d4d4ff",GradientType=1);
-  backdrop-filter: blur(120px);
   /* filter: blur(300px); */
 }
 
@@ -483,6 +482,12 @@ html {
   opacity: 0.2;
   background: linear-gradient(180deg, #78dbff 0%, rgba(120, 219, 255, 0) 100%);
 }
+
+
+.blue-gradient-try-now {
+  background: linear-gradient(180deg, rgba(82, 186, 255, 1) 0%, rgba(144, 209, 242, 1) 100%);
+}
+
 
 .flip {
   -webkit-transform: scale(-1, 1);
