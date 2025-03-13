@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import MagicPenTitle from "../elements/magic-pen-title";
 
 export default function HeroLoadingWrapper({
@@ -17,16 +17,19 @@ export default function HeroLoadingWrapper({
   children?: ReactNode;
 }) {
   const [progress, setProgress] = useState<number>(70);
-
+  const intervalRef = useRef<NodeJS.Timeout>(null);
   useEffect(() => {
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setProgress((prev) => {
         const newProgress = prev + Math.random() * 8;
         return newProgress >= 100 ? 100 : newProgress;
       });
     }, 200);
-
-    return () => clearInterval(interval);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, []);
   return (
     <div className="w-full h-full relative">
