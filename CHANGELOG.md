@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.37](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.36...buu-fun-v0.1.37) (2025-03-13)
+
+
+### ✨ Features
+
+* added click to action component ([e9ae419](https://github.com/muadpn/buu-fun/commit/e9ae419af63e2453582f78dc67e134b52a21c04d))
+* **assets:** added images for CTA image loop ([a2099b0](https://github.com/muadpn/buu-fun/commit/a2099b0422bf620fed530fbaa80688dd75ce86ad))
+* integrated click to action ui and global styles ([82191d7](https://github.com/muadpn/buu-fun/commit/82191d7b371c916a3ee1af07bb38fe7c5d0ec38e))
+* **ui:** added click to action container ([3beda94](https://github.com/muadpn/buu-fun/commit/3beda94bac0684e4b9aae588ac855a3e97b805df))
+* **ui:** added try now Icon ([22b3c25](https://github.com/muadpn/buu-fun/commit/22b3c252062bdf64fb195bf0254b6dc4355622fc))
+
 ## [0.1.36](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.35...buu-fun-v0.1.36) (2025-03-13)
 
 
