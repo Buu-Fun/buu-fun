@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.36](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.35...buu-fun-v0.1.36) (2025-03-13)
+
+
+### ✨ Features
+
+* added testimonials and animations ([629d1cf](https://github.com/muadpn/buu-fun/commit/629d1cfca338e818450664067296ac8926cfe1aa))
+* added testimonials and animations ([94ddb0f](https://github.com/muadpn/buu-fun/commit/94ddb0fbfb6790ae1d087fa6ae416ce53ffb1ad6))
+
 ## [0.1.35](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.34...buu-fun-v0.1.35) (2025-03-11)
 
 
