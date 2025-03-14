@@ -24,14 +24,13 @@ export default function SmoothScrollWrapper({
   return (
     <ReactLenis
       options={{
-        autoRaf: false,
+        // autoRaf: false,
         anchors: { immediate: false },
       }}
       ref={lenisRef}
-      className=""
       root
     >
-      <>{children}</>
+      {children}
     </ReactLenis>
   );
 }

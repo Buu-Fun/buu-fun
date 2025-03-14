@@ -27,32 +27,33 @@ export const HomePageLinks: TFooterLinks = {
     {
       href: "#bring-your-ideas",
       title: "About",
-      _blank: "_self",
+      // _blank: "_self",
     },
     {
       href: "#features",
       title: "Features",
-      _blank: "_self",
+      // _blank: "_self",
     },
     {
       href: "#how-it-works",
       title: "How it works",
-      _blank: "_self",
-    },
-    {
-      href: "#gallery",
-      title: "Gallery",
-      _blank: "_self",
+      // _blank: "_self",
     },
     {
       href: "#reviews",
       title: "Reviews",
-      _blank: "_self",
+      // _blank: "_self",
     },
+    {
+      href: "#gallery",
+      title: "Gallery",
+      // _blank: "_self",
+    },
+    
     {
       href: "#faq",
       title: "FAQ",
-      _blank: "_self",
+      // _blank: "_self",
     },
   ],
 };

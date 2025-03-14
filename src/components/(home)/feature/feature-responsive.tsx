@@ -328,7 +328,7 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
                 </CircularMotion>
               </div>
               <div className="flip">
-                <ArchGradient key={index} index={index} />
+                <ArchGradient key={`${index}-ArchGradient`} index={index} />
               </div>
             </div>
             <div className="w-[100%] absolute bottom-[20%] z-50">

@@ -9,13 +9,14 @@ import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import MagicPenTitle from "../elements/magic-pen-title";
 import TryNow from "../elements/try-now";
+import toast from "react-hot-toast";
 
 export default function HeroLoadingWrapper({
   children,
 }: {
   children?: ReactNode;
 }) {
-  const [progress, setProgress] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(90);
   const intervalRef = useRef<NodeJS.Timeout>(null);
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -44,15 +45,16 @@ export default function HeroLoadingWrapper({
             <Bloom />
           </EffectComposer>
         </Canvas>
-        <div className="w-full h-full flex items-center justify-center absolute top-0 left-0">
+        <div className="w-full  h-full flex items-center justify-center absolute top-0 left-0">
           {/* bg-overlay-primary  bg-[#6A69D580] left-[45%]  rounded-full  absolute top-[5%] -z-10 blur-[100px] md:block hidden  rotate-[-10deg] */}
           <div className="relative w-full mx-auto">
             <div className="bg-overlay-primary bg-slate-500/50  backdrop-blur-3xl left-[45%]  rounded-full max-w-[350px] rotate-45 w-full h-[200px] max-h-[200px]  top-[50%] mx-auto flex items-center justify-center -z-10 blur-[100px]" />
           </div>
         </div>
       </div>
-      <motion.div
-        className="absolute top-0 z-[10000] left-0 w-full h-full flex flex-col items-center   justify-center text-white "
+      <motion.section
+        id="home"
+        className="absolute top-0 z-[50] left-0 w-full h-full flex flex-col items-center   justify-center text-white "
         initial={{ opacity: 0 }}
         animate={{ opacity: progress >= 99 ? 1 : 0 }}
         transition={{ duration: 3.5, delay: 1.7 }}
@@ -94,7 +96,7 @@ export default function HeroLoadingWrapper({
             </div>
           </Link>
         </div>
-      </motion.div>
+      </motion.section>
       <AnimatePresence>{progress >= 100 ? children : null}</AnimatePresence>
     </div>
   );
