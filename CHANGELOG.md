@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.39](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.38...buu-fun-v0.1.39) (2025-03-14)
+
+
+### ✨ Features
+
+* added assets for footer ([8022bbe](https://github.com/muadpn/buu-fun/commit/8022bbe91891dc249dff6970b33993f20b94924d))
+* added footer link component ([29a3dc8](https://github.com/muadpn/buu-fun/commit/29a3dc85f734dffe1148d030a47344f247d1686a))
+* added id tags for all sections for scrolling ([7e44091](https://github.com/muadpn/buu-fun/commit/7e44091ad9863b74b6dbba0e8373f64c28d186f2))
+* footer section for home page ([46db7fe](https://github.com/muadpn/buu-fun/commit/46db7fe2993b0cd247536170ca9d7474151ada50))
+
 ## [0.1.38](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.37...buu-fun-v0.1.38) (2025-03-14)
 
 
