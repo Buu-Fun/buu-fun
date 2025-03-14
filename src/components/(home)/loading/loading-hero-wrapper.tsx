@@ -1,15 +1,14 @@
 "use client";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 
-import { StarIcon } from "@/assets/icons";
 import MultiArrowDownIcon from "@/assets/icons/mutli-arrow-down-icon";
 import ImageGlobeV3 from "@/components/(home)/loading/image-globe.v3";
-import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import MagicPenTitle from "../elements/magic-pen-title";
+import TryNow from "../elements/try-now";
 
 export default function HeroLoadingWrapper({
   children,
@@ -70,15 +69,11 @@ export default function HeroLoadingWrapper({
           advanced AI technology
         </p>
         <div className="flex items-center gap-4 text-white/40 mt-10">
-          <Button className="px-2 group py-2 h-[40px] rounded-[10px]">
-            <div className="w-6 h-6 icon-blue-with-shadow blue-icon-gradient-background blue-icon-filter-effect rounded-md flex items-center justify-center">
-              <StarIcon />
-            </div>
-            Try Now
-          </Button>
+          <TryNow />
+
           <Link
             onClick={(e) => {
-              e.preventDefault(); // Prevent Next.js from handling navigation immediately
+              e.preventDefault();
               const target = document.getElementById("bring-your-ideas");
               if (target) {
                 target.scrollIntoView({ behavior: "smooth" });
