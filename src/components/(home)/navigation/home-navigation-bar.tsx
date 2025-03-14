@@ -1,13 +1,12 @@
 "use client";
 import HomeIcon from "@/assets/icons/home-icon";
-import React, { useState, useEffect, useRef } from "react";
-import { HomePageLinks } from "../footer/footer-data";
-import { FooterLink } from "../footer/footer-link";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { TFooterLink } from "../footer/footer-link";
+import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
+import { HomePageLinks } from "../footer/footer-data";
+import { FooterLink } from "../footer/footer-link";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);

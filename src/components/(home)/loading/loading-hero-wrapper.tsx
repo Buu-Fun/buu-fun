@@ -9,7 +9,6 @@ import Link from "next/link";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import MagicPenTitle from "../elements/magic-pen-title";
 import TryNow from "../elements/try-now";
-import toast from "react-hot-toast";
 
 export default function HeroLoadingWrapper({
   children,
