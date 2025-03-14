@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.38](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.37...buu-fun-v0.1.38) (2025-03-14)
+
+
+### ✨ Features
+
+* added accordian icon and faq ([4a2ee25](https://github.com/muadpn/buu-fun/commit/4a2ee252b965c7c425060665db89efe51e441f93))
+* added faq content and smooth scrolling ([63853e2](https://github.com/muadpn/buu-fun/commit/63853e28e99002bf407119fba62d9a483c35e32e))
+* added smoothscrolling to gsap ([138a72b](https://github.com/muadpn/buu-fun/commit/138a72b1c385ad7d9a0d9aba54384455b59a95bc))
+
 ## [0.1.37](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.36...buu-fun-v0.1.37) (2025-03-13)
 
 
