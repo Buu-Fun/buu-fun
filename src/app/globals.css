@@ -70,12 +70,14 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
+  overflow: hidden; /* Prevent default browser scroll behavior */
 }
 
-html {
+/* html {
   scroll-behavior: smooth;
-}
+} */
+
 .bg-gradient {
   background: radial-gradient(
     57.04% 136.56% at 44.25% 34.68%,

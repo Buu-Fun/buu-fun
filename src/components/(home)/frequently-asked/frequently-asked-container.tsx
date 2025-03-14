@@ -1,21 +1,29 @@
 "use client";
 import FrequentlyAskedIcon from "@/assets/icons/frequently-asked";
 import Bounded from "@/components/ui/Bounded";
-import React from "react";
+import { useRef } from "react";
 
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
 } from "@/components/ui/accordion";
-import { MinusCircle, PlusCircle } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
+import { motion } from "framer-motion";
+import { MinusCircle, PlusCircle } from "lucide-react";
+
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(ScrollTrigger);
+
 export default function FrequentlyAskedContainer() {
+  const triggerRef = useRef<HTMLDivElement>(null);
+
   useGSAP(() => {
+    if (!triggerRef.current) return;
+
     gsap.fromTo(
       ".accordion-container",
       {
@@ -26,6 +34,11 @@ export default function FrequentlyAskedContainer() {
       {
         rotate: "0deg",
         y: 0,
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top 90%",
+          toggleActions: "play pause resume reset",
+        },
         filter: "blur(0px)",
         duration: 2,
         stagger: 0.2,
@@ -35,9 +48,8 @@ export default function FrequentlyAskedContainer() {
   });
 
   return (
-    <div className="w-full h-screen relative">
-      <div className="w-[176px] h-[334px]   violet-gradient -left-[70px] top-[30%]  rounded-full  absolute  -z-10  md:block hidden  rotate-[-10deg]" />
-
+    <div ref={triggerRef} className="w-full h-screen relative">
+      <div className="w-[176px] h-[334px] violet-gradient top-[25%]   -left-[70px]   rounded-full  absolute  -z-10  md:block hidden  rotate-[-10deg]" />
       <Bounded className="max-w-screen-2xl w-full h-full  flex items-center justify-between">
         <div className="flex flex-col gap-6 w-full">
           <div className="flex items-center  gap-2">
@@ -105,10 +117,12 @@ export default function FrequentlyAskedContainer() {
                 <motion.div
                   initial={{
                     y: 40,
+                    filter: "blur(6px)"
                   }}
                   animate={{
+                    filter: "blur(0px)",
                     y: 0,
-                    transition: { duration: 0.5 },
+                    transition: { duration: 0.8 },
                   }}
                 >
                   {" "}
