@@ -130,3 +130,8 @@ export {
   imageFifteen,
   imageSixteen,
 };
+
+
+import CaveBackgroundImage from '@/assets/Image/home/Cave-background-image.webp'
+
+export {CaveBackgroundImage}
