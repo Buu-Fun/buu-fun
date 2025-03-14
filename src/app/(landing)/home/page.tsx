@@ -1,6 +1,7 @@
 "use client";
 import ClickToActionContainer from "@/components/(home)/CTA/click-to-action-container";
 import FeatureShowcaseContainer from "@/components/(home)/feature/feature-responsive";
+import FooterContainer from "@/components/(home)/footer/footer-container";
 import FrequentlyAskedContainer from "@/components/(home)/frequently-asked/frequently-asked-container";
 import BringYourIdeasSection from "@/components/(home)/hero/hero-section-content";
 import HowToContainer from "@/components/(home)/how-to-section/how-to-container";
@@ -17,18 +18,21 @@ export default function HomePage() {
         <BringYourIdeasSection />
         <FeatureShowcaseContainer />
       </div>
-      <div className="w-full h-full">
+      <section id="how-it-works" className="w-full h-full">
         <HowToContainer />
-      </div>
-      <section className="h-full w-full relative">
+      </section>
+      <section id="reviews"  className="h-full w-full relative">
         <TestimonialsContainer />
       </section>
-      <section className="h-full w-full  relative">
+      <section id="gallery" className="h-full w-full  relative">
         <ClickToActionContainer />
       </section>
-      <section className="w-full h-full">
+      <section id="faq" className="w-full h-full">
         <FrequentlyAskedContainer />
       </section>
+      <footer className="w-full h-full relative">
+        <FooterContainer />
+      </footer>
     </main>
   );
 }

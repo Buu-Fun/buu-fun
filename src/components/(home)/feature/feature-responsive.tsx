@@ -163,7 +163,8 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
   };
 
   return (
-    <div
+    <section
+      id="features"
       ref={containerRef}
       className="relative h-screen w-full overflow-hidden"
     >
@@ -342,6 +343,6 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
           </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
