@@ -12,14 +12,14 @@ export default function ContentContainer({
   subTitle,
 }: TContentContainer) {
   return (
-    <div className="h-full w-full max-w-[calc(100dvw-10dvw)] first-of-type:pl-[5%] last-of-type:pr-[5%]     flex flex-shrink-0 items-center  justify-between flex-col ">
-      <h1 className="text-[150px] 2xl:text-[250px] dark-text-clip text-center  font-medium tracking-tighter ">
+    <div className="h-full w-full min-w-[320px] max-w-[100vw] first-of-type:pl-[5%] last-of-type:pr-[5%] flex flex-shrink-0 items-center justify-between flex-col">
+      <h1 className="text-[100px] md:text-[150px] 2xl:text-[250px] dark-text-clip text-center font-medium tracking-tighter">
         {title}
       </h1>
-      <div className="flex flex-col self-start pl-[5%] pt-[15%]">
+      <div className="flex flex-col self-start pl-[5%] pt-[10%] md:pt-[15%]">
         <p className="blue-text-clip font-medium">{index}</p>
-        <h4 className="text-5xl  font-medium tracking-tighter">{subTitle}</h4>
-        <p className="tracking-tighter text-lg">{subDescription} </p>
+        <h4 className="text-3xl md:text-5xl font-medium tracking-tighter">{subTitle}</h4>
+        <p className="tracking-tighter text-base md:text-lg">{subDescription}</p>
       </div>
     </div>
   );
