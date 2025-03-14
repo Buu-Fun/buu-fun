@@ -51,7 +51,7 @@ export default function RootLayout({
       {/* <head>
         <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
       </head> */}
-      <body className={`${BricolageGrotesque.className} antialiased dark `}>
+      <body className={`${BricolageGrotesque.className} antialiased dark scroll-smooth `}>
         <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
     </html>

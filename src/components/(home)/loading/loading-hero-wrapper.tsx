@@ -6,9 +6,9 @@ import MultiArrowDownIcon from "@/assets/icons/mutli-arrow-down-icon";
 import ImageGlobeV3 from "@/components/(home)/loading/image-globe.v3";
 import { Button } from "@/components/ui/button";
 import { Canvas } from "@react-three/fiber";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import MagicPenTitle from "../elements/magic-pen-title";
 
 export default function HeroLoadingWrapper({
@@ -16,17 +16,20 @@ export default function HeroLoadingWrapper({
 }: {
   children?: ReactNode;
 }) {
-  const [progress, setProgress] = useState<number>(70);
-
+  const [progress, setProgress] = useState<number>(0);
+  const intervalRef = useRef<NodeJS.Timeout>(null);
   useEffect(() => {
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setProgress((prev) => {
-        const newProgress = prev + Math.random() * 8;
+        const newProgress = prev + Math.random() * 12;
         return newProgress >= 100 ? 100 : newProgress;
       });
     }, 200);
-
-    return () => clearInterval(interval);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, []);
   return (
     <div className="w-full h-full relative">
@@ -74,9 +77,16 @@ export default function HeroLoadingWrapper({
             Try Now
           </Button>
           <Link
+            onClick={(e) => {
+              e.preventDefault(); // Prevent Next.js from handling navigation immediately
+              const target = document.getElementById("bring-your-ideas");
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
             href={"/home#bring-your-ideas"}
-            scroll
-            className="flex items-center pointer-events-auto justify-center gap-1 "
+            scroll={false}
+            className="flex items-center pointer-events-auto scroll-smooth justify-center gap-1 "
           >
             <p className="font-medium">Scroll to explore</p>
             <div className="flex relative w-[18px] h-[18px] flex-col -top-1">
@@ -90,7 +100,7 @@ export default function HeroLoadingWrapper({
           </Link>
         </div>
       </motion.div>
-      {progress >= 100 ? children : null}
+      <AnimatePresence>{progress >= 100 ? children : null}</AnimatePresence>
     </div>
   );
 }

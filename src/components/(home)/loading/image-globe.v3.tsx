@@ -28,7 +28,6 @@ export default function ImageGlobeV3({ progress }: { progress: number }) {
 
         // Smoothly transition the rotation to zero
         gsap.to(groupRef.current.rotation, {
-          //   x: x * -0.009, // Slow down first
           y: 0,
           z: 0,
           duration: 3.5,
@@ -36,8 +35,6 @@ export default function ImageGlobeV3({ progress }: { progress: number }) {
           onComplete: () => {
             if (!groupRef.current) return;
             gsap.to(groupRef.current.rotation, {
-              //   x: 0,
-              //   y: 0,
               z: 0,
               duration: 4, // Slower easing for a smooth stop
               ease: "power4.out",
@@ -74,7 +71,7 @@ export default function ImageGlobeV3({ progress }: { progress: number }) {
           total={imageUrls.length}
         />
       )),
-    [progress],
+    [progress]
   );
 
   return <group ref={groupRef}>{images}</group>;

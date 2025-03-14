@@ -70,12 +70,14 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
+  overflow: hidden; /* Prevent default browser scroll behavior */
 }
 
-html {
+/* html {
   scroll-behavior: smooth;
-}
+} */
+
 .bg-gradient {
   background: radial-gradient(
     57.04% 136.56% at 44.25% 34.68%,
@@ -483,11 +485,13 @@ html {
   background: linear-gradient(180deg, #78dbff 0%, rgba(120, 219, 255, 0) 100%);
 }
 
-
 .blue-gradient-try-now {
-  background: linear-gradient(180deg, rgba(82, 186, 255, 1) 0%, rgba(144, 209, 242, 1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(82, 186, 255, 1) 0%,
+    rgba(144, 209, 242, 1) 100%
+  );
 }
-
 
 .flip {
   -webkit-transform: scale(-1, 1);
@@ -509,9 +513,8 @@ html {
   -webkit-text-fill-color: transparent;
 }
 
-
 .grayish-text-gradient {
-  background-image: linear-gradient(90deg, #ffffff 3.63%, #999999 99.9%);
+  background-image: linear-gradient(90deg, #fffffff6 3.63%, #696666 99.9%);
   background-clip: text;
   -webkit-background-clip: text;
   /* -webkit-text-fill-color: transparent; */
@@ -519,12 +522,12 @@ html {
   will-change: opacity, filter;
 }
 
-.grayish-text-gradient {
+/* .grayish-text-gradient {
   background-image: linear-gradient(90deg, #ffffff 3.63%, #999999 99.9%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-}
+} */
 
 /* The spans inside should be all transparent to reveal the gradient background */
 .word-span {
@@ -556,4 +559,15 @@ html {
 
 .op-0 {
   opacity: 0;
+}
+
+.rgb-muted {
+  background: rgba(24, 27, 40, 0.4);
+}
+
+.violet-gradient {
+  border-radius: 334px;
+  opacity: 0.5;
+  background: linear-gradient(180deg, #6a69d5 0%, #d4d4ff 100%);
+  filter: blur(200px);
 }

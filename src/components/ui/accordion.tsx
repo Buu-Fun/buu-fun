@@ -24,24 +24,29 @@ const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & {
     arrowClass?: string;
+    icon?: React.ReactNode;
   }
->(({ className, children, arrowClass, ...props }, ref) => (
+>(({ className, children, arrowClass, icon, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left [&[data-state=open]>svg]:rotate-180",
-        className,
+        "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left group [&[data-state=open]>svg]:rotate-180",
+        className
       )}
       {...props}
     >
       {children}
-      <ChevronDown
-        className={cn(
-          "h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200",
-          arrowClass,
-        )}
-      />
+      {icon ? (
+        icon
+      ) : (
+        <ChevronDown
+          className={cn(
+            "h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200",
+            arrowClass
+          )}
+        />
+      )}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));
