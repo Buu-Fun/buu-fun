@@ -32,7 +32,6 @@ export default function HomeNavigationBar() {
         trigger: section,
         start: "top 50%",
         end: "bottom 85%",
-        markers: true,
         onEnter: () => setActiveLink(sectionId),
         onEnterBack: () => setActiveLink(sectionId),
       });
