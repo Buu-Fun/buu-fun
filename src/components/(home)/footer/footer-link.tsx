@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React, { HTMLAttributeAnchorTarget } from "react";
 export type TFooterLink = {
@@ -5,18 +6,32 @@ export type TFooterLink = {
   _blank?: HTMLAttributeAnchorTarget;
   title: string;
 };
-export function FooterLink({ _blank, href, title }: TFooterLink) {
+export type TFooterLinks = { title: string; links: TFooterLink[] };
+export function FooterLink({
+  _blank,
+  href,
+  title,
+  className,
+  onClick,
+}: TFooterLink & {
+  className?: string;
+  onClick?: (href: string) => (e: React.MouseEvent) => void;
+}) {
   return (
     <Link
       href={href}
       target={_blank}
-      className="text-base text-white hover:text-white/80 "
+      onClick={(e) => {
+        if (onClick) {
+          onClick(href)(e);
+        }
+      }}
+      className={cn("text-base text-white hover:text-white/80", className)}
     >
       {title}
     </Link>
   );
 }
-export type TFooterLinks = { title: string; links: TFooterLink[] };
 export function FooterLinks({ links, title }: TFooterLinks) {
   return (
     <div>

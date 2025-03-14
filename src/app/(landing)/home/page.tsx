@@ -6,14 +6,18 @@ import FrequentlyAskedContainer from "@/components/(home)/frequently-asked/frequ
 import BringYourIdeasSection from "@/components/(home)/hero/hero-section-content";
 import HowToContainer from "@/components/(home)/how-to-section/how-to-container";
 import HeroLoadingWrapper from "@/components/(home)/loading/loading-hero-wrapper";
+import HomeNavigationBar from "@/components/(home)/navigation/home-navigation-bar";
 import TopNavigationBar from "@/components/(home)/navigation/top-navigation-bar";
 import TestimonialsContainer from "@/components/(home)/testimonials/testimonials-container";
 export default function HomePage() {
   return (
-    <main className="relative max-w-screen scroll-smooth">
-      <div className="w-full overflow-hidden relative scroll-smooth">
+    <main className="relative max-w-screen  ">
+      <div className="w-full  relative ">
         <HeroLoadingWrapper>
-          <TopNavigationBar />
+          <>
+            <TopNavigationBar />
+            <HomeNavigationBar />
+          </>
         </HeroLoadingWrapper>
         <BringYourIdeasSection />
         <FeatureShowcaseContainer />
@@ -21,7 +25,7 @@ export default function HomePage() {
       <section id="how-it-works" className="w-full h-full">
         <HowToContainer />
       </section>
-      <section id="reviews"  className="h-full w-full relative">
+      <section id="reviews" className="h-full w-full relative">
         <TestimonialsContainer />
       </section>
       <section id="gallery" className="h-full w-full  relative">

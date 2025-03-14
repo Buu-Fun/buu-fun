@@ -418,7 +418,6 @@ body {
   -webkit-mask-repeat: no-repeat;
 }
 
-
 .ReactCompareSlider {
   transition: transform 0.3s ease;
   will-change: transform;
@@ -573,16 +572,25 @@ body {
   filter: blur(200px);
 }
 
-
 .footer-gradient {
   border-radius: 2053px;
-  background: linear-gradient(180deg, #0E111A 74.16%, rgba(14, 17, 26, 0.00) 100%);
+  background: linear-gradient(180deg, #0e111a 74.16%, rgba(14, 17, 26, 0) 100%);
   /* filter: blur(75px); */
 }
 
 .footer-icon-bg {
   border-radius: 100px;
-background: rgba(50, 55, 78, 0.40);
+  background: rgba(50, 55, 78, 0.4);
 
-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.home-navigation-background {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+}
+
+.home-navigation-icon-background {
+  background: #ffffff38;
 }
