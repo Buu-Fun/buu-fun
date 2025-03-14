@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.40](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.39...buu-fun-v0.1.40) (2025-03-14)
+
+
+### ✨ Features
+
+* added bottom navigations ([4f9fde1](https://github.com/muadpn/buu-fun/commit/4f9fde1c30e8f9173357c142ef045ee4d0408498))
+* added bottom navigations ([9a68048](https://github.com/muadpn/buu-fun/commit/9a68048e1a61753e11c3e07fef69f62e603961ba))
+
+
+### 🐛 Bugfixes
+
+* removed markers in scroll-triggers ([dafeddd](https://github.com/muadpn/buu-fun/commit/dafedddae7bd256f08c518357256449652966aa7))
+
+
+### 👽 Miscellaneous
+
+* **lint:** removed unused variables and types ([26a1ff3](https://github.com/muadpn/buu-fun/commit/26a1ff39c79b0e06d89d93d1627ce8988b8f5aa0))
+
 ## [0.1.39](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.38...buu-fun-v0.1.39) (2025-03-14)
 
 
