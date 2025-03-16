@@ -346,6 +346,7 @@ export const GetReferralRewardsQuery = gql`
           referee
           creditsPurchaseId
           tokens
+          decimals
           transactionHash
           createdAt
         }

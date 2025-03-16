@@ -110,7 +110,24 @@ export type GenRequest = {
   updatedAt: Scalars['DateTimeISO']['output'];
 };
 
+/** The application that generated the request */
+export enum GenRequestApp {
+  FluxDevImageToImage = 'FluxDevImageToImage',
+  FluxLora = 'FluxLora',
+  FluxLoraCanny = 'FluxLoraCanny',
+  Trellis = 'Trellis'
+}
+
 export type GenRequestResult = GenRequest | HandledError;
+
+export type GenRequestSnapshot = {
+  __typename?: 'GenRequestSnapshot';
+  _id: Scalars['String']['output'];
+  createdAt: Scalars['DateTimeISO']['output'];
+  images?: Maybe<Array<Media>>;
+  model_mesh?: Maybe<Media>;
+  type: GenRequestApp;
+};
 
 /** The status of a request */
 export enum GenRequestStatusEnum {
@@ -157,6 +174,15 @@ export type HandledError = {
   message: Scalars['String']['output'];
 };
 
+export type Idea = {
+  __typename?: 'Idea';
+  _id: Scalars['String']['output'];
+  createdAt: Scalars['DateTimeISO']['output'];
+  genRequests: Array<GenRequestSnapshot>;
+  prompt?: Maybe<Scalars['String']['output']>;
+  style?: Maybe<SubthreadStyle>;
+};
+
 export type Media = {
   __typename?: 'Media';
   alt: Scalars['String']['output'];
@@ -180,6 +206,7 @@ export type Metadata = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createShareableBoard: ShareableBoardResult;
   disconnectTelegram: AccountResult;
   disconnectTwitter: AccountResult;
   generateImage: GenRequestResult;
@@ -189,6 +216,11 @@ export type Mutation = {
   generateSubthread: SubthreadResult;
   linkReferralAccount: ReferralAccountResult;
   redeemVoucher: CreditResult;
+};
+
+
+export type MutationCreateShareableBoardArgs = {
+  threadId: Scalars['String']['input'];
 };
 
 
@@ -260,10 +292,12 @@ export type Query = {
   getMyCredits: CreditResult;
   getReferralAccount: ReferralAccountResult;
   getReferralRewards: ReferralRewardPageResult;
+  getShareableBoard: ShareableBoardResult;
   getSubthread: SubthreadResult;
   getSubthreadGenRequests: GenRequestsPageResult;
   getSubthreads: SubthreadPageResult;
   getThreads: ThreadPageResult;
+  getUserShareableBoard: ShareableBoardPageResult;
   me: AccountResult;
 };
 
@@ -282,6 +316,11 @@ export type QueryGetCreditsPurchasesArgs = {
 export type QueryGetReferralRewardsArgs = {
   filters?: InputMaybe<ReferralRewardFilter>;
   pagination?: InputMaybe<Pagination>;
+};
+
+
+export type QueryGetShareableBoardArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -306,6 +345,12 @@ export type QueryGetThreadsArgs = {
   pagination?: InputMaybe<Pagination>;
 };
 
+
+export type QueryGetUserShareableBoardArgs = {
+  filters?: InputMaybe<ShareableBoardFilter>;
+  pagination?: InputMaybe<Pagination>;
+};
+
 export type ReferralAccount = {
   __typename?: 'ReferralAccount';
   _id: Scalars['String']['output'];
@@ -323,6 +368,7 @@ export type ReferralReward = {
   _id: Scalars['String']['output'];
   createdAt: Scalars['DateTimeISO']['output'];
   creditsPurchaseId?: Maybe<Scalars['String']['output']>;
+  decimals?: Maybe<Scalars['Int']['output']>;
   referee: Scalars['String']['output'];
   referral: Scalars['String']['output'];
   tokens?: Maybe<Scalars['String']['output']>;
@@ -358,11 +404,48 @@ export type ReferralRewardPage = {
 
 export type ReferralRewardPageResult = HandledError | ReferralRewardPage;
 
+export type ShareableBoard = {
+  __typename?: 'ShareableBoard';
+  _id: Scalars['String']['output'];
+  createdAt: Scalars['DateTimeISO']['output'];
+  creator: Scalars['String']['output'];
+  ideas: Array<Idea>;
+  title: Scalars['String']['output'];
+};
+
+export type ShareableBoardFilter = {
+  _id_eq?: InputMaybe<Scalars['String']['input']>;
+  _id_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  _id_ne?: InputMaybe<Scalars['String']['input']>;
+  _id_nin?: InputMaybe<Array<Scalars['String']['input']>>;
+  createdAt_eq?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  createdAt_gt?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  createdAt_gte?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  createdAt_lt?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  createdAt_lte?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  createdAt_ne?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  creator_eq?: InputMaybe<Scalars['String']['input']>;
+  creator_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  creator_ne?: InputMaybe<Scalars['String']['input']>;
+  creator_nin?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type ShareableBoardPage = {
+  __typename?: 'ShareableBoardPage';
+  items: Array<ShareableBoard>;
+  metadata: Metadata;
+};
+
+export type ShareableBoardPageResult = HandledError | ShareableBoardPage;
+
+export type ShareableBoardResult = HandledError | ShareableBoard;
+
 export enum StripeSubscriptionPlanKeys {
+  Basic = 'BASIC',
   Enterprise = 'ENTERPRISE',
   Free = 'FREE',
-  Indie = 'INDIE',
-  Studio = 'STUDIO'
+  Pro = 'PRO',
+  Unlimited = 'UNLIMITED'
 }
 
 export type Subthread = {
@@ -593,7 +676,7 @@ export type GetReferralRewardsQueryVariables = Exact<{
 }>;
 
 
-export type GetReferralRewardsQuery = { __typename?: 'Query', getReferralRewards: { __typename?: 'HandledError', code: string, message: string } | { __typename?: 'ReferralRewardPage', items: Array<{ __typename?: 'ReferralReward', _id: string, referral: string, referee: string, creditsPurchaseId?: string | null, tokens?: string | null, transactionHash?: string | null, createdAt: any }>, metadata: { __typename?: 'Metadata', limit?: number | null, offset?: number | null, orderBy?: string | null, orderDirection?: OrderDirection | null, numElements?: number | null, total?: number | null, page?: number | null, pages?: number | null } } };
+export type GetReferralRewardsQuery = { __typename?: 'Query', getReferralRewards: { __typename?: 'HandledError', code: string, message: string } | { __typename?: 'ReferralRewardPage', items: Array<{ __typename?: 'ReferralReward', _id: string, referral: string, referee: string, creditsPurchaseId?: string | null, tokens?: string | null, decimals?: number | null, transactionHash?: string | null, createdAt: any }>, metadata: { __typename?: 'Metadata', limit?: number | null, offset?: number | null, orderBy?: string | null, orderDirection?: OrderDirection | null, numElements?: number | null, total?: number | null, page?: number | null, pages?: number | null } } };
 
 export type LinkReferralAccountMutationVariables = Exact<{
   code: Scalars['String']['input'];
@@ -629,7 +712,7 @@ export const GetMyCreditsDocument = {"kind":"Document","definitions":[{"kind":"O
 export const RedeemVoucherDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"RedeemVoucher"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"redeemVoucher"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Credit"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"available"}},{"kind":"Field","name":{"kind":"Name","value":"pending"}},{"kind":"Field","name":{"kind":"Name","value":"confirmed"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<RedeemVoucherMutation, RedeemVoucherMutationVariables>;
 export const GeneratePresignedUrlDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"GeneratePresignedUrl"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"GeneratePresignedUrlInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generatePresignedUrl"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"GeneratePresignedUrl"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"presignedUrl"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"expiresIn"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<GeneratePresignedUrlMutation, GeneratePresignedUrlMutationVariables>;
 export const GetReferralAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetReferralAccount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getReferralAccount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ReferralAccount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"referralCode"}},{"kind":"Field","name":{"kind":"Name","value":"refereeCode"}},{"kind":"Field","name":{"kind":"Name","value":"referee"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"linkedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<GetReferralAccountQuery, GetReferralAccountQueryVariables>;
-export const GetReferralRewardsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetReferralRewards"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ReferralRewardFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getReferralRewards"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ReferralRewardPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"referral"}},{"kind":"Field","name":{"kind":"Name","value":"referee"}},{"kind":"Field","name":{"kind":"Name","value":"creditsPurchaseId"}},{"kind":"Field","name":{"kind":"Name","value":"tokens"}},{"kind":"Field","name":{"kind":"Name","value":"transactionHash"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"orderBy"}},{"kind":"Field","name":{"kind":"Name","value":"orderDirection"}},{"kind":"Field","name":{"kind":"Name","value":"numElements"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pages"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<GetReferralRewardsQuery, GetReferralRewardsQueryVariables>;
+export const GetReferralRewardsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetReferralRewards"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Pagination"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ReferralRewardFilter"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getReferralRewards"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pagination"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pagination"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ReferralRewardPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"referral"}},{"kind":"Field","name":{"kind":"Name","value":"referee"}},{"kind":"Field","name":{"kind":"Name","value":"creditsPurchaseId"}},{"kind":"Field","name":{"kind":"Name","value":"tokens"}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}},{"kind":"Field","name":{"kind":"Name","value":"transactionHash"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"Field","name":{"kind":"Name","value":"metadata"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"orderBy"}},{"kind":"Field","name":{"kind":"Name","value":"orderDirection"}},{"kind":"Field","name":{"kind":"Name","value":"numElements"}},{"kind":"Field","name":{"kind":"Name","value":"total"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pages"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<GetReferralRewardsQuery, GetReferralRewardsQueryVariables>;
 export const LinkReferralAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LinkReferralAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"linkReferralAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ReferralAccount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"referralCode"}},{"kind":"Field","name":{"kind":"Name","value":"refereeCode"}},{"kind":"Field","name":{"kind":"Name","value":"referee"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"linkedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<LinkReferralAccountMutation, LinkReferralAccountMutationVariables>;
 export const GenerateCustomerPortalSessionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GenerateCustomerPortalSession"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateCustomerPortalSession"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customerPortalLink"}},{"kind":"Field","name":{"kind":"Name","value":"planKey"}}]}}]}}]} as unknown as DocumentNode<GenerateCustomerPortalSessionQuery, GenerateCustomerPortalSessionQueryVariables>;
 export const GenerateSubscriptionPaymentLinkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GenerateSubscriptionPaymentLink"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"planKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"StripeSubscriptionPlanKeys"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateSubscriptionPaymentLink"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"planKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"planKey"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SuscriptionPaymentLinkOutput"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<GenerateSubscriptionPaymentLinkQuery, GenerateSubscriptionPaymentLinkQueryVariables>;
