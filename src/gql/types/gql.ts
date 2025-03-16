@@ -32,6 +32,7 @@ type Documents = {
     "\n  mutation LinkReferralAccount($code: String!) {\n    linkReferralAccount(code: $code) {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.LinkReferralAccountDocument,
     "\n  query GenerateCustomerPortalSession {\n    generateCustomerPortalSession {\n      customerPortalLink\n      planKey\n    }\n  }\n": typeof types.GenerateCustomerPortalSessionDocument,
     "\n  query GenerateSubscriptionPaymentLink($planKey: StripeSubscriptionPlanKeys!) {\n    generateSubscriptionPaymentLink(planKey: $planKey) {\n      ... on SuscriptionPaymentLinkOutput {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.GenerateSubscriptionPaymentLinkDocument,
+    "\n  query GenerateCreditsPackagePaymentLink($pkg: CreditsPackageKeys!) {\n    generateCreditsPackagePaymentLink(pkg: $pkg) {\n      ... on Url {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.GenerateCreditsPackagePaymentLinkDocument,
 };
 const documents: Documents = {
     "\n  query Me {\n    me {\n      ... on Account {\n        address\n        twitterId\n        twitterName\n        twitterUsername\n        twitterAvatar\n        telegramId\n        telegramName\n        telegramUsername\n        telegramAvatar\n        createdAt\n        updatedAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": types.MeDocument,
@@ -52,6 +53,7 @@ const documents: Documents = {
     "\n  mutation LinkReferralAccount($code: String!) {\n    linkReferralAccount(code: $code) {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": types.LinkReferralAccountDocument,
     "\n  query GenerateCustomerPortalSession {\n    generateCustomerPortalSession {\n      customerPortalLink\n      planKey\n    }\n  }\n": types.GenerateCustomerPortalSessionDocument,
     "\n  query GenerateSubscriptionPaymentLink($planKey: StripeSubscriptionPlanKeys!) {\n    generateSubscriptionPaymentLink(planKey: $planKey) {\n      ... on SuscriptionPaymentLinkOutput {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": types.GenerateSubscriptionPaymentLinkDocument,
+    "\n  query GenerateCreditsPackagePaymentLink($pkg: CreditsPackageKeys!) {\n    generateCreditsPackagePaymentLink(pkg: $pkg) {\n      ... on Url {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": types.GenerateCreditsPackagePaymentLinkDocument,
 };
 
 /**
@@ -140,6 +142,10 @@ export function graphql(source: "\n  query GenerateCustomerPortalSession {\n    
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  query GenerateSubscriptionPaymentLink($planKey: StripeSubscriptionPlanKeys!) {\n    generateSubscriptionPaymentLink(planKey: $planKey) {\n      ... on SuscriptionPaymentLinkOutput {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"): (typeof documents)["\n  query GenerateSubscriptionPaymentLink($planKey: StripeSubscriptionPlanKeys!) {\n    generateSubscriptionPaymentLink(planKey: $planKey) {\n      ... on SuscriptionPaymentLinkOutput {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query GenerateCreditsPackagePaymentLink($pkg: CreditsPackageKeys!) {\n    generateCreditsPackagePaymentLink(pkg: $pkg) {\n      ... on Url {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"): (typeof documents)["\n  query GenerateCreditsPackagePaymentLink($pkg: CreditsPackageKeys!) {\n    generateCreditsPackagePaymentLink(pkg: $pkg) {\n      ... on Url {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

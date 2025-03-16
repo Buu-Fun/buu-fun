@@ -50,6 +50,13 @@ export type Credit = {
 
 export type CreditResult = Credit | HandledError;
 
+export enum CreditsPackageKeys {
+  ExtraLarge = 'EXTRA_LARGE',
+  Large = 'LARGE',
+  Medium = 'MEDIUM',
+  Small = 'SMALL'
+}
+
 export type CreditsPurchase = {
   __typename?: 'CreditsPurchase';
   _id: Scalars['String']['output'];
@@ -89,6 +96,7 @@ export type CreditsPurchasePageResult = CreditsPurchasePage | HandledError;
 /** Which type of CreditPurchase was used */
 export enum CreditsPurchaseType {
   Crypto = 'CRYPTO',
+  OnDemand = 'ON_DEMAND',
   Staking = 'STAKING',
   Subscription = 'SUBSCRIPTION',
   Voucher = 'VOUCHER'
@@ -110,24 +118,7 @@ export type GenRequest = {
   updatedAt: Scalars['DateTimeISO']['output'];
 };
 
-/** The application that generated the request */
-export enum GenRequestApp {
-  FluxDevImageToImage = 'FluxDevImageToImage',
-  FluxLora = 'FluxLora',
-  FluxLoraCanny = 'FluxLoraCanny',
-  Trellis = 'Trellis'
-}
-
 export type GenRequestResult = GenRequest | HandledError;
-
-export type GenRequestSnapshot = {
-  __typename?: 'GenRequestSnapshot';
-  _id: Scalars['String']['output'];
-  createdAt: Scalars['DateTimeISO']['output'];
-  images?: Maybe<Array<Media>>;
-  model_mesh?: Maybe<Media>;
-  type: GenRequestApp;
-};
 
 /** The status of a request */
 export enum GenRequestStatusEnum {
@@ -174,15 +165,6 @@ export type HandledError = {
   message: Scalars['String']['output'];
 };
 
-export type Idea = {
-  __typename?: 'Idea';
-  _id: Scalars['String']['output'];
-  createdAt: Scalars['DateTimeISO']['output'];
-  genRequests: Array<GenRequestSnapshot>;
-  prompt?: Maybe<Scalars['String']['output']>;
-  style?: Maybe<SubthreadStyle>;
-};
-
 export type Media = {
   __typename?: 'Media';
   alt: Scalars['String']['output'];
@@ -206,7 +188,6 @@ export type Metadata = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createShareableBoard: ShareableBoardResult;
   disconnectTelegram: AccountResult;
   disconnectTwitter: AccountResult;
   generateImage: GenRequestResult;
@@ -216,11 +197,6 @@ export type Mutation = {
   generateSubthread: SubthreadResult;
   linkReferralAccount: ReferralAccountResult;
   redeemVoucher: CreditResult;
-};
-
-
-export type MutationCreateShareableBoardArgs = {
-  threadId: Scalars['String']['input'];
 };
 
 
@@ -286,19 +262,23 @@ export type PresignedPost = {
 
 export type Query = {
   __typename?: 'Query';
+  generateCreditsPackagePaymentLink: UrlResult;
   generateCustomerPortalSession: GenerateCustomerPortalSessionOutput;
   generateSubscriptionPaymentLink: GenerateSubscriptionPaymentLinkResult;
   getCreditsPurchases: CreditsPurchasePageResult;
   getMyCredits: CreditResult;
   getReferralAccount: ReferralAccountResult;
   getReferralRewards: ReferralRewardPageResult;
-  getShareableBoard: ShareableBoardResult;
   getSubthread: SubthreadResult;
   getSubthreadGenRequests: GenRequestsPageResult;
   getSubthreads: SubthreadPageResult;
   getThreads: ThreadPageResult;
-  getUserShareableBoard: ShareableBoardPageResult;
   me: AccountResult;
+};
+
+
+export type QueryGenerateCreditsPackagePaymentLinkArgs = {
+  pkg: CreditsPackageKeys;
 };
 
 
@@ -316,11 +296,6 @@ export type QueryGetCreditsPurchasesArgs = {
 export type QueryGetReferralRewardsArgs = {
   filters?: InputMaybe<ReferralRewardFilter>;
   pagination?: InputMaybe<Pagination>;
-};
-
-
-export type QueryGetShareableBoardArgs = {
-  id: Scalars['String']['input'];
 };
 
 
@@ -342,12 +317,6 @@ export type QueryGetSubthreadsArgs = {
 
 export type QueryGetThreadsArgs = {
   filters?: InputMaybe<ThreadFilter>;
-  pagination?: InputMaybe<Pagination>;
-};
-
-
-export type QueryGetUserShareableBoardArgs = {
-  filters?: InputMaybe<ShareableBoardFilter>;
   pagination?: InputMaybe<Pagination>;
 };
 
@@ -403,42 +372,6 @@ export type ReferralRewardPage = {
 };
 
 export type ReferralRewardPageResult = HandledError | ReferralRewardPage;
-
-export type ShareableBoard = {
-  __typename?: 'ShareableBoard';
-  _id: Scalars['String']['output'];
-  createdAt: Scalars['DateTimeISO']['output'];
-  creator: Scalars['String']['output'];
-  ideas: Array<Idea>;
-  title: Scalars['String']['output'];
-};
-
-export type ShareableBoardFilter = {
-  _id_eq?: InputMaybe<Scalars['String']['input']>;
-  _id_in?: InputMaybe<Array<Scalars['String']['input']>>;
-  _id_ne?: InputMaybe<Scalars['String']['input']>;
-  _id_nin?: InputMaybe<Array<Scalars['String']['input']>>;
-  createdAt_eq?: InputMaybe<Scalars['DateTimeISO']['input']>;
-  createdAt_gt?: InputMaybe<Scalars['DateTimeISO']['input']>;
-  createdAt_gte?: InputMaybe<Scalars['DateTimeISO']['input']>;
-  createdAt_lt?: InputMaybe<Scalars['DateTimeISO']['input']>;
-  createdAt_lte?: InputMaybe<Scalars['DateTimeISO']['input']>;
-  createdAt_ne?: InputMaybe<Scalars['DateTimeISO']['input']>;
-  creator_eq?: InputMaybe<Scalars['String']['input']>;
-  creator_in?: InputMaybe<Array<Scalars['String']['input']>>;
-  creator_ne?: InputMaybe<Scalars['String']['input']>;
-  creator_nin?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-export type ShareableBoardPage = {
-  __typename?: 'ShareableBoardPage';
-  items: Array<ShareableBoard>;
-  metadata: Metadata;
-};
-
-export type ShareableBoardPageResult = HandledError | ShareableBoardPage;
-
-export type ShareableBoardResult = HandledError | ShareableBoard;
 
 export enum StripeSubscriptionPlanKeys {
   Basic = 'BASIC',
@@ -573,6 +506,13 @@ export type Timings = {
   inference?: Maybe<Scalars['Float']['output']>;
 };
 
+export type Url = {
+  __typename?: 'Url';
+  url: Scalars['String']['output'];
+};
+
+export type UrlResult = HandledError | Url;
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -697,6 +637,13 @@ export type GenerateSubscriptionPaymentLinkQueryVariables = Exact<{
 
 export type GenerateSubscriptionPaymentLinkQuery = { __typename?: 'Query', generateSubscriptionPaymentLink: { __typename?: 'HandledError', code: string, message: string } | { __typename?: 'SuscriptionPaymentLinkOutput', url: string } };
 
+export type GenerateCreditsPackagePaymentLinkQueryVariables = Exact<{
+  pkg: CreditsPackageKeys;
+}>;
+
+
+export type GenerateCreditsPackagePaymentLinkQuery = { __typename?: 'Query', generateCreditsPackagePaymentLink: { __typename?: 'HandledError', code: string, message: string } | { __typename?: 'Url', url: string } };
+
 
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Account"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"twitterId"}},{"kind":"Field","name":{"kind":"Name","value":"twitterName"}},{"kind":"Field","name":{"kind":"Name","value":"twitterUsername"}},{"kind":"Field","name":{"kind":"Name","value":"twitterAvatar"}},{"kind":"Field","name":{"kind":"Name","value":"telegramId"}},{"kind":"Field","name":{"kind":"Name","value":"telegramName"}},{"kind":"Field","name":{"kind":"Name","value":"telegramUsername"}},{"kind":"Field","name":{"kind":"Name","value":"telegramAvatar"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;
 export const DisconnectTwitterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"DisconnectTwitter"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"disconnectTwitter"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Account"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"twitterId"}},{"kind":"Field","name":{"kind":"Name","value":"twitterName"}},{"kind":"Field","name":{"kind":"Name","value":"twitterUsername"}},{"kind":"Field","name":{"kind":"Name","value":"twitterAvatar"}},{"kind":"Field","name":{"kind":"Name","value":"telegramId"}},{"kind":"Field","name":{"kind":"Name","value":"telegramName"}},{"kind":"Field","name":{"kind":"Name","value":"telegramUsername"}},{"kind":"Field","name":{"kind":"Name","value":"telegramAvatar"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<DisconnectTwitterMutation, DisconnectTwitterMutationVariables>;
@@ -716,3 +663,4 @@ export const GetReferralRewardsDocument = {"kind":"Document","definitions":[{"ki
 export const LinkReferralAccountDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"LinkReferralAccount"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"code"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"linkReferralAccount"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"code"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ReferralAccount"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}},{"kind":"Field","name":{"kind":"Name","value":"referralCode"}},{"kind":"Field","name":{"kind":"Name","value":"refereeCode"}},{"kind":"Field","name":{"kind":"Name","value":"referee"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"_id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"linkedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<LinkReferralAccountMutation, LinkReferralAccountMutationVariables>;
 export const GenerateCustomerPortalSessionDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GenerateCustomerPortalSession"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateCustomerPortalSession"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customerPortalLink"}},{"kind":"Field","name":{"kind":"Name","value":"planKey"}}]}}]}}]} as unknown as DocumentNode<GenerateCustomerPortalSessionQuery, GenerateCustomerPortalSessionQueryVariables>;
 export const GenerateSubscriptionPaymentLinkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GenerateSubscriptionPaymentLink"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"planKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"StripeSubscriptionPlanKeys"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateSubscriptionPaymentLink"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"planKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"planKey"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"SuscriptionPaymentLinkOutput"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<GenerateSubscriptionPaymentLinkQuery, GenerateSubscriptionPaymentLinkQueryVariables>;
+export const GenerateCreditsPackagePaymentLinkDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GenerateCreditsPackagePaymentLink"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"pkg"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreditsPackageKeys"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"generateCreditsPackagePaymentLink"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"pkg"},"value":{"kind":"Variable","name":{"kind":"Name","value":"pkg"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Url"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"HandledError"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"message"}}]}}]}}]}}]} as unknown as DocumentNode<GenerateCreditsPackagePaymentLinkQuery, GenerateCreditsPackagePaymentLinkQueryVariables>;
