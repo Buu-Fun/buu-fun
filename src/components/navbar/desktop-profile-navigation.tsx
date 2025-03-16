@@ -9,6 +9,7 @@ import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import CopyAddress from "./copy-address";
+import ReferralIcon from "@/assets/icons/referral-icon";
 
 export default function DesktopProfileNavigation() {
   const { address, isAuthenticated, logout } = useAuthentication();
@@ -58,7 +59,19 @@ export default function DesktopProfileNavigation() {
               {/* <SettingsIcon /> */}
               <p>Settings</p>
             </Link>
+            <Link
+              href={"/referral"}
+              className="flex w-full items-center gap-1.5 hover:bg-buu-secondary py-2 rounded-md px-2 font-medium"
+            >
+              <div className="w-5 h-5">
+                <ReferralIcon />
+              </div>
+              {/* <SettingsIcon /> */}
+              <p>Referral Program</p>
+            </Link>
+            
             <button
+            
               onClick={async () => {
                 await logout();
               }}
