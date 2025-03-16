@@ -76,7 +76,7 @@ const restrictions: SubscriptionDetails["restrictions"] = [
   },
 ];
 
-export const studioPlanSubscriptionDetails: SubscriptionDetails = {
+export const proPlanSubscriptionDetails: SubscriptionDetails = {
   coreFeatures,
   restrictions,
 };

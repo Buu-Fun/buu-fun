@@ -1,19 +1,21 @@
+import { basicPlanSubscriptionDetails } from "./basic-plan-details";
 import { enterprisePlanSubscriptionDetails } from "./enterprise-plan-details";
 import { FreePlanSubscriptionDetails } from "./free-plan-details";
-import { indiePlanSubscriptionDetails } from "./indie-plan-details";
-import { studioPlanSubscriptionDetails } from "./studio-plan-details";
+import { proPlanSubscriptionDetails } from "./pro-plan-details";
 
 export const SUBSCRIPTION_PLANS = [
   "FREE",
-  "INDIE",
-  "STUDIO",
+  "BASIC",
+  "PRO",
+  "UNLIMITED",
   "ENTERPRISE",
 ] as const;
 
 export const PlanKeyMapper: Record<Plans, Plans> = {
   FREE: "FREE",
-  INDIE: "INDIE",
-  STUDIO: "STUDIO",
+  BASIC: "BASIC",
+  PRO: "PRO",
+  UNLIMITED: "UNLIMITED",
   ENTERPRISE: "ENTERPRISE",
 };
 
@@ -26,27 +28,35 @@ export const PRICING_PLAN: PricingPlanDetails = {
     },
     subscriptionDetails: FreePlanSubscriptionDetails,
   },
-  INDIE: {
+  BASIC: {
     pricing: {
-      price: 19,
-      includedMonthlyCredit: 200,
-      additionalCredits: 0.1,
+      price: 10,
+      includedMonthlyCredit: 50,
     },
-    subscriptionDetails: indiePlanSubscriptionDetails,
+    subscriptionDetails: basicPlanSubscriptionDetails,
   },
-  STUDIO: {
+  PRO: {
     pricing: {
-      price: 49,
-      includedMonthlyCredit: 750,
-      additionalCredits: 0.065,
+      price: 30,
+      includedMonthlyCredit: 200,
+      // additionalCredits: 0.065,
     },
-    subscriptionDetails: studioPlanSubscriptionDetails,
+    subscriptionDetails: proPlanSubscriptionDetails,
+  },
+  UNLIMITED: {
+    pricing: {
+      price: 100,
+      includedMonthlyCredit: "Unlimited",
+      // additionalCredits: 0,
+    },
   },
   ENTERPRISE: {
     pricing: {
-      price: 49,
+      price: 0,
       includedMonthlyCredit: "Unlimited",
+      contactSales: true,
     },
+
     subscriptionDetails: enterprisePlanSubscriptionDetails,
   },
 };
@@ -57,6 +67,7 @@ export type TPricing = {
   price: number;
   includedMonthlyCredit: number | string;
   additionalCredits?: number;
+  contactSales?: boolean;
 };
 
 export type TPricingDetails = {

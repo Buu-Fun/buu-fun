@@ -61,7 +61,7 @@ const restrictions: SubscriptionDetails["restrictions"] = [
   },
 ];
 
-export const indiePlanSubscriptionDetails: SubscriptionDetails = {
+export const basicPlanSubscriptionDetails: SubscriptionDetails = {
   coreFeatures,
   additionalBenefits,
   restrictions,

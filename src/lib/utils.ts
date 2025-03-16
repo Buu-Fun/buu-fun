@@ -124,11 +124,14 @@ export function getPlanEnum(planKey: Plans) {
     case "ENTERPRISE": {
       return StripeSubscriptionPlanKeys.Enterprise;
     }
-    case "INDIE": {
-      return StripeSubscriptionPlanKeys.Indie;
+    case "BASIC": {
+      return StripeSubscriptionPlanKeys.Basic;
     }
-    case "STUDIO": {
-      return StripeSubscriptionPlanKeys.Studio;
+    case "PRO": {
+      return StripeSubscriptionPlanKeys.Pro;
+    }
+    case "UNLIMITED": {
+      return StripeSubscriptionPlanKeys.Unlimited;
     }
   }
 }

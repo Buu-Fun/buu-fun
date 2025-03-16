@@ -2,12 +2,12 @@ import { SubscriptionDetails } from "./subscription-plans";
 
 const coreFeatures: SubscriptionDetails["coreFeatures"] = [
   {
-    title: "Basic 3D Model Generation (Low-Poly)",
-    description: "Up to 5,000 polygons per model",
+    title: "Basic 3D Model Generation",
+    description: "Generate up to 10 3D models each month.",
   },
   {
-    title: "Basic Texture Generation",
-    description: "1K resolution textures",
+    title: "Community Support",
+    description: "Access help through our community forums.",
   },
   {
     title: "Basic Color & Material Mapping",
@@ -16,11 +16,7 @@ const coreFeatures: SubscriptionDetails["coreFeatures"] = [
   {
     title: "Public Asset Generation",
     description:
-      "All models are public and accessible to the Leonardo AI community",
-  },
-  {
-    title: "Watermarked Previews",
-    description: "Download with watermark (removable via premium plans)",
+      "Public (CC 4.0) Creations are shared publicly under a Creative Commons license",
   },
   {
     title: "File Format Support: GLB, OBJ",
@@ -30,8 +26,8 @@ const coreFeatures: SubscriptionDetails["coreFeatures"] = [
 
 const restrictions: SubscriptionDetails["restrictions"] = [
   {
-    title: "No Private Model Generation",
-    description: "All generated assets are visible to the community",
+    title: "No Boards",
+    description: "Upgrade to organize your creations into projects.",
   },
   {
     title: "No Advanced Model Customization",
