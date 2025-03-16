@@ -1,16 +1,21 @@
 "use client";
-import { THomePage } from "@/app/(dashboard)/page";
-import { linkReferralMutation } from "@/lib/react-query/user";
+import ReferralHeaderIcon from "@/assets/icons/refferal-header-icon";
 import { useAuthentication } from "@/providers/account.context";
+import { useDisclosure } from "@mantine/hooks";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Dialog, DialogContent, DialogHeader } from "../ui/dialog";
-import useUserCredits from "@/hooks/use-credits";
-import { useDisclosure } from "@mantine/hooks";
-import ReferralHeaderIcon from "@/assets/icons/refferal-header-icon";
 import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+} from "../ui/dialog";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { linkReferralMutation } from "@/lib/react-query/referrals";
 
 type TReferralVerifierHook = {
   search: {
@@ -23,46 +28,69 @@ export default function ReferralVerifierHook({
 }: TReferralVerifierHook) {
   const referralCode = search["ref"];
   const [open, setStates] = useDisclosure(false);
+  const [referee, setReferee] = useState("");
   const router = useRouter();
 
   const { identityToken, loading, isAuthenticated, login } =
     useAuthentication();
 
-  const {
-    mutate: linkCookie,
-    isPending,
-    data,
-  } = useMutation({
+  const { mutate: linkCookie, isPending } = useMutation({
     mutationFn: linkReferralMutation,
     onMutate() {
       toast.loading(`Checking referral code`);
     },
-    onSuccess(data, variables, context) {
+    onSuccess(data) {
       toast.dismiss();
-      toast.success("hello");
+      setReferee(data?.referee?._id ?? "");
+      setStates.open();
+      toast.success("Successfully added Referrals");
     },
-    onError(error, variables, context) {
+    onError(error) {
       toast.dismiss();
-      toast.error("Referral");
+      toast.error(error.message);
+    },
+    onSettled() {
+      setTimeout(() => {
+        toast.dismiss();
+      }, 3000);
     },
   });
 
   useEffect(() => {
     if (!referralCode || typeof referralCode !== "string") return;
+    // not authenticated open login screen
     if (!loading && !isAuthenticated) {
       login();
     }
+    // Authenticated ? open referral.
     if (!loading && isAuthenticated && !isPending && identityToken) {
       linkCookie({
         accessToken: identityToken,
         code: referralCode,
       });
     }
-  }, [loading, isAuthenticated, identityToken]);
+  }, [
+    loading,
+    isAuthenticated,
+    identityToken,
+    isPending,
+    login,
+    referralCode,
+    linkCookie,
+  ]);
 
   return (
-    <Dialog  open={open} onOpenChange={setStates.toggle}>
+    <Dialog open={open} onOpenChange={setStates.toggle}>
       <DialogContent className="rounded-[20px]  lg:rounded-[20px] max-w-sm bg-referral-modal">
+        <DialogHeader>
+          <DialogTitle className="sr-only">
+            You&apos;ve been referred <br />
+            {referee ? `by ${referee}` : null}
+          </DialogTitle>
+          <DialogDescription className="sr-only">
+            Enjoy 20% off all platform services
+          </DialogDescription>
+        </DialogHeader>
         <div className="flex flex-col items-center py-2 justify-center">
           <div className="w-10 h-10 flex items-center justify-center ">
             <ReferralHeaderIcon />
@@ -70,15 +98,23 @@ export default function ReferralVerifierHook({
           <div className="flex items-center justify-center flex-col gap-2 pb-6 pt-4">
             <h1 className="text-2xl text-center font-medium tracking-tight">
               You&apos;ve been referred <br />
-              by
+              {referee ? `by ${referee}` : null}
             </h1>
             <p className="text-center text-sm font-medium">
               Enjoy 20% off all platform services
             </p>
           </div>
-          <Button className="w-[90%]" size={"special"}>
-            Continue to Platform
-          </Button>
+          <DialogClose asChild>
+            <Button
+              onClick={() => {
+                router.push("/");
+              }}
+              className="w-[90%]"
+              size={"special"}
+            >
+              Continue to Platform
+            </Button>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>

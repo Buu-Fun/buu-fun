@@ -1,5 +1,5 @@
 import { serverRequest } from "@/gql/client";
-import { GeneratePresignedUrl } from "@/gql/documents/creative-engine";
+import { GeneratePresignedUrlQuery } from "@/gql/documents/creative-engine";
 import { GeneratePresignedUrlMutation } from "@/gql/types/graphql";
 import { getAuthorization } from "../utils";
 
@@ -14,7 +14,7 @@ export async function getPresignedUrl({
   //     GenerateSubthreadMutationVariables
   const data = await serverRequest<GeneratePresignedUrlMutation>(
     // GeneratePresignedUrlMutationVariables
-    GeneratePresignedUrl,
+    GeneratePresignedUrlQuery,
     {
       input: {
         contentType,

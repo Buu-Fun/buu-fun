@@ -1,14 +1,13 @@
 import TelegramIcon from "@/assets/icons/telegram-icon";
 import TwitterIcon from "@/assets/icons/twitter-icon";
 import { Plus } from "lucide-react";
-import { Button } from "../ui/button";
 import Pill from "../elements/pill";
-import ReferralCode from "./refferal-code";
+import { Button } from "../ui/button";
 
 export default function AccountLinking() {
   return (
     <div className="max-w-xl w-full mt-4 flex flex-col gap-3 px-2">
-      <ReferralCode/>
+      {/* <ReferralCode/> */}
       <div className="flex items-center justify-between pl-3 pr-5 py-2  gap-2 w-full border-2 rounded-xl ">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 justify-center">

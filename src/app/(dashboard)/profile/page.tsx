@@ -4,6 +4,7 @@ import AccountLinking from "@/components/profile/account-linking";
 import Base64ImageDiv from "@/components/profile/icon-render";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import RedeemVouchers from "@/components/profile/redeem-vouchers";
+import CopyReferralWrapper from "@/components/referral/copy-refferal-wrapper";
 import ProtectedWrapper from "@/components/wrapper/protected-wrapper";
 import useUserCredits from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
@@ -74,7 +75,15 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-        <div className="flex gap-2 items-center justify-center mt-6">
+
+        <div className="flex flex-col gap-2 items-center justify-center mt-6">
+          <h4 className="text-xl font-medium tracking-tight">Your Referrals</h4>
+          <p>
+            Get
+            <span className="blue-text-clip"> 20% </span>
+            of your referrals spending in $BUU!
+          </p>
+          <CopyReferralWrapper />
           <RedeemVouchers />
 
           {/* <Button

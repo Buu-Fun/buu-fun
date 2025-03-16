@@ -1,4 +1,7 @@
-import { getReferral } from "@/lib/react-query/user";
+import {
+  getUserReferral,
+  getUserReferralsData,
+} from "@/lib/react-query/referrals";
 import { useAuthentication } from "@/providers/account.context";
 import { useQuery } from "@tanstack/react-query";
 
@@ -8,7 +11,19 @@ export function useUserReferral() {
     queryKey: ["auth", identityToken],
     queryFn: () => {
       if (!identityToken) return;
-      return getReferral({ accessToken: identityToken });
+      return getUserReferral({ accessToken: identityToken });
+    },
+  });
+}
+
+export function useAllReferrals() {
+  const { identityToken } = useAuthentication();
+
+  return useQuery({
+    queryKey: ["get-user-referrals", identityToken],
+    queryFn: () => {
+      if (!identityToken) return;
+      return getUserReferralsData({ accessToken: identityToken });
     },
   });
 }
@@ -20,7 +35,7 @@ export function useUserReferral() {
 //     queryKey: ["auth", identityToken],
 //     queryFn: () => {
 //       if (!identityToken) return;
-//       return getReferral({ accessToken: identityToken });
+//       return getUserReferral({ accessToken: identityToken });
 //     },
 //   });
 // }

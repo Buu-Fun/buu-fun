@@ -1,13 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import CopyBlackIcon from "@/assets/icons/copy-black-icon";
+import { getUserReferral } from "@/lib/react-query/referrals";
 import { cn } from "@/lib/utils";
+import { useAuthentication } from "@/providers/account.context";
+import { useQuery } from "@tanstack/react-query";
+import { Check } from "lucide-react";
+import { useState } from "react";
 import { BorderBeam } from "../ui/border-beam";
 import { Button } from "../ui/button";
-import CopyBlackIcon from "@/assets/icons/copy-black-icon";
-import { useQuery } from "@tanstack/react-query";
-import { getReferral } from "@/lib/react-query/user";
-import { useAuthentication } from "@/providers/account.context";
-import { Check } from "lucide-react";
 
 export default function CopyReferralWrapper() {
   const { identityToken } = useAuthentication();
@@ -17,7 +17,7 @@ export default function CopyReferralWrapper() {
     queryKey: ["auth", identityToken],
     queryFn: () => {
       if (!identityToken) return;
-      return getReferral({ accessToken: identityToken });
+      return getUserReferral({ accessToken: identityToken });
     },
   });
   const ReferralCode = `https://buu.fun/?ref=${data?.referralCode}`;
