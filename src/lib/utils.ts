@@ -7,6 +7,8 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { DataMuseError } from "./class/data-muse-error";
 import { TDataMuseWord } from "./fetcher/query/query-suggestion-api";
+import { Plans } from "@/constants/subscription/subscription-plans";
+import { StripeSubscriptionPlanKeys } from "@/gql/types/graphql";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -105,4 +107,28 @@ export function truncateString(
   }
 
   return `${value.slice(0, startEnd)}...${value.slice(-endStartAt)}`;
+}
+
+export function formatNumber(value: number) {
+  return new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    compactDisplay: "short",
+  }).format(value);
+}
+
+export function getPlanEnum(planKey: Plans) {
+  switch (planKey) {
+    case "FREE": {
+      return StripeSubscriptionPlanKeys.Free;
+    }
+    case "ENTERPRISE": {
+      return StripeSubscriptionPlanKeys.Enterprise;
+    }
+    case "INDIE": {
+      return StripeSubscriptionPlanKeys.Indie;
+    }
+    case "STUDIO": {
+      return StripeSubscriptionPlanKeys.Studio;
+    }
+  }
 }

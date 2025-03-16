@@ -139,9 +139,9 @@ body {
 }
 
 .bg-buu-table {
-  background: rgba(28, 32, 39, 0.2);
+  background: rgba(28, 32, 39, 1);
   /* border: 1px solid rgba(255, 255, 255, 0.04); */
-  background: rgba(28, 32, 39, 0.2);
+  /* background: rgba(28, 32, 39, 0.2); */
   box-shadow: 0px 0px 46.6px 3px rgba(33, 42, 52, 0.8) inset;
   backdrop-filter: blur(40px);
 }
@@ -615,4 +615,32 @@ body {
 
   box-shadow: 0px 0px 30.2px 3px rgba(52, 59, 66, 0.8) inset;
   backdrop-filter: blur(25px);
+}
+
+.bg-subscription-dialog {
+  /* border-radius: 16px; */
+  /* border: 1px solid rgba(255, 255, 255, 0.08); */
+  background: rgba(45, 50, 60, 0.7);
+  box-shadow: 0px 0px 30.2px 3px rgba(52, 59, 66, 0.8) inset;
+  backdrop-filter: blur(25px);
+}
+
+.bg-subscription-button-bg {
+  background: rgba(26, 30, 36, 0.5);
+}
+
+.custom-pill {
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(120, 219, 255, 0.5);
+  box-shadow: 0px 0px 10.5px 3px rgba(179, 187, 197, 0.2) inset;
+}
+.bg-pill-blue {
+  background: rgba(120, 219, 255, 0.5);
+}
+.shadow-pill-blue {
+  box-shadow: 0px 0px 10.5px 3px rgba(179, 187, 197, 0.2) inset;
+}
+.border-pill {
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
