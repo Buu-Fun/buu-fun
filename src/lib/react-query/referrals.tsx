@@ -1,16 +1,16 @@
 import { serverRequest } from "@/gql/client";
 import {
-    GetReferralAccountQuery,
-    GetReferralRewardsQuery,
-    LinkReferralAccountMutation,
+  GetReferralAccountQuery,
+  GetReferralRewardsQuery,
+  LinkReferralAccountMutation,
 } from "@/gql/documents/creative-engine";
 
 import {
-    GetReferralRewardsQuery as TGetReferralRewardsQuery,
-    GetReferralRewardsQueryVariables as TGetReferralRewardsQueryVariables,
-    MutationLinkReferralAccountArgs as TMutationLinkReferralAccountArgs,
-    GetReferralAccountQuery as TReferralAccount,
-    ReferralAccountResult as TReferralAccountResult
+  GetReferralRewardsQuery as TGetReferralRewardsQuery,
+  GetReferralRewardsQueryVariables as TGetReferralRewardsQueryVariables,
+  MutationLinkReferralAccountArgs as TMutationLinkReferralAccountArgs,
+  GetReferralAccountQuery as TReferralAccount,
+  ReferralAccountResult as TReferralAccountResult,
 } from "@/gql/types/graphql";
 
 import { getAuthorization } from "../utils";
@@ -81,5 +81,5 @@ export async function getUserReferralsData({ accessToken }: AccessToken) {
     throw new Error(data.getReferralRewards.message, { cause: "INVALID_DATA" });
   }
 
-  return data.getReferralRewards
+  return data.getReferralRewards;
 }
