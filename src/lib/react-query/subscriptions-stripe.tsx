@@ -1,9 +1,14 @@
 import { Plans } from "@/constants/subscription/subscription-plans";
 import { serverRequest } from "@/gql/client";
-import { GetSubscriptionPaymentLinkQuery } from "@/gql/documents/creative-engine";
+import {
+  GetSubscriptionPaymentLinkQuery,
+  GenerateCustomPortalSessionQuery,
+} from "@/gql/documents/creative-engine";
 import {
   GenerateSubscriptionPaymentLinkQuery,
   GenerateSubscriptionPaymentLinkQueryVariables,
+  GenerateCustomerPortalSessionQuery as TGenerateCustomerPortalSessionQuery,
+  GenerateCustomerPortalSessionQueryVariables as TGenerateCustomerPortalSessionQueryVariables,
 } from "@/gql/types/graphql";
 import { getAuthorization, getPlanEnum } from "../utils";
 import { AccessToken } from "./user";
@@ -11,7 +16,7 @@ import { AccessToken } from "./user";
 export async function getPaymentLinkUrl({
   accessToken,
   planKey,
-}: AccessToken & { planKey: Plans }) {    
+}: AccessToken & { planKey: Plans }) {
   const data = await serverRequest<
     GenerateSubscriptionPaymentLinkQuery,
     GenerateSubscriptionPaymentLinkQueryVariables
@@ -35,4 +40,28 @@ export async function getPaymentLinkUrl({
   }
 
   return data.generateSubscriptionPaymentLink;
+}
+
+export async function manageUserSubscription({ accessToken }: AccessToken) {
+  const data = await serverRequest<
+    TGenerateCustomerPortalSessionQuery,
+    TGenerateCustomerPortalSessionQueryVariables
+  >(
+    GenerateCustomPortalSessionQuery,
+    {},
+    {
+      Authorization: getAuthorization(accessToken),
+    }
+  );
+
+  if (!data) {
+    throw new Error("Internal server error");
+  }
+  if (!data.generateCustomerPortalSession.planKey) {
+    throw new Error("Failed to get the plan Key", {
+      cause: "INVALID_DATA",
+    });
+  }
+
+  return data.generateCustomerPortalSession;
 }
