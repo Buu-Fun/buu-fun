@@ -59,10 +59,10 @@ export default function RootLayout({
       <body className={` ${BricolageGrotesque.className} antialiased dark `}>
         <Toaster />
 
-        <NextUIProviders>
-          <Providers>
-            <StoreProvider>
-              <ReactQueryProvider>
+        <ReactQueryProvider>
+          <StoreProvider>
+            <NextUIProviders>
+              <Providers>
                 <div className="h-[100dvh] min-h-[100dvh] overflow-hidden relative max-h-[100dvh]   w-full">
                   <div className=" w-[200px] h-[100px] bg-overlay-secondary  bg-[#69CCD5]  rounded-full right-[20%] absolute bottom-[-140px] -z-10 blur-[100px]  rotate-[-10deg]" />
 
@@ -79,10 +79,10 @@ export default function RootLayout({
                     </div>
                   </div>
                 </div>
-              </ReactQueryProvider>
-            </StoreProvider>
-          </Providers>
-        </NextUIProviders>
+              </Providers>
+            </NextUIProviders>
+          </StoreProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
