@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.42](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.41...buu-fun-v0.1.42) (2025-03-17)
+
+
+### ✨ Features
+
+* updated pricing content ([f77d1e1](https://github.com/muadpn/buu-fun/commit/f77d1e189d7a54a2051762e01a30dd05f84ddb1d))
+
+
+### 👽 Miscellaneous
+
+* **lint:** linted and formatted the codebase ([c3ba503](https://github.com/muadpn/buu-fun/commit/c3ba5030c74102baba25c92d3ebde9621094b9db))
+
 ## [0.1.41](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.40...buu-fun-v0.1.41) (2025-03-17)
 
 
