@@ -59,12 +59,11 @@ export default function HomeNavigationBar() {
       const offsetLeft = linkRect.left - containerRect.left;
       const linkCenter = offsetLeft + linkRect.width / 2 - 10;
       const indicatorWidth = 20; // Set your desired width here
-      console.log(activeLink);
       if (activeLink === "#home") {
         // Hide the indicator for #home
         gsap.to(indicator, {
-        //   opacity: 0,
-          duration: .5,
+          //   opacity: 0,
+          duration: 0.5,
           width: "0px",
           ease: "power4.inOut",
         });
@@ -96,12 +95,12 @@ export default function HomeNavigationBar() {
       setActiveLink(href);
       const target = document.getElementById(`${href.replace("#", "")}`);
       if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
+        target.scrollIntoView();
       }
     };
 
   return (
-    <nav className="w-full fixed bottom-12 z-[5000] pointer-events-auto">
+    <nav className="w-full hidden md:block fixed bottom-12 z-[5000] pointer-events-auto">
       <div className="home-navigation-background mx-auto max-w-max rounded-full p-1 overflow-hidden">
         <div className="flex items-center pr-2">
           <Link

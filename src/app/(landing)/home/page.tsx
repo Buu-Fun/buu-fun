@@ -12,7 +12,7 @@ import TestimonialsContainer from "@/components/(home)/testimonials/testimonials
 import FeatureComponent from "./component/feature-component";
 export default function HomePage() {
   return (
-    <main className="relative max-w-screen smooth-scroll ">
+    <main className="relative max-w-screen overflow-hidden smooth-scroll ">
       <div className="w-full  relative ">
         <HeroLoadingWrapper>
           <>

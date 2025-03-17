@@ -37,17 +37,11 @@ import SliderHandle from "./slider-handle";
 import { AnimatedBringYourIdeas } from "./bring-ideas";
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ImageComparisonSlider(
-  {
-    // children,
-  }: {
-    // children: ReactNode;
-  }
-) {
+export default function ImageComparisonSlider({}: {}) {
   const [position, setPosition] = useState(40);
   const containerRef = useRef<HTMLDivElement>(null);
   const sliderContainerRef = useRef<HTMLDivElement>(null);
-  const featureContainerRef = useRef<HTMLDivElement>(null);
+  const featureContainerRef = useRef<HTMLElement>(null);
   const backgroundImageRef = useRef<HTMLDivElement>(null);
   const bringYourIdeaContent = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
@@ -71,10 +65,12 @@ export default function ImageComparisonSlider(
           setPosition((this.progress() + 0.4) * 100);
         },
         scrollTrigger: {
-          end: "+=" + featureWidth * features.length,
+          end: featureWidth * features.length,
           pin: true,
           trigger: containerRef.current,
           start: "top top",
+
+          markers: true,
           toggleActions: "play none none reverse",
           onUpdate(event) {
             if (
@@ -301,6 +297,7 @@ export default function ImageComparisonSlider(
 
     return () => window.removeEventListener("resize", updateSliderPosition);
   }, []);
+  
   // Determine if we should animate background based on whether it has changed
   // const shouldAnimateBackground =
   //   features[index].background !== features[prevIndex].background;
@@ -358,7 +355,7 @@ export default function ImageComparisonSlider(
   return (
     <div
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden"
+      className="relative h-[100vh] w-full"
     >
       <div
         ref={backgroundImageRef}
@@ -378,7 +375,11 @@ export default function ImageComparisonSlider(
         </AnimatePresence>
       </div>
 
-      <div ref={sliderContainerRef} className="absolute z-10  overflow-visible">
+      <section
+        id="bring-your-ideas"
+        ref={sliderContainerRef}
+        className="absolute z-10  overflow-visible"
+      >
         <ReactCompareSlider
           className="w-full h-full z-[20] overflow-visible"
           style={{
@@ -406,9 +407,13 @@ export default function ImageComparisonSlider(
             />
           }
         />
-      </div>
+      </section>
 
-      <div ref={featureContainerRef} className="relative opacity-0 -z-50">
+      <section
+        id="features"
+        ref={featureContainerRef}
+        className="relative opacity-0 z-50"
+      >
         <AnimatePresence mode="popLayout" initial={false}>
           {features[index].autoRig ? (
             <motion.div
@@ -529,7 +534,7 @@ export default function ImageComparisonSlider(
             </div>
           </motion.div>
         </div>
-      </div>
+      </section>
       <div ref={bringYourIdeaContent} className="w-full h-full">
         <AnimatedBringYourIdeas />
       </div>
