@@ -15,6 +15,7 @@ import { MinusCircle, PlusCircle } from "lucide-react";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { FAQ_DETAILS } from "@/constants/faq";
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,7 +44,7 @@ export default function FrequentlyAskedContainer() {
         duration: 2,
         stagger: 0.2,
         ease: "power4.inOut",
-      },
+      }
     );
   });
 
@@ -69,36 +70,42 @@ export default function FrequentlyAskedContainer() {
         </div>
         <div className="w-full">
           <Accordion type="single" className="flex  flex-col gap-4" collapsible>
-            <AccordionItem
-              value="item-1"
-              className="rgb-muted accordion-container px-6 py-2 rounded-2xl border-b-0"
-            >
-              <AccordionTrigger
-                icon={
-                  <>
-                    <PlusCircle className="fill-white group-[&[data-state=open]]:hidden stroke-black stroke-2" />
-                    <MinusCircle className="fill-white group-[&[data-state=closed]]:hidden stroke-black stroke-2" />
-                  </>
-                }
-                className="text-lg text-white"
-              >
-                What file formats does BUU.FUN support for export?
-              </AccordionTrigger>
-              <AccordionContent className="text-base">
-                <motion.div
-                  initial={{
-                    y: 40,
-                  }}
-                  animate={{
-                    y: 0,
-                    transition: { duration: 0.5 },
-                  }}
+            {FAQ_DETAILS.map((item, index) => {
+              return (
+                <AccordionItem
+                  key={`${item.answer.trim()}-${item.question.trim()}-${index}`}
+                  value={`item-${index}`}
+                  className="rgb-muted accordion-container px-6 py-2 rounded-2xl border-b-0"
                 >
-                  Yes. It adheres to the WAI-ARIA design pattern.
-                </motion.div>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem
+                  <AccordionTrigger
+                    icon={
+                      <>
+                        <PlusCircle className="fill-white group-[&[data-state=open]]:hidden stroke-black stroke-2" />
+                        <MinusCircle className="fill-white group-[&[data-state=closed]]:hidden stroke-black stroke-2" />
+                      </>
+                    }
+                    className="text-lg text-white"
+                  >
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base">
+                    <motion.div
+                      initial={{
+                        y: 40,
+                      }}
+                      animate={{
+                        y: 0,
+                        transition: { duration: 0.5 },
+                      }}
+                    >
+                    {item.answer}
+                    </motion.div>
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+
+            {/* <AccordionItem
               value="item-2"
               className="rgb-muted accordion-container px-6 py-2 rounded-2xl border-b-0"
             >
@@ -161,7 +168,7 @@ export default function FrequentlyAskedContainer() {
                   are ready for any project{" "}
                 </motion.div>
               </AccordionContent>
-            </AccordionItem>
+            </AccordionItem> */}
           </Accordion>
         </div>
       </Bounded>
