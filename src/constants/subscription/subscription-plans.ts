@@ -2,6 +2,7 @@ import { basicPlanSubscriptionDetails } from "./basic-plan-details";
 import { enterprisePlanSubscriptionDetails } from "./enterprise-plan-details";
 import { FreePlanSubscriptionDetails } from "./free-plan-details";
 import { proPlanSubscriptionDetails } from "./pro-plan-details";
+import { unlimitedPlanSubscriptionDetails } from "./unlimited-plan-details";
 
 export const SUBSCRIPTION_PLANS = [
   "FREE",
@@ -39,7 +40,6 @@ export const PRICING_PLAN: PricingPlanDetails = {
     pricing: {
       price: 30,
       includedMonthlyCredit: 200,
-      // additionalCredits: 0.065,
     },
     subscriptionDetails: proPlanSubscriptionDetails,
   },
@@ -47,8 +47,8 @@ export const PRICING_PLAN: PricingPlanDetails = {
     pricing: {
       price: 100,
       includedMonthlyCredit: "Unlimited",
-      // additionalCredits: 0,
     },
+    subscriptionDetails: unlimitedPlanSubscriptionDetails,
   },
   ENTERPRISE: {
     pricing: {

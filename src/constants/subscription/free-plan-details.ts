@@ -6,21 +6,9 @@ const coreFeatures: SubscriptionDetails["coreFeatures"] = [
     description: "Generate up to 10 3D models each month.",
   },
   {
-    title: "Community Support",
-    description: "Access help through our community forums.",
-  },
-  {
-    title: "Basic Color & Material Mapping",
-    description: "No advanced PBR support",
-  },
-  {
-    title: "Public Asset Generation",
+    title: "Queue Priority - Standard Queue",
     description:
-      "Public (CC 4.0) Creations are shared publicly under a Creative Commons license",
-  },
-  {
-    title: "File Format Support: GLB, OBJ",
-    description: "Limited to Standard Mesh Exports",
+      "Your generations are processed in the order received.",
   },
 ];
 
@@ -30,25 +18,21 @@ const restrictions: SubscriptionDetails["restrictions"] = [
     description: "Upgrade to organize your creations into projects.",
   },
   {
-    title: "No Advanced Model Customization",
+    title: "No Priority Support",
+    description: "Access help through our community forums.",
+  },
+  {
+    title: "No Premium Features",
+    description: "Upgrade to unlock advanced tools.",
+  },
+  {
+    title: "Asset Ownership",
     description:
-      "No access to topology optimization, retopology, or fine-tuning",
-  },
-  {
-    title: "No Auto-Rigging or Animation",
-    description: "Auto-rigging and animation features are unavailable",
-  },
-  {
-    title: "Limited Cloud Processing",
-    description: "Standard queue time (up to 5 minutes per request)",
+      "Public (CC 4.0) Creations are shared publicly under a Creative Commons license.",
   },
   {
     title: "No API Access",
-    description: "No integration for developers",
-  },
-  {
-    title: "No Priority Support",
-    description: "Access only to community forums",
+    description: "Connect to external services using our RESTful API.",
   },
 ];
 

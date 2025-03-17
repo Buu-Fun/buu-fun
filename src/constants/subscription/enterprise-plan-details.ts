@@ -2,61 +2,41 @@ import { SubscriptionDetails } from "./subscription-plans";
 
 const coreFeatures: SubscriptionDetails["coreFeatures"] = [
   {
-    title: "Fully Private & Enterprise-Level Security",
-    description: "End-to-end encryption for proprietary assets",
+    title: "Credits: Unlimited",
+    description: "Tailored credit limits for your needs.",
   },
   {
-    title: "Custom AI Model Training",
-    description: "Train Leonardo AI on your proprietary datasets",
+    title: "Boards: Unlimited Private & Public Boards with Team Collaboration",
+    description: "Create unlimited boards with advanced team-sharing features.",
+  },
+
+  {
+    title: "Support: Dedicated Account Manager (Email, Chat & Phone)",
+    description: "Personalized support via email, chat, and phone.",
   },
   {
-    title: "Real-Time Asset Pipeline Integration",
-    description: "AI-powered bulk model generation for large-scale productions",
-  },
-  {
-    title: "Multi-Resolution Asset Generation",
-    description: "Up to 500,000 polygon models with auto-LOD generation",
-  },
-  {
-    title: "Full AI Auto-Rigging & Animation Suite",
-    description: "Generate custom-rigged humanoids, creatures & props",
-  },
-  {
-    title: "High-Fidelity Texturing",
-    description:
-      "Supports 4K-8K PBR Textures with procedural material blending",
-  },
-  {
-    title: "Multi-Platform Export",
-    description:
-      "Optimized models for Unreal Engine, Unity, Maya, Blender, Roblox, VRChat, and Fortnite Creative",
-  },
-  {
-    title: "On-Premise AI Deployment",
-    description: "Deploy Leonardo AI on your studio's private servers",
+    title: "API Support: Yes.",
+    description: "Connect to external services using our RESTful API.",
   },
 ];
 
 const additionalBenefits: SubscriptionDetails["additionalBenefits"] = [
   {
-    title: "Multi-User Team Collaboration",
-    description: "Assign credits and permissions to team members",
+    title: "Custom Trained Styles: Yes",
+    description:
+      "High fidelity on-demand fine-tuned and pre-trained styles for your games, props, or asset custom style.",
   },
   {
-    title: "Enterprise API with Batch Processing",
-    description: "100+ simultaneous model generations",
+    title: "Queue Priority: Highest Priority Queue",
+    description: "Your generations are processed first.",
   },
   {
-    title: "Priority Cloud Processing",
-    description: "<5 sec generation time via dedicated cloud infrastructure",
+    title: "Premium Features: Custom Integrations & Team Tools",
+    description: " Bespoke solutions for team workflows.",
   },
   {
-    title: "Dedicated AI Engineer Support",
-    description: "White-glove support for custom AI fine-tuning",
-  },
-  {
-    title: "Custom Contracts Available",
-    description: "SLAs & Dedicated Compute Clusters",
+    title: "Asset Ownership: Private",
+    description: "Keep your creations private and own them exclusively.",
   },
 ];
 
