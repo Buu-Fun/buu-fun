@@ -51,7 +51,7 @@ export default function FrequentlyAskedContainer() {
   return (
     <div ref={triggerRef} className="w-full h-screen relative">
       <div className="w-[176px] h-[334px] violet-gradient top-[25%]   -left-[70px]   rounded-full  absolute  -z-10  md:block hidden  rotate-[-10deg]" />
-      <Bounded className="max-w-screen-2xl w-full h-full  flex items-center justify-between">
+      <Bounded className="max-w-screen-2xl w-full h-full  flex items-center justify-between flex-col md:flex-row">
         <div className="flex flex-col gap-6 w-full">
           <div className="flex items-center  gap-2">
             <FrequentlyAskedIcon />
@@ -60,7 +60,7 @@ export default function FrequentlyAskedContainer() {
             </h1>
           </div>
           <div>
-            <h1 className="grayish-text-gradient  max-w-max text-6xl tracking-tighter font-medium">
+            <h1 className="grayish-text-gradient  max-w-max text-4xl md:text-6xl tracking-tighter font-medium">
               Frequently <br /> Asked Questions
             </h1>
           </div>

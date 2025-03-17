@@ -1,6 +1,8 @@
 import "@/app/globals.css";
 import SmoothScrollWrapper from "@/components/(home)/scroll-smoother";
 import { constructMetadata } from "@/lib/construct-metadata";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 const BricolageGrotesque = Bricolage_Grotesque({
@@ -55,6 +57,7 @@ export default function RootLayout({
       <body className={`${BricolageGrotesque.className} antialiased dark   `}>
         <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
+      <GoogleAnalytics gaId="G-DDL82EPESF" />
     </html>
   );
 }
