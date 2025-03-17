@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.44](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.43...buu-fun-v0.1.44) (2025-03-17)
+
+
+### ✨ Features
+
+* added redirect link to app from home page ([4ccb67d](https://github.com/Buu-Fun/buu-fun/commit/4ccb67dd266599eadc840faf21317a15ee0b6516))
+* added redirect link to app from home page ([82f856f](https://github.com/Buu-Fun/buu-fun/commit/82f856fdb1711352e4dfd815301832caf1af60fe))
+
 ## [0.1.43](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.42...buu-fun-v0.1.43) (2025-03-17)
 
 
