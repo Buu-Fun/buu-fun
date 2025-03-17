@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.45](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.44...buu-fun-v0.1.45) (2025-03-17)
+
+
+### 🐛 Bugfixes
+
+* removed enterprise plan from pricing details ([3777765](https://github.com/Buu-Fun/buu-fun/commit/3777765a4674330c07664eb5d66bbfe224d091b5))
+* removed enterprise plan from pricing details ([6f78cec](https://github.com/Buu-Fun/buu-fun/commit/6f78cecc4b8b87a649eb50138b11adf074a23288))
+
 ## [0.1.44](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.43...buu-fun-v0.1.44) (2025-03-17)
 
 
