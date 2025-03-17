@@ -143,3 +143,8 @@ export function formatUnits(tokens: string, decimals: number): string {
   const formatted = (num / divisor).toString();
   return formatted;
 }
+
+export function capitalizeFirstLetter(str: string): string {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}

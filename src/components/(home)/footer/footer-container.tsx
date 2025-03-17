@@ -47,7 +47,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
         y: "0%",
         duration: 1.5,
         ease: "power2.out",
-      },
+      }
     );
 
     // Animate the content
@@ -61,7 +61,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
         duration: 1,
         ease: "power2.out",
       },
-      "-=1",
+      "-=1"
     );
 
     return () => {
@@ -103,7 +103,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
                 <p className="blue-text-clip">Get in touch</p>
               </div>
               <h2 className="text-3xl md:text-5xl lg:text-6xl  font-bold grayish-text-gradient">
-                support@buufun.ai
+                support@buu.fun
               </h2>
             </div>
             <div className="flex w-full  justify-between gap-12">
