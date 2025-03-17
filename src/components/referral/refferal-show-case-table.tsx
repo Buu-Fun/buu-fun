@@ -7,10 +7,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useAllReferrals } from "@/hooks/use-referral";
-import { formatNumber, truncateString } from "@/lib/utils";
+import { formatUnits, truncateString } from "@/lib/utils";
+import { format } from "date-fns";
 import Pill from "../elements/pill";
 import Bounded from "../ui/Bounded";
-import { format } from "date-fns";
 
 export default function ReferralShowcaseTable() {
   const { data } = useAllReferrals();
@@ -66,7 +66,9 @@ export default function ReferralShowcaseTable() {
                             $ {formatNumber(parseInt(item.tokens ?? "0"))} USD
                           </TableCell> */}
                           <TableCell className="text- font-medium">
-                            $ {formatNumber(item.decimals ?? 0)} BUU
+                            ${" "}
+                            {formatUnits(item.tokens ?? "", item.decimals ?? 0)}{" "}
+                            BUU
                           </TableCell>
                         </TableRow>
                       );
