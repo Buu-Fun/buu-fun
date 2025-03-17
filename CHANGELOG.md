@@ -1,5 +1,40 @@
 # Changelog
 
+## [0.1.41](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.40...buu-fun-v0.1.41) (2025-03-17)
+
+
+### ✨ Features
+
+* added assets and styles for referrals ([7ef176b](https://github.com/muadpn/buu-fun/commit/7ef176b81118c8d9069ee44114a7d9a3b78ac8fb))
+* added assets and updated ui components ([fc7e37d](https://github.com/muadpn/buu-fun/commit/fc7e37de6087f13d8bab2323508b4bc09d79950d))
+* added manage subscription ([857ab70](https://github.com/muadpn/buu-fun/commit/857ab707af53b09ecd49876610c706aa805f6a67))
+* added new image comaprison and feature scroller ([419897b](https://github.com/muadpn/buu-fun/commit/419897b16e69b7cf9415df8fb1db2e5b3d4c023e))
+* added new smooth scrolling config to overcome the navigation ([6982ece](https://github.com/muadpn/buu-fun/commit/6982ece1fd307e911f81841df44b1d1c871bfc1d))
+* added new updated enums plan details ([f45535d](https://github.com/muadpn/buu-fun/commit/f45535d1f2effe72d9b7efd06944ef71531a6039))
+* added order direction for referral reward table ([9ce9425](https://github.com/muadpn/buu-fun/commit/9ce9425dfcb38124e7699a421ba08a40e4a42008))
+* added redux slice for subscription ([ed88d2f](https://github.com/muadpn/buu-fun/commit/ed88d2fac3319e9d88f9add0bdc4cb7ec660543d))
+* added stripe, referrals, and fixed home page component ([6dc47f6](https://github.com/muadpn/buu-fun/commit/6dc47f6a19541340343f7952e5d2be16c65eebe3))
+* added styles for special buttons and added refferal verifier hook ([8041a38](https://github.com/muadpn/buu-fun/commit/8041a38b91f26a65a63cf72ba024c4310cffbc13))
+* added subscription component and react-query ([45793c4](https://github.com/muadpn/buu-fun/commit/45793c47d536b6ccb90c0ce937f8664deeea1336))
+* added subscription plan details ([3021ac9](https://github.com/muadpn/buu-fun/commit/3021ac9b1e2e3ec1e84bbc3aac7e3a38c1fd2ea9))
+* added subscription styles and utility functions ([716aaf9](https://github.com/muadpn/buu-fun/commit/716aaf95852891449a93f7626b402baf78c65b71))
+* added suscription plan queries ([771327f](https://github.com/muadpn/buu-fun/commit/771327f8266f87b4756a6f0a21f9f1b6d206ab88))
+* added use-refferals hook and query functions ([3aa9782](https://github.com/muadpn/buu-fun/commit/3aa978206eb0e16f2c6373c8b7323718186df03c))
+* changed refferal logic ([d760c04](https://github.com/muadpn/buu-fun/commit/d760c040c6ab4445549a970eb64c42d57ad16d9d))
+* **ui:** added refferals ui and tables ([109e476](https://github.com/muadpn/buu-fun/commit/109e47606d6f5df6f62a5ba373ef35277c6866fc))
+
+
+### 🐛 Bugfixes
+
+* fixed scroll smoothing on mobile ([1da8c26](https://github.com/muadpn/buu-fun/commit/1da8c2622350b5e273fe7ba5636bad0f3a59d690))
+* hoisted state and react query to be top level access ([6f39c6e](https://github.com/muadpn/buu-fun/commit/6f39c6eea22c4913f3b8447ae5e29870e02b8182))
+* updated refferal types and component ([e3542bc](https://github.com/muadpn/buu-fun/commit/e3542bc60b9ee5d97cfbba6d865bded98aea9fa3))
+
+
+### 👽 Miscellaneous
+
+* **lint:** removed unused variables and types ([fcb44c8](https://github.com/muadpn/buu-fun/commit/fcb44c854116e82bf28c0509cebce16f3cd69ded))
+
 ## [0.1.40](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.39...buu-fun-v0.1.40) (2025-03-14)
 
 
