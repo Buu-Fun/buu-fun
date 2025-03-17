@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.43](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.42...buu-fun-v0.1.43) (2025-03-17)
+
+
+### ✨ Features
+
+* added customer testimonials ([ca76e74](https://github.com/Buu-Fun/buu-fun/commit/ca76e74930be88e85c4b52e6410ada6c463e9a00))
+
+
+### 🐛 Bugfixes
+
+* **ci:** added env variables for local-development ([3fb79b1](https://github.com/Buu-Fun/buu-fun/commit/3fb79b1dfd3e02dca4942c7d779c79ab4d1de859))
+* **ci:** added env variables for local-development ([554732b](https://github.com/Buu-Fun/buu-fun/commit/554732b0943d8d1718838293c75c9f5e4924f46c))
+* **ci:** remove checking build ([250468f](https://github.com/Buu-Fun/buu-fun/commit/250468f13329c1de1c4404efd6e841cc513211a5))
+* **ci:** removed ci if checks ([9628f1c](https://github.com/Buu-Fun/buu-fun/commit/9628f1cb04e387eecbaf610139e0b940ed5992b5))
+* **ci:** removed ci if checks ([c845424](https://github.com/Buu-Fun/buu-fun/commit/c845424bab737fda28ede059b13f6aab04d95924))
+
 ## [0.1.42](https://github.com/muadpn/buu-fun/compare/buu-fun-v0.1.41...buu-fun-v0.1.42) (2025-03-17)
 
 
