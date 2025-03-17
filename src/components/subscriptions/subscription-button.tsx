@@ -1,19 +1,17 @@
-import React from "react";
-import { Button } from "../ui/button";
-import { useMutation } from "@tanstack/react-query";
-import { getPaymentLinkUrl } from "@/lib/react-query/subscriptions-stripe";
-import { useAuthentication } from "@/providers/account.context";
 import { useAppSelector } from "@/hooks/redux";
 import { useUserSubscription } from "@/hooks/use-credits";
-import { PlanKeyMapper } from "@/constants/subscription/subscription-plans";
+import { getPaymentLinkUrl } from "@/lib/react-query/subscriptions-stripe";
+import { useAuthentication } from "@/providers/account.context";
+import { useMutation } from "@tanstack/react-query";
+import { Button } from "../ui/button";
 
 export default function SubscriptionButton() {
   const { identityToken: accessToken } = useAuthentication();
   const planKey = useAppSelector(
     (state) => state.subscription.SubscriptionModelPlan
   );
-  const { data, error } = useUserSubscription();
-  console.log("DATA:", data, error);
+  const { data, error, refetch } = useUserSubscription();
+
   const { mutate: getPaymentLink } = useMutation({
     mutationFn: async () => {
       if (!accessToken) return;
@@ -28,16 +26,23 @@ export default function SubscriptionButton() {
       }
     },
   });
-
+  const isCurrentPlan = data?.planKey === planKey;
   return (
     <Button
-      variant={data?.planKey === planKey ? "secondary" : undefined}
-      onClick={() => {
-        getPaymentLink();
+      variant={isCurrentPlan ? "secondary" : undefined}
+      onClick={async () => {
+        if (isCurrentPlan) {
+          const { data } = await refetch();
+          if (data?.customerPortalLink) {
+            window.location.href = data?.customerPortalLink;
+          }
+        } else {
+          getPaymentLink();
+        }
       }}
       className="w-full"
     >
-      {data?.planKey === planKey ? (
+      {isCurrentPlan ? (
         "Current plan"
       ) : (
         <>
