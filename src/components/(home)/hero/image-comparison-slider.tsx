@@ -65,8 +65,6 @@ export default function ImageComparisonSlider() {
           pin: true,
           trigger: containerRef.current,
           start: "top top",
-
-          markers: true,
           toggleActions: "play none none reverse",
           onUpdate(event) {
             if (
