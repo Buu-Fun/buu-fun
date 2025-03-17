@@ -1,6 +1,5 @@
 "use client";
 import ClickToActionContainer from "@/components/(home)/CTA/click-to-action-container";
-import FeatureShowcaseContainer from "@/components/(home)/feature/feature-responsive";
 import FooterContainer from "@/components/(home)/footer/footer-container";
 import FrequentlyAskedContainer from "@/components/(home)/frequently-asked/frequently-asked-container";
 import BringYourIdeasSection from "@/components/(home)/hero/hero-section-content";
@@ -11,7 +10,7 @@ import TopNavigationBar from "@/components/(home)/navigation/top-navigation-bar"
 import TestimonialsContainer from "@/components/(home)/testimonials/testimonials-container";
 export default function HomePage() {
   return (
-    <main className="relative max-w-screen  ">
+    <main className="relative max-w-screen overflow-hidden smooth-scroll ">
       <div className="w-full  relative ">
         <HeroLoadingWrapper>
           <>
@@ -20,7 +19,7 @@ export default function HomePage() {
           </>
         </HeroLoadingWrapper>
         <BringYourIdeasSection />
-        <FeatureShowcaseContainer />
+        {/* <FeatureShowcaseContainer /> */}
       </div>
       <section id="how-it-works" className="w-full h-full">
         <HowToContainer />

@@ -23,6 +23,7 @@ import {
 } from "../ui/drawer";
 import CopyAddress from "./copy-address";
 import KnowMoreContent from "./know-more-content";
+import ReferralIcon from "@/assets/icons/referral-icon";
 
 export default function MobileProfileNavigation() {
   const { address, isAuthenticated, logout } = useAuthentication();
@@ -125,6 +126,20 @@ export default function MobileProfileNavigation() {
                     </DrawerClose>
                   </Link>
                 </div>{" "}
+                <div className="flex border-b w-full ">
+                  <Link
+                    href={"/referral"}
+                    // className="flex w-full  items-center gap-2  py-2 rounded-md px-2 font-medium"
+                  >
+                    {" "}
+                    <DrawerClose className="flex w-full  items-center gap-2  py-2 rounded-md px-2 font-medium">
+                      <div className="w-6 h-6">
+                        <ReferralIcon />
+                      </div>
+                      <p className="text-xl">Referral Program</p>{" "}
+                    </DrawerClose>
+                  </Link>
+                </div>
                 <div className="flex border-b  w-full">
                   <button
                     onClick={async () => {

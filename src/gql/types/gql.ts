@@ -26,7 +26,13 @@ type Documents = {
   "\n  query GetSubthreadGenRequests($subthreadId: String!) {\n    getSubthreadGenRequests(subthreadId: $subthreadId) {\n      ... on GenRequestsPage {\n        items {\n          _id\n          subthreadId\n          address\n          status\n          metadata\n          type\n          images {\n            alt\n            keyS3\n            size\n            type\n            url\n          }\n          model_mesh {\n            alt\n            keyS3\n            size\n            type\n            url\n          }\n          timings {\n            inference\n          }\n          credits\n          createdAt\n          updatedAt\n        }\n        metadata {\n          limit\n          offset\n          orderBy\n          orderDirection\n          numElements\n          total\n          page\n          pages\n        }\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.GetSubthreadGenRequestsDocument;
   "\n  query GetMyCredits {\n    getMyCredits {\n      ... on Credit {\n        _id\n        available\n        pending\n        confirmed\n        updatedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.GetMyCreditsDocument;
   "\n  mutation RedeemVoucher($code: String!) {\n    redeemVoucher(code: $code) {\n      ... on Credit {\n        _id\n        available\n        pending\n        confirmed\n        updatedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.RedeemVoucherDocument;
-  "\n  mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {\n    generatePresignedUrl(input: $input) {\n      ...on GeneratePresignedUrl {\n          presignedUrl\n          url\n          key\n          expiresIn\n      }\n      ... on HandledError {\n          code\n          message\n      }\n    }\n  }\n": typeof types.GeneratePresignedUrlDocument;
+  "\n  mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {\n    generatePresignedUrl(input: $input) {\n      ... on GeneratePresignedUrl {\n        presignedUrl\n        url\n        key\n        expiresIn\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.GeneratePresignedUrlDocument;
+  "\n  query GetReferralAccount {\n    getReferralAccount {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.GetReferralAccountDocument;
+  "\n  query GetReferralRewards($pagination: Pagination, $filters: ReferralRewardFilter) {\n    getReferralRewards(pagination: $pagination, filters: $filters) {\n      ... on ReferralRewardPage {\n        items {\n          _id\n          referral\n          referee\n          creditsPurchaseId\n          tokens\n          decimals\n          transactionHash\n          createdAt\n        }\n        metadata {\n          limit\n          offset\n          orderBy\n          orderDirection\n          numElements\n          total\n          page\n          pages\n        }\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.GetReferralRewardsDocument;
+  "\n  mutation LinkReferralAccount($code: String!) {\n    linkReferralAccount(code: $code) {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.LinkReferralAccountDocument;
+  "\n  query GenerateCustomerPortalSession {\n    generateCustomerPortalSession {\n      customerPortalLink\n      planKey\n    }\n  }\n": typeof types.GenerateCustomerPortalSessionDocument;
+  "\n  query GenerateSubscriptionPaymentLink($planKey: StripeSubscriptionPlanKeys!) {\n    generateSubscriptionPaymentLink(planKey: $planKey) {\n      ... on SuscriptionPaymentLinkOutput {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.GenerateSubscriptionPaymentLinkDocument;
+  "\n  query GenerateCreditsPackagePaymentLink($pkg: CreditsPackageKeys!) {\n    generateCreditsPackagePaymentLink(pkg: $pkg) {\n      ... on Url {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n": typeof types.GenerateCreditsPackagePaymentLinkDocument;
 };
 const documents: Documents = {
   "\n  query Me {\n    me {\n      ... on Account {\n        address\n        twitterId\n        twitterName\n        twitterUsername\n        twitterAvatar\n        telegramId\n        telegramName\n        telegramUsername\n        telegramAvatar\n        createdAt\n        updatedAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n":
@@ -53,8 +59,20 @@ const documents: Documents = {
     types.GetMyCreditsDocument,
   "\n  mutation RedeemVoucher($code: String!) {\n    redeemVoucher(code: $code) {\n      ... on Credit {\n        _id\n        available\n        pending\n        confirmed\n        updatedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n":
     types.RedeemVoucherDocument,
-  "\n  mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {\n    generatePresignedUrl(input: $input) {\n      ...on GeneratePresignedUrl {\n          presignedUrl\n          url\n          key\n          expiresIn\n      }\n      ... on HandledError {\n          code\n          message\n      }\n    }\n  }\n":
+  "\n  mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {\n    generatePresignedUrl(input: $input) {\n      ... on GeneratePresignedUrl {\n        presignedUrl\n        url\n        key\n        expiresIn\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n":
     types.GeneratePresignedUrlDocument,
+  "\n  query GetReferralAccount {\n    getReferralAccount {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n":
+    types.GetReferralAccountDocument,
+  "\n  query GetReferralRewards($pagination: Pagination, $filters: ReferralRewardFilter) {\n    getReferralRewards(pagination: $pagination, filters: $filters) {\n      ... on ReferralRewardPage {\n        items {\n          _id\n          referral\n          referee\n          creditsPurchaseId\n          tokens\n          decimals\n          transactionHash\n          createdAt\n        }\n        metadata {\n          limit\n          offset\n          orderBy\n          orderDirection\n          numElements\n          total\n          page\n          pages\n        }\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n":
+    types.GetReferralRewardsDocument,
+  "\n  mutation LinkReferralAccount($code: String!) {\n    linkReferralAccount(code: $code) {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n":
+    types.LinkReferralAccountDocument,
+  "\n  query GenerateCustomerPortalSession {\n    generateCustomerPortalSession {\n      customerPortalLink\n      planKey\n    }\n  }\n":
+    types.GenerateCustomerPortalSessionDocument,
+  "\n  query GenerateSubscriptionPaymentLink($planKey: StripeSubscriptionPlanKeys!) {\n    generateSubscriptionPaymentLink(planKey: $planKey) {\n      ... on SuscriptionPaymentLinkOutput {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n":
+    types.GenerateSubscriptionPaymentLinkDocument,
+  "\n  query GenerateCreditsPackagePaymentLink($pkg: CreditsPackageKeys!) {\n    generateCreditsPackagePaymentLink(pkg: $pkg) {\n      ... on Url {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n":
+    types.GenerateCreditsPackagePaymentLinkDocument,
 };
 
 /**
@@ -147,8 +165,44 @@ export function graphql(
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(
-  source: "\n  mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {\n    generatePresignedUrl(input: $input) {\n      ...on GeneratePresignedUrl {\n          presignedUrl\n          url\n          key\n          expiresIn\n      }\n      ... on HandledError {\n          code\n          message\n      }\n    }\n  }\n",
-): (typeof documents)["\n  mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {\n    generatePresignedUrl(input: $input) {\n      ...on GeneratePresignedUrl {\n          presignedUrl\n          url\n          key\n          expiresIn\n      }\n      ... on HandledError {\n          code\n          message\n      }\n    }\n  }\n"];
+  source: "\n  mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {\n    generatePresignedUrl(input: $input) {\n      ... on GeneratePresignedUrl {\n        presignedUrl\n        url\n        key\n        expiresIn\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n",
+): (typeof documents)["\n  mutation GeneratePresignedUrl($input: GeneratePresignedUrlInput!) {\n    generatePresignedUrl(input: $input) {\n      ... on GeneratePresignedUrl {\n        presignedUrl\n        url\n        key\n        expiresIn\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query GetReferralAccount {\n    getReferralAccount {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n",
+): (typeof documents)["\n  query GetReferralAccount {\n    getReferralAccount {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query GetReferralRewards($pagination: Pagination, $filters: ReferralRewardFilter) {\n    getReferralRewards(pagination: $pagination, filters: $filters) {\n      ... on ReferralRewardPage {\n        items {\n          _id\n          referral\n          referee\n          creditsPurchaseId\n          tokens\n          decimals\n          transactionHash\n          createdAt\n        }\n        metadata {\n          limit\n          offset\n          orderBy\n          orderDirection\n          numElements\n          total\n          page\n          pages\n        }\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n",
+): (typeof documents)["\n  query GetReferralRewards($pagination: Pagination, $filters: ReferralRewardFilter) {\n    getReferralRewards(pagination: $pagination, filters: $filters) {\n      ... on ReferralRewardPage {\n        items {\n          _id\n          referral\n          referee\n          creditsPurchaseId\n          tokens\n          decimals\n          transactionHash\n          createdAt\n        }\n        metadata {\n          limit\n          offset\n          orderBy\n          orderDirection\n          numElements\n          total\n          page\n          pages\n        }\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  mutation LinkReferralAccount($code: String!) {\n    linkReferralAccount(code: $code) {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n",
+): (typeof documents)["\n  mutation LinkReferralAccount($code: String!) {\n    linkReferralAccount(code: $code) {\n      ... on ReferralAccount {\n        _id\n        referralCode\n        refereeCode\n        referee {\n          _id\n        }\n        linkedAt\n        createdAt\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query GenerateCustomerPortalSession {\n    generateCustomerPortalSession {\n      customerPortalLink\n      planKey\n    }\n  }\n",
+): (typeof documents)["\n  query GenerateCustomerPortalSession {\n    generateCustomerPortalSession {\n      customerPortalLink\n      planKey\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query GenerateSubscriptionPaymentLink($planKey: StripeSubscriptionPlanKeys!) {\n    generateSubscriptionPaymentLink(planKey: $planKey) {\n      ... on SuscriptionPaymentLinkOutput {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n",
+): (typeof documents)["\n  query GenerateSubscriptionPaymentLink($planKey: StripeSubscriptionPlanKeys!) {\n    generateSubscriptionPaymentLink(planKey: $planKey) {\n      ... on SuscriptionPaymentLinkOutput {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query GenerateCreditsPackagePaymentLink($pkg: CreditsPackageKeys!) {\n    generateCreditsPackagePaymentLink(pkg: $pkg) {\n      ... on Url {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n",
+): (typeof documents)["\n  query GenerateCreditsPackagePaymentLink($pkg: CreditsPackageKeys!) {\n    generateCreditsPackagePaymentLink(pkg: $pkg) {\n      ... on Url {\n        url\n      }\n      ... on HandledError {\n        code\n        message\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

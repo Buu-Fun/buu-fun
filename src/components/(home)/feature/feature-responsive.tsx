@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   CircularMotion,
   SliderIconSecondary,
@@ -16,12 +16,13 @@ import FeatureTopBar, {
   ScanningOverlay,
 } from "./feature-top-bar";
 import MutantMesh from "@/assets/Image/home/mutant-mesh";
+import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const sliderContainerRef = useRef<HTMLDivElement>(null);
+  const FeatureContainerRef = useRef<HTMLDivElement>(null);
 
   // Set up responsive positioning that works with any aspect ratio
   useLayoutEffect(() => {
@@ -40,7 +41,7 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
 
     // Function to update slider position based on current viewport
     const updateSliderPosition = () => {
-      if (!sliderContainerRef.current || !containerRef.current) return;
+      if (!FeatureContainerRef.current || !containerRef.current) return;
 
       // Get current container dimensions
       const containerWidth = containerRef.current.offsetWidth;
@@ -82,10 +83,10 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
       const sliderWidth = designSliderWidth * scaleX;
 
       // Position the slider centered on the character position
-      sliderContainerRef.current.style.width = `${sliderWidth}px`;
-      sliderContainerRef.current.style.height = `${designSliderHeight * scaleY}px`;
-      sliderContainerRef.current.style.left = `${characterX - sliderWidth / 2}px`;
-      sliderContainerRef.current.style.top = `${characterY}px`;
+      FeatureContainerRef.current.style.width = `${sliderWidth}px`;
+      FeatureContainerRef.current.style.height = `${designSliderHeight * scaleY}px`;
+      FeatureContainerRef.current.style.left = `${characterX - sliderWidth / 2}px`;
+      FeatureContainerRef.current.style.top = `${characterY}px`;
     };
 
     // Run on mount and resize
@@ -161,7 +162,7 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
       },
     },
   };
-
+  useGSAP(() => {});
   return (
     <section
       id="features"
@@ -211,7 +212,7 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
         )}
       </AnimatePresence>
 
-      <div ref={sliderContainerRef} className="relative">
+      <div ref={FeatureContainerRef} className="relative">
         <AnimatePresence mode="wait" initial={false}>
           {features[index].autoRig ? (
             <motion.div

@@ -4,6 +4,7 @@ import AccountLinking from "@/components/profile/account-linking";
 import Base64ImageDiv from "@/components/profile/icon-render";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import RedeemVouchers from "@/components/profile/redeem-vouchers";
+import SubscriptionDialog from "@/components/subscriptions/subscription-dialog";
 import ProtectedWrapper from "@/components/wrapper/protected-wrapper";
 import useUserCredits from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
@@ -74,15 +75,18 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-        <div className="flex gap-2 items-center justify-center mt-6">
+
+        <div className="flex  gap-2 items-center justify-center mt-6">
+          {/* <h4 className="text-xl font-medium tracking-tight">Your Referrals</h4>
+          <p>
+            Get
+            <span className="blue-text-clip"> 20% </span>
+            of your referrals spending in $BUU!
+          </p>
+          <CopyReferralWrapper /> */}
           <RedeemVouchers />
 
-          {/* <Button
-          variant={"outline"}
-          className="px-2.5 h-[40px] group py-2 bg-buu shadow-buu-secondary border-buu rounded-[10px]"
-        >
-          Manage subscription{" "}
-        </Button> */}
+          <SubscriptionDialog />
         </div>
         <div className="mt-6">
           <p className=" font-medium text-buu-muted-text">Link your accounts</p>

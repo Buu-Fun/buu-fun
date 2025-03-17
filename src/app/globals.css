@@ -71,7 +71,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   /* scroll-behavior: smooth; */
-  overflow: hidden; /* Prevent default browser scroll behavior */
+   /* Prevent default browser scroll behavior */
 }
 
 /* html {
@@ -138,6 +138,13 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.bg-buu-table {
+  background: rgba(28, 32, 39, 1);
+  /* border: 1px solid rgba(255, 255, 255, 0.04); */
+  /* background: rgba(28, 32, 39, 0.2); */
+  box-shadow: 0px 0px 46.6px 3px rgba(33, 42, 52, 0.8) inset;
+  backdrop-filter: blur(40px);
+}
 .bg-buu-opacity-100 {
   background: rgba(28, 32, 39, 1);
 }
@@ -208,6 +215,7 @@ body {
 .border-buu {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
 .bg-overlay-secondary {
   /* border-radius: 200px; */
   opacity: 0.8;
@@ -567,7 +575,7 @@ body {
 
 .violet-gradient {
   border-radius: 334px;
-  opacity: 0.5;
+  opacity: 0.4;
   background: linear-gradient(180deg, #6a69d5 0%, #d4d4ff 100%);
   filter: blur(200px);
 }
@@ -593,4 +601,46 @@ body {
 
 .home-navigation-icon-background {
   background: #ffffff38;
+}
+
+.border-table {
+  border: #1c202733;
+}
+
+.bg-referral-modal {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(45, 50, 60, 0.7);
+
+  box-shadow: 0px 0px 30.2px 3px rgba(52, 59, 66, 0.8) inset;
+  backdrop-filter: blur(25px);
+}
+
+.bg-subscription-dialog {
+  /* border-radius: 16px; */
+  /* border: 1px solid rgba(255, 255, 255, 0.08); */
+  background: rgba(45, 50, 60, 0.7);
+  box-shadow: 0px 0px 30.2px 3px rgba(52, 59, 66, 0.8) inset;
+  backdrop-filter: blur(25px);
+}
+
+.bg-subscription-button-bg {
+  background: rgba(26, 30, 36, 0.5);
+}
+
+.custom-pill {
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(120, 219, 255, 0.5);
+  box-shadow: 0px 0px 10.5px 3px rgba(179, 187, 197, 0.2) inset;
+}
+.bg-pill-blue {
+  background: rgba(120, 219, 255, 0.5);
+}
+.shadow-pill-blue {
+  box-shadow: 0px 0px 10.5px 3px rgba(179, 187, 197, 0.2) inset;
+}
+.border-pill {
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }

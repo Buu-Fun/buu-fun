@@ -7,7 +7,7 @@ export default function FeatureContainer(
     // children,
   }: {
     children: ReactNode;
-  }
+  },
 ) {
   return (
     <div className="relative h-screen w-full overflow-visible ">

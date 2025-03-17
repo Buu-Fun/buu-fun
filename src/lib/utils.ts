@@ -7,6 +7,8 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { DataMuseError } from "./class/data-muse-error";
 import { TDataMuseWord } from "./fetcher/query/query-suggestion-api";
+import { Plans } from "@/constants/subscription/subscription-plans";
+import { StripeSubscriptionPlanKeys } from "@/gql/types/graphql";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -93,4 +95,44 @@ export async function blobUrlToFile(
 
 export function getAllowedContentTypeMaps(key: string) {
   return AllowedContentType[key] ? AllowedContentType[key] : null;
+}
+
+export function truncateString(
+  value: string,
+  startEnd: number = 4,
+  endStartAt: number = 4,
+): string {
+  if (value.length <= startEnd + endStartAt) {
+    return value;
+  }
+
+  return `${value.slice(0, startEnd)}...${value.slice(-endStartAt)}`;
+}
+
+export function formatNumber(value: number) {
+  return value
+  return new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    compactDisplay: "short",
+  }).format(value);
+}
+
+export function getPlanEnum(planKey: Plans) {
+  switch (planKey) {
+    case "FREE": {
+      return StripeSubscriptionPlanKeys.Free;
+    }
+    case "ENTERPRISE": {
+      return StripeSubscriptionPlanKeys.Enterprise;
+    }
+    case "BASIC": {
+      return StripeSubscriptionPlanKeys.Basic;
+    }
+    case "PRO": {
+      return StripeSubscriptionPlanKeys.Pro;
+    }
+    case "UNLIMITED": {
+      return StripeSubscriptionPlanKeys.Unlimited;
+    }
+  }
 }

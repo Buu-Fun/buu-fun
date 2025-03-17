@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 
-export const ArchGradient = ({  }: { index: number }) => {
+export const ArchGradient = ({}: { index: number }) => {
   return (
     <AnimatePresence>
       <motion.svg

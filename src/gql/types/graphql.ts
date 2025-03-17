@@ -63,6 +63,58 @@ export type Credit = {
 
 export type CreditResult = Credit | HandledError;
 
+export enum CreditsPackageKeys {
+  ExtraLarge = "EXTRA_LARGE",
+  Large = "LARGE",
+  Medium = "MEDIUM",
+  Small = "SMALL",
+}
+
+export type CreditsPurchase = {
+  __typename?: "CreditsPurchase";
+  _id: Scalars["String"]["output"];
+  address: Scalars["String"]["output"];
+  createdAt: Scalars["DateTimeISO"]["output"];
+  credits: Scalars["Float"]["output"];
+  metadata: Scalars["JSON"]["output"];
+  price?: Maybe<Scalars["Float"]["output"]>;
+  type: CreditsPurchaseType;
+};
+
+export type CreditsPurchaseFilter = {
+  _id_eq?: InputMaybe<Scalars["String"]["input"]>;
+  _id_in?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  _id_ne?: InputMaybe<Scalars["String"]["input"]>;
+  _id_nin?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  address_eq?: InputMaybe<Scalars["String"]["input"]>;
+  address_in?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  address_ne?: InputMaybe<Scalars["String"]["input"]>;
+  address_nin?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  createdAt_eq?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_gt?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_gte?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_lt?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_lte?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_ne?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+};
+
+export type CreditsPurchasePage = {
+  __typename?: "CreditsPurchasePage";
+  items: Array<CreditsPurchase>;
+  metadata: Metadata;
+};
+
+export type CreditsPurchasePageResult = CreditsPurchasePage | HandledError;
+
+/** Which type of CreditPurchase was used */
+export enum CreditsPurchaseType {
+  Crypto = "CRYPTO",
+  OnDemand = "ON_DEMAND",
+  Staking = "STAKING",
+  Subscription = "SUBSCRIPTION",
+  Voucher = "VOUCHER",
+}
+
 export type GenRequest = {
   __typename?: "GenRequest";
   _id: Scalars["String"]["output"];
@@ -96,6 +148,12 @@ export type GenRequestsPage = {
 
 export type GenRequestsPageResult = GenRequestsPage | HandledError;
 
+export type GenerateCustomerPortalSessionOutput = {
+  __typename?: "GenerateCustomerPortalSessionOutput";
+  customerPortalLink: Scalars["String"]["output"];
+  planKey: StripeSubscriptionPlanKeys;
+};
+
 export type GeneratePresignedPostResult = HandledError | PresignedPost;
 
 export type GeneratePresignedUrl = {
@@ -111,6 +169,10 @@ export type GeneratePresignedUrlInput = {
 };
 
 export type GeneratePresignedUrlResult = GeneratePresignedUrl | HandledError;
+
+export type GenerateSubscriptionPaymentLinkResult =
+  | HandledError
+  | SuscriptionPaymentLinkOutput;
 
 export type HandledError = {
   __typename?: "HandledError";
@@ -148,6 +210,7 @@ export type Mutation = {
   generatePresignedPost: GeneratePresignedPostResult;
   generatePresignedUrl: GeneratePresignedUrlResult;
   generateSubthread: SubthreadResult;
+  linkReferralAccount: ReferralAccountResult;
   redeemVoucher: CreditResult;
 };
 
@@ -178,6 +241,10 @@ export type MutationGenerateSubthreadArgs = {
   threadId?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type MutationLinkReferralAccountArgs = {
+  code: Scalars["String"]["input"];
+};
+
 export type MutationRedeemVoucherArgs = {
   code: Scalars["String"]["input"];
 };
@@ -203,12 +270,36 @@ export type PresignedPost = {
 
 export type Query = {
   __typename?: "Query";
+  generateCreditsPackagePaymentLink: UrlResult;
+  generateCustomerPortalSession: GenerateCustomerPortalSessionOutput;
+  generateSubscriptionPaymentLink: GenerateSubscriptionPaymentLinkResult;
+  getCreditsPurchases: CreditsPurchasePageResult;
   getMyCredits: CreditResult;
+  getReferralAccount: ReferralAccountResult;
+  getReferralRewards: ReferralRewardPageResult;
   getSubthread: SubthreadResult;
   getSubthreadGenRequests: GenRequestsPageResult;
   getSubthreads: SubthreadPageResult;
   getThreads: ThreadPageResult;
   me: AccountResult;
+};
+
+export type QueryGenerateCreditsPackagePaymentLinkArgs = {
+  pkg: CreditsPackageKeys;
+};
+
+export type QueryGenerateSubscriptionPaymentLinkArgs = {
+  planKey: StripeSubscriptionPlanKeys;
+};
+
+export type QueryGetCreditsPurchasesArgs = {
+  filters?: InputMaybe<CreditsPurchaseFilter>;
+  pagination?: InputMaybe<Pagination>;
+};
+
+export type QueryGetReferralRewardsArgs = {
+  filters?: InputMaybe<ReferralRewardFilter>;
+  pagination?: InputMaybe<Pagination>;
 };
 
 export type QueryGetSubthreadArgs = {
@@ -228,6 +319,67 @@ export type QueryGetThreadsArgs = {
   filters?: InputMaybe<ThreadFilter>;
   pagination?: InputMaybe<Pagination>;
 };
+
+export type ReferralAccount = {
+  __typename?: "ReferralAccount";
+  _id: Scalars["String"]["output"];
+  createdAt: Scalars["DateTimeISO"]["output"];
+  linkedAt?: Maybe<Scalars["DateTimeISO"]["output"]>;
+  referee?: Maybe<ReferralAccount>;
+  refereeCode?: Maybe<Scalars["String"]["output"]>;
+  referralCode: Scalars["String"]["output"];
+};
+
+export type ReferralAccountResult = HandledError | ReferralAccount;
+
+export type ReferralReward = {
+  __typename?: "ReferralReward";
+  _id: Scalars["String"]["output"];
+  createdAt: Scalars["DateTimeISO"]["output"];
+  creditsPurchaseId?: Maybe<Scalars["String"]["output"]>;
+  decimals?: Maybe<Scalars["Int"]["output"]>;
+  referee: Scalars["String"]["output"];
+  referral: Scalars["String"]["output"];
+  tokens?: Maybe<Scalars["String"]["output"]>;
+  transactionHash?: Maybe<Scalars["String"]["output"]>;
+};
+
+export type ReferralRewardFilter = {
+  _id_eq?: InputMaybe<Scalars["String"]["input"]>;
+  _id_in?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  _id_ne?: InputMaybe<Scalars["String"]["input"]>;
+  _id_nin?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  createdAt_eq?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_gt?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_gte?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_lt?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_lte?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  createdAt_ne?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  referee_eq?: InputMaybe<Scalars["String"]["input"]>;
+  referee_in?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  referee_ne?: InputMaybe<Scalars["String"]["input"]>;
+  referee_nin?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  referral_eq?: InputMaybe<Scalars["String"]["input"]>;
+  referral_in?: InputMaybe<Array<Scalars["String"]["input"]>>;
+  referral_ne?: InputMaybe<Scalars["String"]["input"]>;
+  referral_nin?: InputMaybe<Array<Scalars["String"]["input"]>>;
+};
+
+export type ReferralRewardPage = {
+  __typename?: "ReferralRewardPage";
+  items: Array<ReferralReward>;
+  metadata: Metadata;
+};
+
+export type ReferralRewardPageResult = HandledError | ReferralRewardPage;
+
+export enum StripeSubscriptionPlanKeys {
+  Basic = "BASIC",
+  Enterprise = "ENTERPRISE",
+  Free = "FREE",
+  Pro = "PRO",
+  Unlimited = "UNLIMITED",
+}
 
 export type Subthread = {
   __typename?: "Subthread";
@@ -303,6 +455,11 @@ export enum SupportedUploadContentTypesEnum {
   ImagePng = "ImagePng",
 }
 
+export type SuscriptionPaymentLinkOutput = {
+  __typename?: "SuscriptionPaymentLinkOutput";
+  url: Scalars["String"]["output"];
+};
+
 export type Thread = {
   __typename?: "Thread";
   _id: Scalars["String"]["output"];
@@ -348,6 +505,13 @@ export type Timings = {
   __typename?: "Timings";
   inference?: Maybe<Scalars["Float"]["output"]>;
 };
+
+export type Url = {
+  __typename?: "Url";
+  url: Scalars["String"]["output"];
+};
+
+export type UrlResult = HandledError | Url;
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -724,6 +888,113 @@ export type GeneratePresignedUrlMutation = {
         expiresIn: number;
       }
     | { __typename?: "HandledError"; code: string; message: string };
+};
+
+export type GetReferralAccountQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetReferralAccountQuery = {
+  __typename?: "Query";
+  getReferralAccount:
+    | { __typename?: "HandledError"; code: string; message: string }
+    | {
+        __typename?: "ReferralAccount";
+        _id: string;
+        referralCode: string;
+        refereeCode?: string | null;
+        linkedAt?: any | null;
+        createdAt: any;
+        referee?: { __typename?: "ReferralAccount"; _id: string } | null;
+      };
+};
+
+export type GetReferralRewardsQueryVariables = Exact<{
+  pagination?: InputMaybe<Pagination>;
+  filters?: InputMaybe<ReferralRewardFilter>;
+}>;
+
+export type GetReferralRewardsQuery = {
+  __typename?: "Query";
+  getReferralRewards:
+    | { __typename?: "HandledError"; code: string; message: string }
+    | {
+        __typename?: "ReferralRewardPage";
+        items: Array<{
+          __typename?: "ReferralReward";
+          _id: string;
+          referral: string;
+          referee: string;
+          creditsPurchaseId?: string | null;
+          tokens?: string | null;
+          decimals?: number | null;
+          transactionHash?: string | null;
+          createdAt: any;
+        }>;
+        metadata: {
+          __typename?: "Metadata";
+          limit?: number | null;
+          offset?: number | null;
+          orderBy?: string | null;
+          orderDirection?: OrderDirection | null;
+          numElements?: number | null;
+          total?: number | null;
+          page?: number | null;
+          pages?: number | null;
+        };
+      };
+};
+
+export type LinkReferralAccountMutationVariables = Exact<{
+  code: Scalars["String"]["input"];
+}>;
+
+export type LinkReferralAccountMutation = {
+  __typename?: "Mutation";
+  linkReferralAccount:
+    | { __typename?: "HandledError"; code: string; message: string }
+    | {
+        __typename?: "ReferralAccount";
+        _id: string;
+        referralCode: string;
+        refereeCode?: string | null;
+        linkedAt?: any | null;
+        createdAt: any;
+        referee?: { __typename?: "ReferralAccount"; _id: string } | null;
+      };
+};
+
+export type GenerateCustomerPortalSessionQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GenerateCustomerPortalSessionQuery = {
+  __typename?: "Query";
+  generateCustomerPortalSession: {
+    __typename?: "GenerateCustomerPortalSessionOutput";
+    customerPortalLink: string;
+    planKey: StripeSubscriptionPlanKeys;
+  };
+};
+
+export type GenerateSubscriptionPaymentLinkQueryVariables = Exact<{
+  planKey: StripeSubscriptionPlanKeys;
+}>;
+
+export type GenerateSubscriptionPaymentLinkQuery = {
+  __typename?: "Query";
+  generateSubscriptionPaymentLink:
+    | { __typename?: "HandledError"; code: string; message: string }
+    | { __typename?: "SuscriptionPaymentLinkOutput"; url: string };
+};
+
+export type GenerateCreditsPackagePaymentLinkQueryVariables = Exact<{
+  pkg: CreditsPackageKeys;
+}>;
+
+export type GenerateCreditsPackagePaymentLinkQuery = {
+  __typename?: "Query";
+  generateCreditsPackagePaymentLink:
+    | { __typename?: "HandledError"; code: string; message: string }
+    | { __typename?: "Url"; url: string };
 };
 
 export const MeDocument = {
@@ -2581,4 +2852,580 @@ export const GeneratePresignedUrlDocument = {
 } as unknown as DocumentNode<
   GeneratePresignedUrlMutation,
   GeneratePresignedUrlMutationVariables
+>;
+export const GetReferralAccountDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetReferralAccount" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getReferralAccount" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "ReferralAccount" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "_id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "referralCode" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "refereeCode" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "referee" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "_id" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "linkedAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "HandledError" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "code" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "message" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetReferralAccountQuery,
+  GetReferralAccountQueryVariables
+>;
+export const GetReferralRewardsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GetReferralRewards" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "pagination" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "Pagination" },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "filters" },
+          },
+          type: {
+            kind: "NamedType",
+            name: { kind: "Name", value: "ReferralRewardFilter" },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "getReferralRewards" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pagination" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "pagination" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "filters" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "filters" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "ReferralRewardPage" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "items" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "_id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "referral" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "referee" },
+                            },
+                            {
+                              kind: "Field",
+                              name: {
+                                kind: "Name",
+                                value: "creditsPurchaseId",
+                              },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "tokens" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "decimals" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "transactionHash" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "createdAt" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "metadata" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "limit" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "offset" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "orderBy" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "orderDirection" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "numElements" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "total" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "page" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "pages" },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "HandledError" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "code" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "message" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GetReferralRewardsQuery,
+  GetReferralRewardsQueryVariables
+>;
+export const LinkReferralAccountDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "LinkReferralAccount" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "code" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "linkReferralAccount" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "code" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "code" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "ReferralAccount" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "_id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "referralCode" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "refereeCode" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "referee" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "_id" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "linkedAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "HandledError" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "code" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "message" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  LinkReferralAccountMutation,
+  LinkReferralAccountMutationVariables
+>;
+export const GenerateCustomerPortalSessionDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GenerateCustomerPortalSession" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "generateCustomerPortalSession" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "customerPortalLink" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "planKey" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GenerateCustomerPortalSessionQuery,
+  GenerateCustomerPortalSessionQueryVariables
+>;
+export const GenerateSubscriptionPaymentLinkDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GenerateSubscriptionPaymentLink" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "planKey" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "StripeSubscriptionPlanKeys" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "generateSubscriptionPaymentLink" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "planKey" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "planKey" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: {
+                      kind: "Name",
+                      value: "SuscriptionPaymentLinkOutput",
+                    },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "url" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "HandledError" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "code" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "message" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GenerateSubscriptionPaymentLinkQuery,
+  GenerateSubscriptionPaymentLinkQueryVariables
+>;
+export const GenerateCreditsPackagePaymentLinkDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "GenerateCreditsPackagePaymentLink" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: { kind: "Variable", name: { kind: "Name", value: "pkg" } },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "CreditsPackageKeys" },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "generateCreditsPackagePaymentLink" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "pkg" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "pkg" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "Url" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "url" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "InlineFragment",
+                  typeCondition: {
+                    kind: "NamedType",
+                    name: { kind: "Name", value: "HandledError" },
+                  },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "code" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "message" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GenerateCreditsPackagePaymentLinkQuery,
+  GenerateCreditsPackagePaymentLinkQueryVariables
 >;

@@ -15,8 +15,8 @@ export default function CreditUsedIcon() {
         onClick={() => {
           router.push("/profile");
         }}
-        variant={"outline"}
-        className="px-2.5 h-[40px] group py-2 bg-buu shadow-buu-secondary border-buu rounded-[10px]"
+        variant={"special"}
+        size={"special"}
       >
         <FlashIcon />
         <p className="text-white">${getFixedCredits(data?.available)}</p>

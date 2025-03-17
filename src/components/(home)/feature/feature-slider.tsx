@@ -1,7 +1,5 @@
 "use client";
-import {
-  MutantAlienWireFrame
-} from "@/assets/Image";
+import { MutantAlienWireFrame } from "@/assets/Image";
 import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";

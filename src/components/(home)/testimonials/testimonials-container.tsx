@@ -38,7 +38,7 @@ export default function TestimonialsContainer() {
         width: `${100}%`,
         duration: totalDuration,
         repeat: Infinity,
-      }
+      },
     );
   }, []);
 
@@ -55,7 +55,7 @@ export default function TestimonialsContainer() {
           ease: "power4.inOut",
           duration: 2.5,
           stagger: 0.1,
-        }
+        },
       );
       gsap.fromTo(
         ".word",
@@ -65,7 +65,7 @@ export default function TestimonialsContainer() {
           ease: "power4.inOut",
           duration: 2.5,
           stagger: 0.15,
-        }
+        },
       );
     }, textRef.current);
 
@@ -101,7 +101,7 @@ export default function TestimonialsContainer() {
       </div>
       <div className="flex flex-col relative  items-center gap-12 my-8  justify-center">
         <div className=" relative flex  ">
-          <p className="text-6xl opacity-0  grayish-text-gradient max-w-5xl font-medium tracking-tight text-center">
+          <p className="text-4xl md:text-6xl opacity-0  grayish-text-gradient max-w-5xl font-medium tracking-tight text-center">
             {testimonialsData[currentIndex]?.testimonial}
           </p>
           <AnimatePresence mode="sync">
@@ -116,7 +116,7 @@ export default function TestimonialsContainer() {
               <p
                 key={`${testimonialsData[currentIndex]?.testimonial.trim()}-${testimonialsData[currentIndex]?.id}-text`}
                 ref={textRef}
-                className="text-6xl max-w-5xl font-medium text-white/80  w-full  tracking-tight text-center"
+                className="text-4xl md:text-6xl max-w-5xl font-medium text-white/80  w-full  tracking-tight text-center"
               >
                 {splitText}
               </p>

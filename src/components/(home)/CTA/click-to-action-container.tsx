@@ -24,7 +24,7 @@ export default function ClickToActionContainer() {
 
     let imageWidth = 0;
     const images = scroller.querySelectorAll(
-      ".image-cta"
+      ".image-cta",
     ) as NodeListOf<HTMLDivElement>;
     images.forEach((img) => {
       imageWidth += img.offsetWidth + 8;
@@ -67,9 +67,9 @@ export default function ClickToActionContainer() {
           start: "top 95%",
           scrub: true,
           toggleActions: "play none none reverse",
-        //   markers: true,
+          //   markers: true,
         },
-      }
+      },
     );
 
     if (images.length >= itemsNeeded) {
@@ -155,7 +155,7 @@ export default function ClickToActionContainer() {
         <p className="grayish-text-gradient">
           Sign up today and transform your ideas into animated 3D models
         </p>
-        <TryNow/>
+        <TryNow />
       </div>
     </div>
   );

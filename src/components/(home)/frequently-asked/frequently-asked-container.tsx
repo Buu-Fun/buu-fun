@@ -4,10 +4,10 @@ import Bounded from "@/components/ui/Bounded";
 import { useRef } from "react";
 
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
@@ -43,7 +43,7 @@ export default function FrequentlyAskedContainer() {
         duration: 2,
         stagger: 0.2,
         ease: "power4.inOut",
-      }
+      },
     );
   });
 
@@ -117,7 +117,7 @@ export default function FrequentlyAskedContainer() {
                 <motion.div
                   initial={{
                     y: 40,
-                    filter: "blur(6px)"
+                    filter: "blur(6px)",
                   }}
                   animate={{
                     filter: "blur(0px)",

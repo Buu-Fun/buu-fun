@@ -8,6 +8,7 @@ export default function SmoothScrollWrapper({
 }: {
   children: React.ReactNode;
 }) {
+  // return children
   const lenisRef = useRef<LenisRef>(null);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function SmoothScrollWrapper({
 
     return () => gsap.ticker.remove(update);
   }, []);
+
   return (
     <ReactLenis
       options={{
