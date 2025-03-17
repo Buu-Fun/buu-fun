@@ -7,7 +7,7 @@ import { isPlanEnterprise } from "@/lib/helpers/subscription-plan-checker";
 
 export default function SubscriptionPricingHeader() {
   const plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
 
   const planDetails = PRICING_PLAN[plan];
@@ -19,7 +19,7 @@ export default function SubscriptionPricingHeader() {
         "grid pt-10 grid-cols-1  md:grid-cols-2 place-content-center place-items-center",
         {
           "grid-cols-3": isAdditionalPlan,
-        }
+        },
       )}
     >
       <div className="flex w-full  items-center justify-center flex-col ">
@@ -68,7 +68,7 @@ export default function SubscriptionPricingHeader() {
           "flex w-full md:border-l-2  border-muted-foreground/20  items-center justify-center flex-col",
           {
             "md:border-x-2": isAdditionalPlan,
-          }
+          },
         )}
       >
         <h4 className="text-muted-foreground/60 text-sm font-medium mt-2 md:mt-0">

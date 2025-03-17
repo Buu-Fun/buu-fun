@@ -7,8 +7,7 @@ const coreFeatures: SubscriptionDetails["coreFeatures"] = [
   },
   {
     title: "Queue Priority - Standard Queue",
-    description:
-      "Your generations are processed in the order received.",
+    description: "Your generations are processed in the order received.",
   },
 ];
 

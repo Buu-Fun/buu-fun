@@ -2,7 +2,7 @@ import "@/app/globals.css";
 import NavigationalBar from "@/components/navbar/navigational-bar";
 import Topbar from "@/components/navbar/top-bar";
 import { constructMetadata } from "@/lib/construct-metadata";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import Providers from "@/providers/auth-provider";
 import NextUIProviders from "@/providers/next-ui-provder";
@@ -69,7 +69,7 @@ export default function RootLayout({
               <Providers>
                 <div className="h-[100dvh] min-h-[100dvh] overflow-hidden relative max-h-[100dvh]   w-full">
                   <div className=" w-[200px] h-[100px] bg-overlay-secondary  bg-[#69CCD5]  rounded-full right-[20%] absolute bottom-[-140px] -z-10 blur-[100px]  rotate-[-10deg]" />
-            
+
                   <div className="grid-container w-full h-full">
                     <div className="main-body relative">
                       <div className="w-[176px] h-[334px] violet-gradient left-[45%]  rounded-full  absolute top-[5%] -z-10   md:block hidden  rotate-[-10deg]" />
@@ -89,7 +89,6 @@ export default function RootLayout({
         </ReactQueryProvider>
       </body>
       <GoogleAnalytics gaId="G-DDL82EPESF" />
-
     </html>
   );
 }

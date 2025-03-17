@@ -59,7 +59,7 @@ export default function ReferralShowcaseTable() {
                           <TableCell className="text-muted-foreground/40 font-medium">
                             {format(
                               new Date(item.createdAt),
-                              "MMMM dd, yyyy hh:mm:a"
+                              "MMMM dd, yyyy hh:mm:a",
                             )}
                           </TableCell>
                           {/* <TableCell className="text- font-medium">

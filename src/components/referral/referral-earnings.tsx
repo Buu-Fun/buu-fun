@@ -10,7 +10,9 @@ export default function ReferralEarnings() {
 
   const totalRewards = data
     ? data?.items.reduce((acc, item) => {
-        const value = parseInt(formatUnits(item.tokens ?? "0", item.decimals ?? 0))
+        const value = parseInt(
+          formatUnits(item.tokens ?? "0", item.decimals ?? 0),
+        );
         return acc + value;
       }, 0)
     : 0;

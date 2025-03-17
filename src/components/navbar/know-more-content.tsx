@@ -3,7 +3,6 @@ import { DiscordIcon } from "@/assets/icons";
 import DocumentationIcon from "@/assets/icons/documenation-icon";
 import MailIcon from "@/assets/icons/mail-icon";
 import TelegramIconWhite from "@/assets/icons/Telegram-icon-white";
-import TikTokIcon from "@/assets/icons/tictok-icon";
 import TwitterIcon from "@/assets/icons/TwitterIcon";
 import YoutubePlayIcon from "@/assets/icons/youtube-play";
 import Link from "next/link";

@@ -44,7 +44,7 @@ export default function FrequentlyAskedContainer() {
         duration: 2,
         stagger: 0.2,
         ease: "power4.inOut",
-      }
+      },
     );
   });
 
@@ -98,7 +98,7 @@ export default function FrequentlyAskedContainer() {
                         transition: { duration: 0.5 },
                       }}
                     >
-                    {item.answer}
+                      {item.answer}
                     </motion.div>
                   </AccordionContent>
                 </AccordionItem>

@@ -4,13 +4,12 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setSubscriptionModelPlanType } from "@/lib/redux/features/subscription";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
-import SubscriptionButton from "./subscription-button";
 import SubscriptionPlanDetails from "./subscription-plan-details";
 import SubscriptionPricingHeader from "./subscription-pricing-header";
 
 export default function SubscriptionContent() {
   const Plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
   const dispatch = useAppDispatch();
   return (

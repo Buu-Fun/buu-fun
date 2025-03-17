@@ -7,7 +7,7 @@ import SubscriptionButton from "./subscription-button";
 
 export default function SubscriptionPlanDetails() {
   const plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
   const planDetails = PRICING_PLAN[plan];
   const subscriptionDetails = planDetails.subscriptionDetails;

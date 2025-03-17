@@ -108,7 +108,7 @@ export default function ImageComparisonSlider() {
               // Calculate which feature index we should be on (starting from index 1)
               const mappedIndex = Math.min(
                 features.length - 1,
-                Math.floor(adjustedProgress / segmentSize)
+                Math.floor(adjustedProgress / segmentSize),
               );
 
               // console.log(
@@ -127,7 +127,7 @@ export default function ImageComparisonSlider() {
                 // setPrevIndex(index);
                 setIndex(mappedIndex);
                 console.log(
-                  `Setting index to ${mappedIndex} at progress ${progress}`
+                  `Setting index to ${mappedIndex} at progress ${progress}`,
                 );
               }
             }

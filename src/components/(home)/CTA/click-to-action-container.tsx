@@ -24,7 +24,7 @@ export default function ClickToActionContainer() {
 
     let imageWidth = 0;
     const images = scroller.querySelectorAll(
-      ".image-cta"
+      ".image-cta",
     ) as NodeListOf<HTMLDivElement>;
     images.forEach((img) => {
       imageWidth += img.offsetWidth + 8;
@@ -69,7 +69,7 @@ export default function ClickToActionContainer() {
           toggleActions: "play none none reverse",
           //   markers: true,
         },
-      }
+      },
     );
 
     if (images.length >= itemsNeeded) {

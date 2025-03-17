@@ -10,7 +10,7 @@ import { capitalizeFirstLetter } from "@/lib/utils";
 export default function SubscriptionButton() {
   const { identityToken: accessToken } = useAuthentication();
   const planKey = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
   const { data, refetch } = useUserSubscription();
 
@@ -52,7 +52,9 @@ export default function SubscriptionButton() {
         "Current plan"
       ) : (
         <div>
-          Select<span className="capitalize">{" "}{capitalizeFirstLetter(planKey)}{" "}</span>Plan
+          Select
+          <span className="capitalize"> {capitalizeFirstLetter(planKey)} </span>
+          Plan
         </div>
       )}
     </Button>
