@@ -9,9 +9,10 @@ import HeroLoadingWrapper from "@/components/(home)/loading/loading-hero-wrapper
 import HomeNavigationBar from "@/components/(home)/navigation/home-navigation-bar";
 import TopNavigationBar from "@/components/(home)/navigation/top-navigation-bar";
 import TestimonialsContainer from "@/components/(home)/testimonials/testimonials-container";
+import FeatureComponent from "./component/feature-component";
 export default function HomePage() {
   return (
-    <main className="relative max-w-screen  ">
+    <main className="relative max-w-screen smooth-scroll ">
       <div className="w-full  relative ">
         <HeroLoadingWrapper>
           <>
@@ -20,7 +21,7 @@ export default function HomePage() {
           </>
         </HeroLoadingWrapper>
         <BringYourIdeasSection />
-        <FeatureShowcaseContainer />
+        {/* <FeatureShowcaseContainer /> */}
       </div>
       <section id="how-it-works" className="w-full h-full">
         <HowToContainer />

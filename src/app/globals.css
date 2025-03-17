@@ -71,7 +71,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   /* scroll-behavior: smooth; */
-  overflow: hidden; /* Prevent default browser scroll behavior */
+   /* Prevent default browser scroll behavior */
 }
 
 /* html {
