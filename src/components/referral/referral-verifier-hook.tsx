@@ -4,7 +4,7 @@ import { useAuthentication } from "@/providers/account.context";
 import { useDisclosure } from "@mantine/hooks";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import {
@@ -30,8 +30,9 @@ export default function ReferralVerifierHook({
   const [open, setStates] = useDisclosure(false);
   const [referee, setReferee] = useState("");
   const router = useRouter();
+  const hasProcessedRef = useRef(false);
 
-  const { identityToken, loading, isAuthenticated, login } =
+  const { identityToken, loading, isAuthenticated, login, isPrivyOpen } =
     useAuthentication();
 
   const { mutate: linkCookie, isPending } = useMutation({
@@ -41,6 +42,7 @@ export default function ReferralVerifierHook({
     },
     onSuccess(data) {
       toast.dismiss();
+      console.log(data)
       setReferee(data?.referee?._id ?? "");
       setStates.open();
       toast.success("Successfully added Referrals");
@@ -56,28 +58,35 @@ export default function ReferralVerifierHook({
     },
   });
 
+  // First effect: Handle authentication if needed
   useEffect(() => {
     if (!referralCode || typeof referralCode !== "string") return;
-    // not authenticated open login screen
-    if (!loading && !isAuthenticated) {
+
+    if (!loading && !isAuthenticated && !isPrivyOpen) {
       login();
     }
-    // Authenticated ? open referral.
-    if (!loading && isAuthenticated && !isPending && identityToken) {
-      linkCookie({
-        accessToken: identityToken,
-        code: referralCode,
-      });
-    }
-  }, [
-    loading,
-    isAuthenticated,
-    identityToken,
-    isPending,
-    login,
-    referralCode,
-    linkCookie,
-  ]);
+  }, [loading, isAuthenticated, referralCode]);
+
+  // Second effect: Process referral code once authenticated
+  useEffect(() => {
+    if (!referralCode || typeof referralCode !== "string") return;
+    if (
+      loading ||
+      !isAuthenticated ||
+      hasProcessedRef.current ||
+      !identityToken
+    )
+      return;
+
+    // Mark as processed to prevent repeat calls
+    hasProcessedRef.current = true;
+
+    // Process the referral code
+    linkCookie({
+      accessToken: identityToken,
+      code: referralCode,
+    });
+  }, [loading, isAuthenticated, identityToken, referralCode, linkCookie]);
 
   return (
     <Dialog open={open} onOpenChange={setStates.toggle}>

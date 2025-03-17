@@ -14,7 +14,7 @@ import { format } from "date-fns";
 
 export default function ReferralShowcaseTable() {
   const { data } = useAllReferrals();
-
+  
   return (
     <Bounded className="max-w-screen-md">
       <div
@@ -45,7 +45,7 @@ export default function ReferralShowcaseTable() {
                   {data &&
                     data?.items?.map((item, index) => {
                       return (
-                      <TableRow
+                        <TableRow
                           key={`${item._id}`}
                           className="h-auto border-[#1c202788]"
                         >
@@ -67,7 +67,7 @@ export default function ReferralShowcaseTable() {
                             $ {formatNumber(parseInt(item.tokens ?? "0"))} USD
                           </TableCell> */}
                           <TableCell className="text- font-medium">
-                            $ {formatNumber(parseInt(item.tokens ?? "0"))} USD
+                            $ {formatNumber(item.decimals ?? 0)} USD
                           </TableCell>
                         </TableRow>
                       );

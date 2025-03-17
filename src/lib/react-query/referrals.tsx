@@ -6,6 +6,7 @@ import {
 } from "@/gql/documents/creative-engine";
 
 import {
+  OrderDirection,
   GetReferralRewardsQuery as TGetReferralRewardsQuery,
   GetReferralRewardsQueryVariables as TGetReferralRewardsQueryVariables,
   MutationLinkReferralAccountArgs as TMutationLinkReferralAccountArgs,
@@ -68,7 +69,12 @@ export async function getUserReferralsData({ accessToken }: AccessToken) {
     TGetReferralRewardsQueryVariables
   >(
     GetReferralRewardsQuery,
-    {},
+    {
+      pagination: {
+        orderBy: "createdAt",
+        orderDirection: OrderDirection.Desc,
+      },
+    },
     {
       Authorization: getAuthorization(accessToken),
     }

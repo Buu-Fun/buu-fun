@@ -4,6 +4,8 @@ import { getPaymentLinkUrl } from "@/lib/react-query/subscriptions-stripe";
 import { useAuthentication } from "@/providers/account.context";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "../ui/button";
+import toast from "react-hot-toast";
+import { errorMonitor } from "events";
 
 export default function SubscriptionButton() {
   const { identityToken: accessToken } = useAuthentication();
@@ -24,6 +26,10 @@ export default function SubscriptionButton() {
       if (data?.url && typeof data.url !== "undefined") {
         window.location.href = data.url;
       }
+    },
+    onError(error, variables, context) {
+      console.log(error)
+      toast.error(error.message)
     },
   });
   const isCurrentPlan = data?.planKey === planKey;
