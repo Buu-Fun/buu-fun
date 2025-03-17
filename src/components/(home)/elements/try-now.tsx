@@ -1,9 +1,10 @@
 import { StarIcon } from "@/assets/icons";
 import Image from "next/image";
 import Icon from "./add.png";
+import Link from "next/link";
 export default function TryNow() {
   return (
-    <div className="bg-white py-2 px-2 rounded-xl">
+    <Link href={'/'} className="bg-white py-2 px-2 rounded-xl flex">
       <div className="flex gap-2 items-center  ">
         <div className="max-w-[24px] w-full flex items-center border border-blue-300/40 rounded-md overflow-hidden justify-center">
           <Image
@@ -16,7 +17,7 @@ export default function TryNow() {
         </div>
         <p className="text-black font-medium ">Try Now</p>
       </div>
-    </div>
+    </Link>
   );
 }
 
