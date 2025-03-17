@@ -110,7 +110,7 @@ export function truncateString(
 }
 
 export function formatNumber(value: number) {
-  return value
+  return value;
   return new Intl.NumberFormat("en-US", {
     notation: "compact",
     compactDisplay: "short",
@@ -135,4 +135,16 @@ export function getPlanEnum(planKey: Plans) {
       return StripeSubscriptionPlanKeys.Unlimited;
     }
   }
+}
+
+export function formatUnits(tokens: string, decimals: number): string {
+  const num = Number(tokens);
+  const divisor = Math.pow(10, decimals);
+  const formatted = (num / divisor).toString();
+  return formatted;
+}
+
+export function capitalizeFirstLetter(str: string): string {
+  if (!str) return "";
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }

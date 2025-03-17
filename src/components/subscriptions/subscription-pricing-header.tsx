@@ -16,7 +16,7 @@ export default function SubscriptionPricingHeader() {
   return (
     <div
       className={cn(
-        "grid  pt-10 grid-cols-2 place-content-center place-items-center",
+        "grid pt-10 grid-cols-1  md:grid-cols-2 place-content-center place-items-center",
         {
           "grid-cols-3": isAdditionalPlan,
         },
@@ -65,17 +65,17 @@ export default function SubscriptionPricingHeader() {
       </div>
       <div
         className={cn(
-          "flex w-full border-l-2  border-muted-foreground/20  items-center justify-center flex-col",
+          "flex w-full md:border-l-2  border-muted-foreground/20  items-center justify-center flex-col",
           {
-            "border-x-2": isAdditionalPlan,
+            "md:border-x-2": isAdditionalPlan,
           },
         )}
       >
-        <h4 className="text-muted-foreground/60 text-sm font-medium">
+        <h4 className="text-muted-foreground/60 text-sm font-medium mt-2 md:mt-0">
           Included Monthly Credits
         </h4>
         <div className="flex justify-center">
-          <p className="text-5xl font-medium tracking-tight">
+          <p className="text-3xl md:text-5xl font-medium tracking-tight">
             {pricing.includedMonthlyCredit}
           </p>
         </div>
@@ -88,10 +88,10 @@ export default function SubscriptionPricingHeader() {
         <h4 className="text-muted-foreground/60 text-sm font-medium">
           Additional credits
         </h4>
-        <div className={cn("flex justify-center")}>
+        <div className={cn("flex justify-center gap-1")}>
           <p className="text-base">$</p>
           <div className="flex items-center justify-center gap-2">
-            <p className="text-5xl font-medium tracking-tight">
+            <p className="text-3xl md:text-5xl font-medium tracking-tight">
               {pricing.additionalCredits}
             </p>
             <p className="text-xs font-semibold uppercase tracking-tight text-muted-foreground/60">

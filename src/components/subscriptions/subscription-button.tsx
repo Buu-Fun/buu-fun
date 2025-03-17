@@ -5,11 +5,12 @@ import { useAuthentication } from "@/providers/account.context";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 export default function SubscriptionButton() {
   const { identityToken: accessToken } = useAuthentication();
   const planKey = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
   const { data, refetch } = useUserSubscription();
 
@@ -50,11 +51,11 @@ export default function SubscriptionButton() {
       {isCurrentPlan ? (
         "Current plan"
       ) : (
-        <>
+        <div>
           Select
-          <span className="capitalize">{planKey}</span>
+          <span className="capitalize"> {capitalizeFirstLetter(planKey)} </span>
           Plan
-        </>
+        </div>
       )}
     </Button>
   );

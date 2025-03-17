@@ -3,10 +3,7 @@ import {
   CircularMotion,
   SliderIconSecondary,
 } from "@/assets/icons/slider-icon-secondary";
-import {
-  MutantAlien,
-  MutantAlienWireFrame
-} from "@/assets/Image";
+import { MutantAlien, MutantAlienWireFrame } from "@/assets/Image";
 import { useGSAP } from "@gsap/react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { gsap } from "gsap";
@@ -90,7 +87,7 @@ export default function ImageComparisonSlider() {
             featureContainerRef.current.style.zIndex = `0`;
             // Handle slider opacity
             // Handle z-index changes
-            if (progress > 10) {
+            if (progress > 25) {
               sliderContainerRef.current.style.zIndex = `0`;
             } else {
               // sliderContainerRef.current.style.zIndex = `2`;
@@ -102,7 +99,7 @@ export default function ImageComparisonSlider() {
             //   setPrevIndex(0);
             //   console.log(`Setting index to 0 at progress ${progress}`);
             // } else
-            if (progress >= 20) {
+            if (progress >= 25) {
               const adjustedProgress = progress - 30;
               // Divide the remaining 70% among features.length - 1 (since index 0 is already shown)
               const remainingFeatures = features.length;
@@ -381,7 +378,7 @@ export default function ImageComparisonSlider() {
           style={{
             overflow: "visible",
           }}
-          changePositionOnHover={true}
+          changePositionOnHover
           handle={<SliderHandle />}
           position={position}
           itemTwo={

@@ -1,10 +1,9 @@
 import CheckBlue from "@/assets/icons/check-blue";
 import CrossGray from "@/assets/icons/cross-gray";
-import {
-  PRICING_PLAN
-} from "@/constants/subscription/subscription-plans";
+import { PRICING_PLAN } from "@/constants/subscription/subscription-plans";
 import { useAppSelector } from "@/hooks/redux";
 import Pill from "../elements/pill";
+import SubscriptionButton from "./subscription-button";
 
 export default function SubscriptionPlanDetails() {
   const plan = useAppSelector(
@@ -13,7 +12,7 @@ export default function SubscriptionPlanDetails() {
   const planDetails = PRICING_PLAN[plan];
   const subscriptionDetails = planDetails.subscriptionDetails;
   return (
-    <div className="grid grid-cols-2 mt-7 mb-4 scrollbar-w-2 scrollbar-track-orange-lighter scrollbar-thumb-orange scrollbar-thumb-rounded gap-2 max-h-[45dvh] overflow-y-auto">
+    <div className="grid md:grid-cols-2 mt-7 scrollbar-w-2 scrollbar-track-orange-lighter scrollbar-thumb-orange scrollbar-thumb-rounded gap-2 max-h-[45dvh] overflow-y-auto">
       <div className="flex items- flex-col gap-2">
         <Pill className="text-[10px] max-w-max uppercase text-muted-foreground/60 font-semibold">
           Core Features
@@ -95,6 +94,9 @@ export default function SubscriptionPlanDetails() {
             })}
           </div>
         )}
+      </div>
+      <div className="grid col-span-2 mt-2">
+        <SubscriptionButton />
       </div>
     </div>
   );

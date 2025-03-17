@@ -1,5 +1,5 @@
 import { useAllReferrals } from "@/hooks/use-referral";
-import { getFixedCredits } from "@/lib/utils";
+import { formatUnits, getFixedCredits } from "@/lib/utils";
 import React from "react";
 
 export default function ReferralEarnings() {
@@ -9,8 +9,10 @@ export default function ReferralEarnings() {
     : 0;
 
   const totalRewards = data
-    ? data?.items.reduce((acc, curr) => {
-        const value = curr.decimals ?? 0;
+    ? data?.items.reduce((acc, item) => {
+        const value = parseInt(
+          formatUnits(item.tokens ?? "0", item.decimals ?? 0),
+        );
         return acc + value;
       }, 0)
     : 0;

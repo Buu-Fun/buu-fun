@@ -2,6 +2,8 @@ import "@/app/globals.css";
 import NavigationalBar from "@/components/navbar/navigational-bar";
 import Topbar from "@/components/navbar/top-bar";
 import { constructMetadata } from "@/lib/construct-metadata";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 import Providers from "@/providers/auth-provider";
 import NextUIProviders from "@/providers/next-ui-provder";
 import ReactQueryProvider from "@/providers/react-query";
@@ -55,7 +57,9 @@ export default function RootLayout({
     <html lang="en">
       {/* <head>
         <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
+
       </head> */}
+
       <body className={` ${BricolageGrotesque.className} antialiased dark `}>
         <Toaster />
 
@@ -84,6 +88,7 @@ export default function RootLayout({
           </StoreProvider>
         </ReactQueryProvider>
       </body>
+      <GoogleAnalytics gaId="G-DDL82EPESF" />
     </html>
   );
 }
