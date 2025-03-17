@@ -15,7 +15,7 @@ export default function HeroLoadingWrapper({
 }: {
   children?: ReactNode;
 }) {
-  const [progress, setProgress] = useState<number>(90);
+  const [progress, setProgress] = useState<number>(20);
   const intervalRef = useRef<NodeJS.Timeout>(null);
   useEffect(() => {
     intervalRef.current = setInterval(() => {

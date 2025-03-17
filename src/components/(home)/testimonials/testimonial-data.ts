@@ -1,20 +1,32 @@
 export const testimonialsData = [
   {
     id: "1",
-    name: "Game Developer",
+    name: "Phan, CEO at Sphere Studios",
     testimonial:
-      "“BUU.FUN streamlined our asset creation, allowing rapid prototyping and integration into Roblox”",
+      "“Buu AI is user-friendly, even for beginners. The 3D models are stunning, and the pre-trained custom styles—unique to this platform—perfectly match game aesthetics!”",
   },
   {
     id: "2",
-    name: "3d Artist",
+    name: "Mark R., Freelance Designer",
     testimonial:
-      "“The auto-rigging and animation features are game-changers for quick iterations”",
+      "“Great value with the Pro Plan—priority queue and customization features are perfect for freelancing!”",
   },
   {
     id: "332",
-    name: "Educator",
+    name: "Michael, CEO at Foretold Studios",
     testimonial:
-      "“My students can now visualize their ideas in 3D without extensive modeling experience”",
+      "“Customer support is fast and helpful—solved my issue via chat in no time!”",
+  },
+  {
+    id: "515451",
+    name: "Alex P., Content Creator",
+    testimonial:
+      "“The boards feature keeps projects organized and shareable—ideal for client work!”",
+  },
+  {
+    id: "25484151",
+    name: "Jamie K., 3D Artist",
+    testimonial:
+      "“Intuitive, with great 3D models. The pre-trained custom styles save time and ensure genre-specific consistency—unmatched anywhere else!”",
   },
 ];
