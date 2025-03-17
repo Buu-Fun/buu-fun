@@ -66,7 +66,7 @@ export default function KnowMoreContent() {
           </p>
         </Link>
         <Link
-          href={"https://x.com/home"}
+          href={"https://x.com/buudotfun"}
           target="_blank"
           className="flex items-center w-full gap-2 group"
         >
@@ -89,7 +89,7 @@ export default function KnowMoreContent() {
             Telegram
           </p>
         </Link>
-        <Link
+        {/* <Link
           href={"https://docs.buu.fun/"}
           target="_blank"
           className="flex items-center w-full gap-2 group"
@@ -100,7 +100,7 @@ export default function KnowMoreContent() {
           <p className="leading-none text-gray-400 group-hover:text-white font-medium">
             TikTok
           </p>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );
