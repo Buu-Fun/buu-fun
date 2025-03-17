@@ -35,14 +35,14 @@ export default function ReferralVerifierHook({
   const { identityToken, loading, isAuthenticated, login, isPrivyOpen } =
     useAuthentication();
 
-  const { mutate: linkCookie, isPending } = useMutation({
+  const { mutate: linkCookie } = useMutation({
     mutationFn: linkReferralMutation,
     onMutate() {
       toast.loading(`Checking referral code`);
     },
     onSuccess(data) {
       toast.dismiss();
-      console.log(data)
+      console.log(data);
       setReferee(data?.referee?._id ?? "");
       setStates.open();
       toast.success("Successfully added Referrals");
@@ -65,6 +65,7 @@ export default function ReferralVerifierHook({
     if (!loading && !isAuthenticated && !isPrivyOpen) {
       login();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, isAuthenticated, referralCode]);
 
   // Second effect: Process referral code once authenticated

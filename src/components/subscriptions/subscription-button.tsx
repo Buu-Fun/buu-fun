@@ -3,16 +3,15 @@ import { useUserSubscription } from "@/hooks/use-credits";
 import { getPaymentLinkUrl } from "@/lib/react-query/subscriptions-stripe";
 import { useAuthentication } from "@/providers/account.context";
 import { useMutation } from "@tanstack/react-query";
-import { Button } from "../ui/button";
 import toast from "react-hot-toast";
-import { errorMonitor } from "events";
+import { Button } from "../ui/button";
 
 export default function SubscriptionButton() {
   const { identityToken: accessToken } = useAuthentication();
   const planKey = useAppSelector(
     (state) => state.subscription.SubscriptionModelPlan
   );
-  const { data, error, refetch } = useUserSubscription();
+  const { data, refetch } = useUserSubscription();
 
   const { mutate: getPaymentLink } = useMutation({
     mutationFn: async () => {
@@ -27,9 +26,9 @@ export default function SubscriptionButton() {
         window.location.href = data.url;
       }
     },
-    onError(error, variables, context) {
-      console.log(error)
-      toast.error(error.message)
+    onError(error) {
+      console.log(error);
+      toast.error(error.message);
     },
   });
   const isCurrentPlan = data?.planKey === planKey;

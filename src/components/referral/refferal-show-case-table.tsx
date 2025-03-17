@@ -66,7 +66,7 @@ export default function ReferralShowcaseTable() {
                             $ {formatNumber(parseInt(item.tokens ?? "0"))} USD
                           </TableCell> */}
                           <TableCell className="text- font-medium">
-                            $ {formatNumber(item.decimals ?? 0)} USD
+                            $ {formatNumber(item.decimals ?? 0)} BUU
                           </TableCell>
                         </TableRow>
                       );

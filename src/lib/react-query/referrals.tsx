@@ -23,7 +23,7 @@ export async function getUserReferral({ accessToken }: AccessToken) {
     {},
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if (!data) {
@@ -50,7 +50,7 @@ export async function linkReferralMutation({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if (!data) {
@@ -77,7 +77,7 @@ export async function getUserReferralsData({ accessToken }: AccessToken) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");

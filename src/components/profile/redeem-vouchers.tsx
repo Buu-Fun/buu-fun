@@ -66,7 +66,7 @@ export default function RedeemVouchers() {
           Redeem Voucher
         </Button>
       </DialogTrigger>
-        <DialogContent className="rounded-[20px] lg:rounded-[20px] max-w-[300px] bg-buu-opacity-100 border-buu shadow-buu-button">
+      <DialogContent className="rounded-[20px] lg:rounded-[20px] max-w-[300px] bg-buu-opacity-100 border-buu shadow-buu-button">
         <DialogHeader>
           <DialogTitle>Redeem Voucher</DialogTitle>
           <DialogDescription>

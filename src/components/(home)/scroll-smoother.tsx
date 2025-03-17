@@ -8,7 +8,6 @@ export default function SmoothScrollWrapper({
 }: {
   children: React.ReactNode;
 }) {
-
   // return children
   const lenisRef = useRef<LenisRef>(null);
 

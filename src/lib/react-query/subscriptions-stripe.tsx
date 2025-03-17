@@ -27,7 +27,7 @@ export async function getPaymentLinkUrl({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if (!data) {
@@ -51,7 +51,7 @@ export async function manageUserSubscription({ accessToken }: AccessToken) {
     {},
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if (!data) {

@@ -53,7 +53,6 @@ export default function RootLayout({
       </head> */}
       {/* overflow-hidden */}
       <body className={`${BricolageGrotesque.className} antialiased dark   `}>
-        
         <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
     </html>

@@ -49,7 +49,7 @@ export const HomePageLinks: TFooterLinks = {
       title: "Gallery",
       // _blank: "_self",
     },
-    
+
     {
       href: "#faq",
       title: "FAQ",

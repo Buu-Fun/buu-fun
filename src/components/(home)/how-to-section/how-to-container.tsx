@@ -12,7 +12,9 @@ export default function HowToContainer() {
   const howToRef = useRef<HTMLDivElement>(null);
   const mobileRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
-  const [scrollTriggerInstance, setScrollTriggerInstance] = useState<ScrollTrigger| undefined>(undefined);
+  const [scrollTriggerInstance, setScrollTriggerInstance] = useState<
+    ScrollTrigger | undefined
+  >(undefined);
 
   // Create and refresh ScrollTrigger when window size changes
   useGSAP(() => {
@@ -22,14 +24,14 @@ export default function HowToContainer() {
 
     // Calculate viewport width (accounting for padding)
     const viewportWidth = window.innerWidth;
-    
+
     // Get total width of all sections
     const sections = Array.from(container.children) as HTMLElement[];
     const totalSectionsWidth = sections.reduce(
       (acc, section) => acc + section.offsetWidth,
-      0
+      0,
     );
-    
+
     // Calculate the endpoint - don't allow overscrolling
     const endpoint = Math.max(0, totalSectionsWidth - viewportWidth);
 
@@ -47,7 +49,7 @@ export default function HowToContainer() {
           trigger: ".trig",
           start: "bottom bottom",
           // Adjusted end point
-          end: `+=${endpoint + viewportWidth * 2}`, 
+          end: `+=${endpoint + viewportWidth * 2}`,
           scrub: 1,
           pin: true,
           anticipatePin: 1,
@@ -104,9 +106,39 @@ export default function HowToContainer() {
     <div className="h-screen trig overflow-hidden relative">
       {/* Horizontal Scroll Section */}
       <div ref={howToRef} className="how-to-container flex w-max">
-        <ContentContainer subDescription="" subTitle={<>Input  <br/>Your Idea  </>} index={"01"} title="Describe" />
-        <ContentContainer subDescription="" subTitle={<>Customize <br/>Your Model  </>} index={"02"} title="Customize" />
-        <ContentContainer subDescription="" subTitle={<>Export  <br/>and Integrate  </>} index={"03"} title="Integrate" />
+        <ContentContainer
+          subDescription=""
+          subTitle={
+            <>
+              Input <br />
+              Your Idea{" "}
+            </>
+          }
+          index={"01"}
+          title="Describe"
+        />
+        <ContentContainer
+          subDescription=""
+          subTitle={
+            <>
+              Customize <br />
+              Your Model{" "}
+            </>
+          }
+          index={"02"}
+          title="Customize"
+        />
+        <ContentContainer
+          subDescription=""
+          subTitle={
+            <>
+              Export <br />
+              and Integrate{" "}
+            </>
+          }
+          index={"03"}
+          title="Integrate"
+        />
       </div>
 
       {/* Mobile Image with Rotation */}

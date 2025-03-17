@@ -1,20 +1,18 @@
 "use client";
-import React from "react";
-import { Button } from "../ui/button";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SUBSCRIPTION_PLANS } from "@/constants/subscription/subscription-plans";
-import { cn } from "@/lib/utils";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import {
-  setPlanType,
-  setSubscriptionModelPlanType,
+  setSubscriptionModelPlanType
 } from "@/lib/redux/features/subscription";
-import SubscriptionPricingHeader from "./subscription-pricing-header";
-import SubscriptionPlanDetails from "./subscription-plan-details";
+import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 import SubscriptionButton from "./subscription-button";
+import SubscriptionPlanDetails from "./subscription-plan-details";
+import SubscriptionPricingHeader from "./subscription-pricing-header";
 
 export default function SubscriptionContent() {
   const Plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
   const dispatch = useAppDispatch();
   return (

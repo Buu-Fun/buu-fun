@@ -6,7 +6,13 @@ export default function TryNow() {
     <div className="bg-white py-2 px-2 rounded-xl">
       <div className="flex gap-2 items-center  ">
         <div className="max-w-[24px] w-full flex items-center border border-blue-300/40 rounded-md overflow-hidden justify-center">
-          <Image src={Icon} width={100} className="w-full" height={100} alt="Star Icon" />
+          <Image
+            src={Icon}
+            width={100}
+            className="w-full"
+            height={100}
+            alt="Star Icon"
+          />
         </div>
         <p className="text-black font-medium ">Try Now</p>
       </div>

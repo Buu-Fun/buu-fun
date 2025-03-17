@@ -19,8 +19,7 @@ export default function useUserCredits() {
 }
 
 export function useUserSubscription() {
-  const { identityToken, address, isAuthenticated, loading } =
-    useAuthentication();
+  const { identityToken, isAuthenticated, loading } = useAuthentication();
 
   return useQuery({
     queryKey: ["get-manage-subscription", identityToken],

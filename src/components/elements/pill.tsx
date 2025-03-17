@@ -14,14 +14,14 @@ const pillVariant = cva(
         default: "px-1.5 py-1",
       },
     },
-  }
+  },
 );
 
 export default function Pill({
   className,
   children,
-  size = 'default',
-  variant = 'default',
+  size = "default",
+  variant = "default",
 }: {
   children: ReactNode;
   className?: string;

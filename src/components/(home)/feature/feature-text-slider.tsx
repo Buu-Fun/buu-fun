@@ -1,4 +1,4 @@
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 
 type TFeatureTextSlider = {
@@ -18,7 +18,7 @@ export default function FeatureTextSlider({
     stiffness: 50,
     damping: 20,
     duration: 5.5,
-    delay: .5,
+    delay: 0.5,
   };
 
   return (

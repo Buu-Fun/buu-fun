@@ -5,13 +5,12 @@ import ReferralVerifierHook from "@/components/referral/referral-verifier-hook";
 export type THomePage = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
-export default async function HomePage({searchParams}: THomePage) {
-  const search = await searchParams
+export default async function HomePage({ searchParams }: THomePage) {
+  const search = await searchParams;
 
-  
   return (
     <main className="flex flex-col relative h-full w-full">
-      <ReferralVerifierHook  search={search}  />
+      <ReferralVerifierHook search={search} />
       {/* Background blur effect that stays at bottom nearby chat */}
 
       {/* Centered main content with Help cards */}

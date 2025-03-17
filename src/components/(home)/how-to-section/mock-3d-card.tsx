@@ -65,7 +65,7 @@ export default function Mock3DCard({
               "w-full h-full  hidden items-center bg-black/30 relative justify-center",
               {
                 "z-20 flex bg-none absolute": isGenerating,
-              }
+              },
             )}
           >
             <div className="flex items-center justify-center gap-2 ">
@@ -118,7 +118,7 @@ export default function Mock3DCard({
       </div>
       <div
         className={cn(
-          "absolute -bottom-4 z-50 flex items-center gap-2 justify-center w-full"
+          "absolute -bottom-4 z-50 flex items-center gap-2 justify-center w-full",
           //   {
           // hidden: !showToolTip,
           //   }

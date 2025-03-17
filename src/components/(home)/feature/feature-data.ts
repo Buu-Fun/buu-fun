@@ -4,7 +4,7 @@ import {
   BgGrid,
   HomeBackground,
   MutantAlien,
-  MutantAlienMesh
+  MutantAlienMesh,
 } from "@/assets/Image";
 import ExcludedImage from "./exluded-image.png";
 

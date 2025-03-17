@@ -19,7 +19,8 @@ const coreFeatures: SubscriptionDetails["coreFeatures"] = [
   },
   {
     title: "Access to AI Auto-Rigging",
-    description: "Convert a static mesh into a rigged character (Humanoid Only)",
+    description:
+      "Convert a static mesh into a rigged character (Humanoid Only)",
   },
   {
     title: "File Format Support",

@@ -5,11 +5,8 @@ import CopyReferralWrapper from "@/components/referral/copy-refferal-wrapper";
 import ReferralEarnings from "@/components/referral/referral-earnings";
 import ReferralShowcaseTable from "@/components/referral/refferal-show-case-table";
 import ProtectedWrapper from "@/components/wrapper/protected-wrapper";
-import useUserCredits from "@/hooks/use-credits";
-import { getFixedCredits } from "@/lib/utils";
 
 export default function ReferralPage() {
-  const { data } = useUserCredits();
   return (
     <main className="overflow-y-scroll h-[100dvh]">
       <ProtectedWrapper Fallback={<ProfileSkeleton />} fallbackUrl="/">

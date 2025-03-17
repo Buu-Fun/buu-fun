@@ -4,16 +4,15 @@ import {
   SliderIconSecondary,
 } from "@/assets/icons/slider-icon-secondary";
 import {
-  HomeBackground,
   MutantAlien,
-  MutantAlienWireFrame,
+  MutantAlienWireFrame
 } from "@/assets/Image";
 import { useGSAP } from "@gsap/react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { ReactNode, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
@@ -33,11 +32,11 @@ import {
   FeatureRobloxTopBar,
   ScanningOverlay,
 } from "../feature/feature-top-bar";
-import SliderHandle from "./slider-handle";
 import { AnimatedBringYourIdeas } from "./bring-ideas";
+import SliderHandle from "./slider-handle";
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ImageComparisonSlider({}: {}) {
+export default function ImageComparisonSlider() {
   const [position, setPosition] = useState(40);
   const containerRef = useRef<HTMLDivElement>(null);
   const sliderContainerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +46,7 @@ export default function ImageComparisonSlider({}: {}) {
   const [index, setIndex] = useState(0);
   const imageRef = useRef<HTMLImageElement>(null);
   // const [index, setIndex] = useState(0);
-  const [prevIndex, setPrevIndex] = useState(0);
+  // const [prevIndex, setPrevIndex] = useState(0);
   const progressRef = useRef(0);
 
   useGSAP(() => {
@@ -112,7 +111,7 @@ export default function ImageComparisonSlider({}: {}) {
               // Calculate which feature index we should be on (starting from index 1)
               const mappedIndex = Math.min(
                 features.length - 1,
-                Math.floor(adjustedProgress / segmentSize)
+                Math.floor(adjustedProgress / segmentSize),
               );
 
               // console.log(
@@ -123,15 +122,15 @@ export default function ImageComparisonSlider({}: {}) {
 
               // Only update state if index is actually changing
               if (mappedIndex === 0) {
-                setPrevIndex(0);
+                // setPrevIndex(0);
                 setIndex(0);
                 return;
               }
               if (mappedIndex > 0 && mappedIndex !== index) {
-                setPrevIndex(index);
+                // setPrevIndex(index);
                 setIndex(mappedIndex);
                 console.log(
-                  `Setting index to ${mappedIndex} at progress ${progress}`
+                  `Setting index to ${mappedIndex} at progress ${progress}`,
                 );
               }
             }
@@ -297,7 +296,7 @@ export default function ImageComparisonSlider({}: {}) {
 
     return () => window.removeEventListener("resize", updateSliderPosition);
   }, []);
-  
+
   // Determine if we should animate background based on whether it has changed
   // const shouldAnimateBackground =
   //   features[index].background !== features[prevIndex].background;
@@ -353,10 +352,7 @@ export default function ImageComparisonSlider({}: {}) {
     },
   };
   return (
-    <div
-      ref={containerRef}
-      className="relative h-[100vh] w-full"
-    >
+    <div ref={containerRef} className="relative h-[100vh] w-full">
       <div
         ref={backgroundImageRef}
         className="h-full absolute top-0 left-0 w-full "

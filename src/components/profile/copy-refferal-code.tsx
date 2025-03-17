@@ -21,7 +21,9 @@ export default function CopyReferralCode() {
     <button
       disabled={isCopy}
       onClick={handleCopy}
-      className={cn("flex items-center justify-center transition-all duration-300 ease-in-out flex-row-reverse gap-1.5 w-full")}
+      className={cn(
+        "flex items-center justify-center transition-all duration-300 ease-in-out flex-row-reverse gap-1.5 w-full",
+      )}
     >
       {!isCopy ? (
         <>

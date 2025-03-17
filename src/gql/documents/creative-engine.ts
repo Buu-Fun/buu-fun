@@ -335,9 +335,11 @@ export const GetReferralAccountQuery = gql`
   }
 `;
 
-
 export const GetReferralRewardsQuery = gql`
-  query GetReferralRewards($pagination: Pagination, $filters: ReferralRewardFilter) {
+  query GetReferralRewards(
+    $pagination: Pagination
+    $filters: ReferralRewardFilter
+  ) {
     getReferralRewards(pagination: $pagination, filters: $filters) {
       ... on ReferralRewardPage {
         items {

@@ -3,14 +3,14 @@
 import { serverRequest } from "@/gql/client";
 import {
   GetMyCreditsQuery,
-  RedeemVoucherMutation
+  RedeemVoucherMutation,
 } from "@/gql/documents/creative-engine";
 
 import {
   GetMyCreditsQueryVariables,
   GetMyCreditsQuery as TGetMyCreditsQuery,
   RedeemVoucherMutation as TRedeemVoucherMutation,
-  RedeemVoucherMutationVariables as TRedeemVoucherMutationVariables
+  RedeemVoucherMutationVariables as TRedeemVoucherMutationVariables,
 } from "@/gql/types/graphql";
 
 import { getAuthorization } from "../utils";
@@ -28,7 +28,7 @@ export async function getUserCredits({ accessToken }: AccessToken) {
     {},
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -54,7 +54,7 @@ export async function addCreditsMutation({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -65,5 +65,3 @@ export async function addCreditsMutation({
   }
   return data.redeemVoucher;
 }
-
-

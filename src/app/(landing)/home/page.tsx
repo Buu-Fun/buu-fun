@@ -1,6 +1,5 @@
 "use client";
 import ClickToActionContainer from "@/components/(home)/CTA/click-to-action-container";
-import FeatureShowcaseContainer from "@/components/(home)/feature/feature-responsive";
 import FooterContainer from "@/components/(home)/footer/footer-container";
 import FrequentlyAskedContainer from "@/components/(home)/frequently-asked/frequently-asked-container";
 import BringYourIdeasSection from "@/components/(home)/hero/hero-section-content";
@@ -9,7 +8,6 @@ import HeroLoadingWrapper from "@/components/(home)/loading/loading-hero-wrapper
 import HomeNavigationBar from "@/components/(home)/navigation/home-navigation-bar";
 import TopNavigationBar from "@/components/(home)/navigation/top-navigation-bar";
 import TestimonialsContainer from "@/components/(home)/testimonials/testimonials-container";
-import FeatureComponent from "./component/feature-component";
 export default function HomePage() {
   return (
     <main className="relative max-w-screen overflow-hidden smooth-scroll ">

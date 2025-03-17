@@ -80,7 +80,7 @@ export default function MobileMockCard({ progress }: { progress: number }) {
                   <button className="flex items-center justify-center ml-1 ">
                     <ChevronUp
                       className={cn(
-                        "-rotate-180 w-4 h-4 transition-transform duration-300 ease-in-out"
+                        "-rotate-180 w-4 h-4 transition-transform duration-300 ease-in-out",
                       )}
                     />
                   </button>{" "}
@@ -90,7 +90,7 @@ export default function MobileMockCard({ progress }: { progress: number }) {
             <div className="relative w-full px-4  flex-col gap-1 flex items-start  pt-2 rounded-2xl  shadow-buu-inner bg-buu">
               <textarea
                 value={"Create a 3d devil"}
-                onChange={()=> {}}
+                onChange={() => {}}
                 rows={1}
                 className="w-full  text-muted-foreground/40 text-sm  py-1 scrollbar-w-2 scrollbar-track-orange-lighter scrollbar-thumb-orange scrollbar-thumb-rounded  bg-transparent rounded-md resize-none  placeholder:text-muted-foreground/40 focus:outline-none scrollbar-thin scrollbar-thumb-orange-400 scrollbar-track-orange-100"
               ></textarea>

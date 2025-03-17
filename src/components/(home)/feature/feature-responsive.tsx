@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   CircularMotion,
   SliderIconSecondary,
@@ -162,9 +162,7 @@ export default function FeatureShowcaseContainer({}: { children?: ReactNode }) {
       },
     },
   };
-  useGSAP(()=> {
-
-  })
+  useGSAP(() => {});
   return (
     <section
       id="features"

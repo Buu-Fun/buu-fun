@@ -33,7 +33,9 @@ export default function AccountLinking() {
             <div className="saturate-50 border-shadow-account-linking px-2 py-2 flex items-center justify-center w-10 h-10">
               <TelegramIcon />
             </div>
-            <h4 className="text-base font-medium text-muted-foreground">Telegram</h4>
+            <h4 className="text-base font-medium text-muted-foreground">
+              Telegram
+            </h4>
 
             <Pill className=" flex items-center justify-center ">
               <span className="text-[10px]">Coming soon</span>

@@ -24,6 +24,7 @@ const SubscriptionSlice = createSlice({
   },
 });
 
-export const { setPlanType,setSubscriptionModelPlanType } = SubscriptionSlice.actions;
+export const { setPlanType, setSubscriptionModelPlanType } =
+  SubscriptionSlice.actions;
 
 export default SubscriptionSlice.reducer;

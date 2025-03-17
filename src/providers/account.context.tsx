@@ -194,6 +194,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       logout,
     }),
     [
+      isModalOpen,
       address,
       isLoading,
       authenticated,

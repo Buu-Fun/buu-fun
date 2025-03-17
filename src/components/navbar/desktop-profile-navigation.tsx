@@ -69,9 +69,8 @@ export default function DesktopProfileNavigation() {
               {/* <SettingsIcon /> */}
               <p>Referral Program</p>
             </Link>
-            
+
             <button
-            
               onClick={async () => {
                 await logout();
               }}

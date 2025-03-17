@@ -1,10 +1,9 @@
 "use client";
 import { HomeBackground } from "@/assets/Image";
-import { useGSAP } from "@gsap/react";
-import Image from "next/image";
-import React, { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import Image from "next/image";
+import { useRef } from "react";
 gsap.registerPlugin(ScrollTrigger);
 export default function FeatureComponent() {
   const ImageRef = useRef<HTMLDivElement>(null);

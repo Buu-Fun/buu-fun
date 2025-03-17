@@ -18,8 +18,12 @@ export default function ContentContainer({
       </h1>
       <div className="flex flex-col self-start pl-[5%] pt-[10%] md:pt-[15%]">
         <p className="blue-text-clip font-medium">{index}</p>
-        <h4 className="text-3xl md:text-5xl font-medium tracking-tighter">{subTitle}</h4>
-        <p className="tracking-tighter text-base md:text-lg">{subDescription}</p>
+        <h4 className="text-3xl md:text-5xl font-medium tracking-tighter">
+          {subTitle}
+        </h4>
+        <p className="tracking-tighter text-base md:text-lg">
+          {subDescription}
+        </p>
       </div>
     </div>
   );

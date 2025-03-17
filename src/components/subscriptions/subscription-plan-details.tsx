@@ -1,16 +1,14 @@
 import CheckBlue from "@/assets/icons/check-blue";
+import CrossGray from "@/assets/icons/cross-gray";
 import {
-  PRICING_PLAN,
-  SUBSCRIPTION_PLANS,
+  PRICING_PLAN
 } from "@/constants/subscription/subscription-plans";
 import { useAppSelector } from "@/hooks/redux";
-import React from "react";
 import Pill from "../elements/pill";
-import CrossGray from "@/assets/icons/cross-gray";
 
 export default function SubscriptionPlanDetails() {
   const plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
   const planDetails = PRICING_PLAN[plan];
   const subscriptionDetails = planDetails.subscriptionDetails;

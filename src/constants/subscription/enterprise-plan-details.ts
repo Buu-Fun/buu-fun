@@ -23,11 +23,13 @@ const coreFeatures: SubscriptionDetails["coreFeatures"] = [
   },
   {
     title: "High-Fidelity Texturing",
-    description: "Supports 4K-8K PBR Textures with procedural material blending",
+    description:
+      "Supports 4K-8K PBR Textures with procedural material blending",
   },
   {
     title: "Multi-Platform Export",
-    description: "Optimized models for Unreal Engine, Unity, Maya, Blender, Roblox, VRChat, and Fortnite Creative",
+    description:
+      "Optimized models for Unreal Engine, Unity, Maya, Blender, Roblox, VRChat, and Fortnite Creative",
   },
   {
     title: "On-Premise AI Deployment",
