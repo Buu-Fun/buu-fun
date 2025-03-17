@@ -3,7 +3,7 @@ import React from "react";
 export default function MutantMesh() {
   return (
     <svg
-      viewBox="-118 -169 622 681"
+      viewBox="-50 -70 622 681"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

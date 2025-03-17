@@ -14,7 +14,6 @@ import { format } from "date-fns";
 
 export default function ReferralShowcaseTable() {
   const { data } = useAllReferrals();
-  
   return (
     <Bounded className="max-w-screen-md">
       <div

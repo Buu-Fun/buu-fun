@@ -6,7 +6,6 @@ export default function BringYourIdeasSection() {
   return (
     <section id="bring-your-ideas" className="w-full relative">
       <ImageComparisonSlider>
-        <AnimatedBringYourIdeas />
       </ImageComparisonSlider>
     </section>
   );

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 import { useRef } from "react";
 
 type TFeatureTextSlider = {
@@ -18,6 +18,7 @@ export default function FeatureTextSlider({
     stiffness: 50,
     damping: 20,
     duration: 5.5,
+    delay: .5,
   };
 
   return (
@@ -35,6 +36,7 @@ export default function FeatureTextSlider({
         opacity: 1,
         transition: {
           ...arcTransition,
+
           opacity: { duration: 4 },
         },
       }}
@@ -44,7 +46,7 @@ export default function FeatureTextSlider({
         rotate: -90,
         opacity: 0,
         transition: {
-          duration: 2.5,
+          duration: 1.5,
           ease: "easeOut",
         },
       }}

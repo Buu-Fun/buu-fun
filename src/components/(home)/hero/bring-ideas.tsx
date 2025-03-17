@@ -1,7 +1,7 @@
 import MagicPenTitle from "../elements/magic-pen-title";
 export function AnimatedBringYourIdeas() {
   return (
-    <div className="grid grid-cols-[42%_13%_45%] relative w-full h-full  top-0 left-0 ">
+    <div className="grid grid-cols-[42%_13%_45%] absolute w-full h-full z-50 top-0 left-0 ">
       <div className="flex items-center justify-center">
         <div className="flex-col top-[2%] flex text-end items-end justify-end w-full relative z-50">
           <div>
