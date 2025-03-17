@@ -412,3 +412,17 @@ export const GetSubscriptionPaymentLinkQuery = gql`
     }
   }
 `;
+
+export const GenerateCreditsPackagePaymentLinkQuery = gql`
+  query GenerateCreditsPackagePaymentLink($pkg: CreditsPackageKeys!) {
+    generateCreditsPackagePaymentLink(pkg: $pkg) {
+      ... on Url {
+        url
+      }
+      ... on HandledError {
+        code
+        message
+      }
+    }
+  }
+`;
