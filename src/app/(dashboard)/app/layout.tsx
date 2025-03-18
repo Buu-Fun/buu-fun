@@ -11,7 +11,6 @@ import StoreProvider from "@/providers/redux";
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import ChatwootWidget from "@/components/chat-woot";
 const BricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
   subsets: ["latin"],
