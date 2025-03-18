@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.49](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.48...buu-fun-v0.1.49) (2025-03-18)
+
+
+### 🐛 Bugfixes
+
+* added chatwoot only for paid users ([e65dfd6](https://github.com/Buu-Fun/buu-fun/commit/e65dfd6600ef996ec6c3d6b0d7452fb72255f7bf))
+* added chatwoot only for paid users ([2a1e401](https://github.com/Buu-Fun/buu-fun/commit/2a1e401eb980d9ac516a3f698123ca5494b72f6d))
+* fixed linting issues ([a15102b](https://github.com/Buu-Fun/buu-fun/commit/a15102bd33e3f31d9553598bbb9cee47b548bf5b))
+
+
+### 👽 Miscellaneous
+
+* **ci:** removed check-build ci in-favor of vercel ci ([d6dc72f](https://github.com/Buu-Fun/buu-fun/commit/d6dc72f6ac81d276b3b9355e6aa292ff5187ac69))
+
 ## [0.1.48](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.47...buu-fun-v0.1.48) (2025-03-18)
 
 
