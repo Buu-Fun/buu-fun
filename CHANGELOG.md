@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.50](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.49...buu-fun-v0.1.50) (2025-03-18)
+
+
+### 🐛 Bugfixes
+
+* changed content for settings bar ([b73da3e](https://github.com/Buu-Fun/buu-fun/commit/b73da3e2f89b74ad53d7de6997c17e840e995e7b))
+* changed content for settings bar ([0a72f8c](https://github.com/Buu-Fun/buu-fun/commit/0a72f8c282d2d6b7328555be7bcd0cabb2d11575))
+
 ## [0.1.49](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.48...buu-fun-v0.1.49) (2025-03-18)
 
 
