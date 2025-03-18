@@ -35,6 +35,7 @@ interface AuthenticationContextType {
   address?: string;
   wallet?: WalletInfo;
   wallets: WalletInfo[];
+  exportSolWallet: (options?: { address: string }) => Promise<void>;
   isPrivyOpen: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   login: (options?: LoginModalOptions | React.MouseEvent<any, any>) => void;
@@ -64,7 +65,11 @@ export const AuthenticationProvider = ({ children }: Props) => {
 
   const { ready, authenticated, user, login, logout, isModalOpen } = usePrivy();
   const { identityToken } = useIdentityToken();
-  const { wallets: solanaWallets, ready: isSolanaReady } = useSolanaWallets();
+  const {
+    wallets: solanaWallets,
+    ready: isSolanaReady,
+    exportWallet,
+  } = useSolanaWallets();
   const { wallets: evmWallets, ready: isEVMReady } = useWallets();
   const EvmWalletDep = evmWallets.length > 0 ? isEVMReady : null;
   const SolanaWalletsDep = solanaWallets.length > 0 ? isSolanaReady : null;
@@ -135,8 +140,8 @@ export const AuthenticationProvider = ({ children }: Props) => {
       // Remove duplicates
       const uniqueWallets = Array.from(
         new Map(
-          processedWallets.map((wallet) => [wallet.address, wallet]),
-        ).values(),
+          processedWallets.map((wallet) => [wallet.address, wallet])
+        ).values()
       );
 
       setAllWallets(uniqueWallets);
@@ -145,7 +150,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       if (uniqueWallets.length > 0) {
         // Try to find the wallet that matches user's primary wallet
         const userPrimaryWallet = uniqueWallets.find(
-          (w) => w.address === user?.wallet?.address,
+          (w) => w.address === user?.wallet?.address
         );
 
         if (userPrimaryWallet) {
@@ -184,6 +189,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
     () => ({
       address,
       loading: isLoading,
+      exportSolWallet: exportWallet,
       isAuthenticated: authenticated,
       identityToken,
       user,
@@ -194,6 +200,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       logout,
     }),
     [
+      exportWallet,
       isModalOpen,
       address,
       isLoading,
@@ -204,7 +211,7 @@ export const AuthenticationProvider = ({ children }: Props) => {
       allWallets,
       login,
       logout,
-    ],
+    ]
   );
 
   return (
@@ -218,7 +225,7 @@ export function useAuthentication() {
   const context = useContext(AuthenticationContext);
   if (context === undefined) {
     throw new Error(
-      `useAuthentication must be used within a AuthenticationProvider`,
+      `useAuthentication must be used within a AuthenticationProvider`
     );
   }
   return context;
