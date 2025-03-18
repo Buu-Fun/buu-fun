@@ -36,7 +36,7 @@ export default function SettingsBarPopOver() {
                 "-rotate-180 transition-transform duration-300 ease-in-out",
                 {
                   "rotate-0 rotate": isSettingsPopoverOpen.isPopoverOpen,
-                },
+                }
               )}
             />
           </button>
@@ -44,7 +44,8 @@ export default function SettingsBarPopOver() {
         <PopoverContent
           ref={ref}
           // min-w-[330px] aspect-video
-          className="bg-buu   w-full backdrop-blur-2xl rounded-2xl shadow-buu-secondary"
+          //
+          className="w-full bg-buu backdrop-blur-2xl rounded-2xl shadow-buu-secondary  max-w-[95dvw] px-2 overflow-hidden "
           sideOffset={18}
           alignOffset={-12}
           align="end"

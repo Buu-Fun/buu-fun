@@ -28,7 +28,7 @@ export default function SettingsCardContainer() {
       // aspect-video
       className="w-full  "
     >
-      <TabsList className=" flex gap-2 items-center  justify-start w-full bg- mb-6">
+      <TabsList className=" flex h-auto gap-2 items-center scroll-m-1 overflow-x-scroll scrollbar-w-2 scrollbar-track-orange-lighter scrollbar-thumb-orange scrollbar-thumb-rounded  justify-start w-full bg- mb-6">
         <TabsTrigger
           onClick={() => {
             dispatch(changeModes("three_d_object"));
