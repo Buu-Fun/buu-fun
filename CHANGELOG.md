@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.46](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.45...buu-fun-v0.1.46) (2025-03-18)
+
+
+### ✨ Features
+
+* added new app routing for landing and app to be on separate routes ([2b79060](https://github.com/Buu-Fun/buu-fun/commit/2b79060f5c41e291a6d34365ed8a463079afa153))
+* added new app routing for landing and app to be on separate routes ([f69423b](https://github.com/Buu-Fun/buu-fun/commit/f69423b404808aad51e7bdcd99cc31cf282b0576))
+
 ## [0.1.45](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.44...buu-fun-v0.1.45) (2025-03-17)
 
 
