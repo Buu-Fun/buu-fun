@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.47](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.46...buu-fun-v0.1.47) (2025-03-18)
+
+
+### ✨ Features
+
+* misc pages for user terms policies ([90811a4](https://github.com/Buu-Fun/buu-fun/commit/90811a483321af28642846b9c6a860a3d5f9b44e))
+
+
+### 🐛 Bugfixes
+
+* fixed undefined variable due to  typo ([3eb67e4](https://github.com/Buu-Fun/buu-fun/commit/3eb67e4ed228cda1754042a64a242561ac41b9de))
+
 ## [0.1.46](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.45...buu-fun-v0.1.46) (2025-03-18)
 
 
