@@ -1,5 +1,3 @@
-import QuestionIcons from "@/assets/icons/question";
-import { Button } from "../ui/button";
 import ExportSolanaWallet from "./export-wallet";
 
 export default function HowExportWorks() {
