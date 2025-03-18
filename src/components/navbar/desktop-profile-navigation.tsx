@@ -50,7 +50,7 @@ export default function DesktopProfileNavigation() {
           >
             <CopyAddress isNavigation />
             <Link
-              href={"/profile"}
+              href={"/app/profile"}
               className="flex w-full items-center gap-1.5 hover:bg-buu-secondary py-2 rounded-md px-2 font-medium"
             >
               <div className="w-5 h-5">
@@ -60,7 +60,7 @@ export default function DesktopProfileNavigation() {
               <p>Settings</p>
             </Link>
             <Link
-              href={"/referral"}
+              href={"/app/referral"}
               className="flex w-full items-center gap-1.5 hover:bg-buu-secondary py-2 rounded-md px-2 font-medium"
             >
               <div className="w-5 h-5">

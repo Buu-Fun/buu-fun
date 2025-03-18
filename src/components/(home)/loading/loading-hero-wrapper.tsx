@@ -80,7 +80,7 @@ export default function HeroLoadingWrapper({
                 target.scrollIntoView({ behavior: "smooth" });
               }
             }}
-            href={"/home#bring-your-ideas"}
+            href={"/#bring-your-ideas"}
             scroll={false}
             className="flex items-center pointer-events-auto scroll-smooth justify-center gap-1 "
           >

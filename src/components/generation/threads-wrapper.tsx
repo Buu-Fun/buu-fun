@@ -177,7 +177,7 @@ export default function ThreadsWrapper({ threadId }: TThreadsWrapper) {
       };
 
       // Create an observer to detect height changes for
-      // usefull when adding responsiveness
+      // useful when adding responsiveness
       const resizeObserver = new ResizeObserver(handleContentLoaded);
       resizeObserver.observe(scrollContainer);
 

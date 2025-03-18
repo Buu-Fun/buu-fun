@@ -13,7 +13,7 @@ export default function CreditUsedIcon() {
     <div>
       <Button
         onClick={() => {
-          router.push("/profile");
+          router.push("/app/profile");
         }}
         variant={"special"}
         size={"special"}
