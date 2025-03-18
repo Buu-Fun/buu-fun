@@ -35,15 +35,15 @@ export type TThreeDStyles =
 
 export const contentModes: SettingsState["modes"][] = [
   "three_d_object",
-  "video",
-  "comic",
+  "rigging",
+  "animation",
 ];
 export type SettingsState = {
   isPopoverOpen: boolean;
   isStyleBoxOpen: boolean;
   isRecentChatOpen: boolean;
   ThreeDStyle?: TThreeDStyles;
-  modes: "three_d_object" | "video" | "comic";
+  modes: "three_d_object" | "rigging" | "animation";
 };
 
 const initialState: SettingsState = {
