@@ -17,7 +17,7 @@ export default function BottomBarContainer({ action }: TBottomBarContainer) {
       <div className="flex items-center justify-center">
         <p className="text-[12px] font-medium text-muted-foreground/60">
           Each 3D creation will cost
-          <span className=" text-white/70"> $1.00</span>
+          <span className=" text-white/70"> 1 credit</span>
         </p>
       </div>
     </div>
