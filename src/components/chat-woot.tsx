@@ -8,22 +8,20 @@ class ChatwootWidget extends React.Component {
     try {
       window.chatwootSettings = {
         position: "right",
-        type: "standard",
+        type: "expanded_bubble",
         launcherTitle: "Chat with us",
       };
-
       (function (d, t) {
-        const BASE_URL = "https://help.elixir.app";
+        const BASE_URL = "https://help.buu.fun";
         const g = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
         g.src = BASE_URL + "/packs/js/sdk.js";
         g.defer = true;
         g.async = true;
         s.parentNode.insertBefore(g, s);
-
         g.onload = function () {
           window.chatwootSDK.run({
-            websiteToken: "HrmwVNL2TwmgsAowwG7QuiCX",
+            websiteToken: "adeDyCqezsCCfVazgFPsUFSW",
             baseUrl: BASE_URL,
           });
         };

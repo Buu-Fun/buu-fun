@@ -7,7 +7,7 @@ import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import RedeemVouchers from "@/components/profile/redeem-vouchers";
 import SubscriptionDialog from "@/components/subscriptions/subscription-dialog";
 import ProtectedWrapper from "@/components/wrapper/protected-wrapper";
-import useUserCredits from "@/hooks/use-credits";
+import useUserCredits, { useUserSubscription } from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
 import { getFixedCredits, isImageUrl } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
@@ -18,6 +18,7 @@ export default function ProfilePage() {
   // made the profile fully client based because it doesn't matter to render fully on server
   const { address, wallet } = useAuthentication();
   const { data } = useUserCredits();
+  const { data: subscription } = useUserSubscription();
   return (
     <ProtectedWrapper Fallback={<ProfileSkeleton />} fallbackUrl="/">
       <main className="flex items-center flex-col justify-center w-full ">
@@ -95,7 +96,9 @@ export default function ProfilePage() {
         <AccountLinking />
       </main>
 
-      <ChatwootWidget />
+      {subscription && subscription?.planKey !== "FREE" ? (
+        <ChatwootWidget />
+      ) : null}
     </ProtectedWrapper>
   );
 }
