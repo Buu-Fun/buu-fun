@@ -24,6 +24,7 @@ import {
 import CopyAddress from "./copy-address";
 import KnowMoreContent from "./know-more-content";
 import ReferralIcon from "@/assets/icons/referral-icon";
+import ExportSolanaWallet from "../referral/export-wallet";
 
 export default function MobileProfileNavigation() {
   const { address, isAuthenticated, logout } = useAuthentication();
@@ -77,6 +78,11 @@ export default function MobileProfileNavigation() {
               </DrawerDescription>
             </DrawerHeader>
             <div className="flex flex-col ">
+              <div className="flex  w-full px-1 pb-2 ">
+                <DrawerClose asChild>
+                  <ExportSolanaWallet className="w-full" />
+                </DrawerClose>
+              </div>
               <div className="flex flex-col gap-2 px-1 w-full ">
                 <div className="flex border-b w-full ">
                   <Link
