@@ -48,7 +48,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
         y: "0%",
         duration: 1.5,
         ease: "power2.out",
-      }
+      },
     );
 
     // Animate the content
@@ -62,7 +62,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
         duration: 1,
         ease: "power2.out",
       },
-      "-=1"
+      "-=1",
     );
 
     return () => {
