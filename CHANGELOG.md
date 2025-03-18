@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.53](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.52...buu-fun-v0.1.53) (2025-03-18)
+
+
+### ✨ Features
+
+* export embedded wallets ([e926850](https://github.com/Buu-Fun/buu-fun/commit/e926850cc0f583526d40f08b31cf6052e5af09df))
+
+
+### 🐛 Bugfixes
+
+* removed how-it-works button since incomplete ui ([084600e](https://github.com/Buu-Fun/buu-fun/commit/084600ee38a0da72d7bbfe6275d7d4ffd60a1d69))
+
 ## [0.1.52](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.51...buu-fun-v0.1.52) (2025-03-18)
 
 
