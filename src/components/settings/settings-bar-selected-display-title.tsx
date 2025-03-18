@@ -4,9 +4,9 @@ import { SettingsState } from "@/lib/redux/features/settings";
 import SettingsBarSelectedDisplay from "./settings-bar-selected-display";
 
 export const modes_mapper: Record<SettingsState["modes"], string> = {
-  comic: "Comics",
+  comic: "Rigging",
   three_d_object: "3D Object",
-  video: "Video",
+  video: "Animation",
 };
 
 export default function SettingsBarDisplayTitle() {
