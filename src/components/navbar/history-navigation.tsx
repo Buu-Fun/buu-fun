@@ -85,7 +85,7 @@ export default function HistoryNavigation() {
                   dispatch(setHistoryModel(false));
                 }}
                 prefetch={false}
-                href={`/generation/${item._id}`}
+                href={`/app/generation/${item._id}`}
                 className="w-full top-0 left-0 absolute  h-full"
               />
               <div className="flex items-center gap-2">

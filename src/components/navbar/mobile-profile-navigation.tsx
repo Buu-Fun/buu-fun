@@ -80,7 +80,7 @@ export default function MobileProfileNavigation() {
               <div className="flex flex-col gap-2 px-1 w-full ">
                 <div className="flex border-b w-full ">
                   <Link
-                    href={"/"}
+                    href={"/app"}
                     // className="flex w-full  items-center gap-2  py-2 rounded-md px-2 font-medium"
                   >
                     <DrawerClose className="flex w-full  items-center gap-2  py-2 rounded-md px-2 font-medium">
@@ -92,7 +92,7 @@ export default function MobileProfileNavigation() {
                   </Link>
                 </div>
                 {/* <div className="flex border-b w-full ">
-                  <Link href={"/boards"}>
+                  <Link href={"/app/boards"}>
                     <DrawerClose className="flex w-full  items-center gap-2  py-2 rounded-md px-2 font-medium">
                       <div className="w-6 h-6 group-hover:text-white  group-hover:fill-text-white text-blue-300">
                         <SizePenIcon />
@@ -102,7 +102,7 @@ export default function MobileProfileNavigation() {
                   </Link>
                 </div> */}
                 {/* <div className="flex border-b w-full ">
-                  <Link href={"/staking"}>
+                  <Link href={"/app/staking"}>
                     {" "}
                     <DrawerClose className="flex w-full  items-center gap-2  py-2 rounded-md px-2 font-medium">
                       <div className="w-6 h-6 group-hover:text-white  group-hover:fill-text-white text-blue-300">
@@ -114,7 +114,7 @@ export default function MobileProfileNavigation() {
                 </div> */}
                 <div className="flex border-b w-full ">
                   <Link
-                    href={"/profile"}
+                    href={"/app/profile"}
                     // className="flex w-full  items-center gap-2  py-2 rounded-md px-2 font-medium"
                   >
                     {" "}
@@ -128,7 +128,7 @@ export default function MobileProfileNavigation() {
                 </div>{" "}
                 <div className="flex border-b w-full ">
                   <Link
-                    href={"/referral"}
+                    href={"/app/referral"}
                     // className="flex w-full  items-center gap-2  py-2 rounded-md px-2 font-medium"
                   >
                     {" "}

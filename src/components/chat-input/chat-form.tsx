@@ -45,7 +45,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     mutationFn: generateSubThreads,
     onSuccess(data) {
       dispatch(setNewThreadId(data.threadId));
-      router.push(`/generation/${data.threadId}`);
+      router.push(`/app/generation/${data.threadId}`);
     },
     onError() {
       toast.error("Our servers are busy, Please try again");

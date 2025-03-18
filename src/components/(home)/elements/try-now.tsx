@@ -4,7 +4,7 @@ import Icon from "./add.png";
 import Link from "next/link";
 export default function TryNow() {
   return (
-    <Link href={'/'} className="bg-white py-2 px-2 rounded-xl flex">
+    <Link href={'/app'} className="bg-white py-2 px-2 rounded-xl flex">
       <div className="flex gap-2 items-center  ">
         <div className="max-w-[24px] w-full flex items-center border border-blue-300/40 rounded-md overflow-hidden justify-center">
           <Image

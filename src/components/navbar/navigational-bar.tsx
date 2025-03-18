@@ -9,7 +9,7 @@ export default function NavigationalBar() {
       <div className="lg:bg-buu lg:py-4  flex flex-col items-center justify-between lg:rounded-[20px] overflow-hidden lg:h-full lg:w-[72px]">
         <div className="flex items-center justify-center">
           <Link
-            href={"/"}
+            href={"/app"}
             className="flex items-center justify-center h-10 w-10 lg:w-12 lg:h-12   rounded-lg "
           >
             <Image
@@ -33,7 +33,7 @@ export default function NavigationalBar() {
             </div>
           </Link> */}
           <Link
-            href={"/"}
+            href={"/app"}
             className="w-10 flex  items-center group   justify-center    h-10 "
           >
             <div className="w-6 h-6 group-hover:text-white  group-hover:fill-text-white text-gray-500">

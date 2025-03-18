@@ -117,7 +117,7 @@ export default function ReferralVerifierHook({
           <DialogClose asChild>
             <Button
               onClick={() => {
-                router.push("/");
+                router.push("/app/");
               }}
               className="w-[90%]"
               size={"special"}

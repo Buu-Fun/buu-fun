@@ -12,7 +12,7 @@ import SubscriptionContent from "./subscription-content";
 
 export default function SubscriptionDialog() {
   return (
-    <Dialog defaultOpen>
+    <Dialog>
       <DialogTrigger asChild>
         <Button variant={"special"} size={"special"}>
           Manage subscription{" "}

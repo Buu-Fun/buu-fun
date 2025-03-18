@@ -9,7 +9,7 @@ import ProtectedWrapper from "@/components/wrapper/protected-wrapper";
 export default function ReferralPage() {
   return (
     <main className="overflow-y-scroll h-[100dvh]">
-      <ProtectedWrapper Fallback={<ProfileSkeleton />} fallbackUrl="/">
+      <ProtectedWrapper Fallback={<ProfileSkeleton />} fallbackUrl="/app/">
         <div className="w-10 mx-auto h-10 mt-5">
           <ReferralHeaderIcon />
         </div>
