@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.48](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.47...buu-fun-v0.1.48) (2025-03-18)
+
+
+### ✨ Features
+
+* added chat-woot apis ([586eb16](https://github.com/Buu-Fun/buu-fun/commit/586eb16219339cfd41f0f48d3982af34171b33e8))
+* added chatwoot api ([917fd97](https://github.com/Buu-Fun/buu-fun/commit/917fd97cee20c2451b1b1e66f238b1ec0ae17645))
+* added chatwoot customer plugin ([fab98fc](https://github.com/Buu-Fun/buu-fun/commit/fab98fc43757a14a1bea27450a606a2b9a7e94f9))
+
+
+### 👽 Miscellaneous
+
+* **lint:** formatted and linted the codebase ([859bac4](https://github.com/Buu-Fun/buu-fun/commit/859bac4caf59b11130fab22e767180d6307da417))
+
 ## [0.1.47](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.46...buu-fun-v0.1.47) (2025-03-18)
 
 
