@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.52](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.51...buu-fun-v0.1.52) (2025-03-18)
+
+
+### 🐛 Bugfixes
+
+* styling for settings box ([3ff9464](https://github.com/Buu-Fun/buu-fun/commit/3ff94649e14e94cf15fdb54e5446fd4b2ee7c47b))
+* styling for settings box ([aa1db36](https://github.com/Buu-Fun/buu-fun/commit/aa1db3601b21347266e97cfaee0c1729d1fbd1ab))
+
 ## [0.1.51](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.50...buu-fun-v0.1.51) (2025-03-18)
 
 
