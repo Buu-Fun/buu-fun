@@ -5,6 +5,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
+import ChatwootWidget from "../../components/chat-woot";
 const BricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
   subsets: ["latin"],
@@ -57,6 +58,7 @@ export default function RootLayout({
       <body className={`${BricolageGrotesque.className} antialiased dark   `}>
         <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
+      <ChatwootWidget/>
       <GoogleAnalytics gaId="G-DDL82EPESF" />
     </html>
   );
