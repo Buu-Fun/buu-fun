@@ -27,7 +27,7 @@ export default function Pill({
   className?: string;
 } & VariantProps<typeof pillVariant>) {
   return (
-    <div
+    <span
       // className={cn(
       //   "bg-buu flex items-center justify-center   relative shadow-buu-pill border-buu rounded-full   px-1.5 py-1",
       //   className
@@ -35,6 +35,6 @@ export default function Pill({
       className={cn(pillVariant({ variant, size, className }))}
     >
       {children}
-    </div>
+    </span>
   );
 }

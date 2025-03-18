@@ -116,12 +116,12 @@ body {
 }
 .scrollbar-track-orange-lighter::-webkit-scrollbar-track {
   --bg-opacity: 0.5;
-  background-color: #00000015;
+  background-color: #31313115;
 }
 
 .scrollbar-thumb-orange::-webkit-scrollbar-thumb {
   --bg-opacity: 0.5;
-  background-color: #13131374;
+  background-color: #26454d74;
 }
 
 .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
