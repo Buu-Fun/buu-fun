@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CopyAddress from "./copy-address";
 import ReferralIcon from "@/assets/icons/referral-icon";
+import ExportSolanaWallet from "../referral/export-wallet";
 
 export default function DesktopProfileNavigation() {
   const { address, isAuthenticated, logout } = useAuthentication();
@@ -48,6 +49,7 @@ export default function DesktopProfileNavigation() {
             align="end"
             className="px-1 pb-1 pt-1 max-w-[210px] bg-buu border-buu"
           >
+            <ExportSolanaWallet className="w-full" />
             <CopyAddress isNavigation />
             <Link
               href={"/app/profile"}

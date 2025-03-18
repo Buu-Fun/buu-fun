@@ -60,3 +60,10 @@ import InstagramIcon from "./Instagram";
 import robLoxIcon from "./roblox-logo.png";
 
 export { DiscordIcon, InstagramIcon, robLoxIcon };
+
+import PhantomIcon from "@/assets/icons/wallets/phantom.png";
+import BackpackIcon from "@/assets/icons/wallets/backpack.png";
+import MagicEdenIcon from "@/assets/icons/wallets/magiceden.png";
+import SolflareIcon from "@/assets/icons/wallets/solflare.png";
+
+export { PhantomIcon, BackpackIcon, MagicEdenIcon, SolflareIcon };
