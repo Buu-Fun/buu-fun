@@ -1,4 +1,5 @@
 "use client";
+import ChatwootWidget from "@/components/chat-woot";
 // import CopyAddress from "@/components/navbar/copy-address";
 import AccountLinking from "@/components/profile/account-linking";
 import Base64ImageDiv from "@/components/profile/icon-render";
@@ -93,6 +94,8 @@ export default function ProfilePage() {
         </div>
         <AccountLinking />
       </main>
+
+      <ChatwootWidget />
     </ProtectedWrapper>
   );
 }

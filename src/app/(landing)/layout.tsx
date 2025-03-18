@@ -58,7 +58,6 @@ export default function RootLayout({
       <body className={`${BricolageGrotesque.className} antialiased dark   `}>
         <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
       </body>
-      <ChatwootWidget/>
       <GoogleAnalytics gaId="G-DDL82EPESF" />
     </html>
   );

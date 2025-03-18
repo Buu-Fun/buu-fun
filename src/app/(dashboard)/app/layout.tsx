@@ -63,7 +63,6 @@ export default function RootLayout({
 
       <body className={` ${BricolageGrotesque.className} antialiased dark `}>
         <Toaster />
-        <ChatwootWidget />
         <ReactQueryProvider>
           <StoreProvider>
             <NextUIProviders>

@@ -1,4 +1,5 @@
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 "use client";
 import React from "react";
 
@@ -12,17 +13,14 @@ class ChatwootWidget extends React.Component {
       };
 
       (function (d, t) {
-        var BASE_URL = "https://help.elixir.app";
-        var g = d.createElement(t),
+        const BASE_URL = "https://help.elixir.app";
+        const g = d.createElement(t),
           s = d.getElementsByTagName(t)[0];
-        // @ts-ignore
         g.src = BASE_URL + "/packs/js/sdk.js";
-        // @ts-ignore
         g.defer = true;
-        // @ts-ignore
         g.async = true;
-        // @ts-ignore
         s.parentNode.insertBefore(g, s);
+
         g.onload = function () {
           window.chatwootSDK.run({
             websiteToken: "HrmwVNL2TwmgsAowwG7QuiCX",
@@ -30,7 +28,11 @@ class ChatwootWidget extends React.Component {
           });
         };
       })(document, "script");
-    } catch (error) {}
+    } catch (error) {
+      if (error) {
+        console.log("FAILED TO LOAD CHATWOOT");
+      }
+    }
   }
 
   render() {
