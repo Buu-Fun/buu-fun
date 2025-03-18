@@ -50,7 +50,7 @@ export default function NavigationalBar() {
           </Link> */}
         </div>
         <div className="hidden lg:flex">
-          <KnowMorePopover />
+          <KnowMorePopWover />
         </div>
       </div>
     </nav>

@@ -11,6 +11,7 @@ import Image from "next/image";
 import React, { useRef } from "react";
 import { HomePageLinks, ResourcesLinks } from "./footer-data";
 import { FooterLinks } from "./footer-link";
+import Link from "next/link";
 gsap.registerPlugin(useGSAP);
 interface FooterContainerProps {
   copyright?: string;
@@ -47,7 +48,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
         y: "0%",
         duration: 1.5,
         ease: "power2.out",
-      },
+      }
     );
 
     // Animate the content
@@ -61,7 +62,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
         duration: 1,
         ease: "power2.out",
       },
-      "-=1",
+      "-=1"
     );
 
     return () => {
@@ -139,18 +140,30 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
           <p className="text-neutral-400 mb-4 lg:mb-0">{copyright}</p>
 
           <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-            <a
-              href="#"
+            <Link
+              href="/terms"
               className="text-neutral-400 hover:text-white transition-colors"
             >
               Terms of Service
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              href="/privacy-policy"
               className="text-neutral-400 hover:text-white transition-colors"
             >
               Privacy Policy
-            </a>
+            </Link>
+            <Link
+              href="/aup"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              User Policy
+            </Link>
+            <Link
+              href="/cookie-policy"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              Cookie Policy
+            </Link>
           </div>
         </div>
       </Bounded>
