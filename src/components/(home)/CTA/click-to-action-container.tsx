@@ -11,7 +11,32 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ClickToActionContainer() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const colorPurpleRef = useRef<HTMLDivElement>(null);
 
+  useGSAP(() => {
+    gsap.context(() => {
+      gsap.fromTo(
+        [colorPurpleRef.current],
+        {
+          opacity: 0,
+          scale: 0,
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          ease: "power4.inOut",
+          duration: 1,
+          scrollTrigger: {
+            trigger: ".cta-trigger",
+            start: "top 60%",
+            end: "bottom 95%",
+            toggleActions: "play reverse play reverse", // Ensures it reverses properly
+            markers: true,
+          },
+        }
+      );
+    });
+  });
   useGSAP(() => {
     const wrapper = wrapperRef.current;
     const scroller = scrollerRef.current;
@@ -127,7 +152,7 @@ export default function ClickToActionContainer() {
   }, []);
 
   return (
-    <div className="w-full  h-screen relative overflow-hidden">
+    <div className="w-full  h-screen relative cta-trigger ">
       <div className="relative py-[8%] " ref={wrapperRef}>
         <div className="flex items-center " ref={scrollerRef}>
           {[...CTAImages, ...CTAImages].map((item, index) => (
@@ -146,7 +171,9 @@ export default function ClickToActionContainer() {
           ))}
         </div>
       </div>
-      <div className="w-[476px] -z-10 h-[334px] bg-overlay-primary  bg-[#6b69d540] left-[38%]  rounded-full  absolute top-[5%]  blur-[100px] " />
+      <div
+      ref={colorPurpleRef}
+      className="w-[476px] -z-10 h-[334px] bg-overlay-primary  bg-[#6b69d540] left-[38%]  rounded-full  absolute top-[5%]  blur-[100px] " />
       <div className="flex items-center flex-col gap-8 justify-center">
         <MagicPenTitle title="Get started Today" className="text-lg" />
         <p className="grayish-text-gradient text-center text-4xl md:text-6xl font-medium tracking-tighter">
