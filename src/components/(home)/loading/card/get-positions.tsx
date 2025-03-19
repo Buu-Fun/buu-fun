@@ -50,7 +50,11 @@ export const getPositionByIndex = (index: number) => {
       break;
     }
     default: {
-      return { x: 0, y: 0, z: 8 };
+      return {
+        x: Math.random() * 100 * 0.1,
+        y: Math.random() * 100 * 0.1,
+        z: Math.random() * 100 * 0.3,
+      };
       break;
     }
   }
@@ -88,7 +92,11 @@ export const getRotationByIndex = (index: number) => {
       return { x: -0.2, y: -0.4, z: -0.4 };
     }
     default: {
-      return { x: 0, y: 0, z: 0 };
+      return {
+        x: Math.random() * 100 * 0.1,
+        y: Math.random() * 100 * 0.1,
+        z: Math.random() * 100 * 0.1,
+      };
     }
   }
 };

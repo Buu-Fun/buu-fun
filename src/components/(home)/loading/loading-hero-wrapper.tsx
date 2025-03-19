@@ -15,14 +15,23 @@ export default function HeroLoadingWrapper({
 }: {
   children?: ReactNode;
 }) {
-  const [progress, setProgress] = useState<number>(20);
+  // const [progress, setProgress] = useState<number>(20);
   const intervalRef = useRef<NodeJS.Timeout>(null);
+  const progressRef = useRef(20);
+  const [finishedLoading, setFinishedLoading] = useState(false);
   useEffect(() => {
+    if (finishedLoading) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      return;
+    }
     intervalRef.current = setInterval(() => {
-      setProgress((prev) => {
-        const newProgress = prev + Math.random() * 12;
-        return newProgress >= 100 ? 100 : newProgress;
-      });
+      if (progressRef.current >= 100 && intervalRef.current) {
+        setFinishedLoading(true);
+        clearInterval(intervalRef.current);
+      }
+      progressRef.current = progressRef.current + Math.random() * 8;
     }, 200);
     return () => {
       if (intervalRef.current) {
@@ -39,7 +48,7 @@ export default function HeroLoadingWrapper({
         >
           <ambientLight intensity={1} />
           <pointLight position={[10, 10, 10]} intensity={1} />
-          <ImageGlobeV3 progress={progress} />
+          <ImageGlobeV3 finishedLoading={finishedLoading} />
           <EffectComposer>
             <Bloom />
           </EffectComposer>
@@ -55,7 +64,7 @@ export default function HeroLoadingWrapper({
         id="home"
         className="absolute top-0 z-[50] left-0 w-full h-full flex flex-col items-center   justify-center text-white "
         initial={{ opacity: 0 }}
-        animate={{ opacity: progress >= 99 ? 1 : 0 }}
+        animate={{ opacity: finishedLoading ? 1 : 0 }}
         transition={{ duration: 3.5, delay: 1.7 }}
       >
         <MagicPenTitle
@@ -71,7 +80,6 @@ export default function HeroLoadingWrapper({
         </p>
         <div className="flex items-center gap-4 text-white/40 mt-10">
           <TryNow />
-
           <Link
             onClick={(e) => {
               e.preventDefault();
@@ -96,7 +104,7 @@ export default function HeroLoadingWrapper({
           </Link>
         </div>
       </motion.section>
-      <AnimatePresence>{progress >= 100 ? children : null}</AnimatePresence>
+      <AnimatePresence>{finishedLoading ? children : null}</AnimatePresence>
     </div>
   );
 }

@@ -5,17 +5,23 @@ import { useEffect, useMemo, useRef } from "react";
 import { Group } from "three";
 import ImageCard from "./card/image-card";
 import { imageUrls } from "./image-data";
+import { useGSAP } from "@gsap/react";
 
-export default function ImageGlobeV3({ progress }: { progress: number }) {
+export default function ImageGlobeV3({
+  finishedLoading,
+}: {
+  finishedLoading: boolean;
+}) {
   const groupRef = useRef<Group>(null);
   const { camera } = useThree();
+  const isAnimationRan = useRef(false);
+
+  // Set up animations when finishedLoading changes
   useEffect(() => {
-    if (!groupRef.current) return;
-
     const ctx = gsap.context(() => {
-      if (!groupRef?.current) return;
+      if (finishedLoading && !isAnimationRan.current && groupRef.current) {
+        isAnimationRan.current = true;
 
-      if (progress >= 100) {
         // Animate the camera to move inside the sphere
         gsap.to(camera.position, {
           z: 5, // Move camera to the center of the sphere
@@ -23,11 +29,9 @@ export default function ImageGlobeV3({ progress }: { progress: number }) {
           ease: "power2.inOut",
         });
 
-        // Capture the current rotation values
-        const {} = groupRef.current.rotation;
-
         // Smoothly transition the rotation to zero
         gsap.to(groupRef.current.rotation, {
+          x: 0,
           y: 0,
           z: 0,
           duration: 3.5,
@@ -42,36 +46,35 @@ export default function ImageGlobeV3({ progress }: { progress: number }) {
           },
         });
       }
-    }, [groupRef, progress, camera]);
+    });
+    return () => {
+      ctx.revert();
+    };
+  }, [finishedLoading, camera]);
 
-    return () => ctx.revert();
-  }, [progress, camera]);
-
+  // Use useFrame only for continuous updates before loading is finished
   useFrame(() => {
-    if (!groupRef.current) return;
-    const GroupRef = groupRef.current;
-
-    if (progress < 100) {
-      // More natural football-like rotation
-      //   GroupRef.rotation.x += 0.008;
-      GroupRef.rotation.y += 0.008;
-      // GroupRef.rotation.z += 0.009
-      //   GroupRef.rotation.z = Math.sin(Date.now() * 0.001) * 0.006;
-    }
+    if (!groupRef.current || finishedLoading) return;
+    // Apply continuous rotation only when not finished loading
+    groupRef.current.rotation.x += 0.003;
+    groupRef.current.rotation.y += 0.008;
+    // Uncomment if you want z-rotation too
+    // groupRef.current.rotation.z += 0.005;
+    // groupRef.current.rotation.z = Math.sin(Date.now() * 0.001) * 0.006;
   });
 
   const images = useMemo(
     () =>
       imageUrls.map((item, index) => (
         <ImageCard
-          progress={progress}
+          finishedLoading={finishedLoading}
           key={`${index}-${item}`}
           index={index}
           imageUrl={item}
           total={imageUrls.length}
         />
       )),
-    [progress],
+    [finishedLoading]
   );
 
   return <group ref={groupRef}>{images}</group>;

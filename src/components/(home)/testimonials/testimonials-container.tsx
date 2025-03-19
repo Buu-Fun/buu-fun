@@ -7,8 +7,9 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { testimonialsData } from "./testimonial-data";
-gsap.registerPlugin(useGSAP);
-
+// if (window !== undefined) {
+//   gsap.registerPlugin(useGSAP);
+// }
 const SLIDE_CHANGE_IN = 6000;
 export default function TestimonialsContainer() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,14 +22,17 @@ export default function TestimonialsContainer() {
     return text.split(/(\s+)/).map((word, index) => {
       if (word.match(/^\s+$/)) return word;
       return (
-        <span className="word opacity-0" key={`${index}-${word}`}>
+        <span
+          className="word opacity-0 will-change-[filter_opacity] "
+          key={`${index}-${word}`}
+        >
           {word}
         </span>
       );
     });
   }, [currentIndex]);
 
-  useGSAP(() => {
+  useEffect(() => {
     if (!progressRef.current) return;
     const totalDuration = testimonialsData.length * (SLIDE_CHANGE_IN / 1000); // Total time for all slides
     gsap.fromTo(
@@ -38,11 +42,11 @@ export default function TestimonialsContainer() {
         width: `${100}%`,
         duration: totalDuration,
         repeat: Infinity,
-      },
+      }
     );
   }, []);
 
-  useGSAP(() => {
+  useEffect(() => {
     if (!textRef.current) return;
 
     const ctx = gsap.context(() => {
@@ -55,7 +59,7 @@ export default function TestimonialsContainer() {
           ease: "power4.inOut",
           duration: 2.5,
           stagger: 0.1,
-        },
+        }
       );
       gsap.fromTo(
         ".word",
@@ -65,7 +69,7 @@ export default function TestimonialsContainer() {
           ease: "power4.inOut",
           duration: 2.5,
           stagger: 0.15,
-        },
+        }
       );
     }, textRef.current);
 
@@ -87,12 +91,9 @@ export default function TestimonialsContainer() {
 
   return (
     <div
-      className="flex flex-col relative gap-8 justify-center h-screen w-full overflow-hidden"
+      className="flex flex-col relative gap-8 justify-center h-screen w-full "
       ref={containerRef}
     >
-      <div className=" w-[200px] h-[100px] border-2 bg-overlay-secondary  bg-[#69CCD5]  rounded-full right-[20%] absolute bottom-[-140px] -z-10 blur-[100px]  rotate-[-10deg]" />
-      <div className="w-[476px] h-[334px] bg-overlay-primary  bg-[#6b69d549] left-[38%]  rounded-full  absolute top-[5%] -z-10 blur-[100px] md:block hidden  rotate-[-10deg]" />
-
       <div className="flex justify-center items-center">
         <div className="w-6 h-6">
           <EmojiHappy />
