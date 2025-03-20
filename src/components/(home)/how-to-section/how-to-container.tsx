@@ -1,8 +1,7 @@
 "use client";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState, useCallback, useLayoutEffect } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import ContentContainer from "./content-container";
 import MobileMockCard from "./mobile-mock-card";
 
@@ -162,7 +161,7 @@ export default function HowToContainer() {
 
       cleanup.current();
     };
-  }, [setupScrollTrigger]);
+  }, []);
 
   return (
     <div className="h-screen trig overflow-hidden relative">

@@ -2,7 +2,7 @@ import { RectangleRounded } from "@/lib/helpers/threejs/rectangle-rounded";
 import { useGSAP } from "@gsap/react";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
-import { RefObject, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { DoubleSide, Mesh, TextureLoader } from "three";
 import { getPositionByIndex, getRotationByIndex } from "./get-positions";
 gsap.registerPlugin(useGSAP);
@@ -13,7 +13,7 @@ export default function ImageCard({
   index,
 }: {
   index: number;
-  finishedLoading: boolean
+  finishedLoading: boolean;
   total: number;
   imageUrl: string;
 }) {
@@ -115,7 +115,9 @@ export default function ImageCard({
       }
     }, [meshRef, finishedLoading]);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, [finishedLoading, meshRef, x, y, z, index]);
   return (
     <mesh

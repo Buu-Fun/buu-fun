@@ -38,7 +38,7 @@ export default function HeroLoadingWrapper({
         clearInterval(intervalRef.current);
       }
     };
-  }, []);
+  }, [finishedLoading]);
   return (
     <div className="w-full h-full relative">
       <div className="w-full h-screen relative ">

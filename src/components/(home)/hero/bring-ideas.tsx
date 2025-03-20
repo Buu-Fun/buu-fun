@@ -1,7 +1,7 @@
 import MagicPenTitle from "../elements/magic-pen-title";
 export function AnimatedBringYourIdeas() {
   return (
-    <div className="grid grid-cols-[42%_13%_45%] absolute w-full h-full z-50 top-0 left-0 ">
+    <div className="grid grid-cols-[42%_13%_45%] absolute w-full h-full  top-0 left-0 ">
       <div className="flex items-center justify-center">
         <div className="flex-col top-[2%] flex text-end items-end justify-end w-full relative z-50">
           <div>
@@ -22,9 +22,9 @@ export function AnimatedBringYourIdeas() {
       </div>
       <div />
       <div className="relative flex justify-center">
-        <div className="absolute bottom-[15%] z-[30]">
+        <div className="absolute bottom-[15%] z-[50]">
           <div className="relative">
-            <div className="w-60 h-40 bg-[#262626] animate-pulse absolute blur-3xl -left-5 -z-20 -top-10 rounded-full" />
+            <div className="w-60 h-40 bg-[#111111]  absolute blur-2xl -left-5 -z-20 -top-10 rounded-full" />
             <p className="max-w-md w-full">
               BUU.FUN offers a seamless platform to create stunning 3D objects
               from text prompts or images. With features like auto-rigging,

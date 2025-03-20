@@ -17,10 +17,14 @@ export default function SmoothScrollWrapper({
     function update(time: number) {
       lenisRef.current?.lenis?.raf(time * 1000);
     }
+    const ctx = gsap.context(() => {
+      gsap.ticker.add(update);
+    });
 
-    gsap.ticker.add(update);
-
-    return () => gsap.ticker.remove(update);
+    return () => {
+      gsap.ticker.remove(update);
+      ctx.revert();
+    };
   }, []);
 
   return (

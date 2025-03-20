@@ -47,14 +47,19 @@ import { motion } from "framer-motion";
 import { GradientBottomBar } from "../hero/slider-handle";
 export function ScanningOverlay() {
   useEffect(() => {
-    gsap.to(".scan-line", {
-      // y: "100%",
-      height: "99%",
-      repeat: -1,
-      yoyo: true,
-      duration: 4,
-      ease: "power1.inOut",
+    const ctx = gsap.context(() => {
+      gsap.to(".scan-line", {
+        // y: "100%",
+        height: "99%",
+        repeat: -1,
+        yoyo: true,
+        duration: 4,
+        ease: "power1.inOut",
+      });
     });
+    return () => {
+      ctx.revert();
+    };
   }, []);
   return (
     <div className="absolute h-full w-full  inset-0 bg-transparent ">

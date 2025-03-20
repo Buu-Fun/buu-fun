@@ -42,12 +42,17 @@ export default function FeatureSlider() {
   }, []);
 
   useGSAP(() => {
-    gsap.to(".rotating-circle", {
-      rotation: 360,
-      repeat: -1,
-      duration: 8,
-      ease: "linear",
+    const ctx = gsap.context(() => {
+      gsap.to(".rotating-circle", {
+        rotation: 360,
+        repeat: -1,
+        duration: 8,
+        ease: "linear",
+      });
     });
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
   return (

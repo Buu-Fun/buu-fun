@@ -7,6 +7,7 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { HomePageLinks } from "../footer/footer-data";
 import { FooterLink } from "../footer/footer-link";
+import { useGSAP } from "@gsap/react";
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -18,67 +19,77 @@ export default function HomeNavigationBar() {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Initialize GSAP ScrollTrigger for each section
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  useGSAP(
+    () => {
+      if (typeof window === "undefined") return;
 
-    const sections = ["#home", ...HomePageLinks.links.map((link) => link.href)];
-    const triggers: ScrollTrigger[] = [];
+      const sections = [
+        "#home",
+        ...HomePageLinks.links.map((link) => link.href),
+      ];
+      const triggers: ScrollTrigger[] = [];
 
-    sections.forEach((sectionId) => {
-      const section = document.querySelector(sectionId);
-      if (!section) return;
+      sections.forEach((sectionId) => {
+        const section = document.querySelector(sectionId);
+        if (!section) return;
 
-      const trigger = ScrollTrigger.create({
-        trigger: section,
-        start: "top 50%",
-        end: "bottom 85%",
-        onEnter: () => setActiveLink(sectionId),
-        onEnterBack: () => setActiveLink(sectionId),
+        const trigger = ScrollTrigger.create({
+          trigger: section,
+          start: "top 50%",
+          end: "bottom 85%",
+          onEnter: () => setActiveLink(sectionId),
+          onEnterBack: () => setActiveLink(sectionId),
+        });
+
+        triggers.push(trigger);
       });
 
-      triggers.push(trigger);
-    });
-
-    // Clean up on unmount
-    return () => {
-      triggers.forEach((trigger) => trigger.kill());
-    };
-  }, []);
+      // Clean up on unmount
+      return () => {
+        triggers.forEach((trigger) => trigger.kill());
+      };
+    },
+    { dependencies: [], revertOnUpdate: true }
+  );
 
   // Animate the indicator with GSAP when activeLink changes
   useEffect(() => {
     const activeElement = linkRefs.current[activeLink];
     const indicator = indicatorRef.current;
+    const ctx = gsap.context(() => {
+      if (activeElement && indicator && containerRef.current) {
+        // Get positions relative to the container
+        const containerRect = containerRef.current.getBoundingClientRect();
+        const linkRect = activeElement.getBoundingClientRect();
 
-    if (activeElement && indicator && containerRef.current) {
-      // Get positions relative to the container
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const linkRect = activeElement.getBoundingClientRect();
-
-      // Calculate relative position - center of the link
-      const offsetLeft = linkRect.left - containerRect.left;
-      const linkCenter = offsetLeft + linkRect.width / 2 - 10;
-      const indicatorWidth = 20; // Set your desired width here
-      if (activeLink === "#home") {
-        // Hide the indicator for #home
-        gsap.to(indicator, {
-          //   opacity: 0,
-          duration: 0.5,
-          width: "0px",
-          ease: "power4.inOut",
-        });
-      } else {
-        // Show and animate the indicator for other links
-        // Position is centered by offsetting half the indicator width
-        gsap.to(indicator, {
-          width: `${indicatorWidth}px`,
-          x: linkCenter - indicatorWidth / 2,
-          opacity: 1,
-          duration: 0.5,
-          ease: "power4.inOut",
-        });
+        // Calculate relative position - center of the link
+        const offsetLeft = linkRect.left - containerRect.left;
+        const linkCenter = offsetLeft + linkRect.width / 2 - 10;
+        const indicatorWidth = 20; // Set your desired width here
+        if (activeLink === "#home") {
+          // Hide the indicator for #home
+          gsap.to(indicator, {
+            //   opacity: 0,
+            duration: 0.5,
+            width: "0px",
+            ease: "power4.inOut",
+          });
+        } else {
+          // Show and animate the indicator for other links
+          // Position is centered by offsetting half the indicator width
+          gsap.to(indicator, {
+            width: `${indicatorWidth}px`,
+            x: linkCenter - indicatorWidth / 2,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power4.inOut",
+          });
+        }
       }
-    }
+    });
+    return () => {
+      ctx.revert();
+    };
   }, [activeLink]);
 
   // Set initial active link based on URL hash

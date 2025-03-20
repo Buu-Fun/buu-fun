@@ -24,7 +24,7 @@ export default function FrequentlyAskedContainer() {
   const colorPurpleRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    gsap.context(() => {
+    const ctx = gsap.context(() => {
       gsap.fromTo(
         [colorPurpleRef.current],
         {
@@ -41,41 +41,51 @@ export default function FrequentlyAskedContainer() {
             start: "top 60%",
             end: "bottom 95%",
             toggleActions: "play reverse play reverse", // Ensures it reverses properly
-            markers: true,
+            // markers: true,
           },
         }
       );
     });
+    return () => {
+      ctx.revert();
+    };
   });
   useGSAP(() => {
     if (!triggerRef.current) return;
-
-    gsap.fromTo(
-      ".accordion-container",
-      {
-        filter: "blur(10px)",
-        rotate: "6deg",
-        y: 100,
-      },
-      {
-        rotate: "0deg",
-        y: 0,
-        scrollTrigger: {
-          trigger: triggerRef.current,
-          start: "top 90%",
-          toggleActions: "play pause resume reset",
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".accordion-container",
+        {
+          filter: "blur(10px)",
+          rotate: "6deg",
+          y: 100,
         },
-        filter: "blur(0px)",
-        duration: 2,
-        stagger: 0.2,
-        ease: "power4.inOut",
-      }
-    );
+        {
+          rotate: "0deg",
+          y: 0,
+          scrollTrigger: {
+            trigger: triggerRef.current,
+            start: "top 90%",
+            toggleActions: "play pause resume reset",
+          },
+          filter: "blur(0px)",
+          duration: 2,
+          stagger: 0.2,
+          ease: "power4.inOut",
+        }
+      );
+    });
+    return () => {
+      ctx.revert();
+    };
   });
 
   return (
     <div ref={triggerRef} className="w-full h-screen relative faq-trigger">
-      <div ref={colorPurpleRef} className="w-[176px] h-[334px] violet-gradient top-[25%]   -left-[70px]   rounded-full  absolute  -z-10  md:block hidden  rotate-[-10deg]" />
+      <div
+        ref={colorPurpleRef}
+        className="w-[176px] h-[334px] violet-gradient top-[25%]   -left-[70px]   rounded-full  absolute  -z-10  md:block hidden  rotate-[-10deg]"
+      />
       <Bounded className="max-w-screen-2xl w-full h-full  flex items-center justify-between flex-col md:flex-row">
         <div className="flex flex-col gap-6 w-full">
           <div className="flex items-center  gap-2">

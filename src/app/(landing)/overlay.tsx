@@ -6,7 +6,7 @@ export default function OverlayColor() {
   const colorCyanRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    gsap.context(() => {
+    const ctx = gsap.context(() => {
       gsap.fromTo(
         [colorPurpleRef.current, colorCyanRef.current],
         {
@@ -23,11 +23,14 @@ export default function OverlayColor() {
             start: "top 60%",
             end: "bottom 95%",
             toggleActions: "play reverse play reverse", // Ensures it reverses properly
-            markers: true,
+            // markers: true,
           },
         }
       );
     });
+    return () => {
+      ctx.revert();
+    };
   });
 
   return (
