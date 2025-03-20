@@ -14,7 +14,7 @@ export default function ClickToActionContainer() {
   const colorPurpleRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    gsap.context(() => {
+    const ctx = gsap.context(() => {
       gsap.fromTo(
         [colorPurpleRef.current],
         {
@@ -31,125 +31,132 @@ export default function ClickToActionContainer() {
             start: "top 60%",
             end: "bottom 95%",
             toggleActions: "play reverse play reverse", // Ensures it reverses properly
-            markers: true,
+            // markers: true,
           },
         }
       );
     });
+    return () => {
+      ctx.revert();
+    };
   });
-  useGSAP(() => {
-    const wrapper = wrapperRef.current;
-    const scroller = scrollerRef.current;
+  useGSAP(
+    () => {
+      console.log("am listening..");
+      const wrapper = wrapperRef.current;
+      const scroller = scrollerRef.current;
 
-    if (!wrapper || !scroller) return;
+      if (!wrapper || !scroller) return;
 
-    // Clone content for seamless looping
-    const scrollerContent = scroller.innerHTML;
-    scroller.innerHTML = `${scrollerContent}${scrollerContent}`;
+      // Clone content for seamless looping
+      const scrollerContent = scroller.innerHTML;
+      scroller.innerHTML = `${scrollerContent}${scrollerContent}`;
 
-    let imageWidth = 0;
-    const images = scroller.querySelectorAll(
-      ".image-cta",
-    ) as NodeListOf<HTMLDivElement>;
-    images.forEach((img) => {
-      imageWidth += img.offsetWidth + 8;
-    });
+      let imageWidth = 0;
+      const images = scroller.querySelectorAll(
+        ".image-cta"
+      ) as NodeListOf<HTMLDivElement>;
 
-    // Only animate if enough images exist
-    const itemsNeeded = Math.ceil(window.innerWidth / imageWidth);
-
-    const singleSetWidth = imageWidth / 2;
-    function setupInfiniteScroll() {
-      // Create infinite scrolling with proper looping
-      const tl = gsap.timeline({
-        repeat: -1,
-        defaults: { ease: "power4.inOut" },
-      });
-
-      // Move to the negative width of one full set of items
-
-      tl.to(scroller, {
-        x: -singleSetWidth,
-        duration: 32,
-        ease: "linear",
-        onComplete: () => {
-          // Immediately snap back to the beginning, creating the infinite loop effect
-          gsap.set(scroller, { x: 0 + 8 });
-        },
-      });
-    }
-
-    gsap.fromTo(
-      scroller,
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        duration: 2,
-        scrollTrigger: {
-          trigger: wrapper,
-          start: "top 95%",
-          scrub: true,
-          toggleActions: "play none none reverse",
-          //   markers: true,
-        },
-      },
-    );
-
-    if (images.length >= itemsNeeded) {
-      // Calculate the width of a single set of items
-
-      // Set up the infinite scrolling
-
-      setupInfiniteScroll();
-
-      // Keep the original wave effect animation exactly as it was
-      images.forEach((img, index) => {
-        // Create a timeline for each image's motion
-        const tl = gsap.timeline({
-          repeat: -1, // Infinite repetition
-          defaults: { ease: "sine.inOut" },
-        });
-
-        // Create a full 360° cycle animation
-        tl.to(img, {
-          duration: 3,
-          onUpdate: function () {
-            const progress = this.progress();
-            // Calculate the full cycle position, offset by index
-            const cycle = progress * Math.PI * 2 + index * 0.9;
-            // Apply sine wave to y-axis
-            const y = Math.sin(cycle) * 50;
-            // Apply the calculated values
-            gsap.set(img, {
-              y: y,
-            });
-          },
-        });
-      });
-    }
-
-    // Handle resize
-    const handleResize = () => {
-      gsap.killTweensOf(scroller);
-      gsap.set(scroller, { x: 0 });
-
-      // Recalculate image width
-      imageWidth = 0;
       images.forEach((img) => {
         imageWidth += img.offsetWidth + 8;
       });
 
-      // Restart the animations after a small delay to ensure everything is ready
-      setTimeout(() => {
-        setupInfiniteScroll();
-      }, 100);
-    };
+      // Only animate if enough images exist
+      const itemsNeeded = Math.ceil(window.innerWidth / imageWidth);
+      const singleSetWidth = imageWidth / 2;
+      function setupInfiniteScroll() {
+        // Create infinite scrolling with proper looping
+        const tl = gsap.timeline({
+          repeat: -1,
+          defaults: { ease: "power4.inOut" },
+        });
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+        // Move to the negative width of one full set of items
+
+        tl.to(scroller, {
+          x: -singleSetWidth,
+          duration: 5,
+          ease: "linear",
+          onComplete: () => {
+            // Immediately snap back to the beginning, creating the infinite loop effect
+            gsap.set(scroller, { x: 0 + 8 });
+          },
+        });
+      }
+
+      gsap.fromTo(
+        scroller,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 2,
+          scrollTrigger: {
+            trigger: wrapper,
+            start: "top 95%",
+            scrub: true,
+            toggleActions: "play none none reverse",
+            //   markers: true,
+          },
+        }
+      );
+
+      if (images.length >= itemsNeeded) {
+        // Calculate the width of a single set of items
+
+        // Set up the infinite scrolling
+
+        setupInfiniteScroll();
+
+        // Keep the original wave effect animation exactly as it was
+        images.forEach((img, index) => {
+          // Create a timeline for each image's motion
+          const tl = gsap.timeline({
+            repeat: -1, // Infinite repetition
+            defaults: { ease: "sine.inOut" },
+          });
+
+          // Create a full 360° cycle animation
+          tl.to(img, {
+            duration: 3,
+            onUpdate: function () {
+              const progress = this.progress();
+              // Calculate the full cycle position, offset by index
+              const cycle = progress * Math.PI * 2 + index * 0.9;
+              // Apply sine wave to y-axis
+              const y = Math.sin(cycle) * 50;
+              // Apply the calculated values
+              gsap.set(img, {
+                y: y,
+              });
+            },
+          });
+        });
+      }
+
+      // Handle resize
+      const handleResize = () => {
+        gsap.killTweensOf(scroller);
+        gsap.set(scroller, { x: 0 });
+
+        // Recalculate image width
+        imageWidth = 0;
+        images.forEach((img) => {
+          imageWidth += img.offsetWidth + 8;
+        });
+
+        // Restart the animations after a small delay to ensure everything is ready
+        setTimeout(() => {
+          setupInfiniteScroll();
+        }, 100);
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    },
+    { dependencies: [], revertOnUpdate: true }
+  );
 
   return (
     <div className="w-full  h-screen relative cta-trigger ">
@@ -172,8 +179,9 @@ export default function ClickToActionContainer() {
         </div>
       </div>
       <div
-      ref={colorPurpleRef}
-      className="w-[476px] -z-10 h-[334px] bg-overlay-primary  bg-[#6b69d540] left-[38%]  rounded-full  absolute top-[5%]  blur-[100px] " />
+        ref={colorPurpleRef}
+        className="w-[476px] -z-10 h-[334px] bg-overlay-primary  bg-[#6b69d540] left-[38%]  rounded-full  absolute top-[5%]  blur-[100px] "
+      />
       <div className="flex items-center flex-col gap-8 justify-center">
         <MagicPenTitle title="Get started Today" className="text-lg" />
         <p className="grayish-text-gradient text-center text-4xl md:text-6xl font-medium tracking-tighter">
