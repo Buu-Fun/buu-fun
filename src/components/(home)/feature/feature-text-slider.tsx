@@ -1,111 +1,165 @@
-import { motion } from "framer-motion";
-import { useRef } from "react";
-
+import { SliderIconSecondary } from "@/assets/icons/slider-icon-secondary";
+import { features } from "@/components/(home)/feature/feature-data";
+import { cn } from "@/lib/utils";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { RefObject, useEffect, useRef } from "react";
+import SplitTextAnimation from "../elements/animated/split-text-animation";
+gsap.registerPlugin(useGSAP);
 type TFeatureTextSlider = {
-  title: string;
-  description: string;
+  index: number;
+  progressRef: RefObject<number>;
 };
 
-export default function FeatureTextSlider({
-  description,
-  title,
-}: TFeatureTextSlider) {
-  const featureSlider = useRef<HTMLDivElement>(null);
+export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  // const elements = useRef<HTMLDivElement | null[]>([]);
+  useEffect(() => {
+    const divElements = gsap.utils.toArray(
+      ".images-ref"
+    ) as unknown[] as HTMLElement[];
 
-  // Custom transition for arc motion
-  const arcTransition = {
-    type: "spring",
-    stiffness: 50,
-    damping: 20,
-    duration: 5.5,
-    delay: 0.5,
-  };
+    const container = containerRef.current;
+    const ctx = gsap.context(() => {
+      if (!container) return;
+      const radius = container.clientWidth / 2;
+      const centerX = container.clientWidth / 2;
+      const centerY = container.clientHeight / 2;
+      const totalItems = divElements.length;
 
-  return (
-    <motion.div
-      initial={{
-        x: 1600,
-        y: 600,
-        rotate: 90,
-        opacity: 1,
-      }}
-      animate={{
-        x: 0,
-        y: 0,
-        rotate: 0,
-        opacity: 1,
-        transition: {
-          ...arcTransition,
+      // Calculate rotation needed to bring the selected index to 0°
+      // const angleOffset = (index / totalItems) * 360;
 
-          opacity: { duration: 4 },
-        },
-      }}
-      exit={{
-        x: -1600,
-        y: 1200,
-        rotate: -90,
+      divElements.map((item, idx) => {
+        const angle = (idx / totalItems) * Math.PI * 2 - Math.PI / 2; // Start at top
+        const x = centerX + radius * Math.cos(angle) - item.clientWidth / 2;
+        const y = centerY + radius * Math.sin(angle) - item.clientHeight / 2;
+        // rotate: (angle * 180) / Math.PI + 90
+        // , rotate: (angle * 180) / Math.PI + 90
+        gsap.set(item, {
+          x,
+          y,
+          rotate: (angle * 180) / Math.PI + 90,
+          opacity: 0,
+        }); // Opposite rotation to keep text straight
+      });
+    });
+    return () => {
+      ctx.revert();
+    };
+    // Rotate container to bring selected index to top
+  }, [index]);
+
+  useGSAP(() => {
+    const divElements = gsap.utils.toArray(
+      ".images-ref"
+    ) as unknown[] as HTMLElement[];
+    const paragraphs = gsap.utils.toArray(
+      ".feature-text-paragraph"
+    ) as unknown[] as HTMLParagraphElement[];
+
+    const totalItems = divElements.length;
+    const ctx = gsap.context(() => {
+      const container = containerRef.current;
+      const angleOffset = (index / totalItems) * 360;
+
+      if (!container) return;
+
+      const CurrentItem = divElements[index];
+      const currentPara = paragraphs[index];
+      const restOfTheItem = divElements.filter(
+        (item) => item.id !== CurrentItem.id
+      );
+      const restOfPara = paragraphs.filter(
+        (item) => currentPara.id !== item.id
+      );
+
+      gsap.to(container, {
+        rotate: -angleOffset,
+        duration: 2,
+        ease: "power2.out",
+      });
+      gsap.to(restOfTheItem, {
+        rotate: angleOffset,
         opacity: 0,
-        transition: {
-          duration: 1.5,
-          ease: "easeOut",
-        },
-      }}
-      // This creates the arc-like movement
-      style={{
-        originX: 0,
-        originY: 0,
-      }}
-      // Using custom Framer Motion features for path animation
-      transition={{
-        x: {
-          ...arcTransition,
-          ease: "circOut", // Circular easing for arc effect
-        },
-        y: {
-          ...arcTransition,
-          ease: "circOut", // Circular easing for arc effect
-        },
-        rotate: {
-          ...arcTransition,
-        },
-      }}
-      className="relative -top-32"
-    >
-      <motion.div
-        ref={featureSlider}
-        className="flex items-center justify-center flex-col"
-      >
-        <motion.h2
-          key={title}
-          initial={{ opacity: 1 }}
-          animate={{
-            opacity: 1,
-            transition: { delay: 1.2, duration: 0.8 },
-          }}
-          exit={{
-            opacity: 0,
-            transition: { duration: 0.5 },
-          }}
-          className="text-xl font-bold"
+        duration: 1,
+        ease: "power4.inOut",
+      });
+
+      gsap.to(CurrentItem, {
+        rotate: angleOffset,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+      });
+
+      gsap.to(restOfPara, {
+        opacity: 0,
+        duration: 0.5,
+      });
+
+      gsap.fromTo(
+        currentPara,
+        { opacity: 0, y: 20 },
+        { opacity: 1, duration: 1.5, y: 0, delay: 0.7, ease: "power4.inOut" }
+      );
+    });
+    return () => {
+      ctx.revert();
+    };
+  }, [index]);
+  return (
+    <div className="w-full  h-full  border-yellow-300 relative overflow-hidden">
+      <div className="w-[100%]  aspect-square  border-green-400 absolute mx-auto -bottom-[64%] rounded-full">
+        <div
+          className=" rounded-full  aspect-square border-green-300"
+          ref={containerRef}
         >
-          {title}
-        </motion.h2>
-        <motion.p
-          key={description}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: 1,
-            transition: { delay: 1.5, duration: 0.8 },
-          }}
-          exit={{
-            opacity: 0,
-            transition: { duration: 0.3 },
-          }}
-          className="mt-2 max-w-sm text-center"
-        >
-          {description}
-        </motion.p>
-      </motion.div>
-    </motion.div>
+          {features.map((item, ItemIndex) => {
+            return (
+              <div
+                key={`feature-text-key-${item.title.trim()}`}
+                id={`feature-text-index-${ItemIndex}`}
+                className={cn("images-ref absolute opacity-0 ", {
+                  "opacity-0": index !== ItemIndex,
+                })}
+              >
+                <div className="relative ">
+                  <div className="flex items-center gap-2 justify-center flex-col text-center">
+                    <h1
+                      className={cn("text-2xl font-medium tracking-tight", {
+                        "opacity-0": index !== ItemIndex,
+                      })}
+                    >
+                      <SplitTextAnimation
+                        isChanged={index !== ItemIndex}
+                        text={item.title}
+                      />
+                    </h1>
+                    <div>
+                      <p
+                        id={`feature-para-${ItemIndex}`}
+                        // ease-in-out transition-opacity duration-700
+                        className={cn(
+                          "font-medium max-w-sm opacity-0  feature-text-paragraph",
+                          {
+                            // "opacity-0": index !== ItemIndex,
+                          }
+                        )}
+                      >
+                        {item.description}
+                      </p>
+                      <div className="flex items-center pt-2 justify-center">
+                        <SliderIconSecondary index={index} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 }

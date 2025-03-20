@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 
-export const ArchGradient = ({}: { index: number }) => {
+export const ArchGradient = () => {
   return (
     <AnimatePresence>
       <motion.svg
-        viewBox="0 0 499 113"
+        viewBox="0 0 498 120"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
