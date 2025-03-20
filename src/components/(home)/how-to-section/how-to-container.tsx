@@ -65,7 +65,7 @@ export default function HowToContainer() {
     const sections = Array.from(container.children) as HTMLElement[];
     const totalSectionsWidth = sections.reduce(
       (acc, section) => acc + section.offsetWidth,
-      0
+      0,
     );
 
     // Calculate the endpoint - don't allow overscrolling
@@ -161,7 +161,7 @@ export default function HowToContainer() {
 
       cleanup.current();
     };
-  }, []);
+  }, [setupScrollTrigger]);
 
   return (
     <div className="h-screen trig overflow-hidden relative">

@@ -16,7 +16,7 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
   // const elements = useRef<HTMLDivElement | null[]>([]);
   useEffect(() => {
     const divElements = gsap.utils.toArray(
-      ".images-ref"
+      ".images-ref",
     ) as unknown[] as HTMLElement[];
 
     const container = containerRef.current;
@@ -52,10 +52,10 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
 
   useGSAP(() => {
     const divElements = gsap.utils.toArray(
-      ".images-ref"
+      ".images-ref",
     ) as unknown[] as HTMLElement[];
     const paragraphs = gsap.utils.toArray(
-      ".feature-text-paragraph"
+      ".feature-text-paragraph",
     ) as unknown[] as HTMLParagraphElement[];
 
     const totalItems = divElements.length;
@@ -68,10 +68,10 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
       const CurrentItem = divElements[index];
       const currentPara = paragraphs[index];
       const restOfTheItem = divElements.filter(
-        (item) => item.id !== CurrentItem.id
+        (item) => item.id !== CurrentItem.id,
       );
       const restOfPara = paragraphs.filter(
-        (item) => currentPara.id !== item.id
+        (item) => currentPara.id !== item.id,
       );
 
       gsap.to(container, {
@@ -101,7 +101,7 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
       gsap.fromTo(
         currentPara,
         { opacity: 0, y: 20 },
-        { opacity: 1, duration: 1.5, y: 0, delay: 0.7, ease: "power4.inOut" }
+        { opacity: 1, duration: 1.5, y: 0, delay: 0.7, ease: "power4.inOut" },
       );
     });
     return () => {
@@ -144,7 +144,7 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
                           "font-medium max-w-sm opacity-0  feature-text-paragraph",
                           {
                             // "opacity-0": index !== ItemIndex,
-                          }
+                          },
                         )}
                       >
                         {item.description}

@@ -28,7 +28,6 @@ export default function ReferralPage() {
           <ReferralEarnings />
           <CopyReferralWrapper />
           <HowExportWorks />
-          
         </div>
         <div className="flex items-center flex-col justify-center pt-10">
           <h4 className="text-xl font-medium tracking-tight">Your Referrals</h4>

@@ -123,14 +123,14 @@ export default function SettingsCardContainer() {
                   height={170}
                 />
               </button>
-            )
+            ),
           )}
         </div>
       </TabsContent>
       <TabsContent id="video-container" className="" value="video">
         <div className="flex flex-1 flex-shrink gap-2">
           {ThreeDImages.sort((a, b) =>
-            a.alt.length > b.alt.length ? 1 : -1
+            a.alt.length > b.alt.length ? 1 : -1,
           ).map((item, index) => (
             <button
               key={`${index}-${item.alt}-video`}

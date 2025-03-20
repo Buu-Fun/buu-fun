@@ -44,7 +44,7 @@ export default function TestimonialsContainer() {
           width: `${100}%`,
           duration: totalDuration,
           repeat: Infinity,
-        }
+        },
       );
     });
     return () => {
@@ -65,7 +65,7 @@ export default function TestimonialsContainer() {
           ease: "power4.inOut",
           duration: 2.5,
           stagger: 0.1,
-        }
+        },
       );
       gsap.fromTo(
         ".word",
@@ -75,7 +75,7 @@ export default function TestimonialsContainer() {
           ease: "power4.inOut",
           duration: 2.5,
           stagger: 0.15,
-        }
+        },
       );
     }, textRef.current);
 

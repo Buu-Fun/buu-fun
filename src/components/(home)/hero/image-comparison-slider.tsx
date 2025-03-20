@@ -123,7 +123,7 @@ export default function ImageComparisonSlider() {
                 // Calculate which feature index we should be on (starting from index 1)
                 const mappedIndex = Math.min(
                   features.length - 1,
-                  Math.floor(adjustedProgress / segmentSize)
+                  Math.floor(adjustedProgress / segmentSize),
                 );
 
                 // Only update state if index is actually changing
@@ -144,7 +144,7 @@ export default function ImageComparisonSlider() {
         ctx.revert();
       };
     },
-    { dependencies: [], revertOnUpdate: true }
+    { dependencies: [], revertOnUpdate: true },
   );
 
   // Set up responsive positioning that works with any aspect ratio

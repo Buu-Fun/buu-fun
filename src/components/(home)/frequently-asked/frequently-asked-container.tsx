@@ -43,7 +43,7 @@ export default function FrequentlyAskedContainer() {
             toggleActions: "play reverse play reverse", // Ensures it reverses properly
             // markers: true,
           },
-        }
+        },
       );
     });
     return () => {
@@ -72,7 +72,7 @@ export default function FrequentlyAskedContainer() {
           duration: 2,
           stagger: 0.2,
           ease: "power4.inOut",
-        }
+        },
       );
     });
     return () => {

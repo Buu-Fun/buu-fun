@@ -85,7 +85,7 @@ const Mock3DCard = memo(function Mock3DCard({
               "w-full h-full hidden items-center bg-black/30 relative justify-center",
               {
                 "z-20 flex bg-none absolute": isGenerating,
-              }
+              },
             )}
           >
             <div className="flex items-center justify-center gap-2">

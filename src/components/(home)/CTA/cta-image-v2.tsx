@@ -7,9 +7,8 @@ import gsap from "gsap";
 export default function CtaImage() {
   useGSAP(() => {
     const image = gsap.utils.toArray(
-      ".image-cta"
+      ".image-cta",
     ) as unknown[] as HTMLDivElement[];
-    let imageWidth = 0;
 
     const ctx = gsap.context(() => {
       // Create a single master timeline
@@ -30,7 +29,7 @@ export default function CtaImage() {
               img.style.transform = `translateY(${y}px)`;
             });
           },
-        }
+        },
       );
     });
 

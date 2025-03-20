@@ -49,7 +49,7 @@ export default function HomeNavigationBar() {
         triggers.forEach((trigger) => trigger.kill());
       };
     },
-    { dependencies: [], revertOnUpdate: true }
+    { dependencies: [], revertOnUpdate: true },
   );
 
   // Animate the indicator with GSAP when activeLink changes

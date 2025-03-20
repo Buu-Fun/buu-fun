@@ -1,10 +1,7 @@
 "use client";
-import { CTAImages } from "@/assets/Image";
-import { useGSAP } from "@gsap/react";
-import Image from "next/image";
-import React, { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 import MagicPenTitle from "../elements/magic-pen-title";
 import TryNow from "../elements/try-now";
 import CtaImage from "./cta-image-v2";

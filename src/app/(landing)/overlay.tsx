@@ -25,7 +25,7 @@ export default function OverlayColor() {
             toggleActions: "play reverse play reverse", // Ensures it reverses properly
             // markers: true,
           },
-        }
+        },
       );
     });
     return () => {

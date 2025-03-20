@@ -20,7 +20,7 @@ export default function CTAImageScroller() {
 
       let imageWidth = 0;
       const images = scroller.querySelectorAll(
-        ".image-cta"
+        ".image-cta",
       ) as NodeListOf<HTMLDivElement>;
 
       images.forEach((img) => {
@@ -65,7 +65,7 @@ export default function CTAImageScroller() {
             toggleActions: "play none none reverse",
             //   markers: true,
           },
-        }
+        },
       );
 
       if (images.length >= itemsNeeded) {
@@ -121,7 +121,7 @@ export default function CTAImageScroller() {
       window.addEventListener("resize", handleResize);
       return () => window.removeEventListener("resize", handleResize);
     },
-    { dependencies: [], revertOnUpdate: true }
+    { dependencies: [], revertOnUpdate: true },
   );
 
   return (

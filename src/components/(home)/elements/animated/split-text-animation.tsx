@@ -11,7 +11,8 @@ export default function SplitTextAnimation({
   const textRef = useRef<HTMLElement>(null);
 
   const splitText = useMemo(() => {
-    if(isChanged){}
+    if (isChanged) {
+    }
     return text.split(/(\s+)/).map((word, index) => {
       if (word.match(/^\s+$/)) return word;
       return (
@@ -37,7 +38,7 @@ export default function SplitTextAnimation({
           ease: "power4.inOut",
           duration: 2.5,
           stagger: 0.2,
-        }
+        },
       );
       gsap.fromTo(
         ".word",
@@ -48,7 +49,7 @@ export default function SplitTextAnimation({
           ease: "power4.inOut",
           duration: 2.5,
           stagger: 0.15,
-        }
+        },
       );
     }, textRef.current);
 
@@ -56,5 +57,9 @@ export default function SplitTextAnimation({
       ctx.revert();
     };
   }, [splitText, isChanged]);
-  return <span ref={textRef} className="relative">{splitText}</span>;
+  return (
+    <span ref={textRef} className="relative">
+      {splitText}
+    </span>
+  );
 }
