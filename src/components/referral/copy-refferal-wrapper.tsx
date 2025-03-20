@@ -20,7 +20,7 @@ export default function CopyReferralWrapper() {
       return getUserReferral({ accessToken: identityToken });
     },
   });
-  const ReferralCode = `https://buu.fun/?ref=${data?.referralCode}`;
+  const ReferralCode = `https://buu.fun/app?ref=${data?.referralCode}`;
   function handleCopy() {
     if (!data?.referralCode) return;
     window.navigator.clipboard.writeText(ReferralCode);
