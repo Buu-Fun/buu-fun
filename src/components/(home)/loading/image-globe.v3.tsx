@@ -5,7 +5,6 @@ import { useEffect, useMemo, useRef } from "react";
 import { Group } from "three";
 import ImageCard from "./card/image-card";
 import { imageUrls } from "./image-data";
-import { useGSAP } from "@gsap/react";
 
 export default function ImageGlobeV3({
   finishedLoading,

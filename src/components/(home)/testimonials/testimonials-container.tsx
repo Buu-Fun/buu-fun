@@ -7,6 +7,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { testimonialsData } from "./testimonial-data";
+
 // if (window !== undefined) {
 //   gsap.registerPlugin(useGSAP);
 // }
@@ -32,21 +33,26 @@ export default function TestimonialsContainer() {
     });
   }, [currentIndex]);
 
-  useEffect(() => {
+  useGSAP(() => {
     if (!progressRef.current) return;
     const totalDuration = testimonialsData.length * (SLIDE_CHANGE_IN / 1000); // Total time for all slides
-    gsap.fromTo(
-      progressRef.current,
-      { width: "0%" },
-      {
-        width: `${100}%`,
-        duration: totalDuration,
-        repeat: Infinity,
-      }
-    );
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        progressRef.current,
+        { width: "0%" },
+        {
+          width: `${100}%`,
+          duration: totalDuration,
+          repeat: Infinity,
+        }
+      );
+    });
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
-  useEffect(() => {
+  useGSAP(() => {
     if (!textRef.current) return;
 
     const ctx = gsap.context(() => {
@@ -73,7 +79,9 @@ export default function TestimonialsContainer() {
       );
     }, textRef.current);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, [splitText, currentIndex]);
 
   useEffect(() => {

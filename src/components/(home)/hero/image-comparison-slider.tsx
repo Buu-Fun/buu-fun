@@ -1,40 +1,35 @@
 "use client";
-import {
-  CircularMotion,
-  SliderIconSecondary,
-} from "@/assets/icons/slider-icon-secondary";
 import { MutantAlien, MutantAlienWireFrame } from "@/assets/Image";
+import MutantMesh from "@/assets/Image/home/mutant-mesh";
 import { useGSAP } from "@gsap/react";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
-import { useLayoutEffect, useRef, useState } from "react";
+import { createRef, useLayoutEffect, useRef, useState } from "react";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
 } from "react-compare-slider";
-// import { ArchGradient } from "./arch-gradient";
-// import { features } from "./feature-data";
-// import FeatureTextSlider from "./feature-text-slider";
-// import FeatureTopBar, {
-//   FeatureRobloxTopBar,
-//   ScanningOverlay,
-// } from "./feature-top-bar";
-import MutantMesh from "@/assets/Image/home/mutant-mesh";
 import { ArchGradient } from "../feature/arch-gradient";
 import { features } from "../feature/feature-data";
-import FeatureTextSlider from "../feature/feature-text-slider";
 import {
   FeatureRobloxTopBar,
   ScanningOverlay,
 } from "../feature/feature-top-bar";
 import { AnimatedBringYourIdeas } from "./bring-ideas";
 import SliderHandle from "./slider-handle";
+// import FeatureTextSlider from "@/app/(landing)/(navigated)/test/feature-arch";
+import FeatureTextSlider from "../feature/feature-text-slider";
 gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(useGSAP);
+
+// Distance from center for the circular text slider
 
 export default function ImageComparisonSlider() {
   const [position, setPosition] = useState(40);
+  const [sliderInView, setSliderInView] = useState(false);
+  const sliderInViewRef = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const sliderContainerRef = useRef<HTMLDivElement>(null);
   const featureContainerRef = useRef<HTMLElement>(null);
@@ -42,102 +37,115 @@ export default function ImageComparisonSlider() {
   const bringYourIdeaContent = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const imageRef = useRef<HTMLImageElement>(null);
-  // const [index, setIndex] = useState(0);
-  // const [prevIndex, setPrevIndex] = useState(0);
   const progressRef = useRef(0);
 
-  useGSAP(() => {
-    if (!featureContainerRef.current) return;
-    const featurePinWidth = Math.round(features.length);
-    const featureWidth = featureContainerRef.current.clientWidth;
+  // Create refs for feature text elements
+  // const textSliderContainerRef = useRef<HTMLDivElement>(null);
+  const textRefs = useRef<Array<React.RefObject<HTMLDivElement | null>>>([]);
 
-    console.log(featurePinWidth);
-    const ctx = gsap.context(() => {
-      gsap.to(containerRef, {
-        duration: 2,
-        ease: "power2.inOut",
-        stagger: 0.5,
-        onUpdate: function () {
-          setPosition((this.progress() + 0.4) * 100);
-        },
-        scrollTrigger: {
-          end: featureWidth * features.length,
-          pin: true,
-          trigger: containerRef.current,
-          start: "top top",
-          toggleActions: "play none none reverse",
-          onUpdate(event) {
-            if (
-              !sliderContainerRef.current ||
-              !featureContainerRef.current ||
-              !backgroundImageRef.current ||
-              !bringYourIdeaContent.current
-            ) {
-              return;
-            }
+  // Initialize refs array if empty
+  if (textRefs.current.length === 0) {
+    textRefs.current = Array(features.length)
+      .fill(null)
+      .map(() => createRef<HTMLDivElement>());
+  }
 
-            const progress = event.progress * 100;
-            sliderContainerRef.current.style.opacity = `${Math.round(100 - progress * 5)}%`;
-            bringYourIdeaContent.current.style.opacity = `${Math.round(100 - progress * 5)}%`;
-            bringYourIdeaContent.current.style.zIndex = "100";
-            backgroundImageRef.current.style.filter = `blur(${Math.round(progress * 0.1)}px)`;
-            featureContainerRef.current.style.opacity = `${progress * 5}%`;
-            featureContainerRef.current.style.zIndex = `0`;
-            // Handle slider opacity
-            // Handle z-index changes
-            if (progress > 25) {
-              sliderContainerRef.current.style.zIndex = `0`;
-            } else {
-              // sliderContainerRef.current.style.zIndex = `2`;
-            }
-            progressRef.current = progress;
-            console.log(`INDEX:`, index);
-            // if (progress <= 30 && index !== 0) {
-            //   setIndex(0);
-            //   setPrevIndex(0);
-            //   console.log(`Setting index to 0 at progress ${progress}`);
-            // } else
-            if (progress >= 25) {
-              const adjustedProgress = progress - 30;
-              // Divide the remaining 70% among features.length - 1 (since index 0 is already shown)
-              const remainingFeatures = features.length;
-              const segmentSize = 70 / remainingFeatures;
+  useGSAP(
+    () => {
+      if (!featureContainerRef.current) return;
 
-              // Calculate which feature index we should be on (starting from index 1)
-              const mappedIndex = Math.min(
-                features.length - 1,
-                Math.floor(adjustedProgress / segmentSize),
-              );
+      const featureWidth = featureContainerRef.current.clientHeight;
 
-              // console.log(
-              //   `MAPPED INDEX: ${mappedIndex}`,
-              //   `INDEX: ${index}`,
-              //   `PROGRESS: ${progress}`
-              // );
-
-              // Only update state if index is actually changing
-              if (mappedIndex === 0) {
-                // setPrevIndex(0);
-                setIndex(0);
+      const ctx = gsap.context(() => {
+        gsap.to(containerRef, {
+          duration: 2,
+          ease: "power2.inOut",
+          stagger: 0.5,
+          onUpdate: function () {
+            setPosition((this.progress() + 0.4) * 100);
+          },
+          scrollTrigger: {
+            end: featureWidth * features.length + window.innerHeight,
+            pin: true,
+            trigger: containerRef.current,
+            start: "top top",
+            toggleActions: "play none none reverse",
+            onUpdate(event) {
+              if (
+                !sliderContainerRef.current ||
+                !featureContainerRef.current ||
+                !backgroundImageRef.current ||
+                !bringYourIdeaContent.current
+              ) {
                 return;
               }
-              if (mappedIndex > 0 && mappedIndex !== index) {
-                // setPrevIndex(index);
-                setIndex(mappedIndex);
-                console.log(
-                  `Setting index to ${mappedIndex} at progress ${progress}`,
-                );
+
+              const progress = event.progress * 100;
+              sliderContainerRef.current.style.opacity = `${Math.round(100 - progress * 5)}%`;
+              bringYourIdeaContent.current.style.opacity = `${Math.round(100 - progress * 5)}%`;
+              backgroundImageRef.current.style.filter = `blur(${Math.round(progress * 0.1)}px)`;
+              featureContainerRef.current.style.opacity = `${progress * 5}%`;
+              featureContainerRef.current.style.zIndex = `0`;
+
+              // Handle slider opacity
+              // Handle z-index changes
+              if (progress < 20) {
+                if (sliderInViewRef.current) {
+                  sliderInViewRef.current = false;
+                  setSliderInView(false);
+                }
               }
-            }
+              if (progress > 20) {
+                sliderContainerRef.current.style.zIndex = `0`;
+              } else {
+                sliderContainerRef.current.style.zIndex = `50`;
+              }
 
-            // Set feature container properties
+              progressRef.current = progress;
+              console.log(`INDEX:`, index);
+              // if (progress <= 30 && index !== 0) {
+              //   setIndex(0);
+              //   setPrevIndex(0);
+              //   console.log(`Setting index to 0 at progress ${progress}`);
+              // } else
+              if (progress >= 20) {
+                bringYourIdeaContent.current.style.zIndex = "100";
+                if (!sliderInViewRef.current) {
+                  sliderInViewRef.current = true;
+                  setSliderInView(true);
+                }
+
+                const adjustedProgress = progress - 20;
+                // Divide the remaining 70% among features.length - 1 (since index 0 is already shown)
+                const remainingFeatures = features.length - 1;
+                const segmentSize = 60 / remainingFeatures;
+
+                // Calculate which feature index we should be on (starting from index 1)
+                const mappedIndex = Math.min(
+                  features.length - 1,
+                  Math.floor(adjustedProgress / segmentSize)
+                );
+
+                // Only update state if index is actually changing
+                if (mappedIndex === 0) {
+                  setIndex(0);
+                  return;
+                }
+                if (mappedIndex > 0 && mappedIndex !== index) {
+                  setIndex(mappedIndex);
+                }
+              }
+            },
           },
-        },
-      });
-    }, containerRef);
+        });
+      }, containerRef);
 
-    return () => ctx.revert();
-  }, []);
+      return () => {
+        ctx.revert();
+      };
+    },
+    { dependencies: [], revertOnUpdate: true }
+  );
 
   // Set up responsive positioning that works with any aspect ratio
   useLayoutEffect(() => {
@@ -161,9 +169,6 @@ export default function ImageComparisonSlider() {
       // Get current container dimensions
       const containerWidth = containerRef.current.offsetWidth;
       const containerHeight = containerRef.current.offsetHeight;
-
-      // Calculate how the background image is actually rendered
-      // const bgImage = backgroundRef.current;
 
       // Get background image dimensions as it's rendered
       const bgRatio = designWidth / designHeight;
@@ -212,18 +217,8 @@ export default function ImageComparisonSlider() {
   }, []);
 
   const direction = 1;
-  // Enhanced animation timing control
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  // setPrevIndex(index);
-  // setIndex((prev) => (prev + 1) % features.length);
-  //   }, 6000);
-  //   return () => clearInterval(interval);
-  // }, [index]);
 
   useLayoutEffect(() => {
-    // These are the coordinates and dimensions from the design
-    // Based on the 1920x1080 reference.
     const designWidth = 1920;
     const designHeight = 1080;
 
@@ -242,9 +237,6 @@ export default function ImageComparisonSlider() {
       // Get current container dimensions
       const containerWidth = containerRef.current.offsetWidth;
       const containerHeight = containerRef.current.offsetHeight;
-
-      // Calculate how the background image is actually rendered
-      // const bgImage = backgroundRef.current;
 
       // Get background image dimensions as it's rendered
       const bgRatio = designWidth / designHeight;
@@ -292,10 +284,6 @@ export default function ImageComparisonSlider() {
     return () => window.removeEventListener("resize", updateSliderPosition);
   }, []);
 
-  // Determine if we should animate background based on whether it has changed
-  // const shouldAnimateBackground =
-  //   features[index].background !== features[prevIndex].background;
-
   // Define enhanced variants for smoother animations
   const backgroundVariants = {
     initial: {
@@ -323,53 +311,63 @@ export default function ImageComparisonSlider() {
   // Enhanced image variants for morphing effect
   const imageVariants: Variants = {
     initial: {
-      opacity: 0.2,
-      // scale: 0.95,
-      transition: {
-        // duration: 0.4,
-      },
+      opacity: 0.3,
+      // transition: { delay: 1 },
     },
     animate: {
       opacity: 1,
-      // scale: 1,
       transition: {
-        duration: 1.2,
-        // ease: [0.43, 0.13, 0.23, 0.96], // Custom easing for smoother transition
+        duration: 2,
+        ease: "easeInOut",
       },
     },
     exit: {
       opacity: 0.2,
-      // scale: 1,
       transition: {
-        duration: 0.8, // Match the duration of the entering animation
-        // ease: [0.43, 0.13, 0.23, 0.96],
+        duration: 1.5,
       },
     },
   };
+
   return (
     <div ref={containerRef} className="relative h-[100vh] w-full">
       <div
         ref={backgroundImageRef}
         className="h-full absolute top-0 left-0 w-full "
       >
-        <AnimatePresence initial={false} mode="popLayout">
-          <Image
-            ref={imageRef}
-            src={features[index].background}
+        <AnimatePresence initial={true} mode="popLayout">
+          <motion.div
             key={`${features[index].background}`}
-            width={1920}
-            height={1080}
-            className="w-full h-full object-cover"
-            alt="Home page background"
-            priority
-          />
+            initial={{
+              opacity: 0.2,
+            }}
+            animate={{
+              transition: { duration: 1.5, ease: "easeInOut" },
+              opacity: 1,
+            }}
+            exit={{
+              opacity: 0,
+              transition: { duration: 1.5, ease: "easeInOut" },
+            }}
+            className="w-full h-full"
+          >
+            <Image
+              ref={imageRef}
+              src={features[index].background}
+              width={1920}
+              height={1080}
+              className="w-full h-full object-cover"
+              alt="Home page background"
+              priority
+            />
+          </motion.div>
         </AnimatePresence>
       </div>
 
       <section
         id="bring-your-ideas"
         ref={sliderContainerRef}
-        className="absolute z-10  overflow-visible"
+        className="absolute z-10 overflow-visible"
       >
         <ReactCompareSlider
           className="w-full h-full z-[20] overflow-visible"
@@ -409,10 +407,10 @@ export default function ImageComparisonSlider() {
           {features[index].autoRig ? (
             <motion.div
               key={`auto-rig-${index}`}
-              initial={{ opacity: 0.3 }}
+              initial={{ opacity: 0.4 }}
               animate={{ opacity: 1, transition: { duration: 0.8 } }}
               exit={{ opacity: 0, transition: { duration: 0.6 } }}
-              className="w-[120%] z-50 h-full bottom-0 absolute "
+              className="w-[115%] z-50 h-full bottom-0 absolute "
             >
               <MutantMesh />
             </motion.div>
@@ -435,16 +433,13 @@ export default function ImageComparisonSlider() {
               animate={{ opacity: 1, transition: { duration: 0.6 } }}
               exit={{ opacity: 0, transition: { duration: 0.3 } }}
             >
-              {
-                features[index].scan ? <FeatureRobloxTopBar /> : null
-                // <FeatureTopBar />
-              }
+              {features[index].scan ? <FeatureRobloxTopBar /> : null}
             </motion.div>
           </AnimatePresence>
         </motion.div>
 
-        <div className="w-[120%] rounded-full h-[50%] bg-[#0C0C0D] blur-[150px] absolute left-[-10%] bottom-[-30%] z-30" />
-        <div className="relative overflow-hidden border-white/20 border rounded-2xl">
+        <div className="w-[100%] rounded-full h-[50%] bg-[#0C0C0D] blur-[150px] absolute left-[-10%] bottom-[-30%] z-30" />
+        <div className="relative overflow-visible border-white/20 w-full h-full  border-2 rounded-2xl">
           <AnimatePresence mode="popLayout" initial={false}>
             {features[index].scan ? (
               <motion.div
@@ -452,7 +447,7 @@ export default function ImageComparisonSlider() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { duration: 0.8 } }}
                 exit={{ opacity: 0, transition: { duration: 0.6 } }}
-                className="z-20 w-full  h-full absolute top-0 left-0"
+                className="z-20 w-full h-full absolute top-0 left-0"
               >
                 <ScanningOverlay />
               </motion.div>
@@ -466,7 +461,7 @@ export default function ImageComparisonSlider() {
               animate="animate"
               exit="exit"
               variants={backgroundVariants}
-              className="w-full h-full"
+              className="w-full h-full "
             >
               <Image
                 width={1080}
@@ -502,25 +497,13 @@ export default function ImageComparisonSlider() {
             </div>
           </AnimatePresence>
 
-          <motion.div className="absolute bottom-[-10%]  w-full z-50">
-            <div className="relative">
-              <div className="mx-auto w-full flex items-center justify-center">
-                {/* Circular motion container */}
-                <CircularMotion index={index}>
-                  <SliderIconSecondary index={index} />
-                </CircularMotion>
-              </div>
-              <div className="flip">
-                <ArchGradient key={`${index}-ArchGradient`} index={index} />
-              </div>
+          <motion.div className="absolute top-0 left-0 h-full w-full z-50 overflow-hidden pointer-events-none">
+            <div className="flip absolute bottom-0  w-full h-[6%]">
+              {sliderInView ? <ArchGradient /> : null}
             </div>
-            <div className="w-[100%] absolute bottom-[20%] z-50">
-              <AnimatePresence mode="popLayout" initial={false} propagate>
-                <FeatureTextSlider
-                  title={features[index].title}
-                  description={features[index].description}
-                  key={`text-${index}`}
-                />
+            <div className="w-full relative h-full z-50">
+              <AnimatePresence mode="wait" initial={false}>
+                <FeatureTextSlider progressRef={progressRef} index={index} />
               </AnimatePresence>
             </div>
           </motion.div>
