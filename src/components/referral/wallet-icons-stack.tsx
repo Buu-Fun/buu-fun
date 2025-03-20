@@ -15,7 +15,7 @@ export default function WalletIconStack() {
             key={index}
             className={cn(
               "w-6 h-6 rounded-full overflow-hidden relative",
-              index > 0 ? `-ml-1.5` : ""
+              index > 0 ? `-ml-1.5` : "",
             )}
           >
             <Image

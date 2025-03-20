@@ -1,9 +1,36 @@
-import React from "react";
-
+"use client";
+import gsap from "gsap";
+import { useEffect, useRef } from "react";
 export default function MutantMesh() {
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    if (svgRef.current) {
+      const paths = svgRef.current.querySelectorAll("path");
+      // Set initial state for all paths
+      paths.forEach((path) => {
+        const length = path.getTotalLength();
+        // Set up the starting position
+        path.style.strokeDasharray = `${length}`;
+        path.style.strokeDashoffset = `${length}`;
+        path.style.opacity = "0.6";
+      });
+
+      // Animate each path
+      paths.forEach((path, index) => {
+        gsap.to(path, {
+          strokeDashoffset: 0,
+          duration: 1.5,
+          delay: index * 0.04, // Stagger effect
+          ease: "power2.inOut",
+        });
+      });
+    }
+  }, []);
   return (
     <svg
-      viewBox="-50 -70 622 681"
+      ref={svgRef}
+      viewBox="-65 -72 622 681"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

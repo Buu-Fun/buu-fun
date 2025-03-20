@@ -7,13 +7,13 @@ import { WalletWithMetadata } from "@privy-io/react-auth";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "../ui/dialog";
 import WalletIconStack from "./wallet-icons-stack";
 
@@ -31,7 +31,7 @@ export default function ExportSolanaWallet({
       (account): account is WalletWithMetadata =>
         account.type === "wallet" &&
         account.walletClientType === "privy" &&
-        account.chainType === "solana"
+        account.chainType === "solana",
     );
   return (
     <Dialog>

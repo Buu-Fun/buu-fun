@@ -61,10 +61,8 @@ export const CircularMotion = ({
   index: number;
   children: ReactNode;
 }) => {
-  //   const radius = 10; // Radius of circular motion
-
   return (
-    <div className="relative w-20 h-20 flex items-center justify-center">
+    <div className="relative w-20 h-12  flex items-center justify-center">
       <motion.div
         className="absolute"
         transition={{

@@ -10,7 +10,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
 import DevilWomen from "./DevilWomen.png";
 import Mock3DCard from "./mock-3d-card";
-export default function MobileMockCard({ progress }: { progress: number }) {
+export default function MobileMockCard({ showModel }: { showModel: boolean }) {
   return (
     <div className="border-2  border-muted-foreground/20 flex flex-col bg-background rounded-[30px]  w-full h-full px-2 py-2">
       <div className="flex  w-full justify-between px-1 py-2">
@@ -57,8 +57,8 @@ export default function MobileMockCard({ progress }: { progress: number }) {
         <div className="px-1 mt-2">
           <Mock3DCard
             isCurrent={true}
-            modelUrl={progress > 0.3 ? "/women-3d-devil.glb" : undefined}
-            isGenerating={progress > 0.3 ? false : true}
+            modelUrl={showModel ? "/women-3d-devil.glb" : undefined}
+            isGenerating={showModel ? false : true}
             imageUrl={DevilWomen.src}
           />
         </div>

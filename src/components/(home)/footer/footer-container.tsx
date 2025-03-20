@@ -25,52 +25,55 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   // Register ScrollTrigger with GSAP
-  useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
 
-    // Initialize ScrollTrigger for the reveal effect
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top bottom",
-        end: "bottom bottom",
-        scrub: 1,
-      },
-    });
+      // Initialize ScrollTrigger for the reveal effect
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom bottom",
+          scrub: 1,
+        },
+      });
 
-    // Animate the image reveal
-    tl.fromTo(
-      imageRef.current,
-      {
-        y: "100%",
-      },
-      {
-        y: "0%",
-        duration: 1.5,
-        ease: "power2.out",
-      },
-    );
+      // Animate the image reveal
+      tl.fromTo(
+        imageRef.current,
+        {
+          y: "100%",
+        },
+        {
+          y: "0%",
+          duration: 1.5,
+          ease: "power2.out",
+        },
+      );
 
-    // Animate the content
-    tl.fromTo(
-      contentRef.current,
-      {
-        y: 50,
-      },
-      {
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
-      },
-      "-=1",
-    );
+      // Animate the content
+      tl.fromTo(
+        contentRef.current,
+        {
+          y: 50,
+        },
+        {
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+        },
+        "-=1",
+      );
 
-    return () => {
-      if (tl.scrollTrigger) {
-        tl.scrollTrigger.kill();
-      }
-    };
-  }, []);
+      return () => {
+        if (tl.scrollTrigger) {
+          tl.scrollTrigger.kill();
+        }
+      };
+    },
+    { dependencies: [], revertOnUpdate: true },
+  );
 
   // Framer Motion parallax effect
   const { scrollYProgress } = useScroll({

@@ -1,18 +1,19 @@
 import { RectangleRounded } from "@/lib/helpers/threejs/rectangle-rounded";
+import { useGSAP } from "@gsap/react";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { DoubleSide, Mesh, TextureLoader } from "three";
 import { getPositionByIndex, getRotationByIndex } from "./get-positions";
-
+gsap.registerPlugin(useGSAP);
 export default function ImageCard({
-  progress,
+  finishedLoading,
   total,
   imageUrl,
   index,
 }: {
   index: number;
-  progress: number;
+  finishedLoading: boolean;
   total: number;
   imageUrl: string;
 }) {
@@ -41,19 +42,19 @@ export default function ImageCard({
   useFrame(() => {
     if (!meshRef.current) return;
 
-    if (progress < 100) {
+    if (!finishedLoading) {
       meshRef.current.rotation.z += 0.01;
       //   meshRef.current.rotation.x -= 0.08;
       meshRef.current.rotation.y -= 0.05;
     } else {
     }
   });
-  useEffect(() => {
+  useGSAP(() => {
     if (!meshRef.current) return;
     const mesh = meshRef.current;
 
     const ctx = gsap.context(() => {
-      if (progress >= 100) {
+      if (finishedLoading) {
         // Reset rotation for all cards
         gsap.to(mesh.rotation, {
           z: 0,
@@ -112,10 +113,12 @@ export default function ImageCard({
           ease: "power3.out",
         });
       }
-    }, [meshRef, progress]);
+    }, [meshRef, finishedLoading]);
 
-    return () => ctx.revert();
-  }, [progress, meshRef, x, y, z, index]);
+    return () => {
+      ctx.revert();
+    };
+  }, [finishedLoading, meshRef, x, y, z, index]);
   return (
     <mesh
       ref={meshRef}
