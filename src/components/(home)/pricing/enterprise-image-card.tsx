@@ -85,19 +85,3 @@ export default function EnterpriseImageCard() {
     </div>
   );
 }
-
-// 1, 35, 40,
-const imageData = [
-  {
-    url: PricingImage1.src,
-  },
-  {
-    url: PricingImage2.src,
-  },
-  {
-    url: PricingImage3.src,
-  },
-  {
-    url: PricingImage4.src,
-  },
-];

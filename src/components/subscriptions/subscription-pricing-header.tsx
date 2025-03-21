@@ -1,7 +1,6 @@
 import {
   Plans,
-  TPricing,
-  TPricingDetails,
+  TPricing
 } from "@/constants/subscription/subscription-plans";
 import { isPlanEnterprise } from "@/lib/helpers/subscription-plan-checker";
 import { cn } from "@/lib/utils";
@@ -9,14 +8,14 @@ import Pill from "../elements/pill";
 
 export default function SubscriptionPricingHeader({
   isAdditionalPlan,
-  planDetails,
+  // planDetails,
   pricing,
   plan,
 }: {
   plan: Plans | "ENTERPRISE";
   isAdditionalPlan: boolean;
   pricing: TPricing;
-  planDetails: TPricingDetails;
+  // planDetails: TPricingDetails;
 }) {
   return (
     <div
@@ -55,7 +54,9 @@ export default function SubscriptionPricingHeader({
                 hidden: pricing.price || pricing.contactSales,
               })}
             >
-              <p className="text-5xl font-medium tracking-tight blue-text-clip">FREE</p>
+              <p className="text-5xl font-medium tracking-tight blue-text-clip">
+                FREE
+              </p>
             </div>
             <div
               className={cn("flex items-center gap-1 justify-center", {

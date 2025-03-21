@@ -1,5 +1,3 @@
-import ChatSlice from "@/lib/redux/features/chat";
-import SettingsSlice from "@/lib/redux/features/settings";
 import SubscriptionSlice from "@/lib/redux/features/subscription";
 import { configureStore } from "@reduxjs/toolkit";
 

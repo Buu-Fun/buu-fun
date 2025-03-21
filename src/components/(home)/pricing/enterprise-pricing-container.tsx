@@ -1,12 +1,10 @@
 import SubscriptionPlanDetails from "@/components/subscriptions/subscription-plan-details";
 import SubscriptionPricingHeader from "@/components/subscriptions/subscription-pricing-header";
-import { enterprisePlanSubscriptionDetails } from "@/constants/subscription/enterprise-plan-details";
 import { ENTERPRISE } from "@/constants/subscription/subscription-plans";
-import React from "react";
 import EnterpriseSubscriptionCTA from "./enterprise-subscription-cta";
 
 export default function EnterprisePricingContainer() {
-  const plan = ENTERPRISE;
+  // const plan = ENTERPRISE;
 
   const planDetails = ENTERPRISE;
   const pricing = planDetails.pricing;
@@ -19,7 +17,6 @@ export default function EnterprisePricingContainer() {
         <div className=" pb-3  px-6 w-full h-full">
           <SubscriptionPricingHeader
             plan="ENTERPRISE"
-            planDetails={planDetails}
             pricing={pricing}
             isAdditionalPlan={isAdditionalPlan}
           />

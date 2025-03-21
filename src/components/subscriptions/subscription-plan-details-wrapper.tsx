@@ -9,7 +9,7 @@ export default function SubscriptionPlanDetailWrapper({
   subscriptionButton: ReactNode;
 }) {
   const plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
   const planDetails = PRICING_PLAN[plan];
   const subscriptionDetails = planDetails.subscriptionDetails;

@@ -1,13 +1,12 @@
 import SpecialOfferIcon from "@/assets/icons/special-offer-icon";
 import { BgGrid } from "@/assets/Image";
 import { BorderBeam } from "@/components/ui/border-beam";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { LINKS } from "@/constants/social-links";
 import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
-import React from "react";
-import EnterpriseImageCard from "./enterprise-image-card";
 import Link from "next/link";
-import { LINKS } from "@/constants/social-links";
+import EnterpriseImageCard from "./enterprise-image-card";
 
 export default function EnterpriseSubscriptionCTA() {
   return (

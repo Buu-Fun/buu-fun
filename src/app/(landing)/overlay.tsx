@@ -32,7 +32,7 @@ export default function OverlayColor({
             toggleActions: "play reverse play reverse", // Ensures it reverses properly
             // markers: true,
           },
-        }
+        },
       );
     });
     return () => {
@@ -50,7 +50,7 @@ export default function OverlayColor({
         ref={colorPurpleRef}
         className={cn(
           "w-[476px] h-[334px] bg-overlay-primary blur-[100px]  bg-[#6b69d549] left-[38%]  rounded-full  absolute top-[5%] -z-10  md:block hidden  rotate-[-10deg]",
-          purpleClassName
+          purpleClassName,
         )}
       />
     </>

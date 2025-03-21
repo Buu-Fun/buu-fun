@@ -15,7 +15,6 @@ export default function SubscriptionPricingHeaderWrapper() {
     <SubscriptionPricingHeader
       isAdditionalPlan={isAdditionalPlan}
       plan={plan}
-      planDetails={planDetails}
       pricing={pricing}
     />
   );

@@ -2,14 +2,11 @@ import CheckBlue from "@/assets/icons/check-blue";
 import CrossGray from "@/assets/icons/cross-gray";
 import {
   Plans,
-  PRICING_PLAN,
-  SubscriptionDetails,
-  TPricingDetails,
+  SubscriptionDetails
 } from "@/constants/subscription/subscription-plans";
-import { useAppSelector } from "@/hooks/redux";
-import Pill from "../elements/pill";
+import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import Pill from "../elements/pill";
 
 export default function SubscriptionPlanDetails({
   subscriptionButton,
@@ -17,7 +14,7 @@ export default function SubscriptionPlanDetails({
   subscriptionDetails,
 }: {
   subscriptionButton: ReactNode;
-  plan: Plans | "ENTERPRISE"
+  plan: Plans | "ENTERPRISE";
   subscriptionDetails?: SubscriptionDetails;
 }) {
   // Refined animation variants with faster plan transitions
