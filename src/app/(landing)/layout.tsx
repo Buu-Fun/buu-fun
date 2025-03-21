@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import SmoothScrollWrapper from "@/components/(home)/scroll-smoother";
 import { constructMetadata } from "@/lib/construct-metadata";
+import HomeStoreProvider from "@/providers/home-redux";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 import type { Metadata } from "next";
@@ -55,7 +56,9 @@ export default function RootLayout({
       </head> */}
       {/* overflow-hidden */}
       <body className={`${BricolageGrotesque.className} antialiased dark   `}>
-        <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
+        <HomeStoreProvider>
+          <SmoothScrollWrapper>{children}</SmoothScrollWrapper>
+        </HomeStoreProvider>
       </body>
       <GoogleAnalytics gaId="G-DDL82EPESF" />
     </html>
