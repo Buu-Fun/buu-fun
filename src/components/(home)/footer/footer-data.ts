@@ -36,7 +36,7 @@ export const HomePageLinks: TFooterLinks = {
     },
     {
       href: "#how-it-works",
-      title: "How it works",
+      title: "Demo",
       // _blank: "_self",
     },
     {

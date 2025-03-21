@@ -33,7 +33,7 @@ export default function HomePage() {
           <ClickToActionContainer />
         </section>
       </div>
-      <section id="faq" className="w-full h-full">
+      <section id="faq" className="w-full h-full pb-32">
         <FrequentlyAskedContainer />
       </section>
       <footer className="w-full h-full relative">

@@ -30,48 +30,47 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
+      const ctx = gsap.context(() => {
+        // Initialize ScrollTrigger for the reveal effect
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom bottom",
+            scrub: 1,
+          },
+        });
 
-      // Initialize ScrollTrigger for the reveal effect
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 1,
-        },
+        // Animate the image reveal
+        tl.fromTo(
+          imageRef.current,
+          {
+            y: "100%",
+          },
+          {
+            y: "0%",
+            duration: 1.5,
+            ease: "power2.out",
+          }
+        );
+
+        // Animate the content
+        tl.fromTo(
+          contentRef.current,
+          {
+            y: 50,
+          },
+          {
+            y: 0,
+            duration: 1,
+            ease: "power2.out",
+          },
+          "-=1"
+        );
       });
 
-      // Animate the image reveal
-      tl.fromTo(
-        imageRef.current,
-        {
-          y: "100%",
-        },
-        {
-          y: "0%",
-          duration: 1.5,
-          ease: "power2.out",
-        }
-      );
-
-      // Animate the content
-      tl.fromTo(
-        contentRef.current,
-        {
-          y: 50,
-        },
-        {
-          y: 0,
-          duration: 1,
-          ease: "power2.out",
-        },
-        "-=1"
-      );
-
       return () => {
-        if (tl.scrollTrigger) {
-          tl.scrollTrigger.kill();
-        }
+        ctx.revert();
       };
     },
     { dependencies: [], revertOnUpdate: true }
@@ -89,12 +88,12 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
   return (
     <div
       ref={containerRef}
-      className="w-full h-[100dvh] relative overflow-hidden "
+      className="w-full md:h-[90dvh] relative overflow-hidden "
     >
       {/* Content Section */}
       <Bounded
         ref={contentRef}
-        className="relative z-10  max-w-screen-2xl  w-full h-[50%] mt-32  "
+        className="relative z-10  max-w-screen-2xl  w-full md:h-[50%] md:mt-32  "
       >
         <div
           style={{
@@ -102,7 +101,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
           }}
           className=" bg-background/20 flex flex-col justify-between   backdrop-blur-[20px] rounded-2xl py-6  px-8  h-full"
         >
-          <div className="pt-12 grid grid-cols-[75%_25%]">
+          <div className="pt-12 grid gap-4 md:gap-0 md:grid-cols-[75%_25%]">
             <div className="flex flex-col  ">
               <div className="flex items-center gap-2">
                 <GetInTouchIcon />
@@ -160,7 +159,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row justify-between py-8 bg-background/10 backdrop-blur-[20px] px-8 rounded-2xl   mt-4 items-start lg:items-center w-full">
+        <div className="flex flex-col lg:flex-row justify-between py-4  mb-4 md:py-8 bg-background/10 backdrop-blur-[20px] px-8 rounded-2xl   mt-4 items-start lg:items-center w-full">
           <p className="text-neutral-400 mb-4 lg:mb-0">{copyright}</p>
 
           <div className="flex flex-col md:flex-row gap-4 md:gap-8">
@@ -196,7 +195,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
       <div ref={imageRef} className="absolute left-0 top-0 w-full h-full">
         <motion.div style={{ y, opacity }} className="w-full relative h-full">
           {/* footer-gradient */}
-          <div className="blur-[100px]   footer-gradient  rounded-full w-[120%] h-[100%]  -left-[10%] absolute -top-[50%]" />
+          <div className="blur-[100px] footer-gradient  rounded-full w-[120%] h-[100%]  -left-[10%] absolute -top-[50%]" />
           <Image
             alt="Cave background"
             src={CaveBackgroundImage} // Replace with actual path

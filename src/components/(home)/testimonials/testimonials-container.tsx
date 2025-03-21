@@ -99,18 +99,18 @@ export default function TestimonialsContainer() {
 
   return (
     <div
-      className="flex flex-col relative gap-8 justify-center h-screen w-full "
+      className="flex flex-col relative gap-8  justify-center h-screen w-full border-2 transition-all duration-300 ease-in-out "
       ref={containerRef}
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center transition-all duration-300 ease-in-out">
         <div className="w-6 h-6">
           <EmojiHappy />
         </div>
         <p className="blue-text-clip text-xl">What Creators Are Saying</p>
       </div>
-      <div className="flex flex-col relative  items-center gap-12 my-8  justify-center">
+      <div className="flex flex-col relative  items-center gap-12 my-8  justify-center ">
         <div className=" relative flex  ">
-          <p className="text-4xl md:text-6xl opacity-0  grayish-text-gradient max-w-5xl font-medium tracking-tight text-center">
+          <p className="text-4xl md:text-6xl transition-all duration-300 ease-in-out opacity-0  grayish-text-gradient max-w-5xl font-medium tracking-tight text-center">
             {testimonialsData[currentIndex]?.testimonial}
           </p>
           <AnimatePresence mode="sync">
