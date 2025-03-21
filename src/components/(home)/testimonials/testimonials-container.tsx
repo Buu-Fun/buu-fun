@@ -99,7 +99,7 @@ export default function TestimonialsContainer() {
 
   return (
     <div
-      className="flex flex-col relative gap-8  justify-center h-screen w-full border-2 transition-all duration-300 ease-in-out "
+      className="flex flex-col relative gap-8  justify-center h-screen w-full  transition-all duration-300 ease-in-out "
       ref={containerRef}
     >
       <div className="flex justify-center items-center transition-all duration-300 ease-in-out">
