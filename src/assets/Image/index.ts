@@ -261,3 +261,10 @@ export const LoaderImageMap = [
   LoaderImage39.src,
   LoaderImage40.src,
 ];
+
+import PricingImage1 from "@/assets/Image/pricing/image_1.png";
+import PricingImage2 from "@/assets/Image/pricing/image_2.png";
+import PricingImage3 from "@/assets/Image/pricing/image_3.png";
+import PricingImage4 from "@/assets/Image/pricing/image_4.png";
+
+export { PricingImage1, PricingImage2, PricingImage3, PricingImage4 };

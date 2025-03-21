@@ -85,8 +85,8 @@ export default function FrequentlyAskedContainer() {
         ref={colorPurpleRef}
         className="w-[176px] h-[334px] violet-gradient top-[25%]   -left-[70px]   rounded-full  absolute  -z-10  md:block hidden  rotate-[-10deg]"
       />
-      <Bounded className="max-w-screen-2xl w-full h-full  flex  justify-between flex-col md:flex-row">
-        <div className="flex flex-col gap-6 w-full">
+      <Bounded className="max-w-screen-2xl w-full h-full  flex items-center  justify-between flex-col md:flex-row">
+        <div className="flex flex-col  gap-6 w-full">
           <div className="flex items-center  gap-2">
             <FrequentlyAskedIcon />
             <h1 className="blue-text-clip bg-clip-text text-transparent">

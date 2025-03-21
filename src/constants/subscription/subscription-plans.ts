@@ -1,4 +1,5 @@
 import { basicPlanSubscriptionDetails } from "./basic-plan-details";
+import { enterprisePlanSubscriptionDetails } from "./enterprise-plan-details";
 // import { enterprisePlanSubscriptionDetails } from "./enterprise-plan-details";
 import { FreePlanSubscriptionDetails } from "./free-plan-details";
 import { proPlanSubscriptionDetails } from "./pro-plan-details";
@@ -18,6 +19,15 @@ export const PlanKeyMapper: Record<Plans, Plans> = {
   PRO: "PRO",
   UNLIMITED: "UNLIMITED",
   // ENTERPRISE: "ENTERPRISE",
+};
+
+export const ENTERPRISE: TPricingDetails = {
+  pricing: {
+    price: 0,
+    includedMonthlyCredit: "Unlimited",
+    contactSales: true,
+  },
+  subscriptionDetails: enterprisePlanSubscriptionDetails,
 };
 
 // type PricingPlanDetails = Record<Plans, any>;
@@ -50,15 +60,6 @@ export const PRICING_PLAN: PricingPlanDetails = {
     },
     subscriptionDetails: unlimitedPlanSubscriptionDetails,
   },
-  // ENTERPRISE: {
-  //   pricing: {
-  //     price: 0,
-  //     includedMonthlyCredit: "Unlimited",
-  //     contactSales: true,
-  //   },
-
-  //   subscriptionDetails: enterprisePlanSubscriptionDetails,
-  // },
 };
 
 export type Plans = (typeof SUBSCRIPTION_PLANS)[number];
