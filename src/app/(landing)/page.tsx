@@ -9,6 +9,7 @@ import HomeNavigationBar from "@/components/(home)/navigation/home-navigation-ba
 import TopNavigationBar from "@/components/(home)/navigation/top-navigation-bar";
 import TestimonialsContainer from "@/components/(home)/testimonials/testimonials-container";
 import OverlayColor from "./overlay";
+import HomePagePricingContainer from "@/components/(home)/pricing/pricing-container";
 export default function HomePage() {
   return (
     <main className="relative max-w-screen overflow-hidden smooth-scroll ">
@@ -26,13 +27,19 @@ export default function HomePage() {
       </section>
       <div className="relative w-full h-full ">
         <section id="reviews" className="h-full w-full relative trigger-color">
-          <OverlayColor />
+          <OverlayColor trigger=".trigger-color" />
           <TestimonialsContainer />
         </section>
         <section id="gallery" className="h-full w-full  relative">
           <ClickToActionContainer />
         </section>
       </div>
+      <section
+        id="pricing"
+        className="w-full h-full relative trigger-pricing-color"
+      >
+        <HomePagePricingContainer />
+      </section>
       <section id="faq" className="w-full h-full pb-32">
         <FrequentlyAskedContainer />
       </section>
