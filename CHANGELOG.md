@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.1.54](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.53...buu-fun-v0.1.54) (2025-03-21)
+
+
+### ✨ Features
+
+* added click to action animation overlay ([cef8d26](https://github.com/Buu-Fun/buu-fun/commit/cef8d26571d95c220a5d8e7f59ea76f786b24b18))
+* added helper function for split text animation ([1903d27](https://github.com/Buu-Fun/buu-fun/commit/1903d27f39d23b51151352053a472ff9578cf0d9))
+* added new animations for landing page and improved performance ([df37eac](https://github.com/Buu-Fun/buu-fun/commit/df37eacd9c6f0d1c84bd8f07b2ab19dba6bfebab))
+* added overlay component and animations ([26fa5b4](https://github.com/Buu-Fun/buu-fun/commit/26fa5b40d03c8aad0fb6be044b0919abff0bf65f))
+* added social links and refactored the socials links to be in one place ([37cba2a](https://github.com/Buu-Fun/buu-fun/commit/37cba2a39675929bb7fe3b8e6a097989371f4ee0))
+* enhanced feature and about container animations and transformations ([4a82d20](https://github.com/Buu-Fun/buu-fun/commit/4a82d20dd250968bad087d1ce695dfb2927c97db))
+* enhanced feature text animations ([eebb9e2](https://github.com/Buu-Fun/buu-fun/commit/eebb9e277172eb92541ee6ee3150dfbf752a5938))
+* new cta image scroller and marquee to improve performance ([7765f28](https://github.com/Buu-Fun/buu-fun/commit/7765f288f275693215a15eca4a40b22914403fac))
+* optimised loader component ([22262d3](https://github.com/Buu-Fun/buu-fun/commit/22262d3c54e99fe6d1fee027626fd6d5b9de727f))
+* **ui:** added animation for mutant mesh ([8135984](https://github.com/Buu-Fun/buu-fun/commit/8135984317f7e68dee83e7bc61f6ee28d640293b))
+* updated how-to-container in landing page ([6a526e1](https://github.com/Buu-Fun/buu-fun/commit/6a526e10b01fec0f0f56c17f0a5fd5b33174c5be))
+
+
+### 🐛 Bugfixes
+
+* added padding and made the faq components responsive ([a113954](https://github.com/Buu-Fun/buu-fun/commit/a11395497b65cbd8cf0f75ef9a9b376eb2039e46))
+* fixed the refferal link copy-paste url ([bb4ecf8](https://github.com/Buu-Fun/buu-fun/commit/bb4ecf8d7da0532c85c87ad58a468bcc4d114be0))
+* fixed the refferal link copy-paste url ([054d131](https://github.com/Buu-Fun/buu-fun/commit/054d131a542e62a8a553612a46f55f03755a4792))
+* **gsap:** added context revert for memory clean up for gsap ([9e592b1](https://github.com/Buu-Fun/buu-fun/commit/9e592b18355bf4fe3667c489dd1ff045ceeb8802))
+
+
+### 👽 Miscellaneous
+
+* commented out unused component ([17f37f6](https://github.com/Buu-Fun/buu-fun/commit/17f37f6e67d901548a2065a9e6a98a890c77bfe2))
+* **lint:** linted and fixed eslinting issues and warning ([8306166](https://github.com/Buu-Fun/buu-fun/commit/83061666781608d30f575a596f09864ecb7e2a75))
+* **lint:** linted and formatted codebase ([e60d63b](https://github.com/Buu-Fun/buu-fun/commit/e60d63b3e75c1957360a4699bf5bcdb400d7b26f))
+
 ## [0.1.53](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.52...buu-fun-v0.1.53) (2025-03-18)
 
 
