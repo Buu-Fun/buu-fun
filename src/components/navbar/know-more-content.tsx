@@ -5,6 +5,7 @@ import MailIcon from "@/assets/icons/mail-icon";
 import TelegramIconWhite from "@/assets/icons/Telegram-icon-white";
 import TwitterIcon from "@/assets/icons/TwitterIcon";
 import YoutubePlayIcon from "@/assets/icons/youtube-play";
+import { LINKS } from "@/constants/social-links";
 import Link from "next/link";
 
 export default function KnowMoreContent() {
@@ -13,7 +14,7 @@ export default function KnowMoreContent() {
       <div className="flex flex-col gap-1  items-start ">
         <h4 className=" font-bold leading-none mb-1">Help</h4>
         <Link
-          href={"https://docs.buu.fun/"}
+          href={LINKS.DOCS}
           target="_blank"
           className="flex items-center w-full gap-2 group"
         >
@@ -25,7 +26,7 @@ export default function KnowMoreContent() {
           </p>
         </Link>
         <Link
-          href={"https://www.youtube.com/@buuonsol/videos"}
+          href={LINKS.YT_TUTORIALS}
           target="_blank"
           className="flex items-center w-full gap-2 group"
         >
@@ -37,7 +38,7 @@ export default function KnowMoreContent() {
           </p>
         </Link>
         <Link
-          href={"mailto:support@buu.fun"}
+          href={LINKS.CONTACT_SUPPORT_MAIL}
           target="_blank"
           className="flex items-center w-full gap-2 group"
         >
@@ -53,7 +54,7 @@ export default function KnowMoreContent() {
       <div className="flex flex-col gap-1  items-start ">
         <h4 className=" font-bold leading-none  mb-1">Communities</h4>
         <Link
-          href={"https://discord.gg/BUUFUN"}
+          href={LINKS.DISCORD}
           target="_blank"
           className="flex items-center w-full gap-2 group"
         >
@@ -65,7 +66,7 @@ export default function KnowMoreContent() {
           </p>
         </Link>
         <Link
-          href={"https://x.com/buudotfun"}
+          href={LINKS.TWITTER}
           target="_blank"
           className="flex items-center w-full gap-2 group"
         >
@@ -77,7 +78,7 @@ export default function KnowMoreContent() {
           </p>
         </Link>
         <Link
-          href={"https://t.me/buu_fun"}
+          href={LINKS.TELEGRAM}
           target="_blank"
           className="flex items-center w-full gap-2 group"
         >

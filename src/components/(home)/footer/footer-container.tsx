@@ -12,6 +12,8 @@ import React, { useRef } from "react";
 import { HomePageLinks, ResourcesLinks } from "./footer-data";
 import { FooterLinks } from "./footer-link";
 import Link from "next/link";
+import { DiscordIcon } from "@/assets/icons";
+import { LINKS } from "@/constants/social-links";
 gsap.registerPlugin(useGSAP);
 interface FooterContainerProps {
   copyright?: string;
@@ -49,7 +51,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
           y: "0%",
           duration: 1.5,
           ease: "power2.out",
-        },
+        }
       );
 
       // Animate the content
@@ -63,7 +65,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
           duration: 1,
           ease: "power2.out",
         },
-        "-=1",
+        "-=1"
       );
 
       return () => {
@@ -72,7 +74,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
         }
       };
     },
-    { dependencies: [], revertOnUpdate: true },
+    { dependencies: [], revertOnUpdate: true }
   );
 
   // Framer Motion parallax effect
@@ -106,9 +108,13 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
                 <GetInTouchIcon />
                 <p className="blue-text-clip">Get in touch</p>
               </div>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl  font-bold grayish-text-gradient">
+              <Link
+                target="_blank"
+                href={LINKS.CONTACT_SUPPORT_MAIL}
+                className="text-3xl md:text-5xl lg:text-6xl  font-bold grayish-text-gradient"
+              >
                 support@buu.fun
-              </h2>
+              </Link>
             </div>
             <div className="flex w-full  justify-between gap-12">
               <FooterLinks {...HomePageLinks} />
@@ -117,25 +123,40 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
           </div>
           {/* Twitter Icons */}
           <div className="flex space-x-4 mt-8">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="footer-icon-bg p-3 rounded-full"
-            >
-              <div className="w-6 h-6">
-                <TwitterIcon />
-              </div>
-            </motion.button>
+            <Link target="_blank" href={LINKS.TWITTER}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="footer-icon-bg p-3 rounded-full"
+              >
+                <div className="w-6 h-6">
+                  <TwitterIcon />
+                </div>
+              </motion.div>
+            </Link>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="footer-icon-bg p-3 rounded-full"
-            >
-              <div className="w-6 h-6">
-                <TelegramIconWhite />
-              </div>
-            </motion.button>
+            <Link target="_blank" href={LINKS.TELEGRAM}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="footer-icon-bg p-3 rounded-full"
+              >
+                <div className="w-6 h-6">
+                  <TelegramIconWhite />
+                </div>
+              </motion.div>
+            </Link>
+            <Link target="_blank" href={LINKS.DISCORD}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="footer-icon-bg p-3 rounded-full"
+              >
+                <div className="w-6 h-6">
+                  <DiscordIcon />
+                </div>
+              </motion.div>
+            </Link>
           </div>
         </div>
 
@@ -159,7 +180,7 @@ const FooterContainer: React.FC<FooterContainerProps> = ({
               href="/aup"
               className="text-neutral-400 hover:text-white transition-colors"
             >
-              User Policy
+              User Acceptance Policy
             </Link>
             <Link
               href="/cookie-policy"
