@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.55](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.54...buu-fun-v0.1.55) (2025-03-21)
+
+
+### ✨ Features
+
+* added customizable overlay component ([0b9bdba](https://github.com/Buu-Fun/buu-fun/commit/0b9bdba9945a6fc713f51e2484f705f32233b60d))
+* added pricing container and integrated components for enterprise ([054be55](https://github.com/Buu-Fun/buu-fun/commit/054be557d7663b1eb87531951784f1a4f905ef67))
+* added redux store for home page ([260fc81](https://github.com/Buu-Fun/buu-fun/commit/260fc812820a2101a7c12142d4445dfccdcbd4ce))
+* added ui updates for feature section ([d897ecc](https://github.com/Buu-Fun/buu-fun/commit/d897ecc90d0efeb38f7786e76fee736d97e04407))
+* enabled Enterprise subscription plan ([26ed26e](https://github.com/Buu-Fun/buu-fun/commit/26ed26ef97327f3cb32c5b444f9e61e3b0e2ddbd))
+* **ui:** added gradient animation for bluish text and grayish ([3b9b138](https://github.com/Buu-Fun/buu-fun/commit/3b9b138217914f4d6eb04d1b60387c59da833984))
+* **ui:** added icons for pricing ([e143938](https://github.com/Buu-Fun/buu-fun/commit/e1439384640769710ddf3bd4b3c54aaad848e9aa))
+
+
+### 👽 Miscellaneous
+
+* **lint:** linted and formatted codebase ([3db6c97](https://github.com/Buu-Fun/buu-fun/commit/3db6c97682a0ff83af223c67095d8f50ba907ce4))
+
 ## [0.1.54](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.53...buu-fun-v0.1.54) (2025-03-21)
 
 
