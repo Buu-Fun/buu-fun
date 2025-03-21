@@ -6,10 +6,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import SubscriptionPlanDetails from "./subscription-plan-details";
 import SubscriptionPricingHeader from "./subscription-pricing-header";
+import SubscriptionButton from "./subscription-button";
+import SubscriptionPlanDetailWrapper from "./subscription-plan-details-wrapper";
+import SubscriptionPricingHeaderWrapper from "./subscription-pricing-header-wrapper";
 
 export default function SubscriptionContent() {
   const Plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan,
+    (state) => state.subscription.SubscriptionModelPlan
   );
   const dispatch = useAppDispatch();
   return (
@@ -35,8 +38,8 @@ export default function SubscriptionContent() {
           })}
         </div>
       </div>
-      <SubscriptionPricingHeader />
-      <SubscriptionPlanDetails />
+      <SubscriptionPricingHeaderWrapper />
+      <SubscriptionPlanDetailWrapper subscriptionButton={<SubscriptionButton />} />
     </div>
   );
 }

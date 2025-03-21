@@ -1,25 +1,30 @@
-import { PRICING_PLAN } from "@/constants/subscription/subscription-plans";
-import { useAppSelector } from "@/hooks/redux";
-import { cn } from "@/lib/utils";
-import React from "react";
-import Pill from "../elements/pill";
+import {
+  Plans,
+  TPricing,
+  TPricingDetails,
+} from "@/constants/subscription/subscription-plans";
 import { isPlanEnterprise } from "@/lib/helpers/subscription-plan-checker";
+import { cn } from "@/lib/utils";
+import Pill from "../elements/pill";
 
-export default function SubscriptionPricingHeader() {
-  const plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan,
-  );
-
-  const planDetails = PRICING_PLAN[plan];
-  const pricing = planDetails.pricing;
-  const isAdditionalPlan = typeof pricing.additionalCredits !== "undefined";
+export default function SubscriptionPricingHeader({
+  isAdditionalPlan,
+  planDetails,
+  pricing,
+  plan,
+}: {
+  plan: Plans | "ENTERPRISE";
+  isAdditionalPlan: boolean;
+  pricing: TPricing;
+  planDetails: TPricingDetails;
+}) {
   return (
     <div
       className={cn(
         "grid pt-10 grid-cols-1  md:grid-cols-2 place-content-center place-items-center",
         {
           "grid-cols-3": isAdditionalPlan,
-        },
+        }
       )}
     >
       <div className="flex w-full  items-center justify-center flex-col ">
@@ -27,7 +32,7 @@ export default function SubscriptionPricingHeader() {
         <div className="flex justify-center">
           <p
             className={cn("text-base", {
-              hidden: pricing.contactSales,
+              hidden: pricing.contactSales || !pricing.price,
             })}
           >
             $
@@ -35,7 +40,7 @@ export default function SubscriptionPricingHeader() {
           <div className="flex items-center justify-center gap-2">
             <div
               className={cn("flex items-center gap-1 justify-center", {
-                hidden: pricing.contactSales,
+                hidden: pricing.contactSales || !pricing.price,
               })}
             >
               <p className="text-5xl font-medium tracking-tight">
@@ -44,6 +49,13 @@ export default function SubscriptionPricingHeader() {
               <p className="text-xs font-semibold uppercase tracking-tight text-muted-foreground/60">
                 / Month
               </p>
+            </div>
+            <div
+              className={cn("flex items-center gap-1 justify-center", {
+                hidden: pricing.price || pricing.contactSales,
+              })}
+            >
+              <p className="text-5xl font-medium tracking-tight blue-text-clip">FREE</p>
             </div>
             <div
               className={cn("flex items-center gap-1 justify-center", {
@@ -68,7 +80,7 @@ export default function SubscriptionPricingHeader() {
           "flex w-full md:border-l-2  border-muted-foreground/20  items-center justify-center flex-col",
           {
             "md:border-x-2": isAdditionalPlan,
-          },
+          }
         )}
       >
         <h4 className="text-muted-foreground/60 text-sm font-medium mt-2 md:mt-0">
