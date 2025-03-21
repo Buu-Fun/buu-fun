@@ -39,7 +39,7 @@ export default function CtaImage() {
   }, []);
 
   return (
-    <div className="py-32">
+    <div className="">
       <Marquee className="py-32" pauseOnHover>
         {[...CTAImages, ...CTAImages].map((item, index) => (
           <div

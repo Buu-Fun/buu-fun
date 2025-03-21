@@ -39,9 +39,8 @@ export default function FrequentlyAskedContainer() {
           scrollTrigger: {
             trigger: ".faq-trigger",
             start: "top 60%",
-            end: "bottom 95%",
+            end: "bottom 60%",
             toggleActions: "play reverse play reverse", // Ensures it reverses properly
-            // markers: true,
           },
         },
       );
@@ -66,7 +65,7 @@ export default function FrequentlyAskedContainer() {
           scrollTrigger: {
             trigger: triggerRef.current,
             start: "top 90%",
-            toggleActions: "play pause resume reset",
+            toggleActions: "play reverse play reverse", // Ensures it reverses properly
           },
           filter: "blur(0px)",
           duration: 2,
@@ -81,12 +80,12 @@ export default function FrequentlyAskedContainer() {
   });
 
   return (
-    <div ref={triggerRef} className="w-full h-screen relative faq-trigger">
+    <div ref={triggerRef} className="w-full relative faq-trigger py-32">
       <div
         ref={colorPurpleRef}
         className="w-[176px] h-[334px] violet-gradient top-[25%]   -left-[70px]   rounded-full  absolute  -z-10  md:block hidden  rotate-[-10deg]"
       />
-      <Bounded className="max-w-screen-2xl w-full h-full  flex items-center justify-between flex-col md:flex-row">
+      <Bounded className="max-w-screen-2xl w-full h-full  flex  justify-between flex-col md:flex-row">
         <div className="flex flex-col gap-6 w-full">
           <div className="flex items-center  gap-2">
             <FrequentlyAskedIcon />
