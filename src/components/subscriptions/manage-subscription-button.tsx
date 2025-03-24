@@ -1,7 +1,6 @@
-import React from "react";
-import { Button } from "../ui/button";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch } from "@/hooks/redux";
 import { setSubscriptionModel } from "@/lib/redux/features/subscription";
+import { Button } from "../ui/button";
 
 export default function ManageUserSubscriptionButton() {
   const dispatch = useAppDispatch();

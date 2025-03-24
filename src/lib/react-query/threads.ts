@@ -47,7 +47,7 @@ export async function generateSubThreads({
       },
       {
         Authorization: getAuthorization(accessToken),
-      }
+      },
     );
     if (!data) {
       TypedAppError.throw("Internal server error", "INTERNAL_SERVER_ERROR");
@@ -56,7 +56,7 @@ export async function generateSubThreads({
     if ("code" in data.generateSubthread) {
       TypedAppError.throw(
         data.generateSubthread.message,
-        TypedAppError.mapErrorCode(data.generateSubthread.code)
+        TypedAppError.mapErrorCode(data.generateSubthread.code),
       );
     }
 
@@ -68,7 +68,7 @@ export async function generateSubThreads({
     // Otherwise, convert to our custom error
     throw TypedAppError.fromExternalError(
       "An unexpected error occurred",
-      error
+      error,
     );
   }
 }
@@ -84,7 +84,7 @@ export async function getSubThreads(threadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -104,7 +104,7 @@ export async function getSubThread(subThreadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -130,7 +130,7 @@ export async function mutateGenerateNewImage({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -155,7 +155,7 @@ export async function getAllThreads(accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
   if (!data) {
     throw new Error("Internal server error");

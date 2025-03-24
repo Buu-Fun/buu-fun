@@ -1,21 +1,18 @@
 "use client";
-import React from "react";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setSubscriptionModel } from "@/lib/redux/features/subscription";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  DialogTitle
 } from "../ui/dialog";
-import { Button } from "../ui/button";
 import SubscriptionContent from "./subscription-content";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setSubscriptionModel } from "@/lib/redux/features/subscription";
 
 export default function SubscriptionDialog() {
   const isModelOpen = useAppSelector(
-    (state) => state.subscription.isSubscriptionModelOpen
+    (state) => state.subscription.isSubscriptionModelOpen,
   );
   const dispatch = useAppDispatch();
   return (

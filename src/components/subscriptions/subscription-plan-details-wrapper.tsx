@@ -1,8 +1,8 @@
 import { PRICING_PLAN } from "@/constants/subscription/subscription-plans";
 import { useAppSelector } from "@/hooks/redux";
-import SubscriptionPlanDetails from "./subscription-plan-details";
+import { motion } from "framer-motion";
 import { ReactNode } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import SubscriptionPlanDetails from "./subscription-plan-details";
 
 export default function SubscriptionPlanDetailWrapper({
   subscriptionButton,
@@ -10,7 +10,7 @@ export default function SubscriptionPlanDetailWrapper({
   subscriptionButton: ReactNode;
 }) {
   const plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
   const planDetails = PRICING_PLAN[plan];
   const subscriptionDetails = planDetails.subscriptionDetails;

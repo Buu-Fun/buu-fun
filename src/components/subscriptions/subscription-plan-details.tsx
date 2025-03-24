@@ -4,13 +4,13 @@ import {
   Plans,
   SubscriptionDetails,
 } from "@/constants/subscription/subscription-plans";
+import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode } from "react";
 import Pill from "../elements/pill";
-import { cn } from "@/lib/utils";
 
 export default function SubscriptionPlanDetails({
-  subscriptionButton,
+  // subscriptionButton,
   plan,
   subscriptionDetails,
   className,
@@ -139,7 +139,7 @@ export default function SubscriptionPlanDetails({
         variants={containerVariants}
         className={cn(
           "md:grid flex flex-col  md:grid-cols-2 mt-7 scrollbar-w-2 scrollbar-track-orange-lighter scrollbar-thumb-orange scrollbar-thumb-rounded gap-4 md:max-h-[45dvh] overflow-y-auto",
-          className
+          className,
         )}
       >
         <motion.div

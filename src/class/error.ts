@@ -10,11 +10,13 @@ export type APP_ERROR_CODES =
 // Custom error class that mimics TRPC error structure
 export class TypedAppError extends Error {
   code: APP_ERROR_CODES;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
 
   constructor(
     message: string,
     code: APP_ERROR_CODES = "UNKNOWN_ERROR",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any
   ) {
     super(message);
@@ -32,6 +34,7 @@ export class TypedAppError extends Error {
   static throw(
     message: string,
     code: APP_ERROR_CODES = "UNKNOWN_ERROR",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any
   ): never {
     throw new TypedAppError(message, code, data);
@@ -59,6 +62,7 @@ export class TypedAppError extends Error {
   static fromExternalError(
     message: string,
     codeOrError?: string | Error | unknown,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data?: any
   ): TypedAppError {
     // If codeOrError is a string, try to map it to a valid code
@@ -68,6 +72,7 @@ export class TypedAppError extends Error {
 
     // If codeOrError is an Error or other object
     if (codeOrError && typeof codeOrError === "object") {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const errorObj = codeOrError as any;
       const extractedCode = errorObj?.code || "";
       const extractedData = errorObj?.details || errorObj?.data || data;

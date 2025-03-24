@@ -29,7 +29,10 @@ const SubscriptionSlice = createSlice({
   },
 });
 
-export const { setPlanType, setSubscriptionModelPlanType,setSubscriptionModel } =
-  SubscriptionSlice.actions;
+export const {
+  setPlanType,
+  setSubscriptionModelPlanType,
+  setSubscriptionModel,
+} = SubscriptionSlice.actions;
 
 export default SubscriptionSlice.reducer;
