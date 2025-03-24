@@ -8,9 +8,13 @@ import { Button } from "../ui/button";
 import { capitalizeFirstLetter } from "@/lib/utils";
 
 export default function SubscriptionButton() {
-  const { identityToken: accessToken } = useAuthentication();
+  const {
+    identityToken: accessToken,
+    isAuthenticated,
+    login,
+  } = useAuthentication();
   const planKey = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan,
+    (state) => state.subscription.SubscriptionModelPlan
   );
   const { data, refetch } = useUserSubscription();
 
@@ -37,6 +41,10 @@ export default function SubscriptionButton() {
     <Button
       variant={isCurrentPlan ? "secondary" : undefined}
       onClick={async () => {
+        if (!accessToken || !isAuthenticated) {
+          login();
+          return;
+        }
         if (isCurrentPlan) {
           const { data } = await refetch();
           if (data?.customerPortalLink) {

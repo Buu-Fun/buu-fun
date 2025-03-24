@@ -2,20 +2,23 @@ import CheckBlue from "@/assets/icons/check-blue";
 import CrossGray from "@/assets/icons/cross-gray";
 import {
   Plans,
-  SubscriptionDetails
+  SubscriptionDetails,
 } from "@/constants/subscription/subscription-plans";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode } from "react";
 import Pill from "../elements/pill";
+import { cn } from "@/lib/utils";
 
 export default function SubscriptionPlanDetails({
   subscriptionButton,
   plan,
   subscriptionDetails,
+  className,
 }: {
   subscriptionButton: ReactNode;
   plan: Plans | "ENTERPRISE";
   subscriptionDetails?: SubscriptionDetails;
+  className?: string;
 }) {
   // Refined animation variants with faster plan transitions
   const containerVariants = {
@@ -94,24 +97,24 @@ export default function SubscriptionPlanDetails({
     },
   };
 
-  const buttonVariants = {
-    hidden: { opacity: 0, y: 0 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.35,
-        delay: 0.2, // Reduced delay
-        ease: "easeOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
+  // const buttonVariants = {
+  //   hidden: { opacity: 0, y: 0 },
+  //   show: {
+  //     opacity: 1,
+  //     y: 0,
+  //     transition: {
+  //       duration: 0.35,
+  //       delay: 0.2, // Reduced delay
+  //       ease: "easeOut",
+  //     },
+  //   },
+  //   exit: {
+  //     opacity: 0,
+  //     transition: {
+  //       duration: 0.2,
+  //     },
+  //   },
+  // };
 
   // Custom Pill component with animation
   const AnimatedPill = ({
@@ -134,7 +137,10 @@ export default function SubscriptionPlanDetails({
         animate="show"
         exit="exit"
         variants={containerVariants}
-        className="grid md:grid-cols-2 mt-7 scrollbar-w-2 scrollbar-track-orange-lighter scrollbar-thumb-orange scrollbar-thumb-rounded gap-4 max-h-[45dvh] overflow-y-auto"
+        className={cn(
+          "md:grid flex flex-col  md:grid-cols-2 mt-7 scrollbar-w-2 scrollbar-track-orange-lighter scrollbar-thumb-orange scrollbar-thumb-rounded gap-4 md:max-h-[45dvh] overflow-y-auto",
+          className
+        )}
       >
         <motion.div
           variants={sectionVariants}
@@ -229,9 +235,6 @@ export default function SubscriptionPlanDetails({
               })}
             </motion.div>
           )}
-        </motion.div>
-        <motion.div variants={buttonVariants} className="grid col-span-2 mt-2">
-          {subscriptionButton}
         </motion.div>
       </motion.div>
     </AnimatePresence>
