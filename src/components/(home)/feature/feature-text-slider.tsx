@@ -16,7 +16,7 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
   // const elements = useRef<HTMLDivElement | null[]>([]);
   useEffect(() => {
     const divElements = gsap.utils.toArray(
-      ".images-ref",
+      ".images-ref"
     ) as unknown[] as HTMLElement[];
 
     const container = containerRef.current;
@@ -52,10 +52,10 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
 
   useGSAP(() => {
     const divElements = gsap.utils.toArray(
-      ".images-ref",
+      ".images-ref"
     ) as unknown[] as HTMLElement[];
     const paragraphs = gsap.utils.toArray(
-      ".feature-text-paragraph",
+      ".feature-text-paragraph"
     ) as unknown[] as HTMLParagraphElement[];
 
     const totalItems = divElements.length;
@@ -68,10 +68,10 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
       const CurrentItem = divElements[index];
       const currentPara = paragraphs[index];
       const restOfTheItem = divElements.filter(
-        (item) => item.id !== CurrentItem.id,
+        (item) => item.id !== CurrentItem.id
       );
       const restOfPara = paragraphs.filter(
-        (item) => currentPara.id !== item.id,
+        (item) => currentPara.id !== item.id
       );
 
       gsap.to(container, {
@@ -101,7 +101,7 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
       gsap.fromTo(
         currentPara,
         { opacity: 0, y: 20 },
-        { opacity: 1, duration: 1.5, y: 0, delay: 0.7, ease: "power4.inOut" },
+        { opacity: 1, duration: 1.5, y: 0, delay: 0.7, ease: "power4.inOut" }
       );
     });
     return () => {
@@ -109,8 +109,8 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
     };
   }, [index]);
   return (
-    <div className="w-full  h-full  border-yellow-300 relative overflow-hidden">
-      <div className="w-[100%]  aspect-square  border-green-400 absolute mx-auto -bottom-[64%] rounded-full">
+    <div className="w-full  h-full   relative overflow-hidden">
+      <div className="w-[100%] max-md:px-2  aspect-square    -bottom-[64%] absolute mx-auto   rounded-full">
         <div
           className=" rounded-full  aspect-square border-green-300"
           ref={containerRef}
@@ -127,9 +127,12 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
                 <div className="relative ">
                   <div className="flex items-center gap-2 justify-center flex-col text-center">
                     <h1
-                      className={cn("text-2xl font-medium tracking-tight", {
-                        "opacity-0": index !== ItemIndex,
-                      })}
+                      className={cn(
+                        "text-lg md:text-2xl font-medium tracking-tight",
+                        {
+                          "opacity-0": index !== ItemIndex,
+                        }
+                      )}
                     >
                       <SplitTextAnimation
                         isChanged={index !== ItemIndex}
@@ -141,10 +144,10 @@ export default function FeatureTextSlider({ index }: TFeatureTextSlider) {
                         id={`feature-para-${ItemIndex}`}
                         // ease-in-out transition-opacity duration-700
                         className={cn(
-                          "font-medium max-w-sm opacity-0  feature-text-paragraph",
+                          " max-md:text-sm font-medium max-w-sm opacity-0  feature-text-paragraph",
                           {
                             // "opacity-0": index !== ItemIndex,
-                          },
+                          }
                         )}
                       >
                         {item.description}
