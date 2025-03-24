@@ -26,6 +26,8 @@ import toast from "react-hot-toast";
 import { TBottomBarContainer } from "./bottom-bar-container";
 import ChatTextArea from "./chat-text-area";
 import DragImageCard, { ImageData } from "./drag-image-card";
+import { TypedAppError } from "@/class/error";
+import { setSubscriptionModel } from "@/lib/redux/features/subscription";
 
 export default function ChatForm({ action }: TBottomBarContainer) {
   const { identityToken, login } = useAuthentication();
@@ -44,11 +46,24 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     },
     mutationFn: generateSubThreads,
     onSuccess(data) {
-      dispatch(setNewThreadId(data.threadId));
-      router.push(`/app/generation/${data.threadId}`);
+      dispatch(setNewThreadId(data?.threadId));
+      router.push(`/app/generation/${data?.threadId}`);
     },
-    onError() {
-      toast.error("Our servers are busy, Please try again");
+    onError(error) {
+      if (error instanceof TypedAppError) {
+        switch (error.code) {
+          case "CREDIT_NOT_FOUND": {
+            dispatch(setSubscriptionModel(true));
+            toast.error("Insufficient credits");
+            return;
+          }
+          default: {
+            toast.error("Something went wrong");
+            return;
+          }
+        }
+      }
+      toast.error("Something went wrong, Please try again.");
     },
   });
 
@@ -64,8 +79,21 @@ export default function ChatForm({ action }: TBottomBarContainer) {
           queryKey: [data.threadId, "get-sub-threads"],
         });
       },
-      onError(data) {
-        toast.error(data.message);
+      onError(error) {
+        if (error instanceof TypedAppError) {
+          switch (error.code) {
+            case "CREDIT_NOT_FOUND": {
+              dispatch(setSubscriptionModel(true));
+              toast.error("Insufficient credits");
+              return;
+            }
+            default: {
+              toast.error("Something went wrong");
+              return;
+            }
+          }
+        }
+        toast.error("Something went wrong, Please try again.");
       },
     });
 
@@ -87,7 +115,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
 
   const handleImageUploadUrl = async (
     ImageData: ImageData,
-    accessToken: string,
+    accessToken: string
   ) => {
     try {
       toast.loading("Preparing image for uploading....");
@@ -152,7 +180,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     if (isChatLoading) {
       if (isOverAllRequestLimitReached(isChatPending.totalRequest)) {
         return toast.error(
-          "Whoa, you're on fire 🔥. You've hit the limit of 4 creations.",
+          "Whoa, you're on fire 🔥. You've hit the limit of 4 creations."
         );
       }
       return toast.error("Hold on!, Still generating your model...");
@@ -197,7 +225,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
         "relative flex-col gap-1 flex items-start w-full p-4  mb-2  rounded-[20px]  shadow-buu-inner bg-buu",
         {
           // "p-0": !inputFile?.url.length
-        },
+        }
       )}
     >
       <button
@@ -206,7 +234,7 @@ export default function ChatForm({ action }: TBottomBarContainer) {
           "bg-buu-button     shadow-buu-button rounded-xl left-0 absolute w-full h-full top-0",
           {
             hidden: !inputFile?.url.length,
-          },
+          }
         )}
       >
         <div className="flex   gap-2 items-center justify-center">

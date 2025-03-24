@@ -16,6 +16,7 @@ import {
 import { TThreeDStyles } from "../redux/features/settings";
 import { getAuthorization } from "../utils";
 import { TGetSubThreadResponse, TGetSubThreadsResponse } from "./threads-types";
+import { TypedAppError } from "@/class/error";
 
 type TGenerateSubThreads = {
   prompt: string;
@@ -32,29 +33,44 @@ export async function generateSubThreads({
   accessToken,
   imageUrl,
 }: TGenerateSubThreads) {
-  const data = await serverRequest<
-    TGenerateSubthreadMutation,
-    GenerateSubthreadMutationVariables
-  >(
-    GenerateSubthreadMutation,
-    {
-      prompt: prompt,
-      style: (style as SubthreadStyle) ?? null,
-      imageUrl: imageUrl ?? null,
-      threadId,
-    },
-    {
-      Authorization: getAuthorization(accessToken),
-    },
-  );
-  if (!data) {
-    throw new Error("Internal server error");
-  }
+  try {
+    const data = await serverRequest<
+      TGenerateSubthreadMutation,
+      GenerateSubthreadMutationVariables
+    >(
+      GenerateSubthreadMutation,
+      {
+        prompt: prompt,
+        style: (style as SubthreadStyle) ?? null,
+        imageUrl: imageUrl ?? null,
+        threadId,
+      },
+      {
+        Authorization: getAuthorization(accessToken),
+      }
+    );
+    if (!data) {
+      TypedAppError.throw("Internal server error", "INTERNAL_SERVER_ERROR");
+    }
 
-  if ("code" in data.generateSubthread) {
-    throw new Error(data.generateSubthread.message, { cause: "INVALID_DATA" });
+    if ("code" in data.generateSubthread) {
+      TypedAppError.throw(
+        data.generateSubthread.message,
+        TypedAppError.mapErrorCode(data.generateSubthread.code)
+      );
+    }
+
+    return data.generateSubthread;
+  } catch (error) {
+    if (error instanceof TypedAppError) {
+      throw error;
+    }
+    // Otherwise, convert to our custom error
+    throw TypedAppError.fromExternalError(
+      "An unexpected error occurred",
+      error
+    );
   }
-  return data.generateSubthread;
 }
 
 export async function getSubThreads(threadId: string, accessToken: string) {
@@ -68,7 +84,7 @@ export async function getSubThreads(threadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    },
+    }
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -88,7 +104,7 @@ export async function getSubThread(subThreadId: string, accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    },
+    }
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -114,7 +130,7 @@ export async function mutateGenerateNewImage({
     },
     {
       Authorization: getAuthorization(accessToken),
-    },
+    }
   );
   if (!data) {
     throw new Error("Internal server error");
@@ -139,7 +155,7 @@ export async function getAllThreads(accessToken: string) {
     },
     {
       Authorization: getAuthorization(accessToken),
-    },
+    }
   );
   if (!data) {
     throw new Error("Internal server error");

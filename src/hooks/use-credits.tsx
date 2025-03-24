@@ -10,6 +10,7 @@ export default function useUserCredits() {
     queryKey: ["get-user-credits", address],
     enabled: !loading && isAuthenticated,
     queryFn: async () => {
+      if (!identityToken) return;
       return await getUserCredits({
         accessToken: identityToken ?? "",
       });
@@ -25,6 +26,7 @@ export function useUserSubscription() {
     queryKey: ["get-manage-subscription", identityToken],
     enabled: !loading && isAuthenticated,
     queryFn: async () => {
+      if (!identityToken) return;
       return await manageUserSubscription({
         accessToken: identityToken ?? "",
       });
