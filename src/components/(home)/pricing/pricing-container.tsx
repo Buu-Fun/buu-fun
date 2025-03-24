@@ -5,7 +5,7 @@ import EnterprisePricingContainer from "./enterprise-pricing-container";
 
 export default function HomePagePricingContainer() {
   return (
-    <div className=" w-full flex items-center mt-12 pb-24 flex-col relative">
+    <div className=" w-full flex items-center mt-12 px-1 pb-24 flex-col relative">
       <OverlayColor
         purpleClassName="top-[2%]"
         trigger=".trigger-pricing-color"

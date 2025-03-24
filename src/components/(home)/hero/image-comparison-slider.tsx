@@ -123,7 +123,7 @@ export default function ImageComparisonSlider() {
                 // Calculate which feature index we should be on (starting from index 1)
                 const mappedIndex = Math.min(
                   features.length - 1,
-                  Math.floor(adjustedProgress / segmentSize),
+                  Math.floor(adjustedProgress / segmentSize)
                 );
 
                 // Only update state if index is actually changing
@@ -144,7 +144,7 @@ export default function ImageComparisonSlider() {
         ctx.revert();
       };
     },
-    { dependencies: [], revertOnUpdate: true },
+    { dependencies: [], revertOnUpdate: true }
   );
 
   // Set up responsive positioning that works with any aspect ratio
@@ -279,9 +279,12 @@ export default function ImageComparisonSlider() {
 
     // Run on mount and resize
     updateSliderPosition();
+
     window.addEventListener("resize", updateSliderPosition);
 
-    return () => window.removeEventListener("resize", updateSliderPosition);
+    return () => {
+      window.removeEventListener("resize", updateSliderPosition);
+    };
   }, []);
 
   // Define enhanced variants for smoother animations
@@ -401,7 +404,7 @@ export default function ImageComparisonSlider() {
       <section
         id="features"
         ref={featureContainerRef}
-        className="relative opacity-0 z-50"
+        className="relative opacity-0 z-50 max-md:px-4"
       >
         <AnimatePresence mode="popLayout" initial={false}>
           {features[index].autoRig ? (
