@@ -9,7 +9,7 @@ import ManageUserSubscriptionButton from "@/components/subscriptions/manage-subs
 import ProtectedWrapper from "@/components/wrapper/protected-wrapper";
 import useUserCredits, { useUserSubscription } from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
-import { getFixedCredits, isImageUrl } from "@/lib/utils";
+import { capitalizeFirstLetter, getFixedCredits, isImageUrl } from "@/lib/utils";
 import { useAuthentication } from "@/providers/account.context";
 
 import Image from "next/image";
@@ -72,8 +72,8 @@ export default function ProfilePage() {
           <div className="w-[2.5px] min-h-[50px] h-full  bg-gray-700/60" />
           <div className="flex items-center justify-start w-full flex-col">
             <h3 className="text-lg font-medium text-buu-muted-text">Plan</h3>
-            <div className="text-2xl font-medium">
-              <p>Free Plan</p>
+            <div className="text-2xl font-medium blue-text-clip">
+              <p>{!subscription ? "Free Plan": capitalizeFirstLetter(subscription.planKey)}</p>
             </div>
           </div>
         </div>
