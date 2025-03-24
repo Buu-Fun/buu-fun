@@ -9,7 +9,7 @@ interface ProtectedRouteProps {
 }
 export default function ProtectedWrapper({
   children,
-  fallbackUrl = "/",
+  fallbackUrl = "/app",
   Fallback = <div>Loading...</div>,
 }: ProtectedRouteProps) {
   const { loading, isAuthenticated } = useAuthentication();

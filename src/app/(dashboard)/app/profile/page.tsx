@@ -5,7 +5,7 @@ import AccountLinking from "@/components/profile/account-linking";
 import Base64ImageDiv from "@/components/profile/icon-render";
 import ProfileSkeleton from "@/components/profile/profile-skeleton";
 import RedeemVouchers from "@/components/profile/redeem-vouchers";
-import SubscriptionDialog from "@/components/subscriptions/subscription-dialog";
+import ManageUserSubscriptionButton from "@/components/subscriptions/manage-subscription-button";
 import ProtectedWrapper from "@/components/wrapper/protected-wrapper";
 import useUserCredits, { useUserSubscription } from "@/hooks/use-credits";
 import { profilePicture } from "@/lib/dice-bear";
@@ -87,8 +87,8 @@ export default function ProfilePage() {
           </p>
           <CopyReferralWrapper /> */}
           <RedeemVouchers />
-
-          <SubscriptionDialog />
+          <ManageUserSubscriptionButton />
+          {/* <SubscriptionDialog /> */}
         </div>
         <div className="mt-6">
           <p className=" font-medium text-buu-muted-text">Link your accounts</p>

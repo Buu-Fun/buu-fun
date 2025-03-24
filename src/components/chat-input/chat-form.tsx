@@ -26,6 +26,8 @@ import toast from "react-hot-toast";
 import { TBottomBarContainer } from "./bottom-bar-container";
 import ChatTextArea from "./chat-text-area";
 import DragImageCard, { ImageData } from "./drag-image-card";
+import { TypedAppError } from "@/class/error";
+import { setSubscriptionModel } from "@/lib/redux/features/subscription";
 
 export default function ChatForm({ action }: TBottomBarContainer) {
   const { identityToken, login } = useAuthentication();
@@ -44,11 +46,24 @@ export default function ChatForm({ action }: TBottomBarContainer) {
     },
     mutationFn: generateSubThreads,
     onSuccess(data) {
-      dispatch(setNewThreadId(data.threadId));
-      router.push(`/app/generation/${data.threadId}`);
+      dispatch(setNewThreadId(data?.threadId));
+      router.push(`/app/generation/${data?.threadId}`);
     },
-    onError() {
-      toast.error("Our servers are busy, Please try again");
+    onError(error) {
+      if (error instanceof TypedAppError) {
+        switch (error.code) {
+          case "CREDIT_NOT_FOUND": {
+            dispatch(setSubscriptionModel(true));
+            toast.error("Insufficient credits");
+            return;
+          }
+          default: {
+            toast.error("Something went wrong");
+            return;
+          }
+        }
+      }
+      toast.error("Something went wrong, Please try again.");
     },
   });
 
@@ -64,8 +79,21 @@ export default function ChatForm({ action }: TBottomBarContainer) {
           queryKey: [data.threadId, "get-sub-threads"],
         });
       },
-      onError(data) {
-        toast.error(data.message);
+      onError(error) {
+        if (error instanceof TypedAppError) {
+          switch (error.code) {
+            case "CREDIT_NOT_FOUND": {
+              dispatch(setSubscriptionModel(true));
+              toast.error("Insufficient credits");
+              return;
+            }
+            default: {
+              toast.error("Something went wrong");
+              return;
+            }
+          }
+        }
+        toast.error("Something went wrong, Please try again.");
       },
     });
 

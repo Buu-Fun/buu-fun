@@ -4,7 +4,7 @@ import SubscriptionPricingHeader from "./subscription-pricing-header";
 
 export default function SubscriptionPricingHeaderWrapper() {
   const plan = useAppSelector(
-    (state) => state.subscription.SubscriptionModelPlan
+    (state) => state.subscription.SubscriptionModelPlan,
   );
 
   const planDetails = PRICING_PLAN[plan];

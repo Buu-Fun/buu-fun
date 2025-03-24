@@ -1,7 +1,8 @@
 import { PRICING_PLAN } from "@/constants/subscription/subscription-plans";
 import { useAppSelector } from "@/hooks/redux";
-import SubscriptionPlanDetails from "./subscription-plan-details";
+import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import SubscriptionPlanDetails from "./subscription-plan-details";
 
 export default function SubscriptionPlanDetailWrapper({
   subscriptionButton,
@@ -14,11 +15,34 @@ export default function SubscriptionPlanDetailWrapper({
   const planDetails = PRICING_PLAN[plan];
   const subscriptionDetails = planDetails.subscriptionDetails;
 
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 0 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.35,
+        delay: 0.2, // Reduced delay
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
   return (
-    <SubscriptionPlanDetails
-      plan={plan}
-      subscriptionDetails={subscriptionDetails}
-      subscriptionButton={subscriptionButton}
-    />
+    <>
+      <SubscriptionPlanDetails
+        plan={plan}
+        subscriptionDetails={subscriptionDetails}
+        subscriptionButton={subscriptionButton}
+      />
+      <motion.div variants={buttonVariants} className="grid col-span-2 mt-2">
+        {subscriptionButton}
+      </motion.div>
+    </>
   );
 }
