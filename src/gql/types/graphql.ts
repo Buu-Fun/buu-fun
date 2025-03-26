@@ -459,6 +459,10 @@ export type ShareableBoardFilter = {
   creator_ne?: InputMaybe<Scalars['String']['input']>;
   creator_nin?: InputMaybe<Array<Scalars['String']['input']>>;
   isPublic_eq?: InputMaybe<Scalars['Boolean']['input']>;
+  threadId_eq?: InputMaybe<Scalars['String']['input']>;
+  threadId_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  threadId_ne?: InputMaybe<Scalars['String']['input']>;
+  threadId_nin?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 export type ShareableBoardPage = {
