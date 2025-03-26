@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.1.56](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.55...buu-fun-v0.1.56) (2025-03-24)
+
+
+### ✨ Features
+
+* added App error class for typesafe errors ([6267b9e](https://github.com/Buu-Fun/buu-fun/commit/6267b9e1d55cf4cfb6ae4989f3dd4a3f1284a240))
+* added new subscription button and added low credit open pricing modal ([236df01](https://github.com/Buu-Fun/buu-fun/commit/236df01637db3a8e145a80fe297542ad48f60f83))
+* added subscription plan name to profile ([86c6dce](https://github.com/Buu-Fun/buu-fun/commit/86c6dce7b9eb86fe36efce0f6f904433b39ccd81))
+* added subscription plan name to profile ([8f7e715](https://github.com/Buu-Fun/buu-fun/commit/8f7e715744788ec15ad5967323088c35f1a07aa1))
+* added subscription pricing ([fb6412f](https://github.com/Buu-Fun/buu-fun/commit/fb6412ff763304a5424e8431abe7d1131816b977))
+* added subscription to be globally accessible ([bd0f7b6](https://github.com/Buu-Fun/buu-fun/commit/bd0f7b65f60163b6f1d9784945fa7ba4e2117e52))
+
+
+### 🐛 Bugfixes
+
+* added padding for mobile device ([25e7b64](https://github.com/Buu-Fun/buu-fun/commit/25e7b64b94a816265a4bffcd9545dcb7c439c5c7))
+* added padding for mobile device ([a6389d7](https://github.com/Buu-Fun/buu-fun/commit/a6389d7e61313d9215b80acb775a2a35fcf60cd0))
+
+
+### 👽 Miscellaneous
+
+* **lint:** formatted and linted the codebase ([e2cd7b7](https://github.com/Buu-Fun/buu-fun/commit/e2cd7b718b3bfda1a8857786a878e7c026e26255))
+
 ## [0.1.55](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.54...buu-fun-v0.1.55) (2025-03-21)
 
 

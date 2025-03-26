@@ -434,12 +434,15 @@ export const GetShareableBoardQuery = gql`
     getShareableBoard(id: $getShareableBoardId) {
       ... on ShareableBoard {
         _id
+        threadId
         title
         creator
         ideas {
+          subthreadId
           prompt
           style
           genRequests {
+            genRequestId
             type
             images {
               alt
@@ -456,6 +459,7 @@ export const GetShareableBoardQuery = gql`
               url
             }
             createdAt
+            metadata
           }
           createdAt
         }
@@ -479,12 +483,15 @@ export const GetUserShareableBoardsQuery = gql`
       ... on ShareableBoardPage {
         items {
           _id
+          threadId
           title
           creator
           ideas {
+            subthreadId
             prompt
             style
             genRequests {
+              genRequestId
               type
               images {
                 alt
@@ -501,6 +508,7 @@ export const GetUserShareableBoardsQuery = gql`
                 url
               }
               createdAt
+              metadata
             }
             createdAt
           }
@@ -531,12 +539,15 @@ export const CreateShareableBoardMutation = gql`
     createShareableBoard(threadId: $threadId) {
       ... on ShareableBoard {
         _id
+        threadId
         title
         creator
         ideas {
+          subthreadId
           prompt
           style
           genRequests {
+            genRequestId
             type
             images {
               alt
@@ -553,6 +564,7 @@ export const CreateShareableBoardMutation = gql`
               url
             }
             createdAt
+            metadata
           }
           createdAt
         }
@@ -578,12 +590,15 @@ export const UpdateShareableBoardVisibilityMutation = gql`
     ) {
       ... on ShareableBoard {
         _id
+        threadId
         title
         creator
         ideas {
+          subthreadId
           prompt
           style
           genRequests {
+            genRequestId
             type
             images {
               alt
@@ -600,6 +615,7 @@ export const UpdateShareableBoardVisibilityMutation = gql`
               url
             }
             createdAt
+            metadata
           }
           createdAt
         }
@@ -619,12 +635,15 @@ export const DeleteShareableBoardMutation = gql`
     deleteShareableBoard(shareableBoardId: $shareableBoardId) {
       ... on ShareableBoard {
         _id
+        threadId
         title
         creator
         ideas {
+          subthreadId
           prompt
           style
           genRequests {
+            genRequestId
             type
             images {
               alt
@@ -641,6 +660,7 @@ export const DeleteShareableBoardMutation = gql`
               url
             }
             createdAt
+            metadata
           }
           createdAt
         }
