@@ -88,7 +88,6 @@ export default function ProfilePage() {
           <CopyReferralWrapper /> */}
           <RedeemVouchers />
           <ManageUserSubscriptionButton />
-          {/* <SubscriptionDialog /> */}
         </div>
         <div className="mt-6">
           <p className=" font-medium text-buu-muted-text">Link your accounts</p>

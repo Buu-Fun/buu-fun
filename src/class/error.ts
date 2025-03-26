@@ -5,7 +5,8 @@ export type APP_ERROR_CODES =
   | "LOW_CREDIT"
   | "INVALID_DATA"
   | "INTERNAL_SERVER_ERROR"
-  | "UNKNOWN_ERROR";
+  | "UNKNOWN_ERROR"
+  | "FAILED_TO_CREATE_SHAREABLE_BOARD";
 
 // Custom error class that mimics TRPC error structure
 export class TypedAppError extends Error {
