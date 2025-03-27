@@ -734,3 +734,13 @@ body {
   background: rgba(47, 55, 68, 0.8);
   backdrop-filter: blur(24.399999618530273px);
 }
+
+.bg-modal-background {
+  background: rgba(45, 50, 60, 0.7);
+  backdrop-filter: blur(25px);
+}
+
+.muted-button {
+  border-radius: 10px;
+  background: rgba(26, 33, 41, 0.36);
+}

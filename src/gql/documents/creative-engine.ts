@@ -428,3 +428,249 @@ export const GenerateCreditsPackagePaymentLinkQuery = gql`
     }
   }
 `;
+
+export const GetShareableBoardQuery = gql`
+  query GetShareableBoard($getShareableBoardId: String!) {
+    getShareableBoard(id: $getShareableBoardId) {
+      ... on ShareableBoard {
+        _id
+        threadId
+        title
+        creator
+        ideas {
+          subthreadId
+          prompt
+          style
+          genRequests {
+            genRequestId
+            type
+            images {
+              alt
+              keyS3
+              size
+              type
+              url
+            }
+            model_mesh {
+              alt
+              keyS3
+              size
+              type
+              url
+            }
+            createdAt
+            metadata
+          }
+          createdAt
+        }
+        isPublic
+        createdAt
+      }
+      ... on HandledError {
+        code
+        message
+      }
+    }
+  }
+`;
+
+export const GetUserShareableBoardsQuery = gql`
+  query GetUserShareableBoard(
+    $pagination: Pagination
+    $filters: ShareableBoardFilter
+  ) {
+    getUserShareableBoard(pagination: $pagination, filters: $filters) {
+      ... on ShareableBoardPage {
+        items {
+          _id
+          threadId
+          title
+          creator
+          ideas {
+            subthreadId
+            prompt
+            style
+            genRequests {
+              genRequestId
+              type
+              images {
+                alt
+                keyS3
+                size
+                type
+                url
+              }
+              model_mesh {
+                alt
+                keyS3
+                size
+                type
+                url
+              }
+              createdAt
+              metadata
+            }
+            createdAt
+          }
+          isPublic
+          createdAt
+        }
+        metadata {
+          limit
+          offset
+          orderBy
+          orderDirection
+          numElements
+          total
+          page
+          pages
+        }
+      }
+      ... on HandledError {
+        code
+        message
+      }
+    }
+  }
+`;
+
+export const CreateShareableBoardMutation = gql`
+  mutation CreateShareableBoard($threadId: String!) {
+    createShareableBoard(threadId: $threadId) {
+      ... on ShareableBoard {
+        _id
+        threadId
+        title
+        creator
+        ideas {
+          subthreadId
+          prompt
+          style
+          genRequests {
+            genRequestId
+            type
+            images {
+              alt
+              keyS3
+              size
+              type
+              url
+            }
+            model_mesh {
+              alt
+              keyS3
+              size
+              type
+              url
+            }
+            createdAt
+            metadata
+          }
+          createdAt
+        }
+        isPublic
+        createdAt
+      }
+      ... on HandledError {
+        code
+        message
+      }
+    }
+  }
+`;
+
+export const UpdateShareableBoardVisibilityMutation = gql`
+  mutation UpdateShareableBoardVisibility(
+    $isPublic: Boolean!
+    $shareableBoardId: String!
+  ) {
+    updateShareableBoardVisibility(
+      isPublic: $isPublic
+      shareableBoardId: $shareableBoardId
+    ) {
+      ... on ShareableBoard {
+        _id
+        threadId
+        title
+        creator
+        ideas {
+          subthreadId
+          prompt
+          style
+          genRequests {
+            genRequestId
+            type
+            images {
+              alt
+              keyS3
+              size
+              type
+              url
+            }
+            model_mesh {
+              alt
+              keyS3
+              size
+              type
+              url
+            }
+            createdAt
+            metadata
+          }
+          createdAt
+        }
+        isPublic
+        createdAt
+      }
+      ... on HandledError {
+        code
+        message
+      }
+    }
+  }
+`;
+
+export const DeleteShareableBoardMutation = gql`
+  mutation DeleteShareableBoard($shareableBoardId: String!) {
+    deleteShareableBoard(shareableBoardId: $shareableBoardId) {
+      ... on ShareableBoard {
+        _id
+        threadId
+        title
+        creator
+        ideas {
+          subthreadId
+          prompt
+          style
+          genRequests {
+            genRequestId
+            type
+            images {
+              alt
+              keyS3
+              size
+              type
+              url
+            }
+            model_mesh {
+              alt
+              keyS3
+              size
+              type
+              url
+            }
+            createdAt
+            metadata
+          }
+          createdAt
+        }
+        isPublic
+        createdAt
+      }
+      ... on HandledError {
+        code
+        message
+      }
+    }
+  }
+`;

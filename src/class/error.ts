@@ -5,7 +5,8 @@ export type APP_ERROR_CODES =
   | "LOW_CREDIT"
   | "INVALID_DATA"
   | "INTERNAL_SERVER_ERROR"
-  | "UNKNOWN_ERROR";
+  | "UNKNOWN_ERROR"
+  | "FAILED_TO_CREATE_SHAREABLE_BOARD";
 
 // Custom error class that mimics TRPC error structure
 export class TypedAppError extends Error {
@@ -17,7 +18,7 @@ export class TypedAppError extends Error {
     message: string,
     code: APP_ERROR_CODES = "UNKNOWN_ERROR",
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any
+    data?: any,
   ) {
     super(message);
     this.name = this.constructor.name;
@@ -35,7 +36,7 @@ export class TypedAppError extends Error {
     message: string,
     code: APP_ERROR_CODES = "UNKNOWN_ERROR",
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any
+    data?: any,
   ): never {
     throw new TypedAppError(message, code, data);
   }
@@ -63,7 +64,7 @@ export class TypedAppError extends Error {
     message: string,
     codeOrError?: string | Error | unknown,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any
+    data?: any,
   ): TypedAppError {
     // If codeOrError is a string, try to map it to a valid code
     if (typeof codeOrError === "string") {
@@ -80,7 +81,7 @@ export class TypedAppError extends Error {
       return new TypedAppError(
         message || errorObj?.message || "Something went wrong",
         this.mapErrorCode(extractedCode),
-        extractedData
+        extractedData,
       );
     }
 

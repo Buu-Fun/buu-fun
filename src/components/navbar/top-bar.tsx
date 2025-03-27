@@ -7,6 +7,7 @@ import CreditUsedIcon from "./credit-used-icon";
 import DesktopProfileNavigation from "./desktop-profile-navigation";
 import MobileProfileNavigation from "./mobile-profile-navigation";
 import RecentChats from "./recent-chats";
+import ShareableBoardsButton from "../boards/shareable-boards-button";
 
 export default function Topbar() {
   const { address, isAuthenticated, loading, login } = useAuthentication();
@@ -14,7 +15,10 @@ export default function Topbar() {
 
   return (
     <div className="flex items-center justify-end lg:gap-0 gap-2  lg:justify-between pr-1 lg:pr-10 py-4 lg:py-6">
-      {!shouldConnect ? <RecentChats /> : null}
+      <div className="flex items-center gap-4">
+        {!shouldConnect ? <RecentChats /> : null}
+        {!shouldConnect ? <ShareableBoardsButton /> : null}
+      </div>
       {loading ? (
         <div className="w-8 h-8 rounded-full border-2 border-buu-secondary border-t-transparent animate-spin" />
       ) : shouldConnect ? (

@@ -1,14 +1,14 @@
 import { isError, isInProgress } from "../helpers/status-checker";
 import { TSubThreadsMedia } from "./features/chat-types";
-export const ImageModelType = "fal-ai/flux-lora";
-export const ThreeDModelType = "fal-ai/trellis";
+export const ImageModelType = ["fal-ai/flux-lora", "FluxLora"];
+export const ThreeDModelType = ["fal-ai/trellis", "Trellis"];
 
 export function isThreeDModel(type: string) {
-  return type === ThreeDModelType;
+  return ThreeDModelType.includes(type);
 }
 
 export function isImageModel(type: string) {
-  return type === ImageModelType;
+  return ImageModelType.includes(type);
 }
 
 type GenMedias = {

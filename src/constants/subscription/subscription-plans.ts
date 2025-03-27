@@ -74,6 +74,10 @@ export type TPricing = {
 export type TPricingDetails = {
   pricing: TPricing;
   subscriptionDetails?: SubscriptionDetails;
+  configs?: {
+    boards: 5;
+    public: false;
+  };
 };
 
 type PricingPlanDetails = Record<Plans, TPricingDetails>;

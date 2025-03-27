@@ -17,6 +17,7 @@ type TBoardCard = {
 export const SingleColumnImage = (
   <SingleImageLayout alt={"sdasd"} url={ThreeDCube.src} />
 );
+
 export const TwoColumnImage = (
   <TwoColumnImageLayout
     media={[
@@ -41,7 +42,9 @@ export default function BoardCards({ idea, images, title }: TBoardCard) {
     <div className="flex group  p-[18px] border-2 flex-col justify-center items-center gap-[25px]  border-buu bg-buu shadow-buu-inner backdrop-blur-3xl rounded-2xl">
       {images}
       <div className="min-w-[155px] flex items-center justify-center flex-col">
-        <h3 className="text-white text-center text-xl font-medium">{title}</h3>
+        <h3 className="text-white text-center max-w-[150px] truncate text-xl font-medium">
+          {title}
+        </h3>
         <p className="text-gray-400">
           {idea} {pluralize(idea, "Idea")}
         </p>
@@ -57,13 +60,13 @@ type TSingleImageLayout = {
 export function SingleImageLayout({ alt, url }: TSingleImageLayout) {
   return (
     <div className="w-[106px] mt-2 relative  flex items-center   justify-center h-[100px] aspect-video">
-      <div className="-rotate-[12deg] z-10 group-hover:scale-[1.15] group-hover:rotate-[0deg]  transition-all duration-700 ease-in-out ">
+      <div className="-rotate-[12deg] z-10 group-hover:scale-[1.15]  group-hover:rotate-[0deg]  transition-all duration-700 ease-in-out ">
         <Image
           src={url}
           alt={alt}
           width={250}
           height={250}
-          className="max-w-[77px] w-full rounded-2xl"
+          className="w-[77px] h-[100px] object-cover rounded-2xl"
         />
       </div>
     </div>
@@ -81,7 +84,7 @@ export function TwoColumnImageLayout({ media }: TTwoColumnLayout) {
           alt={media[0].alt}
           width={250}
           height={250}
-          className="max-w-[77px] w-full rounded-2xl"
+          className="w-[77px] h-[100px] w-full rounded-2xl"
         />
       </div>
       <div className="rotate-12 right-0 absolute group-hover:rotate-[18deg] group-hover:scale-110  transition-all duration-700 ease-in-out ">
@@ -90,7 +93,7 @@ export function TwoColumnImageLayout({ media }: TTwoColumnLayout) {
           alt={media[1].alt}
           width={250}
           height={250}
-          className="max-w-[77px] rounded-2xl"
+          className="w-[77px] h-[100px] rounded-2xl"
         />
       </div>
     </div>
@@ -110,7 +113,7 @@ export function ThreeColumnImageLayout({ media }: TThreeColumnLayout) {
           alt={media[0].alt}
           width={250}
           height={250}
-          className="max-w-[77px] w-full rounded-2xl"
+          className="w-[77px] h-[100px] rounded-2xl"
         />
       </div>
       <div className="rotate-0 mx-auto z-10 absolute group-hover:scale-90 transition-all duration-700 ease-in-out">
@@ -119,7 +122,7 @@ export function ThreeColumnImageLayout({ media }: TThreeColumnLayout) {
           alt={media[2].alt}
           width={250}
           height={250}
-          className="max-w-[77px] rounded-2xl"
+          className="w-[77px] h-[100px] rounded-2xl"
         />
       </div>
       <div className="rotate-12 right-0 absolute group-hover:scale-110 group-hover:rotate-[20deg]  group-hover:-right-2  transition-all duration-700 ease-in-out">
@@ -128,8 +131,25 @@ export function ThreeColumnImageLayout({ media }: TThreeColumnLayout) {
           alt={media[1].alt}
           width={250}
           height={250}
-          className="max-w-[77px] rounded-2xl"
+          className="w-[77px] h-[100px] rounded-2xl"
         />
+      </div>
+    </div>
+  );
+}
+
+export function BoardCardsSkeleton() {
+  return (
+    <div className="flex group p-[18px] border-2 flex-col justify-center items-center gap-[25px] border-buu bg-buu shadow-buu-inner backdrop-blur-3xl rounded-2xl animate-pulse">
+      <div className="w-[106px] mt-2 relative  flex items-center   justify-center h-[100px] aspect-[10/16]">
+        <div className="-rotate-[12deg] bg-gray-800 z-10 group-hover:scale-[1.15] w-[77px] h-[100px] rounded-2xl  group-hover:rotate-[0deg]  transition-all duration-700 ease-in-out "></div>
+      </div>
+      {/* Image Placeholder */}
+      <div className="min-w-[155px] flex items-center justify-center flex-col">
+        <div className="w-[150px] h-6 bg-gray-800 rounded-md"></div>{" "}
+        {/* Title Placeholder */}
+        <div className="w-[120px] h-4 bg-gray-700 mt-2 rounded-md"></div>{" "}
+        {/* Idea Placeholder */}
       </div>
     </div>
   );

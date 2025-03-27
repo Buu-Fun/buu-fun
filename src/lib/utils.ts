@@ -2,6 +2,7 @@ import { AllowedContentType } from "@/constants/content-type.config";
 import {
   MAXIMUM_REQUEST_LIMIT,
   MAXIMUM_RETRY_ALLOWED,
+  SHARE_LINK_CONFIG,
 } from "@/constants/request.config";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -16,7 +17,11 @@ export function cn(...inputs: ClassValue[]) {
 
 const isPlural = (num: number) => Math.abs(num) !== 1;
 const simplePlural = (word: string) => `${word}s`;
-
+export function isLocalMode() {
+  return (
+    process.env.NODE_ENV === "development" || process.env?.APP_ENV === "local"
+  );
+}
 export function pluralize(
   num: number,
   word: string,
@@ -147,4 +152,8 @@ export function formatUnits(tokens: string, decimals: number): string {
 export function capitalizeFirstLetter(str: string): string {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+export function getSharableUrl(boardId: string) {
+  return `${SHARE_LINK_CONFIG}/${boardId}`;
 }

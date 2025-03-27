@@ -8,7 +8,7 @@ import { ToolTips, TToolTipsData } from "./handle-tool-calls";
 import { buttonVariants } from "./tool-bar-tool-tips";
 
 type TToolTipModify = {
-  subThreadId: string;
+  subThreadId?: string;
   modelUrl?: string | null;
   toolTipData: TToolTipsData[number];
   index: number;

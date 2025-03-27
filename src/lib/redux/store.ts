@@ -1,12 +1,14 @@
 import ChatSlice from "@/lib/redux/features/chat";
 import SettingsSlice from "@/lib/redux/features/settings";
 import SubscriptionSlice from "@/lib/redux/features/subscription";
+import boardSlice from "@/lib/redux/features/boards";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const makeStore = () => {
   return configureStore({
     devTools: true,
     reducer: {
+      boards: boardSlice,
       settings: SettingsSlice,
       chat: ChatSlice,
       subscription: SubscriptionSlice,
