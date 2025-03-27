@@ -26,17 +26,26 @@ import {
   UpdateShareableBoardVisibilityMutationVariables,
 } from "@/gql/types/graphql";
 
-export async function getUserSharableBoardQuery({ accessToken }: AccessToken) {
+export async function getUserSharableBoardQuery({
+  accessToken,
+  threadId,
+  count,
+  _id,
+}: AccessToken & { threadId?: string; count?: number; _id?: string }) {
   const data = await serverRequest<
     GetUserShareableBoardQuery,
     TGetUserShareableBoardQueryVariables
   >(
     GetUserShareableBoardsQuery,
     {
+      filters: {
+        threadId_eq: threadId,
+        _id_eq: _id,
+      },
       pagination: {
-        limit: 100,
+        limit: count ?? 100,
         orderBy: "createdAt",
-        orderDirection: OrderDirection.Asc,
+        orderDirection: OrderDirection.Desc,
       },
     },
     {
@@ -56,14 +65,26 @@ export async function getUserSharableBoardQuery({ accessToken }: AccessToken) {
   return data.getUserShareableBoard;
 }
 
-export async function getSharableBoardQuery({ boardId }: { boardId: string }) {
+export async function getSharableBoardQuery({
+  boardId,
+  headers,
+}: {
+  boardId: string;
+  headers?: {
+    Authorization: string;
+  };
+}) {
   try {
     const data = await serverRequest<
       TGetShareableBoardQuery,
       TGetShareableBoardQueryVariables
-    >(GetShareableBoardQuery, {
-      getShareableBoardId: boardId,
-    });
+    >(
+      GetShareableBoardQuery,
+      {
+        getShareableBoardId: boardId,
+      },
+      headers
+    );
 
     if (!data) {
       throw new Error("Internal server error");
