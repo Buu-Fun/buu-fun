@@ -1,5 +1,38 @@
 # Changelog
 
+## [0.1.57](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.56...buu-fun-v0.1.57) (2025-03-27)
+
+
+### ✨ Features
+
+* addded inital redux store state with user authentication for boards page ([dde8462](https://github.com/Buu-Fun/buu-fun/commit/dde8462b9190724b5495a29ae3934b88e0a515bd))
+* added animation for board backgrounds ([c810bee](https://github.com/Buu-Fun/buu-fun/commit/c810bee0ada9b35c72b56dace44a55ec61f61f39))
+* added board and share board page with copy link ([beb5926](https://github.com/Buu-Fun/buu-fun/commit/beb5926bbddcb9becf60a2c1869796a5536ca157))
+* added board redux slice ([56c3818](https://github.com/Buu-Fun/buu-fun/commit/56c3818e80f4bed8ac702a1d73241b96060cb6ad))
+* added boards graph-ql query ([fc0f815](https://github.com/Buu-Fun/buu-fun/commit/fc0f8153a05ed7dc48c2ca270d43acb38d8d08c8))
+* added boards page buttons and image maping component ([30f1088](https://github.com/Buu-Fun/buu-fun/commit/30f1088ac2b9c945b60b2d088ed3b522a356419a))
+* added boards tooltip components ([22697d4](https://github.com/Buu-Fun/buu-fun/commit/22697d4e825f013a040b9ff3e924dddf1c5b4e90))
+* added copy state for CopyBoard Url ([5b626f5](https://github.com/Buu-Fun/buu-fun/commit/5b626f5e25ae75acbc20d73f49bf8e926418cb9c))
+* added data for board tool tips ([16f9a88](https://github.com/Buu-Fun/buu-fun/commit/16f9a88eadd0e6fecac2206a13d265c37f54976d))
+* added getBoards slice selector ([4e34ba5](https://github.com/Buu-Fun/buu-fun/commit/4e34ba56b652c1e84894cb47d0b0b98b4208bb09))
+* added loader skeleton for boards card and updated boards page ([3b6e48d](https://github.com/Buu-Fun/buu-fun/commit/3b6e48dd14aeb8c93f7ac6c04e07a7d994f1e77b))
+* added model checker to be array of models instead of single check ([e72920c](https://github.com/Buu-Fun/buu-fun/commit/e72920cbbe5777e558c13bb359dab9b14efa665e))
+* added public board public shared page ([26cc39f](https://github.com/Buu-Fun/buu-fun/commit/26cc39ff66624faf84e9405c459e1fca5026cc4c))
+* added reusable boards share gql query ([ca21e4e](https://github.com/Buu-Fun/buu-fun/commit/ca21e4e4848db0f98aa650a7fe700c0a974fa287))
+* added styles and configs for boards ([befbae6](https://github.com/Buu-Fun/buu-fun/commit/befbae61f4e8bcd101966bf60d8f3ab839d8edc7))
+* added useBoardHooks and shareable board icon ([eeef90e](https://github.com/Buu-Fun/buu-fun/commit/eeef90e4cfcfce772ec27987f7c26a9db99b6d71))
+* added utils for local check and removed duplicate gql types ([3df523e](https://github.com/Buu-Fun/buu-fun/commit/3df523e31f9ff6d49875d811862eef1f121a5a76))
+* integrated tooltip component and resposive carousel for model viewer ([3c80445](https://github.com/Buu-Fun/buu-fun/commit/3c804459d5464388b9ba01568edb1c2ad234e42c))
+* shareable boards documents and types ([864b13b](https://github.com/Buu-Fun/buu-fun/commit/864b13bff1832c1b1688e66e50355276eab9a5ed))
+* shareable boards new fields ([9e76523](https://github.com/Buu-Fun/buu-fun/commit/9e76523a71e52a5e8be10c5a14332f07a91ac286))
+* thread id filters shareable board ([de097f9](https://github.com/Buu-Fun/buu-fun/commit/de097f97bac96f2d5fc402304713c355d33c56d7))
+* updated shareboard button with public and private informations ([2410ec6](https://github.com/Buu-Fun/buu-fun/commit/2410ec6ca91a94f731f30fc69d5843d0196da224))
+
+
+### 👽 Miscellaneous
+
+* **lint:** prettified the codebase and linted ([b68882c](https://github.com/Buu-Fun/buu-fun/commit/b68882c42b3abd5f42cf16c0b2d5d8345bda8ccf))
+
 ## [0.1.56](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.55...buu-fun-v0.1.56) (2025-03-24)
 
 
