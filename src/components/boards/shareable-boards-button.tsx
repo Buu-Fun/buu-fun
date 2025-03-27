@@ -1,10 +1,20 @@
-import { useAppDispatch, useAppSelector, useAppStore } from "@/hooks/redux";
-import { useUserSubscription } from "@/hooks/use-credits";
-import { HistoryIcon } from "lucide-react";
-import { usePathname } from "next/navigation";
-import React from "react";
-import { Button } from "../ui/button";
+import ShareAndSaveIcon from "@/assets/icons/share-and-save";
 import ShareIcon from "@/assets/icons/share-icon";
+import { TypedAppError } from "@/class/error";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useSharableBoards } from "@/hooks/use-boards";
+import { useUserSubscription } from "@/hooks/use-credits";
+import {
+  createNewBoardsMutation,
+  updateBoardsVisibility,
+} from "@/lib/react-query/boards";
+import { setSubscriptionModel } from "@/lib/redux/features/subscription";
+import { cn, getSharableUrl } from "@/lib/utils";
+import { useAuthentication } from "@/providers/account.context";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
+import toast from "react-hot-toast";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
@@ -13,24 +23,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
-import { setSubscriptionModel } from "@/lib/redux/features/subscription";
-import { TypedAppError } from "@/class/error";
-import { useAuthentication } from "@/providers/account.context";
-import ShareAndSaveIcon from "@/assets/icons/share-and-save";
-import CopyIcon from "@/assets/icons/copy-icon";
-import { cn } from "@/lib/utils";
-import { createNewBoardsMutation, updateBoardsVisibility } from "@/lib/react-query/boards";
 import CopyBoardLink from "./copy-board-link";
 
 export default function ShareableBoardsButton() {
   const path = usePathname();
+
   const threadId = useAppSelector((state) => state.chat.threads.threadId);
+
   const subThreads = useAppSelector((state) => state.chat.subThreads);
+
   const dispatch = useAppDispatch();
+
   const { identityToken: accessToken, login } = useAuthentication();
+
   const { data: userSubscription } = useUserSubscription();
+
+  const queryClient = useQueryClient();
+
+  const { data: SharableBoard } = useSharableBoards({
+    threadId,
+    count: 1,
+  });
 
   const {
     mutate: createNewBoard,
@@ -39,6 +52,9 @@ export default function ShareableBoardsButton() {
   } = useMutation({
     mutationFn: createNewBoardsMutation,
     onMutate(data) {
+      queryClient.invalidateQueries({
+        queryKey: ["user-shareable-boards", threadId],
+      });
       toast.loading("Adding to boards...", {
         duration: 3000,
       });
@@ -77,7 +93,10 @@ export default function ShareableBoardsButton() {
       toast.loading("Adding to boards...");
     },
     onSuccess(data, variables, context) {
-      const link = `https://buu.fun/boards/${data?._id}`;
+      queryClient.invalidateQueries({
+        queryKey: ["user-shareable-boards", threadId],
+      });
+      const link = getSharableUrl(data._id);
       window.navigator.clipboard.writeText(link);
       toast.success("Successfully copied to your clipboard");
     },
@@ -106,10 +125,6 @@ export default function ShareableBoardsButton() {
 
   const isGenerationPage = path.startsWith("/app/generation");
 
-  if (!isGenerationPage) {
-    return null;
-  }
-
   function handleConfirm() {
     if (!accessToken) {
       login();
@@ -129,11 +144,14 @@ export default function ShareableBoardsButton() {
 
     mutateBoardVisibility({
       accessToken,
-      boardId: data?._id ?? "",
-      isPublic: !data?.isPublic,
+      boardId: SharableBoard?.items[0]?._id ?? "",
+      isPublic: !SharableBoard?.items[0]?.isPublic,
     });
   }
 
+  if (!isGenerationPage) {
+    return null;
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -141,10 +159,10 @@ export default function ShareableBoardsButton() {
           variant={"ghost"}
           className="px-3 flex items-center hover:bg-buu-button justify-center gap-1 text-base h-[40px] group  py-2  rounded-[10px]"
         >
-          <div className="w-4 h-4  ">
+          <div className="w-4 h-4">
             <ShareIcon />
           </div>
-          <span className="hidden lg:block">Share the thread</span>
+          <span className="hidden lg:block">Share</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-referral-modal px-6 py-8">
@@ -159,27 +177,28 @@ export default function ShareableBoardsButton() {
 
         <div
           className={cn("hidden", {
-            block: data?._id,
+            block: SharableBoard?.items[0]?._id,
           })}
         >
-          <CopyBoardLink boardId={data?._id ?? ""} />
+          <CopyBoardLink boardId={SharableBoard?.items[0]?._id ?? ""} />
         </div>
         <div className="flex items-center justify-center gap-3">
           <Button
             variant={"muted"}
             size={"buu"}
             className={cn("bg-buu-button-muted", {
-              hidden: !data?._id,
+              hidden: !SharableBoard?.items[0]?._id,
             })}
             onClick={() => {
               handleBoardsVisibility();
             }}
           >
-            {data?.isPublic ? "Stop Share" : "Make public"}
+            {SharableBoard?.items[0]?.isPublic || data?.isPublic
+              ? "Stop Share"
+              : "Make public"}
           </Button>
           <Button
-            disabled={!!data?._id}
-            // variant={""}
+            disabled={isCreateNewBoardPending || isUpdatingBoardVisibility}
             size={"buu"}
             // className="bg-buu-button-muted"
             onClick={() => {
@@ -187,7 +206,19 @@ export default function ShareableBoardsButton() {
             }}
           >
             <ShareAndSaveIcon />
-            {!isCreateNewBoardPending ? "add to boards" : "adding..."}
+            {!SharableBoard?.items.length ? (
+              <>
+                {!isCreateNewBoardPending
+                  ? "Add to Boards & Copy Link"
+                  : "adding..."}
+              </>
+            ) : (
+              <>
+                {!isCreateNewBoardPending
+                  ? "Update & Copy Link"
+                  : "updating..."}
+              </>
+            )}
           </Button>
         </div>
       </DialogContent>
