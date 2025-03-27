@@ -25,7 +25,7 @@ export const serverRequest = async <T = any, S = any>(
   query: RequestDocument,
   variables?: S & { [key: string]: any },
   headers?: TCommonHeaders,
-  forceResultIfFail?: any,
+  forceResultIfFail?: any
 ): Promise<T | undefined> => {
   try {
     return await serverClient?.request<T>(query, variables, headers);

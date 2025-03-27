@@ -2,6 +2,7 @@ import { AllowedContentType } from "@/constants/content-type.config";
 import {
   MAXIMUM_REQUEST_LIMIT,
   MAXIMUM_RETRY_ALLOWED,
+  SHARE_LINK_CONFIG,
 } from "@/constants/request.config";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -16,23 +17,27 @@ export function cn(...inputs: ClassValue[]) {
 
 const isPlural = (num: number) => Math.abs(num) !== 1;
 const simplePlural = (word: string) => `${word}s`;
-
+export function isLocalMode() {
+  return (
+    process.env.NODE_ENV === "development" || process.env?.APP_ENV === "local"
+  );
+}
 export function pluralize(
   num: number,
   word: string,
-  plural: (value: string) => string = simplePlural,
+  plural: (value: string) => string = simplePlural
 ) {
   return isPlural(num) ? plural(word) : word;
 }
 
 export async function handleResponse(
-  response: Response,
+  response: Response
 ): Promise<TDataMuseWord[]> {
   if (!response.ok) {
     // add other generic messages later for api backends.
     throw new DataMuseError(
       `API request failed: ${response.statusText}`,
-      response.status,
+      response.status
     );
   }
   return response.json();
@@ -79,7 +84,7 @@ export function isImageUrl(value: string | null | undefined) {
 
 export async function blobUrlToFile(
   blobUrl: string,
-  fileName: string,
+  fileName: string
 ): Promise<File | null> {
   try {
     const response = await fetch(blobUrl);
@@ -100,7 +105,7 @@ export function getAllowedContentTypeMaps(key: string) {
 export function truncateString(
   value: string,
   startEnd: number = 4,
-  endStartAt: number = 4,
+  endStartAt: number = 4
 ): string {
   if (value.length <= startEnd + endStartAt) {
     return value;
@@ -147,4 +152,8 @@ export function formatUnits(tokens: string, decimals: number): string {
 export function capitalizeFirstLetter(str: string): string {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+export function getSharableUrl(boardId: string) {
+  return `${SHARE_LINK_CONFIG}/${boardId}`;
 }

@@ -192,13 +192,6 @@ export type Idea = {
   subthreadId: Scalars['String']['output'];
 };
 
-export type Idea = {
-  __typename?: "Idea";
-  createdAt: Scalars["DateTimeISO"]["output"];
-  genRequests: Array<GenRequestSnapshot>;
-  prompt?: Maybe<Scalars["String"]["output"]>;
-  style?: Maybe<SubthreadStyle>;
-};
 
 export type Media = {
   __typename?: 'Media';
@@ -295,10 +288,6 @@ export type MutationUpdateShareableBoardVisibilityArgs = {
   shareableBoardId: Scalars['String']['input'];
 };
 
-export type MutationUpdateShareableBoardVisibilityArgs = {
-  isPublic: Scalars["Boolean"]["input"];
-  shareableBoardId: Scalars["String"]["input"];
-};
 
 /** Order direction */
 export enum OrderDirection {
