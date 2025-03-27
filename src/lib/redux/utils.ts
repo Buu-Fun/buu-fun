@@ -1,14 +1,14 @@
 import { isError, isInProgress } from "../helpers/status-checker";
 import { TSubThreadsMedia } from "./features/chat-types";
-export const ImageModelType = "fal-ai/flux-lora";
-export const ThreeDModelType = "fal-ai/trellis";
+export const ImageModelType = ["fal-ai/flux-lora", "FluxLora"];
+export const ThreeDModelType = ["fal-ai/trellis", "Trellis"];
 
 export function isThreeDModel(type: string) {
-  return type === ThreeDModelType;
+  return ThreeDModelType.includes(type);
 }
 
 export function isImageModel(type: string) {
-  return type === ImageModelType;
+  return ImageModelType.includes(type);
 }
 
 type GenMedias = {
@@ -20,7 +20,7 @@ type GenMedias = {
 
 // False -> if the last message is still Responding...
 export function isSubThreadInProgressForFirstTimeOrForTheLastObject(
-  subThreadMedias: TSubThreadsMedia[],
+  subThreadMedias: TSubThreadsMedia[]
 ) {
   const ImageGenerated =
     subThreadMedias?.filter((item) => isImageModel(item.type)) ?? [];
@@ -42,7 +42,7 @@ export function isSubThreadInProgressForFirstTimeOrForTheLastObject(
   } else {
     GeneratedRequestMedias = ImageGenerated?.map((item) => {
       const FoundedModel = ThreeDGenerated.find(
-        (fv) => fv.metadata.imageRequestId === item?._id,
+        (fv) => fv.metadata.imageRequestId === item?._id
       );
 
       const imageStatus = item.status;
@@ -65,7 +65,7 @@ export function isSubThreadInProgressForFirstTimeOrForTheLastObject(
   const SortedRequest = GeneratedRequestMedias.sort(
     (a, b) =>
       new Date(a.createdAt as string).getTime() -
-      new Date(b.createdAt as string).getTime(),
+      new Date(b.createdAt as string).getTime()
   );
 
   const isFirstGenerating = SortedRequest[0]?.isGenerating ?? true;
@@ -93,7 +93,7 @@ export const mergeImageAndMedia = (subThreadMedias: TSubThreadsMedia[]) => {
   } else {
     GeneratedRequestMedias = ImageGenerated?.map((item) => {
       const FoundedModel = ThreeDGenerated.find(
-        (fv) => fv.metadata.imageRequestId === item?._id,
+        (fv) => fv.metadata.imageRequestId === item?._id
       );
 
       const imageStatus = item.status;
