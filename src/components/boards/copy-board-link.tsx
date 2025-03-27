@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import CopyBlackIcon from "@/assets/icons/copy-black-icon";
+import { getSharableUrl } from "@/lib/utils";
 
 export default function CopyBoardLink({ boardId }: { boardId: string }) {
   const [isCopy, setIsCopied] = useState(false);
 
-  const link = `https://buu.fun/boards/${boardId}`;
+  const link = getSharableUrl(boardId);
 
   function handleCopy() {
     if (!link) return;
@@ -24,7 +25,6 @@ export default function CopyBoardLink({ boardId }: { boardId: string }) {
       <div>
         <Button
           onClick={() => {
-            
             handleCopy();
           }}
           size={"buu"}

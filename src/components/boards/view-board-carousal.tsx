@@ -2,8 +2,11 @@
 import { useSharedBoards } from "@/hooks/use-boards";
 import React, { useEffect, useRef, useState } from "react";
 import { ShareableBoard } from "@/gql/types/graphql";
-import { useAppSelector, useAppStore } from "@/hooks/redux";
-import { initializeSharableBoards } from "@/lib/redux/features/boards";
+import { useAppDispatch, useAppSelector, useAppStore } from "@/hooks/redux";
+import {
+  initializeSharableBoards,
+  setIndex,
+} from "@/lib/redux/features/boards";
 import { getBoards } from "@/lib/redux/selectors/board";
 import {
   Carousel,
@@ -18,79 +21,104 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { cn } from "@/lib/utils";
+import { Ghost } from "lucide-react";
+import BoardsToolTip from "./boards-tool-tip";
 const ModelViewer = dynamic(() => import("../generation/model-viewer"), {
   ssr: false,
-  loading: () => null, // Use null instead of undefined
+  loading: () => null,
 });
 
-const MockModelUrl =
-  "https://cdn.buu.fun/production/users/F6BHzc3ufdjynKwJ6qGkLGx8DtUUya4zYWLzaJ91k8FM/genRequests/38970630-52f1-4005-8d44-2234e8a3d05d/model_mesh/b8950938-6d69-454c-8a13-3711ab8fd700.glb";
-const mockImageUrl =
-  "https://cdn.buu.fun/production/users/F6BHzc3ufdjynKwJ6qGkLGx8DtUUya4zYWLzaJ91k8FM/genRequests/6ff9999d-8a3b-4e0b-8169-b41ae8e060a4/images/0c344c87-d696-4cd3-bd57-b9a7f87e7a11.png";
+export default function ViewBoardCarousal({
+  currentUser,
+}: {
+  currentUser?: boolean;
+}) {
+  const boards = useAppSelector((state) => getBoards(state));
 
-export default function ViewBoardCarousal() {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (!api) return;
 
     setCurrent(api.selectedScrollSnap() + 1);
+    dispatch(setIndex(api.selectedScrollSnap() + 1));
     api.on("select", () => {
+      dispatch(setIndex(api.selectedScrollSnap() + 1));
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
+
   return (
-    <div className="flex w-full justify-center items-center h-full    gap-2">
-      <div className="flex relative z-10 items-center justify-center flex-col gap-4 mr-6">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <button
-            onClick={() => {
-              if (api) {
-                api?.scrollTo(index);
-              }
-            }}
-            className={cn("w-[36px] border-2 rounded-lg overflow-hidden", {
-              "w-[44px]": index === current - 1,
-            })}
-          >
-            <div>
-              <Image
-                src={mockImageUrl}
-                alt="mockImage"
-                width={1920}
-                height={1080}
-                className=""
-              />
-            </div>
-          </button>
-        ))}
+    <div className="flex w-full md:flex-row flex-col-rev  erse justify-center px-2 md:px-0 items-center  h-full    gap-2">
+      <div className="flex relative z-10 items-center justify-center md:flex-col gap-4 mr-6">
+        {boards.board.length
+          ? boards.board.map((item, index) => (
+              <button
+                key={`index-button-${item.GenId}`}
+                onClick={() => {
+                  if (api) {
+                    api?.scrollTo(index);
+                  }
+                }}
+                className={cn("w-[36px] rounded-lg overflow-hidden", {
+                  "w-[44px]": index === current - 1,
+                })}
+              >
+                <div>
+                  <Image
+                    src={item.ImageUrl}
+                    alt="Generated AI Image Url"
+                    width={1920}
+                    height={1080}
+                    className=""
+                  />
+                </div>
+              </button>
+            ))
+          : null}
       </div>
-      <Carousel
-        plugins={[WheelGesturesPlugin()]}
-        setApi={setApi}
-        opts={{
-          align: "start",
-          dragFree: false,
-          watchDrag: false,
-          watchResize: true,
-          watchSlides: true,
-        }}
-        orientation="vertical"
-        className="w-full max-w-md"
-      >
-        <CarouselContent className="-mt-1 h-[65vh] ">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index} className="pt-1  md:basis-full">
-              <div className="border-2 rounded-2xl w-full bg-[#15192420] backdrop-blur-3xl h-full">
-                <ModelViewer src={MockModelUrl} />
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        {/* <CarouselPrevious /> */}
-        {/* <CarouselNext /> */}
-      </Carousel>{" "}
+      <div className="w-full max-w-md flex flex-col">
+        <Carousel
+          plugins={[WheelGesturesPlugin()]}
+          setApi={setApi}
+          opts={{
+            align: "start",
+            dragFree: false,
+            watchDrag: false,
+            watchResize: true,
+            watchSlides: true,
+          }}
+          orientation="vertical"
+          className="w-full max-w-md"
+        >
+          <CarouselContent className="-mt-1 h-[65vh] ">
+            {boards.board.length ? (
+              boards.board.map((item, index) => (
+                <CarouselItem
+                  key={`carousel-${index}-button-${item.GenId}`}
+                  className="py-2  md:basis-full relative"
+                >
+                  <div className=" border-buu border-2 my-1 overflow-hidden rounded-2xl w-full bg-[#15192420] backdrop-blur-3xl h-full">
+                    <ModelViewer src={item.modelUrl ?? ""} />
+                  </div>
+                </CarouselItem>
+              ))
+            ) : (
+              <CarouselItem className="pt-1  md:basis-full">
+                <div className="w-full h-full flex gap-3 flex-col items-center justify-center">
+                  <Ghost className="w-10 h-10 text-blue-300 animate-pulse" />
+                  <p className="text-2xl font-medium max-w-sm text-center">
+                    The Board you are looking for is either private or doesn't
+                    exists
+                  </p>
+                </div>
+              </CarouselItem>
+            )}
+          </CarouselContent>
+        </Carousel>{" "}
+        <BoardsToolTip currentUser={currentUser} />
+      </div>
     </div>
   );
 }
