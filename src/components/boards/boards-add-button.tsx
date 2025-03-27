@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
-import {useSharableBoards} from "@/hooks/use-boards";
-import { useUserSubscription } from "@/hooks/use-credits";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 export default function BoardsAddButton() {
   // const { data } = useSharableBoards({});

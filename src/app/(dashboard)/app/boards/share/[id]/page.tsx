@@ -3,8 +3,6 @@ import { getSharableBoardQuery } from "@/lib/react-query/boards";
 import { getAuthorization } from "@/lib/utils";
 import { Ghost } from "lucide-react";
 import { cookies } from "next/headers";
-import Image from "next/image";
-import React from "react";
 type TBoardsPage = {
   params: Promise<{
     id: string;
@@ -20,7 +18,7 @@ export default async function BoardsPage({ params }: TBoardsPage) {
         Authorization: getAuthorization(accessToken),
       }
     : undefined;
-    
+
   const board = await getSharableBoardQuery({
     boardId,
     headers,
@@ -34,7 +32,8 @@ export default async function BoardsPage({ params }: TBoardsPage) {
         <div className="w-full h-full flex gap-3 flex-col items-center justify-center">
           <Ghost className="w-10 h-10 text-blue-300 animate-pulse" />
           <p className="text-2xl font-medium max-w-sm text-center">
-            The Board you are looking for is either private or doesn't exists
+            The Board you are looking for is either private or doesn&apos;t
+            exists
           </p>
         </div>
       )}

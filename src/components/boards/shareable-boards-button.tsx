@@ -3,7 +3,6 @@ import ShareIcon from "@/assets/icons/share-icon";
 import { TypedAppError } from "@/class/error";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useSharableBoards } from "@/hooks/use-boards";
-import { useUserSubscription } from "@/hooks/use-credits";
 import {
   createNewBoardsMutation,
   updateBoardsVisibility,
@@ -30,13 +29,13 @@ export default function ShareableBoardsButton() {
 
   const threadId = useAppSelector((state) => state.chat.threads.threadId);
 
-  const subThreads = useAppSelector((state) => state.chat.subThreads);
+  // const subThreads = useAppSelector((state) => state.chat.subThreads);
 
   const dispatch = useAppDispatch();
 
   const { identityToken: accessToken, login } = useAuthentication();
 
-  const { data: userSubscription } = useUserSubscription();
+  // const { data: userSubscription } = useUserSubscription();
 
   const queryClient = useQueryClient();
 
@@ -51,16 +50,17 @@ export default function ShareableBoardsButton() {
     data,
   } = useMutation({
     mutationFn: createNewBoardsMutation,
-    onMutate(data) {
-      queryClient.invalidateQueries({
-        queryKey: ["user-shareable-boards", threadId],
-      });
+    onMutate() {
       toast.loading("Adding to boards...", {
         duration: 3000,
       });
     },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ["user-shareable-boards", threadId],
+      });
+    },
     onError(error) {
-      console.log(error);
       toast.dismiss();
       if (error instanceof TypedAppError) {
         console.log("TYPE ERROR", error.code);
@@ -86,13 +86,12 @@ export default function ShareableBoardsButton() {
   const {
     mutate: mutateBoardVisibility,
     isPending: isUpdatingBoardVisibility,
-    data: updatedBoardData,
   } = useMutation({
     mutationFn: updateBoardsVisibility,
-    onMutate(data) {
+    onMutate() {
       toast.loading("Adding to boards...");
     },
-    onSuccess(data, variables, context) {
+    onSuccess(data) {
       queryClient.invalidateQueries({
         queryKey: ["user-shareable-boards", threadId],
       });

@@ -4,7 +4,6 @@ import {
 } from "@/lib/react-query/boards";
 import { useAuthentication } from "@/providers/account.context";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 
 export function useSharableBoards({
   threadId,

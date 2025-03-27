@@ -1,17 +1,13 @@
-import { DownloadIcon } from "@/assets/icons";
+import { useAppSelector } from "@/hooks/redux";
 import { cn, getSharableUrl } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import toast from "react-hot-toast";
 import {
   BoardToolTips,
   TBoardToolTipData,
-  TBoardToolTipEvents,
 } from "../generation/handle-tool-calls";
 import { buttonVariants } from "../generation/tool-bar-tool-tips";
-import toast from "react-hot-toast";
-import { useAppSelector } from "@/hooks/redux";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 type TToolTipModify = {
   subThreadId?: string;
@@ -23,17 +19,18 @@ type TToolTipModify = {
 };
 
 export default function BoardToolTipShare({
-  modelUrl,
   toolTipData,
   index,
   boardId,
 }: TToolTipModify) {
-  const isPublic = useAppSelector((state) => state.boards.SharedBoards?.isPublic);
+  const isPublic = useAppSelector(
+    (state) => state.boards.SharedBoards?.isPublic,
+  );
 
   function handleShare() {
     if (!isPublic) {
       toast.error("Please make the board public to be shared");
-      return
+      return;
     }
     const link = getSharableUrl(boardId);
     window.navigator.clipboard.writeText(link);

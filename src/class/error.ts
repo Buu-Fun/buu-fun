@@ -18,7 +18,7 @@ export class TypedAppError extends Error {
     message: string,
     code: APP_ERROR_CODES = "UNKNOWN_ERROR",
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any
+    data?: any,
   ) {
     super(message);
     this.name = this.constructor.name;
@@ -36,7 +36,7 @@ export class TypedAppError extends Error {
     message: string,
     code: APP_ERROR_CODES = "UNKNOWN_ERROR",
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any
+    data?: any,
   ): never {
     throw new TypedAppError(message, code, data);
   }
@@ -64,7 +64,7 @@ export class TypedAppError extends Error {
     message: string,
     codeOrError?: string | Error | unknown,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data?: any
+    data?: any,
   ): TypedAppError {
     // If codeOrError is a string, try to map it to a valid code
     if (typeof codeOrError === "string") {
@@ -81,7 +81,7 @@ export class TypedAppError extends Error {
       return new TypedAppError(
         message || errorObj?.message || "Something went wrong",
         this.mapErrorCode(extractedCode),
-        extractedData
+        extractedData,
       );
     }
 

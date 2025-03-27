@@ -11,7 +11,7 @@ import { Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
 import {
   BoardToolTips,
-  TBoardToolTipData
+  TBoardToolTipData,
 } from "../generation/handle-tool-calls";
 import { buttonVariants } from "../generation/tool-bar-tool-tips";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
@@ -32,12 +32,12 @@ export default function BoardToolTipUpdateVisibility({
   const { identityToken: accessToken, login } = useAuthentication();
   const { mutate: mutateBoardVisibility } = useMutation({
     mutationFn: updateBoardsVisibility,
-    onMutate(data) {
+    onMutate() {
       toast.loading("Enabling for public view", {
         duration: 3000,
       });
     },
-    onSuccess(data, variables, context) {
+    onSuccess(data) {
       toast.dismiss();
       if (data) {
         dispatch(initializeSharableBoards(data));

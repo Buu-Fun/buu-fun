@@ -1,21 +1,20 @@
 import { GetUserShareableBoardQuery } from "@/gql/types/graphql";
-import React from "react";
 import BoardCards, {
   SingleImageLayout,
   ThreeColumnImageLayout,
-  TwoColumnImage,
   TwoColumnImageLayout,
 } from "./boards-card";
 type ShareableBoardPageType = Extract<
   GetUserShareableBoardQuery["getUserShareableBoard"],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   { items: any }
 >;
 
 type ShareableBoardType = ShareableBoardPageType["items"][number];
 
 type TIdeas = ShareableBoardType["ideas"];
-
-export function clearUndefinedOrNull(value: any | null | undefined): Boolean {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function clearUndefinedOrNull(value: any | null | undefined): boolean {
   return typeof value !== "undefined" || value !== null;
 }
 

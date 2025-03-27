@@ -1,26 +1,19 @@
-import { DownloadIcon } from "@/assets/icons";
-import { cn, getSharableUrl } from "@/lib/utils";
+import { TypedAppError } from "@/class/error";
+import { useAppDispatch } from "@/hooks/redux";
+import { deleteBoard } from "@/lib/react-query/boards";
+import { clearBoard } from "@/lib/redux/features/boards";
+import { cn } from "@/lib/utils";
+import { useAuthentication } from "@/providers/account.context";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import {
   BoardToolTips,
   TBoardToolTipData,
-  TBoardToolTipEvents,
 } from "../generation/handle-tool-calls";
 import { buttonVariants } from "../generation/tool-bar-tool-tips";
-import toast from "react-hot-toast";
-import { useAuthentication } from "@/providers/account.context";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteBoard } from "@/lib/react-query/boards";
-import { TypedAppError } from "@/class/error";
-import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/hooks/redux";
-import {
-  clearBoard,
-  initializeSharableBoards,
-} from "@/lib/redux/features/boards";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 type TToolTipModify = {
   boardId: string;

@@ -1,27 +1,19 @@
 "use client";
-import { useSharedBoards } from "@/hooks/use-boards";
-import React, { useEffect, useRef, useState } from "react";
-import { ShareableBoard } from "@/gql/types/graphql";
-import { useAppDispatch, useAppSelector, useAppStore } from "@/hooks/redux";
-import {
-  initializeSharableBoards,
-  setIndex,
-} from "@/lib/redux/features/boards";
-import { getBoards } from "@/lib/redux/selectors/board";
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Card, CardContent } from "../ui/card";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setIndex } from "@/lib/redux/features/boards";
+import { getBoards } from "@/lib/redux/selectors/board";
+import { cn } from "@/lib/utils";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
+import { Ghost } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
-import { cn } from "@/lib/utils";
-import { Ghost } from "lucide-react";
+import React, { useEffect } from "react";
 import BoardsToolTip from "./boards-tool-tip";
 const ModelViewer = dynamic(() => import("../generation/model-viewer"), {
   ssr: false,
@@ -47,7 +39,7 @@ export default function ViewBoardCarousal({
       dispatch(setIndex(api.selectedScrollSnap() + 1));
       setCurrent(api.selectedScrollSnap() + 1);
     });
-  }, [api]);
+  }, [api, dispatch]);
 
   return (
     <div className="flex w-full md:flex-row flex-col-rev  erse justify-center px-2 md:px-0 items-center  h-full    gap-2">
@@ -109,8 +101,8 @@ export default function ViewBoardCarousal({
                 <div className="w-full h-full flex gap-3 flex-col items-center justify-center">
                   <Ghost className="w-10 h-10 text-blue-300 animate-pulse" />
                   <p className="text-2xl font-medium max-w-sm text-center">
-                    The Board you are looking for is either private or doesn't
-                    exists
+                    The Board you are looking for is either private or
+                    doesn&apos;t exists
                   </p>
                 </div>
               </CarouselItem>

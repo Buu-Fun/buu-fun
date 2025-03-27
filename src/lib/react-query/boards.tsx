@@ -50,7 +50,7 @@ export async function getUserSharableBoardQuery({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if (!data) {
@@ -83,7 +83,7 @@ export async function getSharableBoardQuery({
       {
         getShareableBoardId: boardId,
       },
-      headers
+      headers,
     );
 
     if (!data) {
@@ -122,7 +122,7 @@ export async function updateBoardsVisibility({
     },
     {
       Authorization: getAuthorization(accessToken),
-    }
+    },
   );
 
   if (!data) {
@@ -141,33 +141,29 @@ export async function deleteBoard({
   boardId,
   accessToken,
 }: { boardId: string } & AccessToken) {
-  try {
-    const data = await serverRequest<
-      TDeleteShareableBoardMutation,
-      DeleteShareableBoardMutationVariables
-    >(
-      DeleteShareableBoardMutation,
-      {
-        shareableBoardId: boardId,
-      },
-      {
-        Authorization: getAuthorization(accessToken),
-      }
-    );
+  const data = await serverRequest<
+    TDeleteShareableBoardMutation,
+    DeleteShareableBoardMutationVariables
+  >(
+    DeleteShareableBoardMutation,
+    {
+      shareableBoardId: boardId,
+    },
+    {
+      Authorization: getAuthorization(accessToken),
+    },
+  );
 
-    if (!data) {
-      throw new Error("Internal server error");
-    }
-    if ("code" in data.deleteShareableBoard) {
-      throw new Error(data.deleteShareableBoard.message, {
-        cause: "INVALID_DATA",
-      });
-    }
-
-    return data.deleteShareableBoard;
-  } catch (error) {
-    return null;
+  if (!data) {
+    throw new Error("Internal server error");
   }
+  if ("code" in data.deleteShareableBoard) {
+    throw new Error(data.deleteShareableBoard.message, {
+      cause: "INVALID_DATA",
+    });
+  }
+
+  return data.deleteShareableBoard;
 }
 
 export async function createNewBoardsMutation({
@@ -185,7 +181,7 @@ export async function createNewBoardsMutation({
       },
       {
         Authorization: getAuthorization(accessToken),
-      }
+      },
     );
     if (!data) {
       TypedAppError.throw("Internal server error", "INTERNAL_SERVER_ERROR");
@@ -194,7 +190,7 @@ export async function createNewBoardsMutation({
     if ("code" in data.createShareableBoard) {
       TypedAppError.throw(
         data.createShareableBoard.message,
-        TypedAppError.mapErrorCode(data.createShareableBoard.code)
+        TypedAppError.mapErrorCode(data.createShareableBoard.code),
       );
     }
     return data.createShareableBoard;
@@ -205,7 +201,7 @@ export async function createNewBoardsMutation({
     // Otherwise, convert to our custom error
     throw TypedAppError.fromExternalError(
       "An unexpected error occurred",
-      error
+      error,
     );
   }
 }

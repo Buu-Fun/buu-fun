@@ -1,14 +1,8 @@
 import ViewBoardContainer from "@/components/boards/view-board-container";
-import {
-  getSharableBoardQuery,
-  getUserSharableBoardQuery,
-} from "@/lib/react-query/boards";
-import { getAuthorization } from "@/lib/utils";
+import { getUserSharableBoardQuery } from "@/lib/react-query/boards";
 import { Ghost } from "lucide-react";
 import { cookies } from "next/headers";
-import Image from "next/image";
 import { redirect } from "next/navigation";
-import React from "react";
 type TBoardsPage = {
   params: Promise<{
     id: string;
@@ -40,7 +34,8 @@ export default async function BoardsPage({ params }: TBoardsPage) {
         <div className="w-full h-full flex gap-3 flex-col items-center justify-center">
           <Ghost className="w-10 h-10" />
           <p className="text-2xl font-medium max-w-sm text-center">
-            The Board you are looking for is either deleted or doesn't exists
+            The Board you are looking for is either deleted or doesn&apos;t
+            exists
           </p>
         </div>
       )}

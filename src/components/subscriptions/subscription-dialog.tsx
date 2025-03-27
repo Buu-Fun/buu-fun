@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "../ui/dialog";
 import SubscriptionContent from "./subscription-content";
 

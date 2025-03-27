@@ -1,7 +1,6 @@
 import { RootState } from "@/types/reduxStore";
 import { createSelector } from "@reduxjs/toolkit";
-import { isImageModel, isThreeDModel } from "../utils";
-import { TGenerationalData } from "../features/chat-types";
+import { isThreeDModel } from "../utils";
 
 const Boards = (state: RootState) => state.boards.SharedBoards;
 
