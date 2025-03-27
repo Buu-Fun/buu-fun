@@ -13,19 +13,13 @@ export default function BoardsPage() {
       <div className="flex-1 flex items-center justify-center mr-[0.25vw] flex-col">
         <HeroHeader
           title="Collect ideas on boards"
-          heroDescription={<BoardsButtonWrapper/>}
+          heroDescription={<BoardsButtonWrapper />}
         />
         {/* <HeaderQuickSelectCard /> */}
         <BoardsCardWrapper />
       </div>
 
       {/* Bottom input section */}
-      <div className="mr-[0.15vw]">
-        {/* <div>
-          <h1>hello</h1>
-        </div> */}
-        {/* <BottomBarContainer /> */}
-      </div>
     </main>
   );
 }

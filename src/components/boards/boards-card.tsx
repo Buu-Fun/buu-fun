@@ -113,7 +113,7 @@ export function ThreeColumnImageLayout({ media }: TThreeColumnLayout) {
           alt={media[0].alt}
           width={250}
           height={250}
-          className="w-[77px] h-[100px] w-full rounded-2xl"
+          className="w-[77px] h-[100px] rounded-2xl"
         />
       </div>
       <div className="rotate-0 mx-auto z-10 absolute group-hover:scale-90 transition-all duration-700 ease-in-out">
@@ -133,6 +133,23 @@ export function ThreeColumnImageLayout({ media }: TThreeColumnLayout) {
           height={250}
           className="w-[77px] h-[100px] rounded-2xl"
         />
+      </div>
+    </div>
+  );
+}
+
+export function BoardCardsSkeleton() {
+  return (
+    <div className="flex group p-[18px] border-2 flex-col justify-center items-center gap-[25px] border-buu bg-buu shadow-buu-inner backdrop-blur-3xl rounded-2xl animate-pulse">
+      <div className="w-[106px] mt-2 relative  flex items-center   justify-center h-[100px] aspect-[10/16]">
+        <div className="-rotate-[12deg] bg-gray-800 z-10 group-hover:scale-[1.15] w-[77px] h-[100px] rounded-2xl  group-hover:rotate-[0deg]  transition-all duration-700 ease-in-out "></div>
+      </div>
+      {/* Image Placeholder */}
+      <div className="min-w-[155px] flex items-center justify-center flex-col">
+        <div className="w-[150px] h-6 bg-gray-800 rounded-md"></div>{" "}
+        {/* Title Placeholder */}
+        <div className="w-[120px] h-4 bg-gray-700 mt-2 rounded-md"></div>{" "}
+        {/* Idea Placeholder */}
       </div>
     </div>
   );
