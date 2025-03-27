@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import BoardsAddButton from "./boards-add-button";
-import useSharableBoards from "@/hooks/use-boards";
+import { useSharableBoards } from "@/hooks/use-boards";
 import { pluralize } from "@/lib/utils";
 
 export default function BoardsButtonWrapper() {
-  const { data } = useSharableBoards();
+  const { data } = useSharableBoards({});
 
   return (
     <div className="flex  items-center justify-center gap-3">

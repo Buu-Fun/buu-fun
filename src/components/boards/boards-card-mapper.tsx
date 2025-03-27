@@ -26,8 +26,6 @@ export default function BoardsCardMapper({
   ideas: TIdeas;
   title: string;
 }) {
-  console.log("IDEAS:", ideas);
-
   const images = ideas
     .map((idea) => {
       const genRequest = idea.genRequests;
