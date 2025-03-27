@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Button } from "../ui/button";
-import CopyBlackIcon from "@/assets/icons/copy-black-icon";
+import CopyIcon from "@/assets/icons/copy-icon";
 import { getSharableUrl } from "@/lib/utils";
+import { CheckCircle2 } from "lucide-react";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
 export default function CopyBoardLink({ boardId }: { boardId: string }) {
   const [isCopy, setIsCopied] = useState(false);
@@ -30,7 +31,7 @@ export default function CopyBoardLink({ boardId }: { boardId: string }) {
           size={"buu"}
           variant={"special"}
         >
-          <CopyBlackIcon />
+          {!isCopy ? <CopyIcon /> : <CheckCircle2 className="text-cyan-200" />}
         </Button>
       </div>
     </div>
