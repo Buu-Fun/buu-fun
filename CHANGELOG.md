@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.58](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.57...buu-fun-v0.1.58) (2025-03-27)
+
+
+### 🐛 Bugfixes
+
+* removed isLocalMode breaking production because of usage in client ([20a5cb3](https://github.com/Buu-Fun/buu-fun/commit/20a5cb3913a9279cfc805f36366620e2118283bb))
+* removed isLocalMode breaking production because of usage in client ([e156871](https://github.com/Buu-Fun/buu-fun/commit/e15687153e1643f07e2b1521f53205758c05e571))
+
 ## [0.1.57](https://github.com/Buu-Fun/buu-fun/compare/buu-fun-v0.1.56...buu-fun-v0.1.57) (2025-03-27)
 
 
