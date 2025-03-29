@@ -1,4 +1,16 @@
-import React from "react";
+import { TrashIconDark } from "@/assets/icons/trash-icon";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { deleteAPIKey } from "@/lib/react-query/api-key";
+import {
+  setDeleteApiKeyData,
+  setIsDeleteModalOpen,
+} from "@/lib/redux/features/api-key";
+import { useAuthentication } from "@/providers/account.context";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
+import toast from "react-hot-toast";
+import Pill from "../elements/pill";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogClose,
@@ -7,20 +19,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import {
-  setDeleteApiKeyData,
-  setIsDeleteModalOpen,
-} from "@/lib/redux/features/api-key";
-import Pill from "../elements/pill";
-import TrashIcon, { TrashIconDark } from "@/assets/icons/trash-icon";
-import { Button } from "../ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteAPIKey } from "@/lib/react-query/api-key";
-import { Loader2 } from "lucide-react";
 import DeleteApiKeyConfirm from "./delete-api-key-confim";
-import toast from "react-hot-toast";
-import { useAuthentication } from "@/providers/account.context";
 
 export default function DeleteApiKeyModal() {
   const { identityToken: accessToken, login } = useAuthentication();
@@ -34,13 +33,11 @@ export default function DeleteApiKeyModal() {
   );
 
   const {
-    
     mutate: deleteApiKeyMutation,
     isPending: isLoading,
-    data,
     isSuccess,
   } = useMutation({
-    mutationKey: ['delete-api-key', keyToDeleteData?.id],
+    mutationKey: ["delete-api-key", keyToDeleteData?.id],
     mutationFn: deleteAPIKey,
     onSuccess(data) {
       console.log("SUCCESS DATA:", data);
@@ -49,7 +46,7 @@ export default function DeleteApiKeyModal() {
       });
       toast.success("API key deleted successfully");
     },
-    onError(error) {
+    onError() {
       toast.error("Failed to delete API key");
     },
   });

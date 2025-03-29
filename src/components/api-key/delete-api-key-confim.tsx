@@ -1,12 +1,10 @@
-import React from "react";
+import { Button } from "../ui/button";
 import {
+  DialogClose,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogClose,
 } from "../ui/dialog";
-import { Button } from "../ui/button";
-import CheckBlue from "@/assets/icons/check-blue";
 
 export default function DeleteApiKeyConfirm() {
   return (

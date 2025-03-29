@@ -42,7 +42,7 @@ export default function APIKeyTable() {
           overflow: "hidden",
         }}
         className={cn(
-          "w-full bg-api-key-table-radius overflow-x-auto mt-8 border  border-muted-foreground/10"
+          "w-full bg-api-key-table-radius overflow-x-auto mt-8 border  border-muted-foreground/10",
         )}
       >
         <div className="">
@@ -96,7 +96,7 @@ export default function APIKeyTable() {
                             <p className="w-full line-clamp-1">
                               {format(
                                 new Date(item.createdAt),
-                                "MMMM dd, yyyy hh:mm:a"
+                                "MMMM dd, yyyy hh:mm:a",
                               )}
                             </p>
                           </TableCell>
@@ -119,7 +119,7 @@ export default function APIKeyTable() {
                                     id: item._id,
                                     key: item.key,
                                     name: item.name,
-                                  })
+                                  }),
                                 );
                                 dispatch(setIsDeleteModalOpen(true));
                               }}

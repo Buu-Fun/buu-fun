@@ -20,11 +20,11 @@ import { useAuthentication } from "@/providers/account.context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { SubmitErrorHandler, useForm } from "react-hook-form";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { useState } from "react";
 
 export default function CreateAPIForm() {
   const { identityToken: accessToken, login } = useAuthentication();
@@ -32,7 +32,7 @@ export default function CreateAPIForm() {
   const { register, handleSubmit, setValue, watch } = useForm<TCreateAPISchema>(
     {
       resolver: zodResolver(createAPISchema),
-    }
+    },
   );
   const queryClient = useQueryClient();
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ export default function CreateAPIForm() {
         setApiKey({
           key: data.key,
           name: data.name,
-        })
+        }),
       );
       dispatch(isApiKeyRetrieved(true));
       queryClient.invalidateQueries({
@@ -126,6 +126,7 @@ export default function CreateAPIForm() {
             </Label>
             <Select
               value={watch("expiresIn.units")}
+              // eslint-disable-next-line  @typescript-eslint/no-explicit-any
               onValueChange={(value: any) => {
                 if (ExpirationUnitEnums.includes(value)) {
                   setValue("expiresIn.units", value);

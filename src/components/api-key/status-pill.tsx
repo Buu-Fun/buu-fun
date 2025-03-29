@@ -10,7 +10,6 @@ import Pill, { TPillVariant } from "../elements/pill";
 import { pluralize } from "@/lib/utils";
 
 export default function StatusPill({
-  createdAt = "2025-03-28T13:43:39.717Z",
   expiresAt,
 }: {
   createdAt: string;

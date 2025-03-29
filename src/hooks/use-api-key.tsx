@@ -1,8 +1,7 @@
-import { ApiKey, OrderDirection } from "@/gql/types/graphql";
+import { OrderDirection, SearchPaginatedApiKeysQueryVariables as TSearchPaginatedApiKeysQueryVariables } from "@/gql/types/graphql";
 import { getApiKeys } from "@/lib/react-query/api-key";
 import { useAuthentication } from "@/providers/account.context";
 import { useQuery } from "@tanstack/react-query";
-import { SearchPaginatedApiKeysQueryVariables as TSearchPaginatedApiKeysQueryVariables } from "@/gql/types/graphql";
 
 export function useRetrieveApikeys(
   input: TSearchPaginatedApiKeysQueryVariables = {
@@ -10,7 +9,7 @@ export function useRetrieveApikeys(
       orderBy: "createdAt",
       orderDirection: OrderDirection.Desc,
     },
-  }
+  },
 ) {
   const { identityToken: accessToken } = useAuthentication();
   return useQuery({

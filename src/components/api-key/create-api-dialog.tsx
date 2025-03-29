@@ -17,7 +17,7 @@ import ApiKeyHeaderIcon from "@/assets/icons/api-key-header-icon";
 import { clearState } from "@/lib/redux/features/api-key";
 export default function CreateAPIDialog() {
   const isApiKeyRetrieved = useAppSelector(
-    (state) => state.apiKey.isAPIKeyRetrieved
+    (state) => state.apiKey.isAPIKeyRetrieved,
   );
   const dispatch = useAppDispatch();
   return (
@@ -44,7 +44,7 @@ export default function CreateAPIDialog() {
                 <span className="flex items-center justify-center gap-2">
                   Create API Key
                   <span className="w-5 h-5">
-                    <ApiKeyHeaderIcon  />
+                    <ApiKeyHeaderIcon />
                   </span>
                 </span>
               )}

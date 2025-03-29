@@ -38,7 +38,7 @@ const ApiKeySlice = createSlice({
     },
     setDeleteApiKeyData(
       state,
-      action: PayloadAction<{ key: string; name: string; id: string } | null>
+      action: PayloadAction<{ key: string; name: string; id: string } | null>,
     ) {
       state.keyToDeleteData = action.payload;
     },

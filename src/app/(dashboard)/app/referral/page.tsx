@@ -30,7 +30,9 @@ export default function ReferralPage() {
           <HowExportWorks />
         </div>
         <div className="flex items-center flex-col justify-center  pt-10">
-          <h4 className="text-xl font-medium tracking-tight ">Your Referrals</h4>
+          <h4 className="text-xl font-medium tracking-tight ">
+            Your Referrals
+          </h4>
           <ReferralShowcaseTable />
         </div>
       </ProtectedWrapper>
